@@ -1,0 +1,300 @@
+<div class="b-hero-img">
+
+    <div class="b-hero-img__content mx-auto text-center">
+        {% if section.settings.title != blank %}
+            <h1 class="b-hero-img__title font-Gazpacho mb-4">
+              {{ section.settings.title }}
+            </h1>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+            <p class="b-hero-img__text mb-10">{{ section.settings.subtitle }}</p>
+        {% endif %}
+        {% if section.settings.baner_button != blank %}
+            <a href="{{ section.settings.baner_button_link }}" class="btn btn-primary md:static">{{ section.settings.baner_button }}</a>
+        {% endif %}
+    </div>
+    <div class="b-hero-img__image mb-10 md:mb-0">
+      <img class="b-hero-img__src hidden md:grid" src="{{ section.settings.image_bg | img_url: 'master' }}">
+      <img class="b-hero-img__src md:hidden" src="{{ section.settings.image_bg_mobile | img_url: 'master' }}">
+    </div>
+</div>
+
+<style>
+    .b-hero-img {
+        background-color: {{ section.settings.bg_color }};
+        background-repeat: no-repeat;
+        position: relative;
+        width: 100%;
+        {% comment %} display: flex; {% endcomment %}
+        padding-top: {{ section.settings.padding_desktop }}px;
+        padding-bottom: {{ section.settings.padding_desktop }}px;
+        overflow: hidden;
+    }
+
+    .b-hero-img::after,
+    .b-hero-img::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        width: 8%;
+        z-index: 1;
+    }
+
+    .b-hero-img::after {
+      right: 0;
+      background-image: linear-gradient(to left, {{ section.settings.bg_color }}, transparent);
+    }
+
+    .b-hero-img::before {
+      left: 0;
+      background-image: linear-gradient(to right, {{ section.settings.bg_color }}, transparent);
+    }
+
+    /* Image Position */
+    .b-hero-img.bg-image-pos-x-left {
+        background-position-x: left;
+    }
+
+    .b-hero-img.bg-image-pos-x-right {
+        background-position-x: right;
+    }
+
+    .b-hero-img.bg-image-pos-x-center {
+        background-position-x: center;
+    }
+
+    .b-hero-img.bg-image-pos-y-top {
+        background-position-y: top;
+    }
+
+    .b-hero-img.bg-image-pos-y-bottom {
+        background-position-y: bottom;
+    }
+
+    .b-hero-img.bg-image-pos-y-middle {
+        background-position-y: center;
+    }
+
+    /* Main Styles */
+    .b-hero-img__content {
+        max-width: {{ section.settings.banner_text_width }}px;
+        line-height: 1.5;
+    }
+
+    .b-hero-img__title {
+        font-size: {{ section.settings.title_font_size }}px;
+        line-height: 1.1;
+        color: {{ section.settings.title_color }};
+    }
+
+    .b-hero-img__title strong {
+        color: #1B4C62;
+      }
+
+    .b-hero-img__text {
+        font-size: {{ section.settings.subtitle_font_size }}px;
+        line-height: 1.1;
+        color: {{ section.settings.text_color }};
+        font-weight: 600;
+    }
+
+    .b-hero-img_btn {
+        display: inline-block;
+        padding: 13px 26px 14px;
+        background-color: #1B4C62;
+        color: #fff;
+        font-size: 15px;
+        line-height: 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-top: 6px;
+        border-radius: 11px;
+        min-width: 145px;
+        font-weight: 800;
+        transition: all 0.3s;
+        letter-spacing: 2px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
+
+    .b-hero-img_btn:hover {
+        background-color: #000;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 767px) {
+        .b-hero-img {
+            height: {{ section.settings.banner_height_mobile }}px;
+            padding-top: {{ section.settings.padding_mobile }}px;
+            padding-bottom: {{ section.settings.padding_mobile }}px;
+        }
+
+        .b-hero-img__title {
+            font-size: {{ section.settings.title_font_size_mobile }}px;
+        }
+
+        .b-hero-img__text {
+            font-size: {{ section.settings.subtitle_font_size_mobile }}px;
+        }
+
+        .b-hero-img__content {
+            max-width: 100%;
+            width: 100%;
+            text-align: center;
+        }
+
+        .b-hero-img_btn {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: 30px;
+        }
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+        .b-hero-img {
+            height: {{ section.settings.banner_height_desktop }}px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Image",
+  "settings": [
+    {
+      "type": "richtext",
+      "label": "Title",
+      "id": "title",
+    },
+    {
+      "type": "text",
+      "label": "Subtitle",
+      "id": "subtitle",
+      "default": "Get amazing discounts!"
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "baner_button",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "label": "Button Link",
+      "id": "baner_button_link"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "image_bg"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image Mobile",
+      "id": "image_bg_mobile"
+    },
+    {
+      "type": "color",
+      "label": "Background Color",
+      "id": "bg_color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "label": "Title Font Size",
+      "id": "title_font_size",
+      "default": 60,
+      "min": 20,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "label": "Title Font Size Mobile",
+      "id": "title_font_size_mobile",
+      "default": 77,
+      "min": 20,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "label": "Title Color",
+      "id": "title_color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "label": "Subtitle Font Size",
+      "id": "subtitle_font_size",
+      "default": 20,
+      "min": 12,
+      "max": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "label": "Subtitle Font Size Mobile",
+      "id": "subtitle_font_size_mobile",
+      "default": 16,
+      "min": 12,
+      "max": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "label": "Text Color",
+      "id": "text_color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "label": "Padding DeskTop",
+      "id": "padding_desktop",
+      "default": 40,
+      "min": 20,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "label": "Padding Mobile",
+      "id": "padding_mobile",
+      "default": 20,
+      "min": 12,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "label": "Banner Text Width",
+      "id": "banner_text_width",
+      "default": "300"
+    },
+    {
+      "type": "text",
+      "label": "Banner Height (Desktop)",
+      "id": "banner_height_desktop",
+      "default": "568"
+    },
+    {
+      "type": "text",
+      "label": "Banner Height (Mobile)",
+      "id": "banner_height_mobile",
+      "default": "300"
+    }
+  ],
+  "presets": [
+      {
+        "name": "Hero Image",
+        "category": "Custom"
+      }
+    ]
+}
+{% endschema %}

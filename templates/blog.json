@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "c_blog_post_list_XPrixg": {
+      "type": "c-blog-post-list",
+      "settings": {
+        "blog": "partners",
+        "color_scheme": "scheme-1",
+        "title": "ALL IN Blog",
+        "subtitle": "Lorem ipsum dolor",
+        "heading-img": "shopify://shop_images/bg-testi.jpg"
+      }
+    },
+    "footer_image_carousel_TcQV6g": {
+      "type": "footer-image-carousel",
+      "settings": {
+        "title": "coming to a store near you",
+        "footer_title": "",
+        "background_color": "#e55454",
+        "title_background_color": "#ffffff",
+        "text_color": "#68185e"
+      }
+    },
+    "footer_custom_KdfMMD": {
+      "type": "footer-custom",
+      "blocks": {
+        "social_icon_47Vtjf": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "Social Media Name",
+            "social_link": ""
+          }
+        },
+        "social_icon_d3Peqa": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "Social Media Name",
+            "social_link": ""
+          }
+        },
+        "social_icon_3ntfLn": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "Social Media Name",
+            "social_link": "#"
+          }
+        },
+        "social_icon_3aBrdr": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "Social Media Name",
+            "social_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "social_icon_47Vtjf",
+        "social_icon_d3Peqa",
+        "social_icon_3ntfLn",
+        "social_icon_3aBrdr"
+      ],
+      "disabled": true,
+      "settings": {
+        "footer_menu_1": "",
+        "footer_menu_2": "customer-account-main-menu",
+        "newsletter_title": "Sign up to get email updates",
+        "newsletter_placeholder": "email@gmail.com",
+        "newsletter_button_text": "SIGN UP",
+        "social_title": "Follow Us:",
+        "copyright_text": "© 2023 Shop Name | All Rights Reserved",
+        "footer_menu_3": "footer"
+      }
+    }
+  },
+  "order": [
+    "c_blog_post_list_XPrixg",
+    "footer_image_carousel_TcQV6g",
+    "footer_custom_KdfMMD"
+  ]
+}

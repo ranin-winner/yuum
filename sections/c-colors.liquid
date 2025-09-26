@@ -1,0 +1,39 @@
+<div class="flex palette-{{ section.settings.color_scheme }}">
+  <div class="flex items-center justify-center bg-scheme-bg min-w-28 h-28 p-4 border-2 border-black">
+    <p>Background</p>
+  </div>
+  <div class="flex items-center justify-center text-scheme-text min-w-28 h-28 p-4 border-2 border-black">
+    <p>Text</p>
+  </div>
+  <div class="flex items-center justify-center bg-scheme-button min-w-28 h-28 p-4 border-2 border-black">
+    <p>Button</p>
+  </div>
+  <div class="flex items-center justify-center text-scheme-button-label min-w-28 h-28 p-4 border-2 border-black">
+    <p>Button Label</p>
+  </div>
+  <div class="flex items-center justify-center bg-scheme-button text-scheme-secondary-button-label min-w-28 h-28 p-4 border-2 border-black">
+    <p>Secondary Button Label</p>
+  </div>
+  <div class="flex items-center justify-center bg-scheme-shadow min-w-28 h-28 p-4 border-2 border-black">
+    <p>Shadow</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Colors",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Colors"
+    }
+  ]
+}
+{% endschema %}

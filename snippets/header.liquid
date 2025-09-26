@@ -1,0 +1,101 @@
+{% assign settingsHeaderBg = settings.header_bg %}
+
+{% if settings.show_promo %}
+  <div class="b-header__promo w-full py-6 px-12 text-center font-Aksen tracking-wid bg-color_1 text-white-content text-sm uppercase tracking-[0.1rem]">
+    {% if settings.show_promo_link != blank %}<a href="{{ settings.show_promo_link }}" target="_blank">{% endif %}
+    {{ settings.promo_text }}
+    {% if settings.show_promo_link != blank %}
+      {% render 'icon-arrow-right' %}
+      </a>
+    {%- endif %}
+  </div>
+{% endif %}
+<div
+  class="relative b-header__wrapper"
+  {% if settingsHeaderBg %}
+    style="background-color: {{ settingsHeaderBg }};"
+  {% endif %}>
+  <div class="b-header__inner container m-responsive md:py-8 mx-auto m-{{settings.header_layout}} {% if shop.customer_accounts_enabled %} header--has-account{% endif %}">
+    {% render 'menu-mobile', menuItems: settings.header_menu_1.links %}
+    <nav class="b-header__nav-left">
+      <ul class="b-header__list flex">
+        {% for link in settings.header_menu_1.links %}
+          {% if link.links.size > 0 and settings.is_enabled_megamenu %}
+            {% render 'megamenu', link: link %}
+          {% else %}
+            <li class="menu-item b-header__list-item font-Aksen">
+              <a
+                href="{{ link.url }}"
+                title="{{ link.title }}"
+                class="
+                  b-header__list-link
+                  {% if link.url == request.path or link.url == request.fullpath %}m-active{% endif %}
+                ">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="b-header__logo flex w-[150px]">
+      <a href="{{ routes.root_url }}" class="flex items-center no-underline ">
+        {% if settings.header_logo != blank %}
+          <img src="{{ settings.header_logo | image_url }}" width="240" height="110" alt="{{ shop.name }}">
+        {% else %}
+          Logo title
+        {% endif %}
+      </a>
+    </div>
+    {%- if settings.header_menu_2.links.size > 0 -%}
+      <nav class="b-header__nav-right">
+        <ul class="b-header__list flex">
+          {% for link in settings.header_menu_2.links %}
+            <li class="menu-item b-header__list-item font-Aksen">
+              <a
+                href="{{ link.url }}"
+                title="{{ link.title }}"
+                class="b-header__list-link text-color_1 hover:text-black-content">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {%- endif -%}
+    <div class="b-header__cartlogin">
+      {%- if shop.customer_accounts_enabled -%}
+
+      {%- endif -%}
+      <a
+        href="/apps/retextion#/login"
+        class="text-color_1 b-header__account flex hover:scale-110"
+      >
+        <svg width="16" height="21" viewBox="0 0 16 21" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 21C0 16.5817 3.58172 13 8 13C12.4183 13 16 16.5817 16 21H0ZM8 12C4.685 12 2 9.315 2 6C2 2.685 4.685 0 8 0C11.315 0 14 2.685 14 6C14 9.315 11.315 12 8 12Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <div class="b-header_cart" x-data>
+        <span
+          id="i-mini-cart"
+          @click.stop="$store.cart.toggleCart()"
+          class="b-header_cart-toggle text-color_1 relative cursor-pointer flex hover:scale-110">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            id="cart"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.00436 6.41686L0.761719 3.17422L2.17593 1.76001L5.41857 5.00265H20.6603C21.2126 5.00265 21.6603 5.45037 21.6603 6.00265C21.6603 6.09997 21.6461 6.19678 21.6182 6.29L19.2182 14.29C19.0913 14.713 18.7019 15.0027 18.2603 15.0027H6.00436V17.0027H17.0044V19.0027H5.00436C4.45207 19.0027 4.00436 18.5549 4.00436 18.0027V6.41686ZM5.50436 23.0027C4.67593 23.0027 4.00436 22.3311 4.00436 21.5027C4.00436 20.6742 4.67593 20.0027 5.50436 20.0027C6.33279 20.0027 7.00436 20.6742 7.00436 21.5027C7.00436 22.3311 6.33279 23.0027 5.50436 23.0027ZM17.5044 23.0027C16.6759 23.0027 16.0044 22.3311 16.0044 21.5027C16.0044 20.6742 16.6759 20.0027 17.5044 20.0027C18.3328 20.0027 19.0044 20.6742 19.0044 21.5027C19.0044 22.3311 18.3328 23.0027 17.5044 23.0027Z" fill="currentColor"/>
+          </svg>
+
+          <span
+            class="b-header__cart-count"
+            x-text="$store.cart.itemsCount"
+            x-show="$store.cart.itemsCount > 0"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

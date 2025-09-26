@@ -1,0 +1,146 @@
+<section class="
+  custom-section
+  py-20
+  {% if section.settings.image_position == 'right' %}-mt-10{% endif %}
+">
+  <div class="container mx-auto">
+    <div class="
+    flex
+    flex-col
+    md:flex-row
+    items-center
+    gap-6
+    md:gap-20
+    px-10
+    md:px-0
+    text-center
+    md:text-left
+    {% if section.settings.image_position == 'right' %}md:text-right md:flex-row-reverse{% endif %}
+    ">
+
+      <div
+      class="
+      md:w-auto
+      b-image_bg
+      {% if section.settings.image_position == 'right' %}pr-0 md:pr-[152px] bg-right bg-no-repeat{% endif %}
+      {% if section.settings.image_position == 'left' %}pl-0 md:pl-[152px] bg-left bg-no-repeat{% endif %}
+      "
+      style="background-image: url({{section.settings.overlay_image | img_url: 'large'}});">
+        {% if section.settings.mobile_image != blank %}
+          <figure class="border-4 border-color_1 rounded-3xl overflow-hidden  md:w-[500px] h-[257px] sm:h-[374px]">
+            <picture>
+              <source media="(max-width: 768px)" srcset="{{ section.settings.mobile_image | img_url: 'large' }}">
+              <img src="{{ section.settings.desktop_image | img_url: 'large' }}" width="100" height="100" alt="{{ section.settings.title }}" class="w-full h-auto">
+            </picture>
+          </figure>
+        {% else %}
+          <figure class="border-4 border-color_1 rounded-3xl overflow-hidden  md:w-[500px] h-[257px] sm:h-[374px]">
+            <img src="{{ section.settings.desktop_image | img_url: 'large' }}" width="100" height="100" alt="{{ section.settings.title }}" class="w-full h-full object-cover">
+          </figure>
+        {% endif %}
+      </div>
+
+      <div class="grow pt-8">
+        <h3 class="mb-4 text-color_1 leading-title-1 heading-3">{{ section.settings.title }}</h3>
+        {% if section.settings.content != blank %}
+          <div class="text-xl leading-12">
+            {{ section.settings.content }}
+          </div>
+        {% endif %}
+        {% if section.settings.show_button %}
+          <a href="{{ section.settings.button_link }}" class="btn btn-primary mt-8">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @media screen and (max-width: 767px) {
+    .b-image_bg {
+      width: 100%;
+      box-sizing: content-box;
+      background-size: cover;
+    }
+
+    .b-image_bg.bg-left {
+      background-position: -50px top;
+      padding-left: 2.5rem;
+      margin-left: -2.5rem;
+    }
+
+    .b-image_bg.bg-right {
+      background-position: 50px top;
+      padding-right: 2.5rem;
+      margin-right: -2.5rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Section with Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_image",
+      "label": "Overlay Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    }
+  ],
+  "presets": [
+      {
+        "name": "Aside Image",
+        "category": "Custom"
+      }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,427 @@
+{%- liquid
+  assign tab1_title = block.settings.tab1_title
+  assign tab1_product_list = block.settings.tab1_product_list
+  assign tab2_title = block.settings.tab2_title
+  assign product_from_collection = block.settings.tab2_product_list.products
+  assign tab2_product_list = tab1_product_list
+
+  assign tab1_selected = true
+  assign tab2_selected = false
+
+  assign tab_selected = block.settings.tab_selected
+
+  if tab_selected == 'one-time'
+    assign tab1_selected = true
+    assign tab2_selected = false
+  endif
+  if tab_selected == 'subscribe'
+    assign tab1_selected = false
+    assign tab2_selected = true
+  endif
+-%}
+{% comment %}
+assign active_product_id = product.id
+  if tab2_product_list != blank
+   for t2_product in tab2_product_list
+     if t2_product.id == active_product_id
+       assign tab1_selected = false
+       assign tab2_selected = true
+       break
+     endif
+   endfor
+   endif
+{% endcomment %}
+
+<div
+  class="tabs-product-selector font-Aksen" {{ block.shopify_attributes }}
+  data-tab1-selected="{{ tab1_selected | json }}"
+  data-tab2-selected="{{ tab2_selected | json }}"
+  data-tab-selected="{{ tab_selected }}"
+>
+  {% comment %} <p>Current template: {{ template }}</p> {% endcomment %}
+   <input
+      class="tab-radio"
+      id="tab1-{{ block.id }}"
+      name="{{ block.id }}"
+      tabindex="0"
+      type="radio"
+      {% if tab1_selected %}
+
+      checked
+      {% endif %}
+      @change="mode = 'one-time'"
+    >
+
+    <input
+        class="tab-radio"
+        id="tab2-{{ block.id }}"
+        name="{{ block.id }}"
+        tabindex="0"
+        type="radio"
+        {% if tab2_selected %}
+        checked
+        {% endif %}
+        @change="mode = 'subscribe'"
+      >
+        {% comment %} <p>Current Mode: <span x-text="mode"></span></p> {% endcomment %}
+  <div class="tabs-product-selector__labels">
+    {%- if tab1_title != blank and tab1_product_list != blank -%}
+      <label
+        class="tab-label"
+        for="tab1-{{ block.id }}"
+        id="label-tab1-{{ block.id }}"
+        data-panel="tab1-panel-{{ block.id }}"
+        :class="{ 'active': mode === 'one-time' }"
+        @click="switchTab( 'one-time' )"
+      >
+        {{ tab1_title | escape }}
+      </label>
+    {%- endif -%}
+    {%- if tab2_title != blank and tab2_product_list != blank -%}
+      <label
+        class="tab-label"
+        for="tab2-{{ block.id }}"
+        id="label-tab2-{{ block.id }}"
+        data-panel="tab2-panel-{{ block.id }}"
+        :class="{ 'active': mode === 'subscribe' }"
+        @click="switchTab( 'subscribe' )"
+      >
+        <span>
+          {{ tab2_title | escape }}
+          <span class="tab-label-discount" x-text="discount > 0 ? discount + '%' : ''"></span>
+        </span>
+      </label>
+    {%- endif -%}
+  </div>
+  <div class="tabs-product-selector__tabs">
+    {%- if tab1_title != blank and tab1_product_list != blank -%}
+    <div class="tab-panel" id="tab1-panel-{{ block.id }}" tabindex="0">
+      <div class="
+        product-selector__items
+        {% if template == 'product.bundle' %} m-bundle {% endif %}
+          pb-4">
+
+        {%- for s_product in tab1_product_list -%}
+          <div class="product-selector__item
+            {% comment %} {% if s_product.metafields.custom.product_bundle == true and template != 'product.bundle' %} m-mix-match {% endif %} {% endcomment %}
+             {% if product.selected_or_first_available_variant.id == s_product.selected_or_first_available_variant.id %} m-active{% endif %}
+              "
+            >
+            <a href="{{ s_product.url }}"
+              {% if template == 'product' %}
+                @click.prevent="loadProduct('{{ s_product.handle }}')"
+              {% endif %}
+              class="product-selector__item-link  product-change-link {% if forloop.first %} tab-trigger-click{% endif %} {% if product.selected_or_first_available_variant.id == s_product.selected_or_first_available_variant.id %}active{% endif %}"
+              data-section="{{ section.id }}"
+              data-product-id="{{ s_product.selected_or_first_available_variant.id }}"
+              data-handle="{{ s_product.handle }}">
+              {%- assign media = s_product.metafields.custom.alternate_image.value | default: s_product.featured_image -%}
+              {%- assign title = s_product.metafields.custom.alternate_title -%}
+              {%- assign description = s_product.description  -%}
+              {%- assign price = s_product.price  -%}
+              {%- assign primary_color = 'rgb(var(--color-secondary-button-text),0.2);' -%}
+              {%- if s_product.metafields.custom.color_palette.value != blank -%}
+                {%- assign color_palette = s_product.metafields.custom.color_palette.value -%}
+                {%- assign primary_color = color_palette.primary_color.value -%}
+              {% endif %}
+              <div class="media">
+                {%- if media  -%}
+                  {% render 'image' with media,
+                    class: 'aspect-square',
+                    placeholder: 'image'
+                    alt: product.title
+                  %}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="product-selector__item-desc">
+                {% if title != blank %}
+                  <div class="alternate_title">
+                    {{ title | escape }}
+                  </div>
+                {% endif %}
+                {% comment %} {% if s_product.metafields.custom.product_bundle == true and template != 'product.bundle' %}
+                  {% if s_product.metafields.custom.subtitle %}
+                    <div class="alternate_subtitle pb-4">
+                      {{ s_product.metafields.custom.subtitle }}
+                    </div>
+                  {% endif %}
+                  <span class="btn btn-primary ">Mix & Save</span>
+                {% endif %} {% endcomment %}
+                {% if description != blank and template == 'product.bundle'  %}
+                  {% comment %} <div class="alternate_description">
+                    {{ description | truncate: 100, "..." }}
+                  </div> {% endcomment %}
+                  <div class="mb-4">
+                    <span
+                      style="color: var(--tertiary-color);"
+                      :class="{ 'line-through mr-2 text-sm': discount > 0 && mode === 'subscribe' }"
+                      x-bind:data-price="{{ price }}"
+                    >
+                      {{ price | money }}
+                    </span>
+                    <span
+                      style="color: var(--tertiary-color);"
+                      x-show="discount > 0 && mode === 'subscribe'"
+                      x-text="formatPrice(($el.previousElementSibling.getAttribute('data-price') - ($el.previousElementSibling.getAttribute('data-price') * (discount / 100))) / 100)"></span>
+                  </div>
+                {% endif %}
+              </div>
+            </a>
+          {% if template == 'product.bundle' %}
+            <div class="flex items-center">
+              <div
+                class="b-quantity m-auto"
+                x-show="$store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }}) > 0"
+              >
+                <span
+                  @click="removeFromCartPDP($store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }}))"
+                  class="b-quantity-sign m-minus"
+                  data-first-variant="{{ s_product.selected_or_first_available_variant.id }}"
+                >
+                  -
+                </span>
+                <div x-text="$store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }})" class="b-quantity-input"></div>
+                <span
+                  @click="addToCartPDP(quantity = 1)"
+                  class="b-quantity-sign m-plus"
+                  data-first-variant="{{ s_product.selected_or_first_available_variant.id }}"
+                >
+                  +
+                </span>
+              </div>
+              <span
+                class="btn btn-primary btn-mini"
+                x-show="!$store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }}) > 0"
+                data-first-variant="{{ s_product.selected_or_first_available_variant.id }}"
+                @click="addToCartPDP(quantity = 1)"
+              >
+                Add
+              </span>
+            </div>
+            {% endif %}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+    {%- if tab2_title != blank and tab2_product_list != blank -%}
+    <div class="tab-panel" id="tab2-panel-{{ block.id }}" tabindex="0">
+      {% if template contains 'product' %}
+        <article>
+          <div class="b-subscription">
+            <div
+              class="b-subscription__select"
+              :class="{ 'm-disabled': mode !== 'subscribe'}"
+              x-show="showSubscription"
+              x-data="{ isOpen: false }"
+              x-bind:class="{ 'is-open': isOpen }"
+            >
+              <svg
+                class="b-subscription__select-arrow"
+                fill="var(--secondary-color)"
+                height="16px"
+                width="16px"
+                version="1.1"
+                id="Layer_1"
+                viewBox="0 0 330 330"
+                xml:space="preserve"
+              >
+                <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393
+                c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393
+                s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"/>
+              </svg>
+              <template x-if="sellingPlansMap.length > 0">
+                <select
+                  id="subscription-plan"
+                  x-model="selectedPlanId"
+                  class="b-subscription__select-field"
+                  @click="isOpen = !isOpen"
+                  @blur="isOpen = false"
+                >
+                  <template
+                    x-for="plan in sellingPlansMap"
+                    :key="plan.id"
+                  >
+                    <option
+                      :value="plan.id"
+                      x-text="plan.name ? plan.name : 'Default Title'"
+                      class="b-subscription__select-option"
+                    ></option>
+                  </template>
+                </select>
+              </template>
+              <template x-if="Object.keys(sellingPlansMap).length === 0">
+                  <p>Loading subscription plans...</p>
+              </template>
+            </div>
+          </div>
+        </article>
+      {% endif %}
+      <div class="
+        product-selector__items
+        pb-4
+        {% if template == 'product.bundle' %} m-bundle {% endif %}
+        ">
+        {%- for s_product in tab2_product_list -%}
+          <div class="
+            product-selector__item
+            {% comment %} {% if s_product.metafields.custom.product_bundle == true and template != 'product.bundle' %} m-mix-match {% endif %} {% endcomment %}
+             {% if product.selected_or_first_available_variant.id == s_product.selected_or_first_available_variant.id %} m-active{% endif %}
+            ">
+            <a href="{{ s_product.url }}"
+              product-id="{{ s_product.id }}"
+              {% if template == 'product' and s_product.metafields.custom.product_bundle != true %}
+                @click.prevent="loadProduct('{{ s_product.handle }}')"
+              {% endif %}
+              class="
+              product-selector__item-link
+              product-change-link
+              {% if forloop.first %} tab-trigger-click{% endif %}
+              {% if product.selected_or_first_available_variant.id == s_product.selected_or_first_available_variant.id %} m-active{% endif %}"
+              data-section="{{ section.id }}"
+              data-product-id="{{ s_product.selected_or_first_available_variant.id }}"
+              data-handle="{{ s_product.handle }}">
+              {%- assign media = s_product.metafields.custom.alternate_image.value | default: s_product.featured_image -%}
+              {%- assign title = s_product.metafields.custom.alternate_title -%}
+              {%- assign description = s_product.description  -%}
+              {%- assign price = s_product.price  -%}
+              {%- assign primary_color = 'rgb(var(--color-secondary-button-text),0.2);' -%}
+              {%- if s_product.metafields.custom.color_palette.value != blank -%}
+                {%- assign color_palette = s_product.metafields.custom.color_palette.value -%}
+                {%- assign primary_color = color_palette.primary_color.value -%}
+              {% endif %}
+              <div class="media">
+                {%- if media  -%}
+                  {% render 'image' with media,
+                    class: 'aspect-square',
+                    placeholder: 'image'
+                    alt: product.title
+                  %}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="product-selector__item-desc">
+                {% if title != blank %}
+                  <div class="alternate_title">
+                    {{ title | escape }}
+                  </div>
+                {% endif %}
+                {% comment %} {% if s_product.metafields.custom.product_bundle == true and template != 'product.bundle' %}
+                  {% if s_product.metafields.custom.subtitle %}
+                    <div class="alternate_subtitle pb-4">
+                      {{ s_product.metafields.custom.subtitle }}
+                    </div>
+                  {% endif %}
+                  <span class="btn btn-primary ">Mix & Save</span>
+                {% endif %} {% endcomment %}
+                {% if description != blank and template == 'product.bundle'  %}
+                  {% comment %} <div class="alternate_description">
+                    {{ description | truncate: 100, "..." }}
+                  </div> {% endcomment %}
+                  <div class="mb-4">
+                    <span
+                      style="color: var(--tertiary-color);"
+                      :class="{ 'line-through mr-2 text-sm': discount > 0 && mode === 'subscribe' }"
+                      x-bind:data-price="{{ price }}"
+                    >
+                      {{ price | money }}
+                    </span>
+                    <span
+                      style="color: var(--tertiary-color);"
+                      x-show="discount > 0 && mode === 'subscribe'"
+                      x-text="formatPrice(($el.previousElementSibling.getAttribute('data-price') - ($el.previousElementSibling.getAttribute('data-price') * (discount / 100))) / 100)"></span>
+                    </div>
+                {% endif %}
+              </div>
+            </a>
+            {% if template == 'product.bundle' %}
+              <div class="flex items-center">
+                <div
+                  class="b-quantity m-auto"
+                  x-show="$store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }}) > 0"
+                >
+                  <span
+                    @click="removeFromCartPDP($store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }}))"
+                    class="b-quantity-sign m-minus"
+                    data-first-variant="{{ s_product.selected_or_first_available_variant.id }}"
+                  >
+                    -
+                  </span>
+                  <div x-text="$store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }})" class="b-quantity-input"></div>
+                  <span
+                    @click="addToCartPDP(quantity = 1)"
+                    class="b-quantity-sign m-plus"
+                    data-first-variant="{{ s_product.selected_or_first_available_variant.id }}"
+                  >
+                    +
+                  </span>
+                </div>
+                <span
+                  class="btn btn-primary btn-mini"
+                  x-show="!$store.cart.showQuantity({{ s_product.selected_or_first_available_variant.id }}) > 0"
+                  data-first-variant="{{ s_product.selected_or_first_available_variant.id }}"
+                  @click="addToCartPDP(quantity = 1)"
+                >
+                  Add
+                </span>
+              </div>
+              {% endif %}
+          </div>
+
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+    <style>
+        #tab1-{{ block.id }}:not(:checked) ~ .tabs-product-selector__labels #label-tab1-{{ block.id }}:hover,
+        #tab2-{{ block.id }}:not(:checked) ~ .tabs-product-selector__labels #label-tab2-{{ block.id }}:hover{
+          background: #fff;
+          color: var(--secondary-color);
+          border-color: var(--secondary-color);
+        }
+
+        #tab1-{{ block.id }}:not(:checked) ~ .tabs-product-selector__labels #label-tab1-{{ block.id }}:hover::after,
+        #tab2-{{ block.id }}:not(:checked) ~ .tabs-product-selector__labels #label-tab2-{{ block.id }}:hover::after{
+          background-color: #ffffff;
+        }
+
+        #tab1-{{ block.id }}:checked ~ .tabs-product-selector__labels #label-tab1-{{ block.id }} {
+            background: #fff;
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+
+        }
+        #tab1-{{ block.id }}:checked ~ .tabs-product-selector__labels #label-tab1-{{ block.id }}::after,
+        #tab2-{{ block.id }}:checked ~ .tabs-product-selector__labels #label-tab2-{{ block.id }}::after {
+          background-color: #ffffff;
+        }
+
+        #tab2-{{ block.id }}:checked ~ .tabs-product-selector__labels #label-tab2-{{ block.id }} {
+          background: #fff;
+          border-color: var(--secondary-color);
+          color: var(--secondary-color);
+
+        }
+        #tab1-{{ block.id }}:checked ~ .tabs-product-selector__tabs #tab1-panel-{{ block.id }}{
+          display: block;
+        }
+        #tab2-{{ block.id }}:checked ~ .tabs-product-selector__tabs #tab2-panel-{{ block.id }}{
+          display: block;
+        }
+    </style>
+  </div>
+</div>
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.store('sharedDataTabs', {
+      data: {
+        productsOneTime:   {{ tab1_product_list | json }} || [],
+        productsSubscribe: {{ tab2_product_list | json }} || [],
+      },
+    });
+});
+</script>
+

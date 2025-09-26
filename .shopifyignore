@@ -1,0 +1,27 @@
+# See https://shopify.dev/themes/tools/cli#excluding-files-from-shopify-cli for more about ignoring files while using Shopify CLI
+
+.DS_Store
+.DS_Store?
+package.json
+package-lock.json
+pnpm-lock.yaml
+bun.lockb
+
+postcss.config.cjs
+tailwind.config.cjs
+vite.config.js
+.editorconfig
+.eslintrc.cjs
+.prettierrc.cjs
+jsconfig.json
+
+.gitignore
+.shopifyignore
+.prettierignore
+.eslintignore
+.theme-check.yml
+*.md
+/.vscode
+/.vim
+assets/.vite/
+.vite/

@@ -1,0 +1,117 @@
+
+
+<div
+  id="nominate-a-nonprofit"
+  class="
+  palette-{{ section.settings.color_scheme }}
+  nominate-section
+  bg-scheme-bg
+  py-24"
+>
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-2 sm:gap-12 md:gap-24 px-8 sm:px-0">
+      <div class="mb-16 md:mb-0">
+        {% form 'contact' %}
+          <div class="form-field">
+            <label for="name" class="text-base text-scheme-primary">Your Name</label>
+            <input class="form-field__input" type="text" id="name" name="contact[name]" required>
+          </div>
+
+          <div class="form-field">
+            <label for="email" class="text-base text-scheme-primary">Your Email</label>
+            <input class="form-field__input" type="email" id="email" name="contact[email]" required>
+          </div>
+
+          <div class="form-field">
+            <label for="nonprofit_name" class="text-base text-scheme-primary">Nonprofit Name</label>
+            <input class="form-field__input" type="text" id="nonprofit_name" name="contact[nonprofit_name]" required>
+          </div>
+
+          <div class="form-field">
+            <label for="nonprofit_website" class="text-base text-scheme-primary">Nonprofit Website</label>
+            <input class="form-field__input" type="url" id="nonprofit_website" name="contact[nonprofit_website]" required>
+          </div>
+
+          <div class="form-field">
+            <label for="message" class="text-base text-scheme-primary">Tell Us Why They're Making a Difference</label>
+            <textarea id="message" class="form-field__input" name="contact[body]" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-scheme">SUBMIT</button>
+        {% endform %}
+      </div>
+      <div class="flex flex-col justify-center">
+        <h2 class="text-baseBig font-Aksen font-bold text-scheme-primary uppercase mb-4">{{ section.settings.title }}</h2>
+        <h3 class="text-4xl font-Gazpacho text-scheme-secondary title-block mb-12">{{ section.settings.subtitle }}</h3>
+        <div class="text-baseBig text-scheme-primary block-content">
+            {{ section.settings.copy }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-field .form-field__input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    color: var(--color-black);
+    border: 1px solid var(--theme-color-secondary);
+    background-color: white;
+    border-radius: 8px;
+    min-height: 50px;
+  }
+
+  .form-field > label  {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  #nominate-a-nonprofit .title-block strong {
+    color: var(--theme-color-primary);
+  }
+
+  #nominate-a-nonprofit .block-content p {
+    margin-top: 24px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Nominate a Nonprofit",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-4"
+    },
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Nominate a nonprofit"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Help Us Find</p><p><i>Local Heroes</i></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "copy",
+      "label": "Copy",
+      "default": "<p>We're always looking to partner with organizations that are making a difference through good, nutritious food.</p><p>Know a nonprofit in your community that's doing great work to increase food access or bring people together through food? Nominate them to become one of our partners!</p>"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Nominate a Nonprofit",
+      "category": "Forms"
+    }
+  ]
+}
+{% endschema %}

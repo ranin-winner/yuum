@@ -1,0 +1,110 @@
+<!doctype html>
+<html class="no-js antialiased scroll-smooth" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {% if shop.brand.logo != blank %}
+      <link rel="icon" type="image/png" href="{{ shop.brand.logo | image_url: width: 32, height: 32 }}">
+    {% endif %}
+
+    <title>{{ page_title }}</title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    <style>
+      /* todo: 1) move this to a separate scss file but with imported settings */
+      /* todo: 2) think about what exact variables are needed for the theme */
+      {% for scheme in settings.color_schemes %}
+        .palette-{{ scheme }} {
+          --theme-color-bg: {{ scheme.settings.background }};
+          --theme-color-primary: {{ scheme.settings.color_primary }};
+          --theme-color-secondary: {{ scheme.settings.color_secondary }};
+          --theme-color-tertiary: {{ scheme.settings.color_tertiary }};
+        }
+
+        .palette-{{ scheme }} .btn.btn-scheme {
+          background-color: var(--theme-color-primary);
+          border-color: var(--theme-color-primary);
+          color: white;
+        }
+
+        .palette-{{ scheme }} .btn.btn-scheme:hover {
+          background-color: var(--theme-color-tertiary);
+          color: var(--theme-color-primary);
+        }
+      {% endfor %}
+    </style>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+    <script>
+      // window.shopUrl = '{{ request.origin }}';
+      // window.routes = {
+      //   cart_add_url: '{{ routes.cart_add_url }}',
+      //   cart_change_url: '{{ routes.cart_change_url }}',
+      //   cart_update_url: '{{ routes.cart_update_url }}',
+      //   cart_url: '{{ routes.cart_url }}',
+      //   predictive_search_url: '{{ routes.predictive_search_url }}',
+      //   product_recommendations_url: '{{ routes.product_recommendations_url }}',
+      // };
+
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+
+    {% render 'typography' %}
+
+    {% render 'entry' with 'main.theme.js' %}
+    {% render 'entry' with 'main.scss', preload_stylesheet: true %}
+
+    {% if template contains 'collection' %}
+      {% comment %} {% render 'entry' with 'theme.collection.js' %} {% endcomment %}
+    {% elsif template contains 'product' %}
+      {% render 'entry' with 'page-pdp.scss' %}
+    {% else %}
+      {% comment %} {% render 'entry' with 'entry.theme.js' %} {% endcomment %}
+    {% endif %}
+
+    {{ content_for_header }}
+    {% render 'custom-fonts' %}
+
+  </head>
+  <body
+    x-data
+    :class="$store.shopMainStore.body_no_scroll ? 'no-scroll' : ''"
+    class="grid min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}"
+  >
+    <div id="l-main">
+      <header
+        id="id_header"
+        class="
+              bg-white
+          top-0
+          z-50
+          b-header
+          font-plusJakarta
+          font-semibold
+        ">
+        {% include 'header' %}
+      </header>
+      <main
+        id="MainContent"
+        class="flex flex-col outline-none overflow-x-hidden max-w-full"
+        tabindex="-1">
+        {{ content_for_layout }}
+      </main>
+      <footer>
+        {% comment %} {{ powered_by_link }} {% endcomment %}
+        {% include 'footer' %}
+      </footer>
+      <div class="l-overlay"></div>
+      {% render 'mini-cart' %}
+    </div>
+  </body>
+</html>

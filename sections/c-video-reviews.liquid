@@ -1,0 +1,91 @@
+<section class="video-reviews bg-gray-100 py-12">
+  <div class="container mx-auto px-6">
+    <h2 class="heading-3 text-color_1 text-center">{{ section.settings.heading }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for block in section.blocks %}
+        <div class="video-review-item bg-white rounded-3xl shadow-lg p-4 h-full border-2 border-color_1">
+          {% if block.settings.video_url %}
+            <div class="video-wrapper mb-4">
+              {% if block.settings.video_url contains 'youtube.com' or block.settings.video_url contains 'vimeo.com' %}
+                <iframe
+                  src="{{ block.settings.video_url }}"
+                  class="w-full h-64 rounded-3xl overflow-hidden"
+                  frameborder="0"
+                  allowfullscreen>
+                </iframe>
+              {% else %}
+                <p class="text-red-500">Invalid video URL. Please use a valid YouTube or Vimeo link.</p>
+              {% endif %}
+            </div>
+          {% endif %}
+          <h3 class="heading-4 text-color_1 mb-4">{{ block.settings.title }}</h3>
+          <p class="mb-4">{{ block.settings.content }}</p>
+          {% if block.settings.button_link %}
+            <a
+              href="{{ block.settings.button_link }}"
+              class="btn btn-secondary">
+              {{ block.settings.button_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "What Our Customers Say"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_review",
+      "name": "Video Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL",
+          "default": "https://www.youtube.com/embed/example"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Amazing Product!"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content",
+          "default": "This is the best product I've ever used. Watch the video to learn more!"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Learn More"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Reviews",
+      "category": "Featured"
+    }
+  ]
+}
+{% endschema %}

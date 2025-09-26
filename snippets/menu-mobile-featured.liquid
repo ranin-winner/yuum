@@ -1,0 +1,85 @@
+<div class="p-8">
+  <h3 class="font-jakarta text-[1.6rem] leading-[20px] font-extrabold text-black-content mb-6 uppercase">
+    {{ title }}
+  </h3>
+  <div class="grid grid-cols-3 gap-4">
+    {% if settings.featured_block_1_image != blank %}
+      <div>
+        <a href="{{ settings.featured_block_1_link }}" class="block">
+          {% if settings.featured_block_1_image %}
+            <img
+              src="{{ settings.featured_block_1_image | image_url: width: 300 }}"
+              alt="{{ settings.featured_block_1_title }}"
+              class="transition-transform duration-300 hover:scale-105"
+              width=""
+              height="">
+            {% if settings.featured_block_1_title != blank %}
+              <h3 class="text-color_1 text-[1.6rem] leading-[20px] font-extrabold">
+                {{ settings.featured_block_1_title }}
+              </h3>
+            {% endif %}
+            {% if settings.featured_block_1_description != blank %}
+              <p class="text-black-content text-[1.4rem] leading-[20px]">
+                {{ settings.featured_block_1_description }}
+              </p>
+            {% endif %}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'w-full h-auto rounded-lg bg-gray-200' }}
+          {% endif %}
+        </a>
+      </div>
+    {% endif %}
+    {% if settings.featured_block_2_image != blank %}
+      <div>
+        <a href="{{ settings.featured_block_2_link }}" class="block">
+          {% if settings.featured_block_2_image %}
+            <img
+              src="{{ settings.featured_block_2_image | image_url: width: 300 }}"
+              alt="{{ settings.featured_block_2_title }}"
+              class="transition-transform duration-300 hover:scale-105"
+              width=""
+              height="">
+            {% if settings.featured_block_2_title != blank %}
+              <h3 class="text-color_1 text-[1.6rem] leading-[20px] font-extrabold">
+                {{ settings.featured_block_2_title }}
+              </h3>
+            {% endif %}
+            {% if settings.featured_block_2_description != blank %}
+              <p class="text-black-content text-[1.4rem] leading-[20px]">
+                {{ settings.featured_block_2_description }}
+              </p>
+            {% endif %}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'w-full h-auto rounded-lg bg-gray-200' }}
+          {% endif %}
+        </a>
+      </div>
+    {% endif %}
+    {% if settings.featured_block_3_image != blank %}
+      <div>
+        <a href="{{ settings.featured_block_3_link }}" class="block">
+          {% if settings.featured_block_3_image %}
+            <img
+              src="{{ settings.featured_block_3_image | image_url: width: 300 }}"
+              alt="{{ settings.featured_block_3_title }}"
+              class="transition-transform duration-300 hover:scale-105"
+              width=""
+              height="">
+            {% if settings.featured_block_3_title != blank %}
+              <h3 class="text-color_1 text-[1.6rem] leading-[20px] font-extrabold">
+                {{ settings.featured_block_3_title }}
+              </h3>
+            {% endif %}
+            {% if settings.featured_block_3_description != blank %}
+              <p class="text-black-content text-[1.4rem] leading-[20px]">
+                {{ settings.featured_block_3_description }}
+              </p>
+            {% endif %}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'w-full h-auto rounded-lg bg-gray-200' }}
+          {% endif %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>

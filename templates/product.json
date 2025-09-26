@@ -1,0 +1,128 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title_hijtjK": {
+          "type": "title",
+          "settings": {}
+        },
+        "price_LVaq8i": {
+          "type": "price",
+          "settings": {}
+        },
+        "reviews_T3jPBg": {
+          "type": "reviews",
+          "settings": {}
+        },
+        "tabs_product_selector_BVHa78": {
+          "type": "tabs_product_selector",
+          "settings": {
+            "tab_selected": "subscribe",
+            "tab1_title": "One-time purchase",
+            "tab1_product_list": [
+              "best-sellers-variety-pack",
+              "chocolate-chip",
+              "madagascar-vanilla-honey-almond",
+              "nut-seed-variety-pack",
+              "peruvian-dark-chocolate-peanut-butter"
+            ],
+            "tab2_title": "Subscribe and Save"
+          }
+        },
+        "variant_picker_AHmrDG": {
+          "type": "variant_picker",
+          "disabled": true,
+          "settings": {}
+        },
+        "buy_buttons_7BMHpx": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "description_RgQkN8": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title_hijtjK",
+        "price_LVaq8i",
+        "reviews_T3jPBg",
+        "tabs_product_selector_BVHa78",
+        "variant_picker_AHmrDG",
+        "buy_buttons_7BMHpx",
+        "description_RgQkN8"
+      ],
+      "settings": {
+        "product_list": [
+          "chocolate-chip",
+          "madagascar-vanilla-honey-almond",
+          "best-sellers-variety-pack",
+          "nut-seed-variety-pack",
+          "peruvian-dark-chocolate-peanut-butter",
+          "smores",
+          "whole-grain-variety-pack"
+        ],
+        "enable_color_palette": true
+      }
+    },
+    "product_custom_section_CAMdPa": {
+      "type": "product-custom-section",
+      "settings": {
+        "products_list": [
+          "chocolate-chip",
+          "madagascar-vanilla-honey-almond",
+          "nut-seed-variety-pack",
+          "peruvian-dark-chocolate-peanut-butter",
+          "smores",
+          "whole-grain-variety-pack"
+        ],
+        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>",
+        "color_scheme": "scheme-951c1d93-12b5-4f78-b84c-2e55165ed91d",
+        "show_bottom_panel": true,
+        "bottom_text": "having a hard time choosing?",
+        "button_text": "Learn More",
+        "button_link": "shopify://blogs/partners"
+      }
+    },
+    "be_all_in_xwgr8t": {
+      "type": "be-all-in",
+      "settings": {
+        "background_image": "shopify://shop_images/woomen-1.png",
+        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
+        "title": "Subscribe & be",
+        "subtitle": "<p>ALL IN</p>",
+        "copy": "<p><strong>Get 10% off and free shipping on every order<br/></strong><br/><strong>Give Back</strong><br/>You’re getting a lot more than a delicious bar. Every purchase supports an organization working to increase good, nutritious food access in our backyard and yours.<br/><br/><strong>Total Flexibility </strong><br/>Edit your subscription anytime. Add, swap, skip or cancel with no commitment.</p>",
+        "button_text": "",
+        "button_url": "/",
+        "button_text_1": "SUBscribe & Save",
+        "button_url_1": "shopify://products/best-sellers-variety-pack"
+      }
+    },
+    "footer_image_carousel_zAEHnV": {
+      "type": "footer-image-carousel",
+      "settings": {
+        "title": "coming to a store near you",
+        "footer_title": "",
+        "background_color": "#e55454",
+        "title_background_color": "#ffffff",
+        "text_color": "#68185e"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product_custom_section_CAMdPa",
+    "be_all_in_xwgr8t",
+    "footer_image_carousel_zAEHnV"
+  ]
+}

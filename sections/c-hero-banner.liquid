@@ -1,0 +1,345 @@
+<div class="b-hero-banner
+    text-pos-x-{{ section.settings.text_position-x }}
+    text-pos-y-{{ section.settings.text_position-y }}
+    bg-image-pos-x-{{ section.settings.image_alignment_x }}
+    bg-image-pos-y-{{ section.settings.image_alignment_y }}">
+
+    <div class="b-hero-banner__content">
+        {% if section.settings.title != blank %}
+            <h1 class="b-hero-banner__title font-Gazpacho uppercase">{{ section.settings.title }}</h1>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+            <p class="b-hero-banner__text">{{ section.settings.subtitle }}</p>
+        {% endif %}
+        {% if section.settings.baner_button != blank %}
+            <a href="{{ section.settings.baner_button_link }}" class="b-hero-banner_btn">{{ section.settings.baner_button }}</a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .b-hero-banner {
+        background-image: url({{ section.settings.image_bg | img_url: 'master' }});
+        background-size: {{ section.settings.bg_size }};
+        background-color: {{ section.settings.bg_color }};
+        background-repeat: no-repeat;
+        position: relative;
+        width: 100%;
+        display: flex;
+        padding: {{ section.settings.padding_desktop }}px;
+    }
+
+    /* Image Position */
+    .b-hero-banner.bg-image-pos-x-left {
+        background-position-x: left;
+    }
+
+    .b-hero-banner.bg-image-pos-x-right {
+        background-position-x: right;
+    }
+
+    .b-hero-banner.bg-image-pos-x-center {
+        background-position-x: center;
+    }
+
+    .b-hero-banner.bg-image-pos-y-top {
+        background-position-y: top;
+    }
+
+    .b-hero-banner.bg-image-pos-y-bottom {
+        background-position-y: bottom;
+    }
+
+    .b-hero-banner.bg-image-pos-y-middle {
+        background-position-y: center;
+    }
+
+    /* Text Position */
+    .b-hero-banner.text-pos-x-center {
+        justify-content: center;
+    }
+
+    .b-hero-banner.text-pos-x-left {
+        justify-content: flex-start;
+    }
+
+    .b-hero-banner.text-pos-x-right {
+        justify-content: flex-end;
+    }
+
+    .b-hero-banner.text-pos-y-center {
+        align-items: center;
+    }
+
+    .b-hero-banner.text-pos-y-top {
+        align-items: flex-start;
+    }
+
+    .b-hero-banner.text-pos-y-bottom {
+        align-items: flex-end;
+    }
+
+    /* Main Styles */
+    .b-hero-banner__content {
+        text-align: {{ section.settings.text_alignment }};
+        max-width: {{ section.settings.banner_text_width }}px;
+        line-height: 1.5;
+    }
+
+    .b-hero-banner__title {
+        font-size: {{ section.settings.title_font_size }}px;
+        color: {{ section.settings.title_color }};
+    }
+
+    .b-hero-banner__text {
+        font-size: {{ section.settings.subtitle_font_size }}px;
+        color: {{ section.settings.text_color }};
+        font-weight: 600;
+    }
+
+    .b-hero-banner_btn {
+        display: inline-block;
+        padding: 12px 26px 13px;
+        background-color: #014ad3;
+        color: #fff;
+        font-size: 16px;
+        line-height: 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-top: 6px;
+        border-radius: 10px;
+        min-width: 145px;
+        font-weight: 800;
+        transition: all 0.3s;
+    }
+
+    .b-hero-banner_btn:hover {
+        background-color: #000;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 767px) {
+        .b-hero-banner {
+            height: {{ section.settings.banner_height_mobile }}px;
+            padding: {{ section.settings.padding_mobile }}px;
+        }
+
+        .b-hero-banner__title {
+            font-size: {{ section.settings.title_font_size_mobile }}px;
+        }
+
+        .b-hero-banner__text {
+            font-size: {{ section.settings.subtitle_font_size_mobile }}px;
+        }
+
+        .b-hero-banner__content {
+            max-width: 100%;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+        .b-hero-banner {
+            height: {{ section.settings.banner_height_desktop }}px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default": "Welcome!"
+    },
+    {
+      "type": "text",
+      "label": "Subtitle",
+      "id": "subtitle",
+      "default": "Get amazing discounts!"
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "baner_button",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "label": "Button Link",
+      "id": "baner_button_link"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "image_bg"
+    },
+    {
+      "type": "color",
+      "label": "Background Color",
+      "id": "bg_color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "label": "Background Size",
+      "id": "bg_size",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "label": "BG Image Alignment X",
+      "id": "image_alignment_x",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "label": "BG Image Alignment Y",
+      "id": "image_alignment_y",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "label": "Text Position X",
+      "id": "text_position-x",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "label": "Text Position Y",
+      "id": "text_position-y",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "label": "Text Alignment",
+      "id": "text_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "label": "Title Font Size",
+      "id": "title_font_size",
+      "default": 60,
+      "min": 20,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "label": "Title Font Size Mobile",
+      "id": "title_font_size_mobile",
+      "default": 77,
+      "min": 20,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "label": "Title Color",
+      "id": "title_color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "label": "Subtitle Font Size",
+      "id": "subtitle_font_size",
+      "default": 20,
+      "min": 12,
+      "max": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "label": "Subtitle Font Size Mobile",
+      "id": "subtitle_font_size_mobile",
+      "default": 16,
+      "min": 12,
+      "max": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "label": "Text Color",
+      "id": "text_color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "label": "Padding DeskTop",
+      "id": "padding_desktop",
+      "default": 40,
+      "min": 20,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "label": "Padding Mobile",
+      "id": "padding_mobile",
+      "default": 20,
+      "min": 12,
+      "max": 100,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "label": "Banner Text Width",
+      "id": "banner_text_width",
+      "default": "300"
+    },
+    {
+      "type": "text",
+      "label": "Banner Height (Desktop)",
+      "id": "banner_height_desktop",
+      "default": "568"
+    },
+    {
+      "type": "text",
+      "label": "Banner Height (Mobile)",
+      "id": "banner_height_mobile",
+      "default": "300"
+    }
+  ],
+  "presets": [
+      {
+        "name": "Hero Banner",
+        "category": "Custom"
+      }
+    ]
+}
+{% endschema %}

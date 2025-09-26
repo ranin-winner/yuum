@@ -1,0 +1,155 @@
+{% render 'entry' with '@/styles/sections/homepage-community.scss' %}
+<div class="homepage-community font-Gazpacho palette-{{ section.settings.color_scheme }}" data-section-id="c-homepage-community">
+  <div class="homepage-community__images-container page-width">
+    {% if section.settings.image != blank %}
+      <div class="homepage-community__image">
+        {{
+          section.settings.image
+          | image_url: width: section.settings.image.width
+          | image_tag: loading: 'lazy', class: 'homepage-community__image--ingredients'
+        }}
+      </div>
+    {% endif %}
+    <div class="homepage-community__logo-container">
+      {% if section.settings.title != blank %}
+        <h2 class="homepage-community__title  font-bold">
+          {{ section.settings.title | replace: '[', '<span>' | replace: ']', '</span>' }}
+        </h2>
+      {% endif %}
+    </div>
+  </div>
+
+  {% liquid
+    assign cta = section.settings.cta_url
+    assign cta_title = section.settings.cta_title
+    assign cta_subtitle = section.settings.cta_subtitle
+    assign cta_button_text = section.settings.cta_button_text
+    assign cta_button_link = cta.url
+  %}
+  <div class="homepage-community__cta page-width">
+    <div class="homepage-community__cta-title-container py-12 md:pt-0">
+      <h2 class="homepage-community__cta-title  font-bold">
+        {{ cta_title | replace: '[', '<span>' | replace: ']', '</span>' }}
+      </h2>
+      {% if cta_subtitle != blank %}
+        <p class="homepage-community__cta-subtitle font-Aksen">
+          {{ cta_subtitle }}
+        </p>
+      {% endif %}
+      {% if cta_button_text != blank and cta_button_link != blank %}
+        <a href="{{ cta_button_link }}" class="btn btn-scheme btn-secondary">
+          {{ cta_button_text }}
+        </a>
+      {% endif %}
+    </div>
+    {% if section.settings.cta_image != blank %}
+      <div class="homepage-community__cta-image">
+        {{
+          section.settings.cta_image
+          | image_url: width: section.settings.cta_image.width
+          | image_tag: loading: 'lazy'
+        }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="homepage-community__bottom">
+    {% if section.settings.bottom_text != blank %}
+      <h3 class="homepage-community__bottom-text">{{ section.settings.bottom_text }}</h3>
+    {% endif %}
+    {% if section.settings.bottom_button_label != blank %}
+      <a
+        {% if section.settings.bottom_button_link != blank %}
+          href="{{ section.settings.bottom_button_link }}"
+        {% else %}
+          role="link" aria-disabled="true"
+        {% endif %}
+        class="homepage-community__bottom-button btn btn-scheme btn-secondary"
+      >
+        {{ section.settings.bottom_button_label }}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Community",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "we're [all in]for good food access"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Call To Action Settings"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Title",
+      "default": "Cta title"
+    },
+    {
+      "type": "text",
+      "id": "cta_subtitle",
+      "label": "Subtitle",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Button Text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Url"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "CTA Image"
+    },
+    {
+      "type": "header",
+      "content": "Section bottom settings"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Text",
+      "default": "Nominate our next partner!"
+    },
+    {
+      "type": "url",
+      "id": "bottom_button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "bottom_button_label",
+      "label": "Button Text",
+      "default": "Support good food access"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Community",
+    }
+  ]
+}
+{% endschema %}

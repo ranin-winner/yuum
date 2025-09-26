@@ -1,0 +1,313 @@
+<section class="nutrition-label vertical-label">
+  <div class="nutrition-row">
+    <div class="nutrition-column">
+      <header class="nutrition-header">
+        <h2 class="nutrition-facts border-b">Nutrition Facts</h2>
+        <div class="nutrition-row">
+          <div class="nutrition-column">
+            <div class="servings">{{ nutrition.servings_per_container.value }} {{ 'servings per container' | t }}</div>
+
+            <div class="text-md text-bold show-tablet">{{ 'nutrition.serving_size' | t }}</div>
+          </div>
+        </div>
+        <div class="nutrition-row border-b-lg border-b-tablet">
+          <div class="nutrition-column hide-tablet">
+            <div class="text-md text-bold">{{ 'nutrition.serving_size' | t }}</div>
+          </div>
+          <div class="nutrition-column">
+            <div class="text-md text-bold text-right text-left-tablet">{{ nutrition.serving_size.value }}</div>
+          </div>
+        </div>
+        <div class="nutrition-row border-b-md border-b-none-tablet">
+          <div class="nutrition-column text-bold">
+            <div class="text-sm hide-tablet">Amount per serving</div>
+            <div class="calories">{{ 'nutrition.calories' | t }}</div>
+            <div class="text-sm show-tablet">per serving</div>
+          </div>
+          <div class="nutrition-column calories amount align-bottom text-right">
+            {{ nutrition.calories.value }}
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="nutrition-column">
+      <div class="nutrition-row">
+        <div class="nutrition-column">
+          <div class="nutrition-row border-b border-b-md-tablet">
+            <div class="nutrition-column text-bold text-sm show-tablet">
+              Amount/serving
+            </div>
+            <div class="nutrition-column text-right text-bold text-sm">
+              % Daily Value *
+            </div>
+          </div>
+          <div class="nutrition-row border-b">
+            <div class="nutrition-column">
+              <span class="text-bold">{{ 'nutrition.total_fat' | t }}</span> {{ nutrition.total_fat.value | split: "/" | first | strip }}
+            </div>
+            <div class="nutrition-column text-bold text-right">
+              {{ nutrition.total_fat.value | split: "/" | last | strip }}
+            </div>
+          </div>
+          <div class="nutrition-row border-b">
+            <div class="nutrition-column">
+              <span class="text-indent"> {{ 'nutrition.saturated_fat' | t }} {{ nutrition.saturated_fat.value | split: "/" | first | strip }}</span>
+            </div>
+            <div class="nutrition-column text-bold text-right">
+              {{ nutrition.saturated_fat.value | split: "/" | last | strip }}
+            </div>
+          </div>
+          <div class="nutrition-row border-b">
+            <div class="nutrition-column">
+              <span class="text-indent">
+                    <i>{{ 'nutrition.trans_fat' | t }}</i> {{ nutrition.trans_fat.value | split: "/" | first | strip }}</span>
+            </div>
+            <div class="nutrition-column text-bold text-right">
+            </div>
+          </div>
+          <div class="nutrition-row border-b">
+            <div class="nutrition-column">
+              <span class="text-bold">{{ 'nutrition.cholesterol' | t }}</span> {{ nutrition.cholesterol.value | split: "/" | first | strip }}
+            </div>
+            <div class="nutrition-column text-bold text-right">
+             {{ nutrition.cholesterol.value | split: "/" | last | strip }}
+            </div>
+          </div>
+          <div class="nutrition-row border-b border-b-md-tablet">
+            <div class="nutrition-column">
+              <span class="text-bold">{{ 'nutrition.sodium' | t }}</span> {{ nutrition.sodium.value | split: "/" | first | strip }}
+            </div>
+            <div class="nutrition-column text-bold text-right">
+              {{ nutrition.sodium.value | split: "/" | last | strip }}
+            </div>
+          </div>
+        </div>
+        <div class="nutrition-column">
+          <div class="nutrition-row border-b-md show-tablet">
+            <div class="nutrition-column text-bold text-sm">
+              Amount/serving
+            </div>
+            <div class="nutrition-column text-right text-bold text-sm">
+              % Daily Value *
+            </div>
+          </div>
+          <div class="nutrition-row border-b">
+            <div class="nutrition-column">
+              <span class="text-bold">{{ 'nutrition.total_carbohydrate' | t }}</span> {{ nutrition.total_carbohydrate.value | split: "/" | first | strip }}
+            </div>
+            <div class="nutrition-column text-bold text-right">
+              {{ nutrition.total_carbohydrate.value | split: "/" | last | strip }}
+            </div>
+          </div>
+          <div class="nutrition-row border-b">
+            <div class="nutrition-column">
+              <span class="text-indent">{{ 'nutrition.dietary_fiber' | t }} {{ nutrition.dietary_fiber.value | split: "/" | first | strip }}</span>
+            </div>
+            <div class="nutrition-column text-bold text-right">
+              {{ nutrition.dietary_fiber.value | split: "/" | last | strip }}
+            </div>
+          </div>
+          <div class="nutrition-row">
+            <div class="nutrition-column">
+              <span class="text-indent">{{ 'nutrition.total_sugar' | t }} {{ nutrition.total_sugar.value | split: "/" | first | strip }}</span>
+            </div>
+            <div class="nutrition-column text-bold text-right">
+            </div>
+          </div>
+          <div class="nutrition-row text-indent-md border-t-sm">
+            <div class="nutrition-column">
+              {% assign added_sugar_grams = nutrition.added_sugars | split: "/" | first | strip %}
+              {{ 'nutrition.added_sugars' | t | replace: '[value]',  added_sugar_grams }}
+            </div>
+            <div class="nutrition-column text-bold text-right">
+              {{ nutrition.added_sugars.value | split: "/" | last | strip }}
+            </div>
+          </div>
+          <div class="nutrition-row border-t-sm border-b-lg border-b-md-tablet">
+            <div class="nutrition-column">
+              <span class="text-bold">{{ 'nutrition.protein' | t }}</span> {{ nutrition.protein.value | split: "/" | first | strip }}
+            </div>
+            <div class="nutrition-column text-bold text-right">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nutrition-row">
+        <div class="nutrition-column vitamins">
+          <span class="nutrition-column-item">{{ 'nutrition.vitamin_d' | t }} {{ nutrition.vitamin_d.value }}</span>
+          <span class="nutrition-column-item">• {{ 'nutrition.calcium' | t }} {{ nutrition.calcium.value }}</span>
+          <span class="nutrition-column-item">• {{ 'nutrition.iron' | t }} {{ nutrition.iron.value }}</span>
+          <span class="nutrition-column-item">• {{ 'nutrition.potassium' | t }} {{ nutrition.potassium.value }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="nutrition-column">
+      <footer class="nutrition-footer">
+        <div class="asteric">*</div>
+        <div class="footnote">
+          {{ 'nutrition.daily_value' | t }}
+        </div>
+      </footer>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+ <div class="nutrition-table">
+  <div class="nutrition-table__header">
+    <h2 class="nutrition-table__title h1">{{ 'nutrition.header' | t }}</h2>
+    <p> {{ nutrition.servings_per_container.value }} {{ 'nutrition.servings_per_container' | t }}</p>
+    <p class="nutrition-table__serving_size"><b>{{ 'nutrition.serving_size' | t }}</b> <b>{{ nutrition.serving_size.value }}</b></p>
+  </div>
+  <table class="nutrition-table__table">
+    <thead>
+      <tr>
+
+          <b>Amount Per Serving</b>
+
+      </tr>
+      <tr>
+        <th class="h1" colspan="2">
+          <b>{{ 'nutrition.calories' | t }}</b>
+        </th>
+        <td class="h1">
+         <b> {{ nutrition.calories.value }}</b>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="thick-row">
+        <td colspan="3" class="small-info">
+          <b>% Daily Value*</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>{{ 'nutrition.total_fat' | t}}</b>
+          {{ nutrition.total_fat.value | split: "/" | first | strip }}
+        </th>
+        <td>
+          <b>{{ nutrition.total_fat.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          {{ 'nutrition.saturated_fat' | t }}
+          {{ nutrition.saturated_fat.value | split: "/" | first | strip }}
+        </th>
+        <td>
+          <b>{{ nutrition.saturated_fat.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          {{ 'nutrition.trans_fat' | t }}
+           {{ nutrition.trans_fat.value | split: "/" | first | strip }}
+        </th>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b> {{ 'nutrition.cholesterol' | t }}</b>
+          {{ nutrition.cholesterol.value | split: "/" | first | strip }}
+        </th>
+        <td>
+          <b>{{ nutrition.cholesterol.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>{{ 'nutrition.sodium' | t }}</b>
+          {{ nutrition.sodium.value | split: "/" | first | strip }}
+        </th>
+        <td>
+          <b>{{ nutrition.sodium.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>{{ 'nutrition.total_carbohydrate' | t }}</b>
+          {{ nutrition.total_carbohydrate.value | split: "/" | first | strip }}
+        </th>
+        <td>
+          <b>{{ nutrition.total_carbohydrate.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          {{ 'nutrition.dietary_fiber' | t }}
+          {{ nutrition.dietary_fiber.value | split: "/" | first | strip }}
+        </th>
+        <td>
+          <b>{{ nutrition.dietary_fiber.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          {{ 'nutrition.total_sugar' | t }}
+          {{ nutrition.total_sugar.value | split: "/" | first | strip }}
+        </th>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          {% assign added_sugar_grams = nutrition.added_sugars | split: "/" | first | strip %}
+          {{ 'nutrition.added_sugars' | t | replace: '[value]',  added_sugar_grams }}
+        </th>
+        <td>
+          <b>{{ nutrition.added_sugars.value | split: "/" | last | strip }}</b>
+        </td>
+      </tr>
+      <tr class="thick-end">
+        <th colspan="2">
+          <b>{{ 'nutrition.protein' | t }}</b>
+          {{ nutrition.protein.value | split: "/" | first | strip }}
+        </th>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="nutrition-table__table--grid">
+    <tbody>
+      <tr>
+        <td colspan="2">
+          {{ 'nutrition.vitamin_d' | t }}
+          {{ nutrition.protein.value }}
+        </td>
+        <td>
+          {{ 'nutrition.calcium' | t }}
+          {{ nutrition.calcium.value }}
+        </td>
+      </tr>
+      <tr class="thin-end">
+        <td colspan="2">
+          {{ 'nutrition.iron' | t }}
+          {{ nutrition.iron.value }}
+        </td>
+        <td>
+          {{ 'nutrition.potassium' | t }}
+          {{ nutrition.potassium.value }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="small-info">{{ 'nutrition.daily_value' | t }}</p>
+
+
+</div> {% endcomment %}

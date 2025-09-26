@@ -1,0 +1,143 @@
+<div class="bg-[#1D49CA] text-white py-8 px-4 lg:py-32 lg:px-4 flex flex-col items-center">
+  <div class="container flex flex-col justify-center items-center gap-8">
+    <div class="flex flex-col-reverse lg:flex-row justify-center gap-8 lg:gap-32 w-full">
+      <div class="space-y-4 w-full lg:w-1/4 text-center lg:text-start">
+        {% for link in section.settings.footer_menu_1.links %}
+          <a href="{{ link.url }}" class="block text-white font-plusJakarta font-semibold">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="space-y-4 w-full lg:w-1/4 text-center lg:text-start">
+        {% for link in section.settings.footer_menu_2.links %}
+          <a href="{{ link.url }}" class="block text-white font-plusJakarta font-semibold">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="space-y-4 w-full lg:w-1/2">
+        <h3 class="text-white font-plusJakarta text-base py-2 font-semibold text-center lg:text-start">{{ section.settings.newsletter_title }}</h3>
+        {% form 'customer', class: 'flex flex-col py-2 lg:flex-row gap-2 w-full lg:w-[400px] px-8 lg:px-0' %}
+          <input
+            type="email"
+            name="contact[email]"
+            class="flex-1 px-2 py-3 rounded-xl text-white bg-transparent border-2 border-white"
+            placeholder="{{ section.settings.newsletter_placeholder }}"
+            required
+          >
+          <button
+            type="submit"
+            class="bg-white text-color_1 text-xl px-12 py-3 rounded-xl hover:bg-gray-100 transition-colors font-plusJakarta font-bold mt-2 lg:mt-0 lg:ml-4"
+          >
+            {{ section.settings.newsletter_button_text }}
+          </button>
+        {% endform %}
+
+        <div class="mt-6 flex lg:flex-row items-center justify-center lg:items-start lg:justify-start">
+          <p class="text-white font-plusJakarta font-semibold lg:pt-4">{{ section.settings.social_title }}</p>
+          <div class="flex">
+            {% for block in section.blocks %}
+              {% if block.type == 'social_icon' %}
+                <a href="{{ block.settings.social_link }}" class="hover:opacity-80 px-4 lg:pt-4">
+                  {% if block.settings.social_icon != blank %}
+                    <img src="{{ block.settings.social_icon | img_url: '50x50' }}" alt="{{ block.settings.social_name }}" width="25" height="25">
+                  {% else %}
+                    <p>{{ block.settings.social_name }}</p>
+                  {% endif %}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 text-base lg:text-xl flex flex-col lg:flex-row gap-4 lg:gap-24 items-center lg:justify-start lg:pt-8">
+      <p class="font-plusJakarta font-normal text-center lg:text-left">{{ section.settings.copyright_text }}</p>
+      {% for link in section.settings.footer_menu_3.links %}
+        <a href="{{ link.url }}" class="hover:text-gray-200 font-plusJakarta font-normal">{{ link.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Footer custom",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "footer_menu_1",
+      "label": "Footer Menu 1"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_2",
+      "label": "Footer Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Sign up to get email updates"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter Placeholder",
+      "default": "email@gmail.com"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Newsletter Button Text",
+      "default": "SIGN UP"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social Media Title",
+      "default": "Follow Us:"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2023 Shop Name | All Rights Reserved"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_3",
+      "label": "Footer Menu 3 (Bottom)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_icon",
+      "name": "Social Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "social_name",
+          "label": "Social Media Name",
+          "default": "Instagram"
+        },
+        {
+          "type": "url",
+          "id": "social_link",
+          "label": "Social Media Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "social_icon",
+          "label": "Social Media Icon"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer custom",
+      "category": "Footer custom"
+    }
+  ]
+}
+{% endschema %}

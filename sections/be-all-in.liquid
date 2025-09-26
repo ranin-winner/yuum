@@ -1,0 +1,119 @@
+{% render 'entry' with '@/styles/sections/be-all-in.scss' %}
+
+<div
+  id="section-{{ section.id }}"
+  class="
+  be-all-in-section
+  palette-{{ section.settings.color_scheme }}
+  bg-scheme-bg">
+  <div class="page-width">
+{% if section.settings.background_image %}
+    <div class="background-wrapper" style="background-image: url({{ section.settings.background_image | image_url }}); ">
+{% else %}
+    <div class="background-wrapper">
+{% endif %}
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="grow content min-w-full md:min-w-0.5">
+          <h2 class="text-5xl font-bold font-Gazpacho text-scheme-secondary">{{ section.settings.title }}</h2>
+          <h3 class="text-scheme-primary">{{ section.settings.subtitle }}</h3>
+          <div class="copy text-scheme-primary">
+            {{ section.settings.copy }}
+          </div>
+
+          <div class="copy">
+          {% if section.settings.button_text_1 != blank %}
+            <a href="{{ section.settings.button_url_1 }}" class="btn btn-scheme btn-secondary">
+              {{ section.settings.button_text_1 }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button_text != blank %}
+            <a href="{{ section.settings.button_url }}" class="btn btn-scheme btn-secondary">
+              {{ section.settings.button_text }}
+            </a>
+          {% endif %}
+          </div>
+        </div>
+        <div class="grow empty"></div>
+      </div>
+    </div>
+    {% if section.settings.background_image %}
+      </div>
+    {% else %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+
+<style>
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Be All In",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Be All In"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Join a Movement that</p><p><i>Makes a Difference</i></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "copy",
+      "label": "Copy",
+      "default": "<p>At All In, we believe that food has the power to connect us. From family dinners to community potlucks, food is a universal way to share joy and build bonds.</p><p>That's why we're committed to supporting local communities by giving back 2% of our sales to increase food access.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "try them all for free"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL",
+      "default": "/"
+    },
+    {
+      "type": "text",
+      "id": "button_text_1",
+      "label": "Button Text",
+      "default": "SUBscribe & Save"
+    },
+    {
+      "type": "url",
+      "id": "button_url_1",
+      "label": "Button URL",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Be All In",
+    }
+  ]
+}
+{% endschema %}

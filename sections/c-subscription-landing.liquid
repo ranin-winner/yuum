@@ -1,0 +1,76 @@
+<section class="
+  palette-{{ section.settings.color_scheme }}
+  py-8
+  md:py-24
+  bg-scheme-bg"
+>
+  <div class="container">
+    <h2 class="text-4xl font-Gazpacho mb-10 text-center text-scheme-primary">{{ section.settings.title_section }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for block in section.blocks %}
+        <div class="text-center shadow-regular rounded-regular bg-white-bg p-6">
+          <div class="text-scheme-primary font-Aksen font-bold text-baseBig">
+            {{ block.settings.title }}
+          </div>
+          <div class="text-baseBig text-scheme-primary">
+            {{ block.settings.content }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Subscription Landing",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "richtext",
+      "id": "title_section",
+      "label": "Title",
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subscription_item",
+      "name": "Subscription Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+        },
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Content Subscription",
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subscription Landing",
+      "blocks": [
+        {
+          "type": "subscription_item"
+        },
+        {
+          "type": "subscription_item"
+        },
+        {
+          "type": "subscription_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,147 @@
+{% render 'entry' with '@/styles/sections/footer-image-carousel.scss' %}
+
+{% style %}
+  .section-{{ section.id }} .homepage-image-carousel__header {
+      background-color: {{ section.settings.title_background_color }};
+  }
+  .section-{{ section.id }} .homepage-image-carousel__header::before {
+    border-top-color: {{ section.settings.title_background_color }};
+    background-color: {{ section.settings.background_color }};
+  }
+  .section-{{ section.id }} .homepage-image-carousel__container{
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .section-{{ section.id }} .homepage-image-carousel__content::after {
+
+  }
+
+  .homepage-image-carousel__footer {
+    position: relative;
+    background-color: {{ section.settings.background_color }};
+    width: 100%;
+    height: 200px;
+    content: "";
+  }
+
+  .homepage-image-carousel__footer-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-size: 38px;
+    color: {{ section.settings.title_background_color }};
+    font-family: var(--font-body-family);
+  }
+{% endstyle %}
+<div class="homepage-image-carousel section-{{ section.id }}">
+  <div class="homepage-image-carousel__content" >
+    <div class="homepage-image-carousel__header" {% if settings.animations_reveal_on_scroll %}scroll-trigger animate--slide-in{% endif %}">
+      {% if section.settings.title != blank %}
+        {% render 'heart-icon' %}
+        <h2 class="homepage-image-carousel__title text-color_3 font-Gazpacho ">{{ section.settings.title }}</h2>
+      {% endif %}
+    </div>
+    <div class="homepage-image-carousel__footer">
+      <h2 class="homepage-image-carousel__footer-title">{{ section.settings.footer_title }}</h2>
+    </div>
+  </div>
+</div>
+
+{% if section.blocks.size > 0 %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        new KeenSlider('.section-{{ section.id }} .homepage-image-carousel__container', {
+          loop: true,
+          slides: {
+            origin: 'center',
+            perView: 4.5,
+            spacing: 20
+          },
+          breakpoints: {
+            '(max-width: 991px)': {
+              slides: {
+                perView: 3.5,
+                spacing: 20,
+                origin: 'center',
+              }
+            },
+            '(max-width: 767px)': {
+              slides: {
+                perView: 2.5,
+                spacing: 20,
+                origin: 'center',
+              }
+            },
+            '(max-width: 480px)': {
+              slides: {
+                perView: 1.5,
+                spacing: 20,
+                origin: 'center',
+              }
+            }
+          }
+        });
+      });
+    </script>
+{% endif %}
+{% schema %}
+{
+  "name": "Footer Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "coming to a store near you"
+    },
+    {
+      "type": "text",
+      "id": "footer_title",
+      "label": "Footer Title",
+      "default": "Footer"
+    },
+    {
+      "type": "header",
+      "content": "Colors Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#E55454"
+    },
+    {
+      "type": "color",
+      "id": "title_background_color",
+      "label": "Title Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#68185E"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Image Carousel",
+    }
+  ]
+}
+{% endschema %}

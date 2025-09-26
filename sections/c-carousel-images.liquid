@@ -1,0 +1,210 @@
+{% comment %}  {% endcomment %}
+<section class="l-section-carousel">
+  <div class="b-carousel__img py-20"
+    style="
+    background-color: {{ section.settings.bg_section }};
+    color: {{ section.settings.color_text }};"
+  >
+    <!-- Title -->
+    <div class="text-center">
+      <div class="container mx-auto">
+        <div class="max-w-screen-md mx-auto mb-10 px-6">
+          {% if section.settings.title != blank %}
+            <h2
+            class="heading-2 font-cenzo uppercase mb-4"
+            style="color: {{ section.settings.color_title }};"
+            >{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.subtitle != blank %}
+            <p class="text-xl">{{ section.settings.subtitle }}</p>
+          {% endif %}
+        </div>
+
+          {% comment %}  {% endcomment %}
+
+          <div class="relative pt-10">
+            <button id="prev-swiper" class="absolute z-10 left-5 md:-left-16 top-1/2 -translate-y-1/2 w-12 h-12 text-white-content rounded-full transition bg-[#b2e3ff] hover:bg-color_1">
+              <svg class="rotate-180" fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title/><g data-name="Layer 2" id="Layer_2"><path d="M12,25a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42L18.59,16l-7.3-7.29a1,1,0,1,1,1.42-1.42l8,8a1,1,0,0,1,0,1.42l-8,8A1,1,0,0,1,12,25Z"/></g><g id="frame"><rect class="cls-1" height="32" width="32"/></g></svg>
+            </button>
+            <button id="next-swiper" class="
+            absolute z-10 right-5 md:-right-16 top-1/2 -translate-y-1/2 w-12 h-12 text-white-content rounded-full transition bg-[#b2e3ff] hover:bg-color_1">
+              <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title/><g data-name="Layer 2" id="Layer_2"><path d="M12,25a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42L18.59,16l-7.3-7.29a1,1,0,1,1,1.42-1.42l8,8a1,1,0,0,1,0,1.42l-8,8A1,1,0,0,1,12,25Z"/></g><g id="frame"><rect class="cls-1" height="32" width="32"/></g></svg>
+            </button>
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                  {% for block in section.blocks %}
+                      <div class="swiper-slide b-slide px-4">
+                          <div class="b-carousel__img-item">
+                              <figure class="b-carousel__img-item_figure">
+                                  <img
+                                  class="b-carousel__img-item_img"
+                                  src="{{ block.settings.item_image | img_url: 'master' }}"
+                                  alt="{{ block.settings.block_title }}"
+                                  width="70"
+                                  height="70"
+                                  >
+                              </figure>
+                              {% if block.settings.block_title != blank %}
+                                  <h4 class="b-carousel__img-item_title">{{ block.settings.block_title }}</h4>
+                              {% endif %}
+                              {% if block.settings.block_description != blank %}
+                                  <div class="b-carousel__img-item_description">{{ block.settings.block_description }}</div>
+                              {% endif %}
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+            </div>
+        </div>
+        {% if section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="btn btn-primary">{{ section.settings.button_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const swiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 5,
+        spaceBetween: 0,
+        breakpoints: {
+          320: { slidesPerView: 1.4, spaceBetween: 0, centeredSlides: true },
+          768: { slidesPerView: 3, spaceBetween: 0 },
+          1024: { slidesPerView: 5, spaceBetween: 0 },
+        },
+        navigation: {
+          nextEl: '#next-swiper',
+          prevEl: '#prev-swiper',
+        },
+      });
+      if (window.innerWidth <= 767) {
+        // swiper.slideTo(2);
+      }
+    });
+</script>
+  <style>
+    .b-carousel__img {
+        background-color: {{ section.settings.bg_section }};
+        color: {{ section.settings.color_title }};
+    }
+    .b-carousel__img-item_figure {
+      border-radius: 10px;
+      overflow: hidden;
+      padding-bottom: 168%;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .b-carousel__img-item_img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .b-carousel__img-item_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 15px 10px;
+    }
+
+    .b-carousel__img-item_description {
+      font-size: 14px;
+      font-weight: 400;
+      padding: 0 15px;
+    }
+
+    @media (max-width: 767px) {
+      .b-carousel__img-item_title {
+        font-size: 16px;
+      }
+
+      .b-carousel__img-item_description {
+        font-size: 12px;
+      }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Carousel Images Section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_section",
+        "label": "Section Background Color",
+        "default": "transparent"
+      },
+      {
+        "type": "color",
+        "id": "color_title",
+        "label": "Text Color Section",
+        "default": "#1D49CA"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Copy Cpoy Copy"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Section Subtitle",
+        "default": "Copy copy copy copy copy copy copy copy."
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text Color Blocks",
+        "default": "#000000"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Section Button Text",
+        "default": "Review all"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Section Button Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "icon_block",
+        "name": "Icon with text",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "item_image",
+            "label": "Icon Image"
+          },
+          {
+            "type": "text",
+            "id": "block_title",
+            "label": "Block title"
+          },
+          {
+            "type": "text",
+            "id": "block_description",
+            "label": "Block Description"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Carousel Images Section",
+        "category": "Custom"
+      }
+    ]
+  }
+
+  {% endschema %}

@@ -1,0 +1,203 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "c_hero_img_X3JPMY": {
+      "type": "c-hero-img",
+      "settings": {
+        "title": "<p>you’re <strong>ALL IN</strong>vited</p>",
+        "subtitle": "Craveable snacks, quality organic ingredients, positive community impact.",
+        "baner_button": "TRY NOW",
+        "baner_button_link": "#",
+        "image_bg": "shopify://shop_images/desktop-hq-3.png",
+        "image_bg_mobile": "shopify://shop_images/mobile-hq.png",
+        "bg_color": "#b9e1ed",
+        "title_font_size": 72,
+        "title_font_size_mobile": 54,
+        "title_color": "#48a4cb",
+        "subtitle_font_size": 24,
+        "subtitle_font_size_mobile": 18,
+        "text_color": "#1b4c62",
+        "padding_desktop": 30,
+        "padding_mobile": 30,
+        "banner_text_width": "720",
+        "banner_height_desktop": "900",
+        "banner_height_mobile": ""
+      }
+    },
+    "homepage_community_MARQgw": {
+      "type": "homepage-community",
+      "settings": {
+        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
+        "title": "we're [all in]for good food access",
+        "image": "shopify://shop_images/d7ba9bf87d078f92e347ef46bdcb24b2.png",
+        "cta_title": "our INpact",
+        "cta_subtitle": "That’s not a typo. We’re All In for positive impact.",
+        "cta_button_text": "Learn more",
+        "cta_url": "shopify://blogs/partners",
+        "cta_image": "shopify://shop_images/e921fe8e16abd3bd2f4969791d9f9347.png",
+        "bottom_text": "Nominate our next partner!",
+        "bottom_button_link": "shopify://pages/contact",
+        "bottom_button_label": "Support good food access"
+      }
+    },
+    "product_custom_section_V938Vn": {
+      "type": "product-custom-section",
+      "settings": {
+        "products_list": [
+          "best-sellers-variety-pack",
+          "chocolate-chip",
+          "madagascar-vanilla-honey-almond",
+          "nut-seed-variety-pack",
+          "peruvian-dark-chocolate-peanut-butter",
+          "smores",
+          "whole-grain-variety-pack"
+        ],
+        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>",
+        "color_scheme": "scheme-951c1d93-12b5-4f78-b84c-2e55165ed91d",
+        "show_bottom_panel": true,
+        "bottom_text": "Not sure where to start?",
+        "button_text": "TRY THEM ALL",
+        "button_link": "shopify://products/best-sellers-variety-pack"
+      }
+    },
+    "c_rotating_icon_strip_RDBxaK": {
+      "type": "c-rotating-icon-strip",
+      "blocks": {
+        "icon_GkYAAK": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Food-Network-Emblem.png",
+            "icon_alt_text": "",
+            "text": ""
+          }
+        },
+        "icon_YXaRjY": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/4658fa1ba20894f851a49353cea06837.png",
+            "icon_alt_text": "",
+            "text": ""
+          }
+        },
+        "icon_93GrMj": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/time-logo-black-transparent.png",
+            "icon_alt_text": "",
+            "text": ""
+          }
+        },
+        "icon_GNDK6G": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Fast_Company_logo_svg.webp",
+            "icon_alt_text": "",
+            "text": ""
+          }
+        },
+        "icon_DzF4zP": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Forbes-logo.png",
+            "icon_alt_text": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_GkYAAK",
+        "icon_YXaRjY",
+        "icon_93GrMj",
+        "icon_GNDK6G",
+        "icon_DzF4zP"
+      ],
+      "settings": {
+        "text_section": "previously featured on",
+        "number_repetitions": 2,
+        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
+        "width_item": 200
+      }
+    },
+    "reviews_section_8V6TLA": {
+      "type": "reviews-section",
+      "blocks": {
+        "review_FGMPk9": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/vanilla_almond.png",
+            "review_text": "\"These bars are seriously craveable, and I love that they’re organic! The Madagascar Vanilla is my favorite – it’s just the right amount of sweet without being too sugary.\"",
+            "reviewer_name": "Tina H."
+          }
+        },
+        "review_rbXxHH": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/chocolate-chip-2.png",
+            "review_text": "\"I can always count on these bars to keep me fueled during a busy day. They’re packed with flavor, made with organic ingredients, and I love knowing they’re a healthier option.\"",
+            "reviewer_name": "Molly F."
+          }
+        },
+        "review_JBCUGV": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/smores.png",
+            "review_text": "\"As someone with nut allergies, it’s hard to find snacks I can trust. I was so excited to find these nut-free bars that taste amazing! My kids love them too!\"",
+            "reviewer_name": "James T."
+          }
+        }
+      },
+      "block_order": [
+        "review_FGMPk9",
+        "review_rbXxHH",
+        "review_JBCUGV"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/bg-testi.jpg",
+        "button_text": "TRY NOW",
+        "button_link": "#",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "be_all_in_zydCgB": {
+      "type": "be-all-in",
+      "settings": {
+        "background_image": "shopify://shop_images/girl.png",
+        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
+        "title": "Subscribe & be",
+        "subtitle": "<p>ALL IN</p>",
+        "copy": "<p><strong>Get 10% off and free shipping on every order<br/></strong><br/><strong>Give Back</strong><br/>You’re getting a lot more than a delicious bar. Every purchase supports an organization working to increase good, nutritious food access in our backyard and yours.<br/><br/><strong>Total Flexibility </strong><br/>Edit your subscription anytime. Add, swap, skip or cancel with no commitment.</p>",
+        "button_text": "",
+        "button_url": "shopify://products/trial-kit",
+        "button_text_1": "Subscribe & Save",
+        "button_url_1": "shopify://products/trial-kit"
+      }
+    },
+    "footer_image_carousel_g98qVQ": {
+      "type": "footer-image-carousel",
+      "settings": {
+        "title": "coming to a store near you",
+        "footer_title": "",
+        "background_color": "#e55454",
+        "title_background_color": "#ffffff",
+        "text_color": "#e55454"
+      }
+    }
+  },
+  "order": [
+    "c_hero_img_X3JPMY",
+    "homepage_community_MARQgw",
+    "product_custom_section_V938Vn",
+    "c_rotating_icon_strip_RDBxaK",
+    "reviews_section_8V6TLA",
+    "be_all_in_zydCgB",
+    "footer_image_carousel_g98qVQ"
+  ]
+}

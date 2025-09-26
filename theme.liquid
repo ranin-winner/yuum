@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js antialiased scroll-smooth" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {% if shop.brand.logo != blank %}
+      <link rel="icon" type="image/png" href="{{ shop.brand.logo | image_url: width: 32, height: 32 }}">
+    {% endif %}
+
+    <title>{{ page_title }}</title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <script>
+      // window.shopUrl = '{{ request.origin }}';
+      // window.routes = {
+      //   cart_add_url: '{{ routes.cart_add_url }}',
+      //   cart_change_url: '{{ routes.cart_change_url }}',
+      //   cart_update_url: '{{ routes.cart_update_url }}',
+      //   cart_url: '{{ routes.cart_url }}',
+      //   predictive_search_url: '{{ routes.predictive_search_url }}',
+      //   product_recommendations_url: '{{ routes.product_recommendations_url }}',
+      // };
+
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {% render 'typography' %}
+    {% render 'entry' with 'index.js' %}
+
+    {{ content_for_header }}
+
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="grid min-h-svh">
+    <header
+      id="id_header"
+      class="
+            bg-white
+        sticky
+        top-0
+        z-50
+        b-header
+        font-plusJakarta
+        font-semibold
+      ">
+      {% include 'header' %}
+    </header>
+    <main
+      id="MainContent"
+      class="flex flex-col outline-none overflow-x-hidden max-w-full"
+      tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <footer class="">
+      {% comment %} {{ powered_by_link }} {% endcomment %}
+      {% include 'footer' %}
+    </footer>
+  </body>
+</html>

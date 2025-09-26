@@ -1,0 +1,118 @@
+<section
+  class="b-products_carousel py-10 px-0 md:px-5"
+  id="{{ section.id }}-products_carousel"
+>
+
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="text-3xl font-bold text-center mb-6">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.blocks.size > 4 %}
+      <div id="swiper-container-{{ section.id }}" class="swiper-container">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              {% render 'product-grid-item', product: block.settings.product %}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {% for block in section.blocks %}
+          <div>
+            {% render 'product-grid-item', product: block.settings.product %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <style>
+    #{{ section.id }}-products_carousel.b-products_carousel {
+      background-color: {{ section.settings.background_color }};
+    }
+
+
+    @media (max-width: 767px) {
+        #{{ section.id }}-products_carousel.b-products_carousel .swiper-button-next,
+        #{{ section.id }}-products_carousel.b-products_carousel .swiper-button-prev {
+          display: none;
+        }
+    }
+
+    .swiper-container {
+      width: 100%;
+      padding: 1rem;
+    }
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #000;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (document.querySelector('#swiper-container-{{ section.id }}')) {
+        new Swiper('#swiper-container-{{ section.id }}', {
+          slidesPerView: 4,
+          spaceBetween: 16,
+          loop: true,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          breakpoints: {
+            320: { slidesPerView: 1.4, spaceBetween: 0, centeredSlides: true },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+          },
+        });
+      }
+    });
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Product Selection Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Choose Your Products"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Carousel",
+    }
+  ]
+}
+{% endschema %}

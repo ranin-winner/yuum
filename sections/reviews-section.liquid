@@ -1,0 +1,168 @@
+{% render 'entry' with '@/styles/sections/review-section.scss' %}
+
+<section
+  id="reviews-section-{{ section.id }}"
+  class="reviews-section palette-{{ section.settings.color_scheme }}"
+>
+  <div class="reviews-section__background" style="background-image: url('{{ section.settings.background_image | img_url: 'master' }}');">
+    <div class="container m-responsive relative swiper-box">
+      <div class="reviews-slider__arrows">
+        <div class="swiper-button-next !bg-scheme-primary"></div>
+        <div class="swiper-button-prev !bg-scheme-primary"></div>
+      </div>
+    <div
+      id="swiper-container-{{ section.id }}"
+      class="
+      reviews-section__container
+      swiper-container
+      bg-scheme-bg
+      "
+    >
+
+      <div class="reviews-slider swiper-wrapper">
+        {% for block in section.blocks %}
+          {% if block.type == 'review' %}
+            <div class="reviews-slide swiper-slide">
+              <div class="reviews-slide__container">
+                <div class="reviews-slide__content">
+                  <div class="reviews-slide__image">
+                    {% render 'image'
+                      with block.settings.product_image,
+                      class: 'aspect-square',
+                      lazyload: true,
+                      placeholder: 'image'
+                      fetchpriority: 'auto',
+                      decoding="async"
+                    %}
+                    {% comment %} <img src="{{ block.settings.product_image | img_url: 'master' }}" alt="{{ block.settings.product_image.alt | escape }}"> {% endcomment %}
+                  </div>
+                  <div class="reviews-slide__text">
+                    <div class="reviews-slide__stars">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--theme-color-secondary)"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--theme-color-secondary)"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--theme-color-secondary)"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--theme-color-secondary)"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--theme-color-secondary)"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                    </div>
+                    <p class="reviews-slide__quote text-xl font-bold text-scheme-primary">{{ block.settings.review_text }}</p>
+                    <p class="reviews-slide__name text-base font-bold text-scheme-primary">— {{ block.settings.reviewer_name }}</p>
+                    <div class="reviews-section__button-wrapper">
+                      <a href="{{ section.settings.button_link }}" class="btn btn-scheme btn-primary">
+                        {{ section.settings.button_text }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="reviews-slider__dots"></div>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const swiperContainer = document.querySelector('#swiper-container-{{ section.id }}');
+      const swiper = new Swiper(swiperContainer, {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        breakpoints: {
+          320: { slidesPerView: 1, spaceBetween: 0, centeredSlides: true },
+          768: { slidesPerView: 1, spaceBetween: 0 },
+        },
+        navigation: {
+          nextEl: '#reviews-section-{{ section.id }} .swiper-button-next',
+          prevEl: '#reviews-section-{{ section.id }} .swiper-button-prev',
+        },
+        pagination: {
+          el: '.reviews-slider__dots',
+          clickable: true,
+        },
+      });
+    });
+  </script>
+
+  <style>
+    #reviews-section-{{ section.id }} .reviews-slide__quote {
+      color: {{ section.settings.text_color }};
+    }
+
+    #reviews-section-{{ section.id }} .reviews-slide__name {
+      color: {{ section.settings.text_color }};
+    }
+  </style>
+
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "TRY NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Section",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

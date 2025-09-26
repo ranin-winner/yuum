@@ -1,0 +1,257 @@
+<style>
+  .build-box-btn {
+    background-color: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+  }
+</style>
+<section
+  x-data="buildBox(maxItems = {{ section.settings.max_box_items }}, minItems = {{ section.settings.min_box_items }})"
+  id="productSection"
+  class="w-full bg-[#c3e6fa] py-10 px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 md:mt-20 lg:mt-24">
+  <div class="flex flex-col {{ section.settings.content_position | default: 'lg:flex-row' }} gap-8 lg:relative container mx-auto">
+    <!-- Build Your Box block -->
+    <div class="lg:w-[70%] bg-white rounded-lg shadow-md p-6">
+      <h2
+        class="text-2xl sm:text-4xl md:text-4xl font-bold font-cenzo mb-2 text-center"
+        style="color: {{ section.settings.title_color }};">
+        {{ section.settings.title | default: 'Build Your Box' }}
+      </h2>
+      <p class="text-center mb-8 text-black font-plusJakarta font-semibold">
+        {{ section.settings.subtitle | default: 'Copy here copy here copy here copy here copy here.' }}
+      </p>
+      <div class="grid grid-cols-{{ section.settings.mobile_columns }} sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% if section.settings.collection %}
+          {% assign collection = section.settings.collection %}
+
+          {% if collection.products.size > 0 %}
+            {% for product in collection.products %}
+              <div class="flex flex-col rounded-lg overflow-hidden border-4 border-[#c3e6fa]  transition-shadow duration-300 hover:shadow-lg">
+                <div class="relative w-full h-0 pb-[100%]">
+                  <img
+                    src="{{ product.featured_image | img_url: '300x300', crop: 'center' }}"
+                    alt="{{ product.title }}"
+                    class="absolute top-0 left-0 w-full object-cover border-b-4 border-[#AEE1FF] bg-[#E5F5FF]"
+                    width="300"
+                    height="300">
+                </div>
+                <div class="p-4 flex flex-col items-center">
+                  <h4 class="text-base font-plusJakarta font-semibold mb-6">{{ product.title }}</h4>
+                  <div class="flex items-center gap-8 py-2 justify-between border-2 rounded-lg border-[#c3e6fa] px-1">
+                    <button
+                      class="quantity-btn minus text-black w-6 h-6 font-bold font-cenzo"
+                      type="button"
+                      @click="decreaseQuantity({{product.first_available_variant.id}})">
+                      -
+                    </button>
+                    <span
+                      class="mx-2 font-bold font-cenzo"
+                      x-text="getQuantity({{product.first_available_variant.id}})"></span>
+                    <button
+                      class="quantity-btn plus text-black w-6 h-6 font-bold font-cenzo"
+                      :class="{ 'cursor-not-allowed !text-[#b8b8b8]': build_box_total_quantity === maxItems }"
+                      type="button"
+                      x-bind:disabled="build_box_total_quantity === maxItems"
+                      @click="addItem({{product.first_available_variant.id}}, '{{ product.title | escape }}', '{{ product.featured_image | img_url: '100x100', crop: 'center' }}')">
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="col-span-full text-center text-gray-600 py-8">No products found in this collection.</p>
+          {% endif %}
+        {% else %}
+          <p class="col-span-full text-center text-gray-600 py-8">No collection selected.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:absolute lg:top-0 lg:left-[calc(70%+15px)] lg:bottom-0 lg:right-0 ">
+      <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
+        <h3 class="text-2xl font-bold mb-4 text-center">Your Box</h3>
+        <!-- Progress Bar -->
+        <div class="relative mb-6">
+          <div class="overflow-hidden h-[12px] text-xs flex rounded bg-[#E5F5FF] items-center">
+            <div
+              id="progressBar"
+              x-ref="progressBar"
+              class="shadow-none flex text-center whitespace-nowrap text-white justify-start bg-[#AEE1FF] items-center h-full transition-all ease-in-out"
+              style="width: 0%;">
+              <div
+                class="w-8 h-8 rounded-full text-white flex items-center justify-center text-[12px] font-bold absolute left-[calc(33%-12px)]"
+                :class="build_box_total_quantity >= minItems ? 'bg-[#AEE1FF]' : 'bg-[#C3E6FA]'"
+                x-text="minItems"></div>
+              <div
+                class="w-8 h-8 rounded-full text-white flex items-center justify-center text-[12px] font-bold absolute left-[calc(66%-12px)]"
+                :class="build_box_total_quantity >= middleValue ? 'bg-[#AEE1FF]' : 'bg-[#C3E6FA]'"
+                x-text="middleValue"></div>
+              <div
+                class="w-8 h-8 rounded-full text-white flex items-center justify-center text-[12px] font-bold absolute left-[calc(100%-12px)]"
+                :class="build_box_total_quantity >= maxItems ? 'bg-[#AEE1FF]' : 'bg-[#C3E6FA]'"
+                x-text="maxItems"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Your Box block -->
+        <div class="flex flex-col gap-[5px] overflow-y-auto grow bg-[#E5F5FF] rounded-lg p-5">
+          <template x-if="build_box_items.length === 0">
+            <p class="text-center text-gray-600 py-8">No items in your box.</p>
+          </template>
+          <template x-if="build_box_items.length > 0">
+            <ul class="flex flex-col gap-5">
+              <template x-for="item in build_box_items" :key="item.id">
+                <li>
+                  <div class="grid grid-cols-4 gap-4 items-center border-2 rounded-lg bg-white border-[#c3e6fa] p-4">
+                    <div class="col-span-1">
+                      <img :src="item.image" :alt="item.name" class="w-full h-auto" width="" height="">
+                    </div>
+                    <div class="col-span-2 flex flex-col items-start">
+                      <h3 class="text-base font-plusJakarta font-semibold" x-text="item.name"></h3>
+                      <button
+                        type="button"
+                        class="text-color_1 text-sm font-plusJakarta font-semibold hover:text-black-content"
+                        @click="removeItem(item.id)">
+                        remove
+                      </button>
+                    </div>
+                    <div class="col-span-1 flex items-center justify-end">
+                      <div class="flex items-center gap-4 py-2 justify-between border-2 rounded-lg border-[#c3e6fa] px-1">
+                        <button
+                          type="button"
+                          class="quantity-btn minus text-black w-6 h-6 font-bold font-cenzo"
+                          @click="decreaseQuantity(item.id)">
+                          -
+                        </button>
+                        <span class="mx-2 font-bold font-cenzo" x-text="item.quantity"></span>
+                        <button
+                          type="button"
+                          class="quantity-btn plus text-black w-6 h-6 font-bold font-cenzo"
+                          :class="{ 'cursor-not-allowed !text-[#b8b8b8]': build_box_total_quantity === maxItems }"
+                          @click="increaseQuantity(item.id)"
+                          x-bind:disabled="build_box_total_quantity === maxItems">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </template>
+        </div>
+        <div class="mt-6">
+          <div x-data="{ showTooltip: false }" class="relative">
+            <div
+              x-cloak
+              x-show="isOutOfRange() && build_box_total_quantity !== 0"
+              id="tooltipExample"
+              class="absolute -top-16 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded bg-color_1 px-6 py-4 text-center text-sm text-white"
+              role="tooltip"
+              x-transition:enter="transition ease-out"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="transition ease-out"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0">
+              There should be at least {{ section.settings.min_box_items }} items in your box.
+              <div
+                class="absolute top-[100%] left-[50%] translate-x-2/4	w-0 h-0 border-solid border-4 border-[transparent] border-t-color_1"
+                style="--tooltip-bg-color: {{ section.settings.button_color }}"></div>
+            </div>
+          </div>
+          <button
+            @click="addBoxItemsToCart"
+            :class="{ 'cursor-not-allowed !bg-[#b8b8b8]': isOutOfRange() }"
+            x-bind:disabled="isOutOfRange()"
+            class="build-box-btn w-full py-4 text-center font-plusJakarta font-extrabold rounded-lg transition duration-300 text-base">
+            {{ section.settings.button_text | default: 'ADD TO CART' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Build your Box",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title Text",
+      "default": "Build Your Box"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle Text",
+      "default": "Copy here copy here copy here copy here copy here."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "number",
+      "id": "min_box_items",
+      "label": "Minimum box items",
+      "default": 6
+    },
+    {
+      "type": "number",
+      "id": "max_box_items",
+      "label": "Maximum box items",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+        {
+          "label": "Row",
+          "value": "lg:flex-row"
+        },
+        {
+          "label": "Column",
+          "value": "lg:flex-col"
+        }
+      ],
+      "default": "lg:flex-row"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Add to Cart Button Text",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Add to Cart Button Color",
+      "default": "#1D49CA"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Build your box",
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,169 @@
+{% render 'entry' with '@/styles/sections/feature-section-custom.scss' %}
+
+<section
+  class="snack-subscription
+  palette-{{ section.settings.color_scheme }}
+  bg-scheme-bg
+  {% if section.settings.image_full_bleed %}snack-subscription--full-bleed{% endif %}
+   ">
+
+  <div
+    class="snack-subscription__container"
+    style="background-image: url('{{ section.settings.image | img_url: 'master' }}');">
+    <div class="snack-subscription__inner">
+      <h2 class="snack-subscription__header font-Gazpacho">
+        <span class="snack-subscription__header-top text-3xl text-scheme-secondary">
+          {{ section.settings.header_top  | replace: '(', '<i>' | replace: ')', '</i>' }}
+        </span>
+        <span class="snack-subscription__header-bottom text-4xl text-scheme-primary">
+          {{ section.settings.header_bottom  | replace: '(', '<i>' | replace: ')', '</i>' }}
+        </span>
+      </h2>
+      <div class="snack-subscription__header-img">
+        <img
+          src="{{ section.settings.image | img_url: 'large' }}"
+          alt="{{ section.settings.header_top }}"
+        />
+      </div>
+      <div class="snack-subscription__content">
+        <div class="snack-subscription__features">
+          {% for block in section.blocks %}
+            {% if block.type == 'feature' %}
+              <div class="snack-subscription__feature text-scheme-primary">
+                <p class="snack-subscription__feature-title ">{{ block.settings.title }}</p>
+                <p class="snack-subscription__feature-description">{{ block.settings.description }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          {% if section.settings.show_first_button %}
+            <a href="{{ section.settings.button_link }}" class="btn btn-scheme btn-primary flex gap-4">
+              {{ section.settings.button_text }}
+              <span class="button__icon-wrapper">
+                {% render 'icon-arrow' %}
+              </span>
+            </a>
+          {% endif %}
+
+          {% if section.settings.show_second_button %}
+            <a href="{{ section.settings.second_button_link }}" class="btn btn-scheme btn-primary flex gap-4">
+              {{ section.settings.second_button_text }}
+              <span class="button__icon-wrapper">
+                {% render 'icon-arrow' %}
+              </span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Snack Subscription 2",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "header_top",
+      "label": "Header Top Text",
+      "default": "your new favorite"
+    },
+    {
+      "type": "text",
+      "id": "header_bottom",
+      "label": "Header Bottom Text",
+      "default": "snack subscription"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_full_bleed",
+      "label": "Full-width background",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_first_button",
+      "label": "Show First Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "First Button Text",
+      "default": "SUBSCRIBE & SAVE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "First Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_second_button",
+      "label": "Show Second Button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "second_button_text",
+      "label": "Second Button Text",
+      "default": "LEARN MORE"
+    },
+    {
+      "type": "url",
+      "id": "second_button_link",
+      "label": "Second Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Feature description goes here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Snack Subscription 2",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

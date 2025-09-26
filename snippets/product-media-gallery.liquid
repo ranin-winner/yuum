@@ -1,0 +1,35 @@
+<article
+  class="
+  b-product__gallery
+  bg-white
+  shadow-regular
+  rounded-regular
+  "
+  id="b-product__gallery-{{ section.id }}"
+  x-show="!sliderLoading"
+>
+  <div class="swiper-box relative">
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div
+      class="swiper-container !p-0"
+      id="swiper-container-{{ section.id }}"
+    >
+      <div class="swiper-wrapper">
+        {% for image in product.images %}
+          <div class="swiper-slide pb-[100%]">
+            {% render 'image' with image,
+              class: "object-cover rounded-t-lg absolute top-0 left-0 w-full h-full",
+              alt: image.title
+            %}
+            {% comment %} <img
+              src="{{ image.src | img_url: '1024x1024', scale: 2 }}"
+              alt="{{ image.alt }}"
+            /> {% endcomment %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</article>

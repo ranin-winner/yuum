@@ -1,0 +1,336 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "trial_hero_6dknCb": {
+      "type": "trial-hero",
+      "blocks": {
+        "feature_FMMmCy": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/usda-organic-seal.png",
+            "feature_title": "ORGANIC INGREDIENTS",
+            "feature_description": "Perfectly packaged together"
+          }
+        },
+        "feature_9g4xHy": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Group_129.png",
+            "feature_title": "FAIR TRADE CHOCOLATE",
+            "feature_description": "Oooy, gooey goodness in (almost) every bar"
+          }
+        },
+        "feature_ftQqMV": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Group_130.png",
+            "feature_title": "PALM OIL FREE",
+            "feature_description": "Good for you and the planet, too"
+          }
+        }
+      },
+      "block_order": [
+        "feature_FMMmCy",
+        "feature_9g4xHy",
+        "feature_ftQqMV"
+      ],
+      "settings": {
+        "title": "try [ALL] our bars",
+        "subtitle": "just $0.99 + FREE SHIPPING",
+        "image": "shopify://shop_images/stack_1.png",
+        "bg_color": "#b9e1ed"
+      }
+    },
+    "main_product_landing_LnUd8m": {
+      "type": "main-product-landing",
+      "blocks": {
+        "title_WFTDbN": {
+          "type": "title",
+          "settings": {}
+        },
+        "junip_product_reviews_ugc_junip_product_summary_dcHkLz": {
+          "type": "shopify://apps/junip-product-reviews-ugc/blocks/junip-product-summary/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "description_iA74yF": {
+          "type": "description",
+          "settings": {}
+        },
+        "buy_buttons_GdKQBk": {
+          "type": "buy_buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title_WFTDbN",
+        "junip_product_reviews_ugc_junip_product_summary_dcHkLz",
+        "description_iA74yF",
+        "buy_buttons_GdKQBk"
+      ],
+      "custom_css": [
+        ".product__info-container .quantity {border: 1px solid #e56a54 !important;}",
+        ".rtx-subscription-inner {border: 1px solid #e56a54 !important; border-radius: 5px;}",
+        ".product__title h1 {font-family: \"Gazpacho Bold\"; font-weight: 900; color: #1b4c62; font-size: 50px;}",
+        ".product__description p {font-weight: 900; color: #1b4c62; font-size: 15px; line-height: 21px;}"
+      ],
+      "settings": {
+        "enable_color_palette": true
+      }
+    },
+    "c_subscription_landing_fgVf87": {
+      "type": "c-subscription-landing",
+      "blocks": {
+        "subscription_item_zRgPDU": {
+          "type": "subscription_item",
+          "settings": {
+            "title": "FREE SHIPPING & 10% OFF",
+            "content": "It’s even easier to keep the panty stocked! Enjoy 10% off all future All In products in your subscription."
+          }
+        },
+        "subscription_item_3axBz8": {
+          "type": "subscription_item",
+          "settings": {
+            "title": "TOTAL FLEXIBILITY",
+            "content": "Swap products, skip shipments and cancel with no commitment, a no worries solution!"
+          }
+        },
+        "subscription_item_83tpQA": {
+          "type": "subscription_item",
+          "settings": {
+            "title": "GIVE BACK",
+            "content": "Every purchase supports an organization working to increase nutritious food access locally."
+          }
+        }
+      },
+      "block_order": [
+        "subscription_item_zRgPDU",
+        "subscription_item_3axBz8",
+        "subscription_item_83tpQA"
+      ],
+      "settings": {
+        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
+        "title_section": "<p>your new favorite <br/>snack subscription</p>"
+      }
+    },
+    "feature_section_custom_Vz7FEC": {
+      "type": "feature-section-custom",
+      "blocks": {
+        "feature_gmYzqH": {
+          "type": "feature",
+          "settings": {
+            "title": "FREE SHIPPING & 10% OFF",
+            "description": "It’s even easier to keep the pantry stocked!"
+          }
+        },
+        "feature_xrxjan": {
+          "type": "feature",
+          "settings": {
+            "title": "TOTAL FLEXIBILITY",
+            "description": "Swap products, skip shipments and cancel with no commitment, a no worries solution!"
+          }
+        },
+        "feature_Y4hfVe": {
+          "type": "feature",
+          "settings": {
+            "title": "GIVE BACK",
+            "description": "Every purchase supports an organization working to increase nutritious food access locally."
+          }
+        }
+      },
+      "block_order": [
+        "feature_gmYzqH",
+        "feature_xrxjan",
+        "feature_Y4hfVe"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
+        "header_top": "your new favorite",
+        "header_bottom": "snack subscription",
+        "image": "shopify://shop_images/smores_1_1.png",
+        "image_full_bleed": false,
+        "show_first_button": true,
+        "button_text": "SUBSCRIBE & SAVE",
+        "button_link": "",
+        "show_second_button": false,
+        "second_button_text": "LEARN MORE",
+        "second_button_link": ""
+      }
+    },
+    "reviews_section_hM6cdr": {
+      "type": "reviews-section",
+      "blocks": {
+        "review_mPQ4Hj": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/AllIn_New_Packaging_Renders_PDCPB_Transparent_1_0343b4c1-2de8-4a05-8c1a-e9c3557f3060.png",
+            "review_text": "\"These bars have become a family favorite! My kids love them and I love that they’re palm oil-free.\"",
+            "reviewer_name": "Sarah T"
+          }
+        },
+        "review_VAheq7": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/smores-2.png",
+            "review_text": "\"Perfect for on-the-go, and my kids devour them every time. I feel good knowing they’re getting something organic and made with real ingredients.\"",
+            "reviewer_name": "Chris E."
+          }
+        },
+        "review_NqYeem": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/chocolate_chip.png",
+            "review_text": "\"These bars are a lifesaver—delicious and so satisfying! I love that they have a lot of fiber to keep me full for a bit and my kids can’t get enough of them!\"",
+            "reviewer_name": "Jessica M"
+          }
+        }
+      },
+      "block_order": [
+        "review_mPQ4Hj",
+        "review_VAheq7",
+        "review_NqYeem"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/heart_2.png",
+        "button_text": "TRY NOW",
+        "button_link": "",
+        "color_scheme": ""
+      }
+    },
+    "trial_faq_FEq8hh": {
+      "type": "trial-faq",
+      "blocks": {
+        "faq_item_gM9Fkr": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What’s the deal with the trial pack?",
+            "answer": "<p>You get to try all of our delicious snack bars for just $0.99 + free shipping! When you sign up for a trial, you’ll get a sampler pack of our tasty bars delivered right to your door. After the trial, you’ll automatically be subscribed to an ongoing plan with our best sellers, so you never run out of your favorite snacks. Don’t worry, you can cancel or modify your plan to any of your favorite flavors at any time before your first subscription charge.</p>"
+          }
+        },
+        "faq_item_cjwAg8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What happens after my trial?",
+            "answer": "<p>After you enjoy your free trial, you’ll automatically be enrolled in our subscription plan, where you’ll receive your favorite snacks on a regular basis. No stress—if you ever need to pause or cancel your subscription, you can easily manage it from your account. Plus, you’ll always have access to exclusive offers, 10% off, and free shipping on every order!</p>"
+          }
+        },
+        "faq_item_EJgnJA": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What’s included in the free trial?",
+            "answer": "<p>Your free trial pack will include one of each snack bar: Peruvian Dark Chocolate + Peanut Butter, Madagascar Vanilla, S’mores, and Chocolate Chip. It’s the perfect way to try all our flavors and find your favorite!</p>"
+          }
+        },
+        "faq_item_9gqLgH": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I cancel my subscription anytime?",
+            "answer": "<p>Yes! We want you to love our snacks, but if for any reason you decide that All In isn’t right for you, you can cancel your subscription anytime. Just log into your account, and we’ll take care of the rest. There’s no commitment or hidden fees.</p>"
+          }
+        },
+        "faq_item_xDPmLA": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship internationally?",
+            "answer": "<p>At this time, we’re only able to offer shipping within the U.S. We’re working on expanding our reach, so stay tuned for updates!</p>"
+          }
+        },
+        "faq_item_daxeqH": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why did All In rebrand from This Saves Lives?",
+            "answer": "<p>Great question! After more than a decade of supporting childhood hunger relief globally, we felt it was time for a change. Our mission has always been to create impact through food, and now, we’re focusing on supporting local communities in the U.S. through increased access to nutritious food. The rebrand to All In reflects our deep commitment to local action and the belief that everyone deserves access to delicious, nourishing snacks. We’re All In this together.</p>"
+          }
+        },
+        "faq_item_6bg8pe": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How has your impact model changed?",
+            "answer": "<p>While This Saves Lives focused on ending childhood hunger around the world, we’ve shifted our focus to supporting food access right here in our backyard—and in yours. We partner with organizations that work locally to increase access to nutritious food in underserved communities across the U.S. When you buy our snacks, you help fund these programs, and you can even nominate a local nonprofit to receive one of our grants.</p>"
+          }
+        },
+        "faq_item_dAzPwC": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I nominate a local organization for a grant?",
+            "answer": "<p>It’s easy! If you know of a nonprofit working to increase access to good food in your community, you can nominate them directly through our website. Just head to the \"Nominate\" section, and tell us about the organization. We’re always looking for new partners to support!</p>"
+          }
+        },
+        "faq_item_hwbmP9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What makes All In’s bars different from other snacks?",
+            "answer": "<p>At All In, we believe that great taste should never be a compromise. Our bars are made with organic, high-quality ingredients that not only taste amazing but also fuel you throughout the day. Plus, every bar you enjoy helps make a positive impact in your community by supporting local, nutritious food access initiatives.</p>"
+          }
+        },
+        "faq_item_CQij3r": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why should I care about food access in my community?",
+            "answer": "<p>Food access is a crucial issue, and everyone deserves to have nourishing food available, no matter where they live. By supporting All In, you’re directly contributing to making nutritious food more accessible to underserved communities across the U.S. We’re all in this together—your choice to snack on our bars makes a real difference.</p>"
+          }
+        },
+        "faq_item_bLKf73": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are your products allergen-friendly?",
+            "answer": "<p>All of our products are soy free, gluten free, palm oil free, kosher, and non-GMO. Our whole grain line of bars are also free of the top 8 allergens and produced in a fully separate facility to reduce any risk of cross-contamination. </p>"
+          }
+        },
+        "faq_item_kGi7fV": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What should I do if I have questions about my order or subscription?",
+            "answer": "<p>If you have any questions about your order or subscription, our customer support team is here to help! Just reach out to us via email or our contact form, and we’ll get back to you as soon as possible.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_gM9Fkr",
+        "faq_item_cjwAg8",
+        "faq_item_EJgnJA",
+        "faq_item_9gqLgH",
+        "faq_item_xDPmLA",
+        "faq_item_daxeqH",
+        "faq_item_6bg8pe",
+        "faq_item_dAzPwC",
+        "faq_item_hwbmP9",
+        "faq_item_CQij3r",
+        "faq_item_bLKf73",
+        "faq_item_kGi7fV"
+      ],
+      "settings": {
+        "title": "FAQs"
+      }
+    },
+    "footer_image_carousel_YnjjUL": {
+      "type": "footer-image-carousel",
+      "settings": {
+        "title": "coming to a store near you",
+        "footer_title": "",
+        "background_color": "#e55454",
+        "title_background_color": "#ffffff",
+        "text_color": "#68185e"
+      }
+    }
+  },
+  "order": [
+    "trial_hero_6dknCb",
+    "main_product_landing_LnUd8m",
+    "c_subscription_landing_fgVf87",
+    "feature_section_custom_Vz7FEC",
+    "reviews_section_hM6cdr",
+    "trial_faq_FEq8hh",
+    "footer_image_carousel_YnjjUL"
+  ]
+}

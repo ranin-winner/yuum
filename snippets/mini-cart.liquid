@@ -1,0 +1,188 @@
+<section
+  class="b-mini_cart"
+  x-cloak
+  :class="$store.cart.isCartOpen ? 'is-open' : 'is-closed'"
+  @click.outside="$store.cart.toggleCart(false)">
+  <div class="p-5 h-full flex flex-col">
+    <span class="b-mini_cart-close text-color_1" @click="$store.cart.toggleCart()">
+
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close" fill="currentColor" viewBox="0 0 18 17">
+        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+      </path></svg>
+    </span>
+    <div class="b-mini_cart-header py-5">
+      <h3 class="b-mini_cart-title text-xl font-Gazpacho">Your Cart</h3>
+    </div>
+
+    {% comment %} <template x-if="!$store.cart.shippingDiscount.isFreeShippingUnlocked">
+      <p class="text-left mb-4">
+        You are <span x-text="$store.cart.shippingDiscount.shippingLeft"></span> away from FREE SHIPPING
+      </p>
+    </template> {% endcomment %}
+    {% comment %} <template x-if="$store.cart.shippingDiscount.isFreeShippingUnlocked">
+      <p class="text-left mb-4 text-green-500">Congratulations! You unlocked FREE SHIPPING!</p>
+    </template> {% endcomment %}
+    {% comment %} <div class="b-mini_cart-progress-bar">
+      <div
+        class="b-mini_cart-progress-bar-fill"
+        :style="{ width: `${$store.cart.shippingDiscount.shippingProgress}%` }"></div>
+    </div> {% endcomment %}
+
+    <div class="drawer__header-row progress-bar-row" x-show="$store.cart.items.length > 0">
+      {% render 'progress-bar' data: 'cart' %}
+    </div>
+
+    <div class="b-mini_cart-empty flex grow justify-center items-center" x-show="$store.cart.items.length === 0">
+      <h2 class="text-center">Your cart is empty</h2>
+    </div>
+
+    <div
+      class="b-mini_cart-list flex flex-col gap-6 grow max-h-[70vh] overflow-y-auto"
+      x-show="$store.cart.items.length > 0"
+      :class="$store.cart.isLoading ? 'm-loading' : ''">
+      {% comment %} <div x-show="$store.cart.errorMessage" x-text="$store.cart.errorMessage" class="text-red-500 text-center"></div> {% endcomment %}
+      <div class="flex justify-between uppercase opacity-50 border-b pb-4 text-xs font-Aksen font-normal tracking-wide">
+        <span>Product</span>
+        <span>Total</span>
+      </div>
+      <template x-for="item in $store.cart.items" :key="`${item.id}-${index}`">
+        <div class="b-mini_cart-item">
+          <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
+            <img
+              :src="item.image"
+              class="absolute left-0 top-0 h-full w-full object-cover"
+              width="40"
+              height="40">
+          </figure>
+          <div class="b-mini_cart-item__desc">
+            <div class="mb-4">
+              <h4 x-html="item.title" class="w-full mb-4 pr-24 font-Gazpacho"></h4>
+              <p class="mt-2 text-sm font-Aksen font-normal">
+                <span
+                  class="line-through opacity-50"
+                  x-show="item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.compare_at_price > item.price"
+                  x-text="'$' + (item.selling_plan_allocation.compare_at_price / 100).toFixed(2)"></span>
+                <span x-text="'$' + (item.price / 100).toFixed(2)"></span>
+                <div
+                  class="pt-4 text-sm text-color_1 font-Aksen font-normal"
+                    x-show="item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.selling_plan.name">
+                  <span
+                    x-show="item.selling_plan_allocation.selling_plan.price_adjustments[0].value > 0"
+                    x-text="item.selling_plan_allocation.selling_plan.name"></span>
+                  <span
+                    x-show="item.selling_plan_allocation.selling_plan.price_adjustments[0].value > 0"
+                    x-text="'and save ' + item.selling_plan_allocation.selling_plan.price_adjustments[0].value + '%'"></span>
+                </div>
+              </p>
+            </div>
+            <div class="absolute right-4 top-4 flex flex-col  font-Aksen font-normal">
+              <span
+                x-show="item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.compare_at_price > item.price"
+                class="line-through opacity-50"
+                x-text="'$' + (item.selling_plan_allocation.compare_at_price / 100 * item.quantity).toFixed(2)"></span>
+              <span x-text="'$' + (item.price / 100 * item.quantity).toFixed(2)"></span>
+            </div>
+            <div class="flex">
+              <div class="b-quantity !border-black mr-4">
+                <span
+                  @click="$store.cart.decrementQuantity(item.id, item.quantity)"
+                  class="b-quantity-sign m-minus !text-black-content">
+                  -
+                </span>
+                <div x-text="item.quantity" class="b-quantity-input !text-black-content"></div>
+                <span
+                  @click="$store.cart.updateCart(item.id, item.quantity + 1)"
+                  class="b-quantity-sign m-plus !text-black-content">
+                  +
+                </span>
+              </div>
+
+              <button @click="$store.cart.removeFromCart(item.key)" class="text-color_4">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" class="icon m-small icon-remove">
+                  <path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="currentColor"></path>
+                  <path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="currentColor"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    {% if settings.show_cart_products_carousel %}
+      <div class="b-mini_cart-carousel">
+        <h4 class="font-Gazpacho text-xl mt-6 mb-4">You may also like</h4>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            {% for product_item in settings.cart_products %}
+              {% assign productMeta = product_item.metafields.custom %}
+              <div class="swiper-slide">
+                <div class="b-cart_item flex w-full">
+                  <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
+                    <img
+                      src="{{ product_item.featured_image | img_url: '100x100' }}"
+                      class="absolute left-0 top-0 h-full w-full object-cover"
+                      width="40"
+                      height="40">
+                  </figure>
+                  <div class="b-cart_item__desc grow pl-4 pt-2">
+                    <h4 class="w-full mb-2 font-Gazpacho">{{ product_item.title }}</h4>
+                    {% if productMeta.subtitle %}
+                      <h5 class="mb-4">{{ productMeta.subtitle }}</h5>
+                    {% endif %}
+                    <div class="flex justify-between">
+                      <span class="text-base grow">{{ product_item.price | money }}</span>
+                      <span
+                        class="btn btn-primary   cursor-pointer"
+                        aria-label="Add to cart"
+                        data-product-id="{{ product_item.first_available_variant.id }}"
+                        @click="$store.cart.addToCart({variantId: $el.dataset.productId}, false)"
+                      >Add +</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="b-mini_cart-carousel__footer">
+            <div id="prev-swiper" class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+            <div id="next-swiper" class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var swiper = new Swiper('.b-mini_cart-carousel .swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: {
+              delay: 5000,
+            },
+            navigation: {
+              nextEl: '.b-mini_cart-carousel #next-swiper',
+              prevEl: '.b-mini_cart-carousel #prev-swiper',
+            },
+            pagination: {
+              el: ".b-mini_cart-carousel .swiper-pagination",
+              type: "fraction",
+            },
+          });
+        });
+      </script>
+    {% endif %}
+    <!-- Total block -->
+    <div class="b-mini_cart-total flex flex-wrap justify-between">
+      <p class="font-Gazpacho hidden">Total items: <span x-text="$store.cart.itemsCount"></span></p>
+      <p class="flex items-center justify-between w-full pt-4 pb-2">
+        <span class="font-Gazpacho">Total price:</span>
+        <span class="font-cenzo font-bold text-xl text-color_1"
+          >$<span x-text="$store.cart.totalPrice"></span
+        ></span>
+      </p>
+      <button @click="window.location.href='/checkout'" class="btn btn-primary   min-w-full w-full mt-5">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</section>

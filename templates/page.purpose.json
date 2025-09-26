@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "wrapper": "div.page-purpose",
+  "sections": {
+    "our_mission": {
+      "type": "our-mission",
+      "settings": {
+        "color_scheme": "",
+        "title": "OUR MISSION",
+        "subtitle": "<p>Supporting good Food Access in <i>Local Communities</i></p>",
+        "image_bg": "shopify://shop_images/Jakub_Kapusnak_Unsplash_2.png",
+        "image_max_width": 472,
+        "copy": "<p>We believe you can have it all. Craveable snacks with quality organic ingredients, and positive community impact.</p><p>We donate a portion of our sales to groups across the USA working to increase access to nutritious food in their neighborhoods. This holiday season, we're giving $5 for every trial pack to support food access with our non profit partners.</p>",
+        "button_text": "TRY NOW",
+        "button_url": "shopify://products/trial-kit"
+      }
+    },
+    "our_partners": {
+      "type": "our-partners",
+      "blocks": {
+        "feature_UrENmm": {
+          "type": "feature",
+          "settings": {
+            "block_image": "shopify://shop_images/02.png",
+            "block_title": "Fresh Connect",
+            "block_description": "Fresh Connect enables healthcare organizations to cover the cost of food for the people they serve.",
+            "select_part": "right",
+            "button_label": "Leran More",
+            "button_link": "shopify://blogs/partners/neque-porro-quisquam-est-qui-dolorem-ipsum-quia-dolor-sit-amet-consectetur-adipisci-velit"
+          }
+        },
+        "feature_wcwCzn": {
+          "type": "feature",
+          "settings": {
+            "block_image": "shopify://shop_images/03.png",
+            "block_title": "Fresh Truck",
+            "block_description": "Fresh Truck is a fiscally-sponsored program that operates retrofitted school buses as a mobile markets, bringing fresh food to neighborhoods across Boston.",
+            "select_part": "left",
+            "button_label": "Donate",
+            "button_link": "shopify://blogs/partners"
+          }
+        }
+      },
+      "block_order": [
+        "feature_UrENmm",
+        "feature_wcwCzn"
+      ],
+      "settings": {
+        "color_scheme": "scheme-951c1d93-12b5-4f78-b84c-2e55165ed91d",
+        "title": "meet one of ourlocal partners",
+        "subtitle": "OUR PARTNERS",
+        "logo": "shopify://shop_images/01.png",
+        "main_copy": "About Fresh is working hard to keep families' dinner tables full this holiday season. A portion of All In sales go toward these efforts."
+      }
+    },
+    "nominate_a_nonprofit": {
+      "type": "nominate-a-nonprofit",
+      "settings": {
+        "color_scheme": "",
+        "title": "Nominate a nonprofit",
+        "subtitle": "<p><strong>Join a Movement That</strong><br/>Makes a Difference</p>",
+        "copy": "<p>We're always looking to partner with organizations that are making a difference through good, nutritious food.</p><p>Know a nonprofit in your community that's doing great work to increase food access or bring people together through food? Nominate them to become one of our partners!</p>"
+      }
+    },
+    "be_all_in": {
+      "type": "be-all-in",
+      "disabled": true,
+      "settings": {
+        "background_image": "shopify://shop_images/05.png",
+        "color_scheme": "",
+        "title": "Be All In",
+        "subtitle": "<p>Join a Movement that</p><p><em>Makes a Difference</em></p>",
+        "copy": "<p>At All In, we believe that food has the power to connect us. From family dinners to community potlucks, food is a universal way to share joy and build bonds.</p><p>That's why we're committed to supporting local communities by giving back 2% of our sales to increase food access.</p>",
+        "button_text": "SHOP ALL IN",
+        "button_url": "/",
+        "button_text_1": "SUBscribe & Save",
+        "button_url_1": "/"
+      }
+    },
+    "newsletter_gKxmn6": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_xQ4KM7": {
+          "type": "heading",
+          "settings": {
+            "heading": "stay <em>connected</em>",
+            "heading_size": "h0"
+          }
+        },
+        "paragraph_kekL3U": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Sign up for updates, new products, and stories about positive impact in our backyard & yours.</p>"
+          }
+        },
+        "email_form_8e4Gpb": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_xQ4KM7",
+        "paragraph_kekL3U",
+        "email_form_8e4Gpb"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "content_width_desktop": 677,
+        "content_width_mobile": 420,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "footer_image_carousel_V8g7Ci": {
+      "type": "footer-image-carousel",
+      "settings": {
+        "title": "coming to a store near you",
+        "footer_title": "",
+        "background_color": "#e55454",
+        "title_background_color": "#ffffff",
+        "text_color": "#68185e"
+      }
+    }
+  },
+  "order": [
+    "our_mission",
+    "our_partners",
+    "nominate_a_nonprofit",
+    "be_all_in",
+    "newsletter_gKxmn6",
+    "footer_image_carousel_V8g7Ci"
+  ]
+}

@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Fonts */
+  @font-face {
+    font-family: 'PlusJakartaSans';
+    src: url('~/public/fonts/PlusJakartaSans-ExtraBold.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'PlusJakartaSans';
+    src: url('~/public/fonts/PlusJakartaSans-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'PlusJakartaSans';
+    src: url('~/public/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'PlusJakartaSans';
+    src: url('~/public/fonts/PlusJakartaSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'HandmadeLoves';
+    src: url('~/public/fonts/HandmadeLoves.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'CenzoFlare';
+    src: url('~/public/fonts/CenzoFlare-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  /* End Fonts */
+
+  html {
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    font-variant-ligatures: none;
+    font-size: 10px;
+    line-height: 1.2em;
+  }
+
+  body {
+    font-family: 'PlusJakartaSans', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.2em;
+    background: var(--color-body-bg);
+    color: var(--color-body-content);
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  details > summary {
+    @apply list-none;
+  }
+
+  details summary::-webkit-details-marker {
+    @apply hidden;
+  }
+
+  // FE TODO: Remove this when we have a better solution with separate section SCSS files
+  .b-pack__form-variant {
+    position: relative;
+  }
+  .b-pack__form-variant.m-pdp .b-pack__form-label.active,
+  .b-pack__form-variant.m-pdp .b-pack__form-input:checked + .b-pack__form-label {
+    box-shadow: inset 0 0 0 4px var(--color-brand-bg);
+  }
+
+  .b-pack__form-input:checked + .b-pack__form-label {
+    color: var(--color-black-content);
+    box-shadow: inset 0 0 0 4px var(--color-brand-light);
+  }
+
+  .m-border-shadow {
+    box-shadow: inset 0 0 0 2px var(--color-brand-light);
+
+    &:hover {
+      box-shadow: inset 0 0 0 4px var(--color-brand-light);
+    }
+  }
+
+  .leading-title-1 {
+    line-height: 1em !important;
+  }
+  //
+
+  // Heading
+  .heading-1,
+  .heading-2,
+  .heading-3,
+  .heading-4,
+  .heading-5 {
+    font-family: 'CenzoFlare', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1.6rem;
+  }
+
+  .heading-1 {
+    font-size: 4.8rem;
+    line-height: 1.2em;
+
+    @screen md {
+      font-size: 5.6rem;
+    }
+  }
+
+  .heading-2 {
+    font-size: 3.2rem;
+    line-height: 4rem;
+
+    @screen md {
+      font-size: 7.2rem;
+      line-height: 8rem;
+    }
+  }
+
+  .heading-3 {
+    font-size: 2.8rem;
+    line-height: 1em;
+
+    @screen md {
+      font-size: 4.8rem;
+      line-height: 1.2em;
+    }
+  }
+
+  .heading-4 {
+    font-size: 2.4rem;
+    line-height: 1.2em;
+
+    @screen md {
+      font-size: 2.8rem;
+    }
+  }
+
+  .heading-5 {
+    font-size: 2rem;
+    line-height: 1.2em;
+
+    @screen md {
+      font-size: 2.4rem;
+    }
+  }
+
+  // Images
+  .figure-block {
+    position: relative;
+  }
+
+  .figure-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@layer components {
+  .link-underline {
+    @apply relative transition-colors duration-300
+    before:absolute after:absolute
+    before:bottom-[-2px] after:bottom-[-2px]
+    before:left-0 after:right-0
+    before:w-0 after:w-0 hover:before:w-[50%] hover:after:w-[50%]
+    before:h-[2px] after:h-[2px]
+    before:bg-brand-bg after:bg-brand-bg
+    before:transition-[width] before:duration-300 after:transition-[width] after:duration-300;
+  }
+}

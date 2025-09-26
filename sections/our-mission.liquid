@@ -1,0 +1,91 @@
+{% render 'entry' with '@/styles/sections/our-mission.scss' %}
+
+<div
+  id="our-mission"
+  class="
+  palette-{{ section.settings.color_scheme }}
+  main-informative-banner
+  bg-scheme-bg"
+>
+    <div class="container m-responsive">
+      <div class="grid grid-cols-1 md:grid-cols-2 py-8 md:py-0 gap-8 md:gap-24 mx-8 md:mx-0">
+        <div class="box">
+          {% if section.settings.image_bg %}
+            {% render 'image' with section.settings.image_bg, class: "aspect-square h-auto rounded-none"  %}
+          {% endif %}
+        </div>
+        <div class="box box-content flex flex-col justify-center h-full items-start">
+          <h2 class="text-baseBig font-Aksen font-bold text-scheme-primary">{{ section.settings.title }}</h2>
+          <h3 class="text-3xl md:text-4xl font-Gazpacho text-scheme-primary box-content-em lowercase">{{ section.settings.subtitle }}</h3>
+          <div class="mb-8 text-baseBig text-scheme-primary">{{ section.settings.copy }}</div>
+          <a href="{{ section.settings.button_url }}" class="btn btn-primary btn-scheme">{{ section.settings.button_text }}</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<style>
+  .box-content-em i {
+    font-style: normal;
+    color: var(--theme-color-secondary);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Our Mission",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Our Mission"
+    },
+    {
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "<p>Supporting good Food Access in <i style='color: #b457a1;'>Local Communities</i></p>"
+    },
+    {
+        "type": "image_picker",
+        "id": "image_bg",
+        "label": "Image"
+    },
+    {
+        "type": "number",
+        "id": "image_max_width",
+        "label": "Image Max Width (px)",
+        "default": 472
+    },
+    {
+        "type": "richtext",
+        "id": "copy",
+        "label": "Copy",
+    },
+    {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "TRIAL CTA"
+    },
+    {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL",
+        "default": "/"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Our Mission",
+    }
+  ]
+}
+{% endschema %}

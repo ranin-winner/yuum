@@ -1,0 +1,197 @@
+<div
+  id="section-{{ section.id }}"
+  class="rotating-icon-strip
+  palette-{{ section.settings.color_scheme }}
+  bg-scheme-primary
+  max-w-full
+  py-10
+  relative
+">
+  <div class="rotating-icon-strip__wrapper relative">
+    <section>
+      <div class="items-center">
+        <div class="text-center pb-4">
+          <h2 class="font-Gazpacho text-xl text-white-content font-bold">{{ section.settings.text_section }}</h2>
+        </div>
+        <div class="overflow-hidden grow ">
+          <div class="rotating-icon-strip__slider overflow-visible slider slider--everywhere">
+            <ul class="rotating-icon-strip__list slider__list flex flex-nowrap "
+              id="Slider-{{ section.id }}"
+              role="list"
+            >
+              {%- for i in (1..section.settings.number_repetitions) -%}
+                {%- for block in section.blocks -%}
+                  {% assign image_size = section.settings.width_item | append: 'x' %}
+                  <li id="Slide-{{ section.id }}-{{ forloop.index }}-{{ i }}" class="
+                    rotating-icon-strip__item
+                    text-center
+                    flex
+                    flex-center
+                    items-center
+                  "
+                  {{ block.shopify_attributes }}>
+                    {%- if block.settings.icon != blank -%}
+                      <img
+                        src="{{ block.settings.icon | img_url: image_size }}"
+                        alt="{{ block.settings.icon_alt_text | escape }}"
+                        width="{{ section.settings.width_item }}"
+                        height="{{ section.settings.width_item }}"
+                        style="filter: brightness(0) invert(1);"
+                        loading="lazy"
+                      />
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <p>{{ block.settings.text }}</p>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Rotating Icon Strip",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_section",
+      "label": "Section Text",
+      "default": "COPY HERE, AND HERE."
+    },
+    {
+      "type": "number",
+      "id": "number_repetitions",
+      "default": 2,
+      "label": "Number of repetitions"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "number",
+      "id": "width_item",
+      "default": 200,
+      "label": "Width of each item"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon",
+      "limit": 50,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "icon_alt_text",
+          "label": "Icon alt text",
+          "info": "Describe the icon for screen readers. Leave blank if the icon is decorative."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Icon text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rotating Icon Strip",
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+.rotating-icon-strip {
+
+}
+
+.rotating-icon-strip::after,
+.rotating-icon-strip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10%;
+  z-index: 1;
+}
+
+.rotating-icon-strip::before {
+  left: 0;
+  background-image: linear-gradient(to right, var(--theme-color-primary), transparent);
+}
+
+.rotating-icon-strip::after {
+  right: 0;
+  background-image: linear-gradient(to left, var(--theme-color-primary), transparent);
+}
+
+.rotating-icon-strip__list {
+  transition: transform 0.5s ease;
+}
+
+.rotating-icon-strip__item {
+  flex: 0 0 auto;
+  padding: 0 6rem;
+}
+
+.rotating-icon-strip__item img {
+  height: auto;
+}
+
+.rotating-icon-strip__item p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .rotating-icon-strip__item {
+    padding: 0 2rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .rotating-icon-strip__item {
+    padding: 0 2rem;
+  }
+
+  .rotating-icon-strip__item img {
+    max-width: 48px;
+  }
+
+  .rotating-icon-strip__item p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animation for continuous rotation */
+@keyframes rotate {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.rotating-icon-strip__list {
+  animation: rotate 25s linear infinite;
+}
+{% endstylesheet %}

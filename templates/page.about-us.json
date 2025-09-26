@@ -1,0 +1,167 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "main": {
+      "type": "about-us",
+      "settings": {
+        "image": "shopify://shop_images/Hero_Banner_Image.jpg",
+        "heading": "ABOUT US",
+        "text": "Lopaus Point uses thoughtfully selected ingredients. We use only whole, organic fruit to lightly sweeten our batters.",
+        "button_label": "Learn More",
+        "button_link": "",
+        "spacing": 80
+      }
+    },
+    "c_image_aside_about_us_cPUnJb": {
+      "type": "c-image-aside-about-us",
+      "custom_css": [
+        ".custom-section {background-color: #ecf8ff;}"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/socialproof1.jpg",
+        "title": "THE FINESTINGREDIENTS",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et leo condimentum, congue risus eu, hendrerit magna. Curabitur turpis lacus, ultrices quis imperdiet nec, luctus et neque. Aliquam in magna libero. Ut finibus elit auctor aliquam sodales. Maecenas vel nisl tortor.",
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "image_position": "left"
+      }
+    },
+    "c_image_aside_about_us_mXGewz": {
+      "type": "c-image-aside-about-us",
+      "custom_css": [
+        ".custom-section {background-color: #ecf8ff;}"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/socialproof3.jpg",
+        "title": "THE FINESTINGREDIENTS",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et leo condimentum, congue risus eu, hendrerit magna. Curabitur turpis lacus, ultrices quis imperdiet nec, luctus et neque. Aliquam in magna libero. Ut finibus elit auctor aliquam sodales. Maecenas vel nisl tortor.",
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "image_position": "right"
+      }
+    },
+    "c_image_aside_about_us_tpFEiz": {
+      "type": "c-image-aside-about-us",
+      "custom_css": [
+        ".custom-section {background-color: #ecf8ff;}"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/socialproof1.jpg",
+        "overlay_image": "shopify://shop_images/image_11.png",
+        "title": "THE FINESTINGREDIENTS",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et leo condimentum, congue risus eu, hendrerit magna. Curabitur turpis lacus, ultrices quis imperdiet nec, luctus et neque. Aliquam in magna libero. Ut finibus elit auctor aliquam sodales. Maecenas vel nisl tortor.",
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "image_position": "left"
+      }
+    },
+    "c_image_aside_about_us_BmD7hY": {
+      "type": "c-image-aside-about-us",
+      "custom_css": [
+        ".custom-section {background-color: #ecf8ff;}"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/socialproof3.jpg",
+        "overlay_image": "shopify://shop_images/image_11.png",
+        "title": "THE FINESTINGREDIENTS",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et leo condimentum, congue risus eu, hendrerit magna. Curabitur turpis lacus, ultrices quis imperdiet nec, luctus et neque. Aliquam in magna libero. Ut finibus elit auctor aliquam sodales. Maecenas vel nisl tortor.",
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "image_position": "right"
+      }
+    },
+    "custom_video_LGCLac": {
+      "type": "custom-video",
+      "blocks": {
+        "external_video_Y9qKVY": {
+          "type": "external-video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "external_video_Y9qKVY"
+      ],
+      "settings": {
+        "heading": "Video Section"
+      }
+    },
+    "footer_custom_9dhpdA": {
+      "type": "footer-custom",
+      "blocks": {
+        "social_icon_taJHad": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "Instagram",
+            "social_link": "",
+            "social_icon": "shopify://shop_images/Frame_1.svg"
+          }
+        },
+        "social_icon_dycGWQ": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "Twitter",
+            "social_link": "#",
+            "social_icon": "shopify://shop_images/Frame_2.svg"
+          }
+        },
+        "social_icon_E7Benf": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "TikTok",
+            "social_link": "",
+            "social_icon": "shopify://shop_images/Frame_3.svg"
+          }
+        },
+        "social_icon_m86rtB": {
+          "type": "social_icon",
+          "settings": {
+            "social_name": "FaceBook",
+            "social_link": "#",
+            "social_icon": "shopify://shop_images/Frame_4.svg"
+          }
+        }
+      },
+      "block_order": [
+        "social_icon_taJHad",
+        "social_icon_dycGWQ",
+        "social_icon_E7Benf",
+        "social_icon_m86rtB"
+      ],
+      "disabled": true,
+      "settings": {
+        "footer_menu_1": "test",
+        "footer_menu_2": "customer-account-main-menu",
+        "newsletter_title": "Sign up to get email updates",
+        "newsletter_placeholder": "email@gmail.com",
+        "newsletter_button_text": "SIGN UP",
+        "social_title": "Follow Us:",
+        "copyright_text": "© 2023 Shop Name | All Rights Reserved",
+        "footer_menu_3": "footer"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "c_image_aside_about_us_cPUnJb",
+    "c_image_aside_about_us_mXGewz",
+    "c_image_aside_about_us_tpFEiz",
+    "c_image_aside_about_us_BmD7hY",
+    "custom_video_LGCLac",
+    "footer_custom_9dhpdA"
+  ]
+}

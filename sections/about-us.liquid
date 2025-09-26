@@ -1,0 +1,86 @@
+<section
+  class="relative grid items-center py-[calc(var(--spacing)*0.75)] lg:py-[--spacing] overflow-hidden pb-8"
+  style="--spacing: {{ section.settings.spacing }}px">
+  <div class="container mx-auto px-4">
+    {% liquid
+      assign image = section.settings.image | default: page_image
+    %}
+
+    <div class="relativ flex flex-col items-center">
+      <!-- Background Image -->
+      {% if image != blank %}
+        <div class="w-[80%] h-[500px] rounded-2xl overflow-hidden border-4 border-color_1 ">
+          {% render 'image' with image,
+            class: 'w-full h-full object-cover',
+            loading: 'lazy'
+          %}
+        </div>
+      {% endif %}
+
+      <!-- Content Overlay -->
+      <div class="inset-0 flex items-center justify-center -mt-[32px] ">
+        <div class="bg-white rounded-2xl p-10 md:p-20 max-w-4xl mx-4 shadow-lg border-4 border-color_1 px-8 py-4">
+          <h1 class="mb-4 text-color_1 leading-title-1 heading-3 text-center">
+            {{ section.settings.heading | default: 'ABOUT US' }}
+          </h1>
+
+          <p class="text-xl leading-12 text-center max-w-xl py-2 px-8">
+            {{ section.settings.text }}
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Lopaus Point uses thoughtfully selected ingredients. We use only whole, organic fruit to lightly sweeten our batters."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical Spacing",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us"
+    }
+  ]
+}
+{% endschema %}

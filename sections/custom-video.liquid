@@ -1,0 +1,80 @@
+<div class="flex flex-col items-center justify-center py-8">
+  <div>
+    <h2 class="mb-4 text-color_1 leading-title-1 heading-3">{{ section.settings.heading }}</h2>
+  </div>
+  <div>
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'video-stored' %}
+          <div class="stored-video" {{ block.shopify_attributes }}>
+            {{ block.settings.video | media_tag }}
+          </div>
+        {% when 'external-video' %}
+          <div class="external-video w-[800px] h-[500px]">
+            {% if block.settings.video_url.type == 'youtube' %}
+              <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}" class="youtube w-full h-full rounded-2xl overflow-hidden border-4 border-color_1" title="{{ block.settings.description | escape }}" allow="autoplay; encrypted-media" style="height: 500px; width: 100% !important;"></iframe>
+            {% else %}
+              <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" class="vimeo w-full h-full rounded-2xl overflow-hidden border-4 border-color_1" title="{{ block.settings.description | escape }}" allow="autoplay; encrypted-media" style="height: 500px; width: 100% !important;"></iframe>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Videos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Custom content heading",
+      "default": "Title"
+    }
+  ],
+  "max_blocks": 1,
+  "blocks": [
+    {
+      "name": "Shopify Hosted Video",
+      "type": "video-stored",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "A Shopify-hosted video"
+        }
+      ]
+    },
+    {
+      "name": "External Video",
+      "type": "external-video",
+      "settings": [
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "accept": [
+            "youtube",
+            "vimeo"
+          ],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+          "label": "URL",
+          "info": "Video plays in the page."
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Video alt text",
+          "info": "Describe the video for customers using screen readers."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Videos"
+    }
+  ]
+}
+{% endschema %}

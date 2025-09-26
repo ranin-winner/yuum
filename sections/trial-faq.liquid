@@ -1,0 +1,74 @@
+{% render 'entry' with '@/styles/sections/trial-faq.scss' %}
+
+<section class="trial-faq py-24 bg-white">
+  <div class="trial-faq__container page-width">
+    <h2 class="text-2xl font-Gazpacho mb-10 text-center text-color_4">{{ section.settings.title | escape }}</h2>
+
+    <div class="flex flex-col">
+      {% for block in section.blocks %}
+        <details class="trial-faq__item border-t-2 border-color_4">
+          <summary class="trial-faq__question py-6 flex justify-between cursor-pointer text-color_4 font-Aksen font-bold text-base">
+            {{ block.settings.question | escape }}
+            <svg class="trial-faq__toggle" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4V20" stroke="var(--color_4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 12H20" stroke="var(--color_4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+          <div class="trial-faq__answer text-base pb-8 text-color_4">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trial FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "FAQs"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trial FAQ",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

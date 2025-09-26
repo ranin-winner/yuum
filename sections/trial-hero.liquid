@@ -1,0 +1,272 @@
+
+
+<section class="trial-hero color-{{ section.settings.color_scheme }}">
+  <div class="trial-hero__container page-width overflow-hidden">
+    <div class="trial-hero__image-wrapper">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: section.settings.image.width
+          | image_tag:
+            class: 'trial-hero__image',
+            loading: 'eager',
+            width: section.settings.image.width,
+            height: section.settings.image.height,
+            alt: section.settings.image.alt
+          | escape
+        }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="trial-hero__content">
+      <h1 class="trial-hero__title">
+        {{
+          section.settings.title
+          | replace: '[', '<span>'
+          | replace: ']', '</span>'
+          | replace: '(', '<i>'
+          | replace: ')', '</i>'
+        }}
+      </h1>
+      <h3 class="trial-hero__subtitle">{{ section.settings.subtitle | escape }}</h3>
+
+      <div class="trial-hero__features">
+        {% for block in section.blocks %}
+          <div class="trial-hero__feature">
+            <div class="trial-hero__feature-icon">
+              {%- if block.settings.icon != blank -%}
+                {{
+                  block.settings.icon
+                  | image_url: width: 50
+                  | image_tag: loading: 'lazy', width: 50, height: 50, alt: block.settings.icon.alt
+                  | escape
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="trial-hero__feature-text">
+              <p class="trial-hero__feature-title">{{ block.settings.feature_title | escape }}</p>
+              <p class="trial-hero__feature-description">{{ block.settings.feature_description | escape }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+
+.trial-hero {
+    padding-top: 60px !important;
+    background-color: {{ section.settings.bg_color }};
+}
+
+.trial-hero__container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 100px !important;
+}
+
+.trial-hero__image-wrapper {
+    flex: 1 !important;
+    max-width: 60% !important;
+    margin-bottom: -9px !important;
+}
+
+.trial-hero__image {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  box-sizing: inherit;
+}
+
+.trial-hero__content {
+    flex: 1 !important;
+    max-width: 40% !important;
+    margin-top: -100px !important;
+}
+
+.trial-hero__title {
+    font-size: 60px !important;
+    line-height: 1.2 !important;
+    color: #48a4cb !important;
+    margin-bottom: 10px !important;
+    font-family: 'Gazpacho';
+}
+
+.trial-hero__title span {
+    color: #1b4c62;
+
+}
+
+.trial-hero__subtitle {
+    font-size: 27px !important;
+    color: #1b4c62 !important;
+    margin: 0 !important;
+      font-family: 'Gazpacho';
+
+}
+
+.trial-hero__features {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-top: 40px !important;
+    gap: 10px !important;
+}
+
+.trial-hero__feature {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.trial-hero__feature p {
+    margin: 0 !important;
+    line-height: 18px !important;
+}
+
+.trial-hero__feature-icon {
+    width: 55px !important;
+    height: 55px !important;
+    flex-shrink: 0 !important;
+}
+
+.trial-hero__feature-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.trial-hero__feature-text {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.trial-hero__feature-title {
+    font-size: 15px !important;
+    font-weight: bold !important;
+    color: #1b4c62 !important;
+    margin-bottom: 5px !important;
+}
+
+.trial-hero__feature-description {
+    font-size: 12px !important;
+    color: #1b4c62 !important;
+}
+
+@media screen and (max-width: 992px) {
+    .trial-hero__container {
+        flex-direction: column-reverse !important;
+        gap: 30px !important;
+    }
+
+    .trial-hero__image-wrapper,
+    .trial-hero__content {
+        max-width: 87% !important;
+    }
+
+    .trial-hero__content {
+        margin: 0 auto !important;
+    }
+
+    .trial-hero__title {
+        font-size: 40px !important;
+    }
+
+    .trial-hero__subtitle {
+        font-size: 19px !important;
+    }
+}
+
+
+   .page-width {
+    max-width: 140rem;
+    margin: auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .page-width {
+        padding: 0 5rem;
+    }
+}
+</style>
+
+
+
+{% schema %}
+{
+  "name": "Trial Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "try all 7 ALL IN snack bars"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "- just pay for shipping!"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#B9E1ED"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Feature Icon"
+        },
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "text",
+          "id": "feature_description",
+          "label": "Feature Description",
+          "default": "Feature description goes here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trial Hero",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

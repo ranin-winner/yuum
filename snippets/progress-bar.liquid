@@ -1,0 +1,121 @@
+{%- assign progress_bar = shop.metaobjects['progress_bar']['bundle'] -%}
+
+{%- if progress_bar != blank -%}
+  {%- liquid
+    assign items = progress_bar.items.value
+    assign calculated_total_price = 0
+
+    for line_item in cart.items
+      assign calculated_total_price = calculated_total_price | plus: line_item.final_line_price
+    endfor
+
+    # We have to remove the cart level discount from the calculated amount
+
+    assign total_cart_discount = 0
+    assign all_total_cart_discount = 0
+
+    for discount_application in cart.cart_level_discount_applications
+      assign total_cart_discount = total_cart_discount | plus: discount_application.total_allocated_amount
+    endfor
+
+
+     if cart.total_price != cart.original_total_price
+       assign all_total_cart_discount = cart.original_total_price | minus: cart.total_price
+     endif
+
+    assign calculated_total_price = calculated_total_price | minus: total_cart_discount
+  -%}
+
+{%- endif -%}
+
+<div x-data="progressBar('{{ data }}')" x-init="init()" class="b-progress-bar__wrapper">
+  {% comment %} {%- if data == 'bundle' -%}
+    <h1>{{ data }}</h1>
+  {%- endif -%}
+  {%- if data == 'cart' -%}
+    <h1>{{ data }}</h1>
+  {%- endif -%} {% endcomment %}
+  <div class="b-progress-bar__unlock-text text-black">
+    <span x-text="unlockText"></span>
+  </div>
+  <div class="b-progress-bar">
+    <div class="b-progress-bar__block" :style="`--progress: ${progress}`">
+      <div class="b-progress-bar__points">
+        <template x-for="(point, index) in points" :key="index">
+          <div
+            class="b-progress-bar__point"
+            :class="{ active: currentPrice >= parseFloat(point.minimum_subtotal.amount) }"
+            :style="`left: calc(${point.percent}% - 25px)`">
+          </div>
+        </template>
+      </div>
+      <span class="b-progress-bar__progress"></span>
+    </div>
+  </div>
+  <div class="b-progress-bar__lock-text text-black">
+    <span x-text="lockText"></span>
+  </div>
+</div>
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('progressBar', (type) => ({
+      items: {{ items | json }},
+      success_text: {{ progress_bar.success_text | json }},
+      points: [],
+      currentPrice: 0,
+      progress: 0,
+      currentStage: null,
+      unlockText: '',
+      lockText: '',
+      type,
+
+      init() {
+        this.calculatePoints();
+        console.log('this.success_text', this.success_text);
+        if (this.type === 'cart') {
+          this.$watch('$store.cart.totalPrice', (newTotal) => {
+            this.currentPrice = newTotal;
+            this.updateProgressBar();
+          });
+        } else if (this.type === 'bundle') {
+          this.$watch('$store.bundlePDP.bundleItemsTotal', (newTotal) => {
+            this.currentPrice = newTotal;
+            this.updateProgressBar();
+          });
+        }
+        this.updateProgressBar();
+      },
+
+      calculatePoints() {
+        const amounts = this.items.map(item => parseFloat(item.minimum_subtotal.amount || '0'));
+        const maxAmount = Math.max(...amounts);
+
+        this.points = this.items.map(item => {
+          const amount = parseFloat(item.minimum_subtotal.amount || '0');
+          const percent = (amount / maxAmount) * 100;
+          return {
+            ...item,
+            percent: percent.toFixed(2),
+          };
+        });
+      },
+
+      updateProgressBar() {
+        const cartTotal = Alpine.store('cart').totalPrice;
+        console.log('this.items ', this.items);
+        let currentStage = this.items.find(item => cartTotal < parseFloat(item.minimum_subtotal.amount)) || this.items[this.items.length - 1];
+
+        const lastItem = parseFloat(this.items[this.items.length - 1].minimum_subtotal.amount);
+        this.progress = Math.min((cartTotal / lastItem).toFixed(2), 1);
+
+        if (currentStage === this.items[this.items.length - 1] && cartTotal >= lastItem) {
+          this.unlockText = this.success_text;
+          this.lockText = '';
+        } else {
+          this.unlockText = currentStage.unlock_text;
+          this.lockText = currentStage.text.replace('[value]', `$${(parseFloat(currentStage.minimum_subtotal.amount) - cartTotal).toFixed(2)}`);
+        }
+      },
+    }));
+  });
+</script>

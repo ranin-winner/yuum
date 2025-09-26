@@ -1,0 +1,20 @@
+<div class="col-span-{{ settings.category_column_size }}">
+  <h3 class="font-jakarta text-[1.6rem] leading-[20px] font-extrabold text-black-content mb-6 uppercase">
+    {% if settings.megamenu_title != blank %}
+      {{ settings.megamenu_title }}
+    {% else %}
+      {{ title }}
+    {% endif %}
+  </h3>
+  <ul class="space-y-4">
+    {% for categoryItem in categoryItems %}
+      <li class="py-2">
+        <a
+          href="{{ categoryItem.url }}"
+          class="link-underline text-color_1 hover:text-black-content">
+          {{ categoryItem.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

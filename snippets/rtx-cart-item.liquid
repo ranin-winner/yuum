@@ -1,0 +1,85 @@
+
+{%- liquid
+  assign product = item.product
+  assign retextionAppId = '5859381'
+  assign currentVariant = variant | default: product.selected_or_first_available_variant
+  assign requiresPlan = product.requires_selling_plan
+  assign selectedAllocation = item.selling_plan_allocation.selling_plan
+  assign selectedOrFirstAllocation = item.selling_plan_allocation.selling_plan
+  assign sellingPlanGroups = product.selling_plan_groups | where: 'app_id', retextionAppId
+  
+-%}
+{%- if sellingPlanGroups.size > 0 -%}
+  {%- comment -%} Shorthand Variables {%- endcomment -%}
+  {%- liquid
+    assign allocationCount = 0
+    capture sellingPlanOptions
+      for allocation in currentVariant.selling_plan_allocations
+        assign plan = allocation.selling_plan
+        assign group = sellingPlanGroups | where: 'id', allocation.selling_plan_group_id | first
+        if group == blank
+          continue
+        endif
+        
+        if selectedOrFirstAllocation == blank
+          assign selectedOrFirstAllocation = allocation
+        endif
+        
+        echo '<option'
+        
+        if plan == selectedAllocation
+          echo ' selected'
+        elsif selectedAllocation == blank and forloop.first
+         echo ' selected'
+        endif
+        
+        echo ' value="' | append: plan.id | append: '">'
+        echo plan.name | escape
+        echo '</option>'
+        assign allocationCount = allocationCount | plus: 1
+      endfor
+    endcapture
+  -%}
+  {% if requiresPlan or selectedAllocation != blank or sellingPlanGroups.size > 0 %}
+  <div class="subscribe-and-save">
+  <input type="checkbox" class="subscribe-and-save-checkbox" name="subscribe-and-save-{{ item.id }}" id="subscribe-and-save-{{ item.id }}" {% if selectedAllocation != blank  %}checked{% endif %} >
+  <label for="subscribe-and-save-{{ item.id }}">
+    <span>
+
+              {%- liquid 
+                if selectedAllocation != blank
+                 echo "Subscription Benefits Unlocked!"
+                else
+                 echo item.product.selling_plan_groups.first.name | escape
+                endif
+              -%}
+              <span data-rtx-subscription-price>
+                {%- liquid 
+                  assign strSavePercentage = ''
+                  assign opt = selectedOrFirstAllocation.selling_plan.price_adjustments.first
+                  if opt.value_type == 'percentage'
+                    assign strSavePercentage = opt.value
+                  endif
+                  if strSavePercentage != blank and selectedAllocation == blank
+                    echo '(' | append: strSavePercentage | append: '%)'
+                  endif
+                -%}
+              </span>
+            </span>
+  </label>
+
+  <div data-retextion-subscription-box class="subscription-box 
+            {% if requiresPlan or selectedAllocation != blank %}
+              is-visible
+            {% endif %}
+          ">
+  <select class="rtx-subscription-dropdown" name="selling_plan" data-index="{{ item.index | plus: 1 }}" data-qty="{{ item.quantity }}">
+      {% comment %}
+      <option {% if selectedAllocation == blank %}selected{% endif %} value="">One Time</option>
+      {% endcomment %}
+      {{- sellingPlanOptions -}}
+    </select>
+  </div>
+</div>
+{% endif %}
+{% endif %}

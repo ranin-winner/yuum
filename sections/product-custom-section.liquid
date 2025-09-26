@@ -1,0 +1,216 @@
+<section
+  id="productSection-{{ section.id }}"
+  class="mx-auto py-12 md:py-30 font-Gazpacho palette-{{ section.settings.color_scheme }}"
+>
+    <div class="container m-responsive px-10">
+      {% if section.settings.title != blank %}
+        <h2
+          class="heading-1 text-4xl md:text-7xl text-center xl:text-left font-bold mb-10 xl:mb-20 text-scheme-tertiary">
+          {{ section.settings.title | default: "Products" }}
+        </h2>
+        {% endif %}
+      <div class="
+        swiper-box
+        relative
+        bg-white
+        rounded-[8px]
+        xl:pt-20
+        xl:pb-16
+        pt-12
+        pb-8
+        "
+      >
+        {% if section.settings.products_list != blank %}
+          {% assign collection = section.settings.products_list %}
+          <div class="swiper-button-next !bg-scheme-primary"></div>
+          <div class="swiper-button-prev !bg-scheme-primary"></div>
+          <div id="swiper-container-{{ section.id }}" class="swiper-container">
+            <div class="swiper-wrapper">
+            {% for item in collection %}
+              <div class="swiper-slide">
+                <div class="flex flex-col rounded-lg transition-shadow duration-300 px-4 sm:px-8 xl:px-12 h-full">
+                  <div class="grow">
+                    <div class="w-full">
+                      {% render 'image'
+                        with item.featured_image,
+                        class: 'aspect-square',
+                        placeholder: 'image'
+                        lazyload: true,
+                        fetchpriority: 'auto',
+                        alt: item.title
+                        decoding="async"
+                      %}
+                    </div>
+                    <div class="pt-6 pb-3">
+                      <div class="text-center  font-bold mb-4">
+                        <h2 class="text-baseLarge line-clamp-2 mb-4 hover:underline">
+                          <a href="{{ item.url }}">{{ item.title }}</a>
+                        </h2>
+                        <p class="font-Aksen ">{{ item.price | money }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="pb-4"
+                    x-data="variantSelector('{{ item.first_available_variant.id }}')">
+                    <button
+                      class="
+                      btn btn-scheme btn-fourth w-full"
+                      @click.prevent="addToCart"
+                    >
+                      ADD TO CART
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+          </div>
+          {% else %}
+          <p class="col-span-full text-center text-gray-600 py-8">No products selected.</p>
+        {% endif %}
+      </div>
+      {% if section.settings.show_bottom_panel %}
+        <div class="md:flex items-center justify-center pt-10 md:pt-30">
+          <h3 class="heading-4 text-center text-scheme-primary mb-4 md:mb-0">{{ section.settings.bottom_text }}</h3>
+          {% if section.settings.button_text != blank %}
+            <a href="{{ section.settings.button_link }}" class="btn btn-scheme btn-fourth flex   ml-4">
+              {{ section.settings.button_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('variantSelector', (defaultVariantId) => ({
+        selectedVariants: [],
+        defaultVariantId,
+
+        updateSelectedVariants(event) {
+          const form = this.$el;
+          const selectedCheckbox = event.target;
+
+          form.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            if (checkbox !== selectedCheckbox) {
+              checkbox.checked = false;
+            }
+          });
+
+          this.selectedVariants = selectedCheckbox.checked ? [selectedCheckbox.value] : [];
+        },
+
+        addToCart() {
+          const variantId = this.selectedVariants.length > 0
+            ? this.selectedVariants[0]
+            : this.defaultVariantId;
+          const product = {
+            variantId
+          };
+          Alpine.store('cart').addToCart(product);
+        }
+      }));
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const swiper = new Swiper('#swiper-container-{{ section.id }}', {
+        loop: true,
+        slidesPerView: 4,
+        spaceBetween: 0,
+        breakpoints: {
+          320: {
+            slidesPerView: 1.4,
+            spaceBetween: 0,
+            centeredSlides: true
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 0,
+            autoHeight: true
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 0,
+            autoHeight: true
+          },
+        },
+        navigation: {
+          nextEl: '#productSection-{{ section.id }} .swiper-button-next',
+          prevEl: '#productSection-{{ section.id }} .swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <style>
+    #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} .heading-1 em {
+      color: var(--theme-color-primary);
+      font-style: normal;
+    }
+
+    @media (min-width: 1300px) {
+      #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} .heading-1 p em:first-child {
+        padding-left: 20%;
+      }
+
+      #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} .heading-1 p em:last-child {
+        padding-left: 30%;
+      }
+    }
+
+    #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} {
+      background-color: var(--theme-color-bg);
+    }
+  </style>
+
+  {% schema %}
+{
+"name": "Product Section",
+"settings": [
+  {
+    "type": "product_list",
+    "id": "products_list",
+    "label": "Products"
+  },
+  {
+    "type": "richtext",
+    "id": "title",
+    "label": "Section Title",
+  },
+  {
+    "type": "color_scheme",
+    "id": "color_scheme",
+    "label": "Color Scheme",
+    "default": "scheme-1"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_bottom_panel",
+    "label": "Show bottom panel",
+    "default": true
+  },
+  {
+    "type": "text",
+    "id": "bottom_text",
+    "label": "Bottom Text",
+    "default": "Not sure where to start?"
+  },
+  {
+    "type": "text",
+    "id": "button_text",
+    "label": "Button Text",
+    "default": "TRY THEM ALL"
+  },
+  {
+    "type": "url",
+    "id": "button_link",
+    "label": "Button Link"
+  },
+],
+"presets": [
+  {
+    "name": "Customizable Product Section"
+  }
+]
+}
+{% endschema %}
