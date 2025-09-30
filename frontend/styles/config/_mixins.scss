@@ -1,5 +1,275 @@
-@mixin center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* ==========================================================================
+   mixin.scss — прості типографічні міксини на media queries
+   ========================================================================== */
+
+   $tablet: 768px;
+   $desktop: 1200px;
+   
+   /* ---------- HEADINGS ---------- */
+   
+   @mixin h1 {
+     font-weight: 400;
+     font-size: 48px; line-height: 0.95;
+     @media (min-width: $tablet)  { font-size: 76px; line-height: 1; }
+     @media (min-width: $desktop) { font-size: 100px; line-height: 1; }
+   }
+   
+   @mixin h2 {
+     font-weight: 400;
+     font-size: 44px; line-height: 1.10;
+     @media (min-width: $tablet)  { font-size: 64px; line-height: 1.10; }
+     @media (min-width: $desktop) { font-size: 76px; line-height: 1.10; }
+   }
+   
+   @mixin h3 {
+     font-weight: 400;
+     font-size: 36px; line-height: 1.10;
+     @media (min-width: $tablet)  { font-size: 48px; line-height: 1.10; }
+     @media (min-width: $desktop) { font-size: 56px; line-height: 1.10; }
+   }
+   
+   @mixin h4 {
+     font-weight: 400;
+     font-size: 36px; line-height: 1.10;
+     @media (min-width: $tablet)  { font-size: 40px; line-height: 1.10; }
+     @media (min-width: $desktop) { font-size: 48px; line-height: 1.10; }
+   }
+   
+   @mixin h5 {
+     font-weight: 400;
+     font-size: 24px; line-height: 1.20;
+     @media (min-width: $tablet)  { font-size: 32px; line-height: 1.20; }
+     @media (min-width: $desktop) { font-size: 32px; line-height: 1.20; }
+   }
+   
+   @mixin h6 {
+     font-weight: 400;
+     font-size: 18px; line-height: 1.20;
+     @media (min-width: $tablet)  { font-size: 18px; line-height: 1.20; }
+     @media (min-width: $desktop) { font-size: 24px; line-height: 1.20; }
+   }
+   
+   @mixin h7 {
+     font-weight: 400;
+     font-size: 16px; line-height: 22px; letter-spacing: 0;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 22px; }
+     @media (min-width: $desktop) { font-size: 18px; line-height: 24px; }
+   }
+   
+   @mixin h8 {
+     font-weight: 400;
+     font-size: 14px; line-height: 20px; letter-spacing: 0;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 22px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 22px; }
+   }
+   
+   /* ---------- SUBTITLES ---------- */
+   
+   @mixin subtitle-1 { /* Light */
+     font-weight: 300;
+     font-size: 24px; line-height: 32px; letter-spacing: 1px;
+     @media (min-width: $tablet)  { font-size: 32px; line-height: 38px; letter-spacing: 1px; }
+     @media (min-width: $desktop) { font-size: 32px; line-height: 38px; letter-spacing: 1px; }
+   }
+   
+   @mixin subtitle-2 { /* Light */
+     font-weight: 300;
+     font-size: 18px; line-height: 24px; letter-spacing: 1px;
+     @media (min-width: $tablet)  { font-size: 24px; line-height: 28px; letter-spacing: 1px; }
+     @media (min-width: $desktop) { font-size: 24px; line-height: 28px; letter-spacing: 1px; }
+   }
+   
+   @mixin subtitle-3 { /* Medium */
+     font-weight: 500;
+     font-size: 16px; line-height: 22px; letter-spacing: 0.6px;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 22px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 22px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin subtitle-4 { /* Regular Uppercase */
+     font-weight: 400; text-transform: uppercase;
+     font-size: 16px; line-height: 22px; letter-spacing: 4px;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 22px; letter-spacing: 4px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 22px; letter-spacing: 4px; }
+   }
+   
+   @mixin subtitle-5 { /* Regular Uppercase */
+     font-weight: 400; text-transform: uppercase;
+     font-size: 14px; line-height: 20px; letter-spacing: 4px;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 20px; letter-spacing: 4px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 20px; letter-spacing: 4px; }
+   }
+   
+   @mixin subtitle-6 { /* Medium */
+     font-weight: 500;
+     font-size: 14px; line-height: 20px; letter-spacing: 0.02em; /* 2% */
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 20px; letter-spacing: 0.02em; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 20px; letter-spacing: 0.02em; }
+   }
+   
+   @mixin subtitle-7 { /* Regular Uppercase */
+     font-weight: 400; text-transform: uppercase;
+     font-size: 14px; line-height: 20px; letter-spacing: 3px;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 20px; letter-spacing: 3px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 20px; letter-spacing: 3px; }
+   }
+   
+   /* ---------- BODY ---------- */
+   
+   @mixin body-1 {
+     font-weight: 400;
+     font-size: 16px; line-height: 22px; letter-spacing: 0;
+     @media (min-width: $tablet)  { font-size: 18px; line-height: 24px; }
+     @media (min-width: $desktop) { font-size: 18px; line-height: 24px; }
+   }
+   
+   @mixin body-2 {
+     font-weight: 400;
+     font-size: 16px; line-height: 22px; letter-spacing: 0;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 22px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 22px; }
+   }
+   
+   @mixin body-3 {
+     font-weight: 400;
+     font-size: 14px; line-height: 20px; letter-spacing: 0;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 20px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 20px; }
+   }
+   
+   @mixin body-4 {
+     font-weight: 400;
+     font-size: 12px; line-height: 16px; letter-spacing: 0;
+     @media (min-width: $tablet)  { font-size: 12px; line-height: 16px; }
+     @media (min-width: $desktop) { font-size: 12px; line-height: 16px; }
+   }
+   
+   /* ---------- CAPTIONS ---------- */
+   
+   @mixin caption-1 {
+     font-weight: 400;
+     font-size: 12px; line-height: 16px;
+     @media (min-width: $tablet)  { font-size: 13px; line-height: 16px; }
+     @media (min-width: $desktop) { font-size: 13px; line-height: 16px; }
+   }
+   
+   @mixin caption-2 { /* Uppercase */
+     font-weight: 400; text-transform: uppercase;
+     font-size: 12px; line-height: 16px; letter-spacing: 1px;
+     @media (min-width: $tablet)  { font-size: 13px; line-height: 16px; letter-spacing: 1px; }
+     @media (min-width: $desktop) { font-size: 13px; line-height: 16px; letter-spacing: 1px; }
+   }
+   
+   @mixin caption-3 { /* Strikethrough */
+     font-weight: 400; text-decoration: line-through;
+     font-size: 12px; line-height: 16px;
+     @media (min-width: $tablet)  { font-size: 13px; line-height: 16px; }
+     @media (min-width: $desktop) { font-size: 13px; line-height: 16px; }
+   }
+   
+   @mixin caption-4 { /* Uppercase small */
+     font-weight: 400; text-transform: uppercase;
+     font-size: 10px; line-height: 16px; letter-spacing: 1px;
+     @media (min-width: $tablet)  { font-size: 10px; line-height: 16px; letter-spacing: 1px; }
+     @media (min-width: $desktop) { font-size: 10px; line-height: 16px; letter-spacing: 1px; }
+   }
+   
+   /* ---------- TEXT (з 150% line-height) ---------- */
+   
+   @mixin text-1 {
+     font-weight: 400;
+     font-size: 16px; line-height: 1.5;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 1.5; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 1.5; }
+   }
+   
+   /* ---------- BUTTONS (лише типографіка) ---------- */
+   
+   @mixin btn-text {
+     font-weight: 400;
+     font-size: 14px; line-height: 1; letter-spacing: 4px;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 1; letter-spacing: 4px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 1; letter-spacing: 4px; }
+   }
+   
+   @mixin btn-text-small {
+     font-weight: 400;
+     font-size: 12px; line-height: 1; letter-spacing: 3px;
+     @media (min-width: $tablet)  { font-size: 12px; line-height: 1; letter-spacing: 3px; }
+     @media (min-width: $desktop) { font-size: 12px; line-height: 1; letter-spacing: 3px; }
+   }
+   
+   /* ---------- LINKS ---------- */
+   
+   @mixin link-1 { /* Light */
+     font-weight: 300;
+     font-size: 18px; line-height: 24px; letter-spacing: 0.6px; text-decoration: none;
+     @media (min-width: $tablet)  { font-size: 18px; line-height: 24px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 18px; line-height: 24px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin link-2 {
+     font-weight: 400;
+     font-size: 16px; line-height: 22px; letter-spacing: 0.6px; text-decoration: none;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 22px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 22px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin link-3 {
+     font-weight: 400;
+     font-size: 14px; line-height: 16px; letter-spacing: 0.6px; text-decoration: none;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 16px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 16px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin link-4 {
+     font-weight: 400;
+     font-size: 12px; line-height: 16px; letter-spacing: 0.5px; text-decoration: none;
+     @media (min-width: $tablet)  { font-size: 12px; line-height: 16px; letter-spacing: 0.5px; }
+     @media (min-width: $desktop) { font-size: 12px; line-height: 16px; letter-spacing: 0.5px; }
+   }
+   
+   @mixin underline-link-16 {
+     font-weight: 400; text-decoration: underline;
+     font-size: 16px; line-height: 24px; letter-spacing: 0.6px;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 24px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 24px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin underline-link-14 {
+     font-weight: 400; text-decoration: underline;
+     font-size: 14px; line-height: 20px; letter-spacing: 0.6px;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 20px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 20px; letter-spacing: 0.6px; }
+   }
+   
+   /* ---------- FIELDS ---------- */
+   
+   @mixin field-title { /* Uppercase label */
+     font-weight: 400; text-transform: uppercase;
+     font-size: 12px; line-height: 16px; letter-spacing: 3px;
+     @media (min-width: $tablet)  { font-size: 12px; line-height: 16px; letter-spacing: 3px; }
+     @media (min-width: $desktop) { font-size: 12px; line-height: 16px; letter-spacing: 3px; }
+   }
+   
+   @mixin field-placeholder-16 {
+     font-weight: 400;
+     font-size: 16px; line-height: 24px; letter-spacing: 0.6px;
+     @media (min-width: $tablet)  { font-size: 16px; line-height: 24px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 16px; line-height: 24px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin field-placeholder-14 {
+     font-weight: 400;
+     font-size: 14px; line-height: 20px; letter-spacing: 0.6px;
+     @media (min-width: $tablet)  { font-size: 14px; line-height: 20px; letter-spacing: 0.6px; }
+     @media (min-width: $desktop) { font-size: 14px; line-height: 20px; letter-spacing: 0.6px; }
+   }
+   
+   @mixin field-description {
+     font-weight: 400;
+     font-size: 12px; line-height: 16px; letter-spacing: 0.5px;
+     @media (min-width: $tablet)  { font-size: 12px; line-height: 16px; letter-spacing: 0.5px; }
+     @media (min-width: $desktop) { font-size: 12px; line-height: 16px; letter-spacing: 0.5px; }
+   }
+   
