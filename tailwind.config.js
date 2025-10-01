@@ -21,8 +21,19 @@ export default {
     screens: {
       sm: '480px',
       md: '768px',
-      lg: '976px',
-      xl: '1300px',
+      lg: '903px',
+      xl: '1400px',
+    },
+    container: {
+        center: true,
+        padding: '40px',
+        screens: {
+          DEFAULT: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '100%',
+          xl: '1400px',
+        },
     },
     extend: {
       fontFamily: {
@@ -45,6 +56,14 @@ export default {
       },
     },
     colors: {
+      body: { 
+        DEFAULT: '#E7E7E7', 
+        bg: '#E7E7E7' 
+      },
+      color_stroke: {
+        DEFAULT: '#474747',
+        bg: '#474747'
+      },
       color_1: {
         DEFAULT: '#1b4c62',
         secondary: '#61A2C7',
@@ -109,7 +128,8 @@ export default {
         ':root': {
           // Body colors
           '--color-body-content': theme('colors.color_1.content'),
-          '--color-body-bg': theme('colors.white.bg'),
+          '--color-body-bg': '#E7E7E7',
+
 
           // Brand colors 1 (primary)
           '--color_1': theme('colors.color_1.DEFAULT'),

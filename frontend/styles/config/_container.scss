@@ -1,0 +1,27 @@
+@use "./breakpoints" as *;
+
+.container {
+   padding: 0 40px;
+
+   @include media(max-t) {
+        padding: 0 24px;
+   }
+
+   @include media(max-m) {
+        padding: 0 16px;
+    }
+}
+
+.shopify-section {
+    &:not(:last-child) {
+        padding-bottom: 120px;
+
+        @include media(max-t) {
+            padding-bottom: 60px;
+        }
+
+        @include media(max-m) {
+            padding-bottom: 60px;
+        }
+    }
+}
