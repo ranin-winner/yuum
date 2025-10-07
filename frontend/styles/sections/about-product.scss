@@ -1,0 +1,60 @@
+.about-product {
+    .about-product__container {
+      @apply mx-auto;
+      max-width: 903px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  
+    .about-product__kicker {
+      @apply text-center uppercase text-xs tracking-[0.2em]  mb-1;
+    }
+  
+    .about-product__title {
+      @apply text-center text-[28px] md:text-[32px] leading-[1.2] text-[#474747] mb-4;
+      letter-spacing: .6px;
+    }
+  
+    .about-product__desc {
+      @apply text-center md:text-left text-[14px] md:text-[15px] leading-7 text-[#6b6b6b] mb-8 md:mb-12;
+    }
+  
+    .about-product__section {
+      @apply grid gap-5 md:gap-8 md:grid-cols-2 items-stretch;
+    }
+  
+    .about-product__img {
+      @apply rounded-2xl overflow-hidden;
+    }
+  
+    .about-product__card {
+      /* сірий блок як на макеті */
+      @apply rounded-2xl p-5 md:p-7;
+      background-color: #AEB1B5; /* можна змінити за потреби */
+      color: #fff;
+    }
+  
+    /* нумерація списку як у прикладі */
+    .about-product__ol {
+      counter-reset: step;
+      @apply space-y-4;
+    }
+    .about-product__ol > li {
+      counter-increment: step;
+      @apply relative pl-8;
+    }
+    .about-product__ol > li::before {
+      content: counter(step) ".";
+      @apply absolute left-0 top-0 font-semibold;
+      line-height: 1.2;
+    }
+  }
+  
+  /* дрібні твіки під великі екрани */
+  @media (min-width: 768px) {
+    .about-product .about-product__container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  

@@ -1,14 +1,17 @@
 {% render 'entry' with '@/styles/sections/trial-faq.scss' %}
 
-<section class="trial-faq py-24 bg-white">
-  <div class="trial-faq__container page-width max-w-[800px] mx-auto">
-    <h2 class="text-2xl font-Gazpacho mb-10 text-center text-[#D24F3A]">{{ section.settings.title | escape }}</h2>
+<section class="trial-faq">
+  <div class="trial-faq__container w-full max-w-[903px] mx-auto px-4 md:px-0">
+    <h2 class="text-center text-2xl md:text-[32px] leading-tight mb-8 md:mb-10">
+      {{ section.settings.title | escape }}
+    </h2>
 
-    <div class="flex flex-col ">
+    <div class="flex flex-col">
       {% for block in section.blocks %}
         {%- render 'accordion-item',
           q: block.settings.question,
-          a: block.settings.answer
+          a: block.settings.answer,
+          class: 'faq__items'
         -%}
       {% endfor %}
     </div>
@@ -50,15 +53,9 @@
     {
       "name": "Trial FAQ",
       "blocks": [
-        {
-          "type": "faq_item"
-        },
-        {
-          "type": "faq_item"
-        },
-        {
-          "type": "faq_item"
-        }
+        { "type": "faq_item" },
+        { "type": "faq_item" },
+        { "type": "faq_item" }
       ]
     }
   ]

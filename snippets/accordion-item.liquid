@@ -1,7 +1,7 @@
 {%- comment -%}
 Inputs:
   q: String  – заголовок
-  a: HTML    – контент
+  a: HTML    – контент (richtext із <ul><li>...</li></ul>)
   open: Bool – початковий стан (optional)
   class: String – дод. класи оболонки (optional)
 {%- endcomment -%}
@@ -10,12 +10,11 @@ Inputs:
      x-data="{ open: {{ open | default: false | json }} }">
 
   <button type="button"
-          class="ui-acc__summary flex w-full items-center justify-between gap-4 py-4 cursor-pointer text-[#474747]  text-base leading-[1.2]"
+          class="ui-acc__summary flex w-full items-center justify-between gap-4 py-[17px] cursor-pointer text-[#474747] text-base leading-[1.2]"
           @click="open = !open"
           :aria-expanded="open.toString()">
     <span class="ui-acc__title">{{ q }}</span>
 
-    <!-- плюс/мінус -->
     <svg class="ui-acc__icon shrink-0 w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M4 12H20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
       <path d="M12 4V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
@@ -24,9 +23,26 @@ Inputs:
   </button>
 
   <div x-ref="panel"
-       class="ui-acc__content text-[16px] leading-[1.45] text-[#474747] overflow-hidden transition-[max-height] duration-300 ease-in-out"
-       :style="open ? `max-height:${$refs.panel.scrollHeight}px` : 'max-height:0px'">
-    {{ a }}
+       class="ui-acc__content text-[16px] leading-[1.45] text-[#474747] overflow-hidden transition-[max-height] duration-300 ease-in-out will-change-[max-height]"
+       :style="open ? `max-height:${$refs.inner.offsetHeight}px` : 'max-height:0px'">
+
+    <div x-ref="inner" class="pb-[23px]">
+      {%- comment -%} --- RICHTEXT ➜ «ТАБЛИЧКА» (без JS) --- {%- endcomment -%}
+      {%- assign rt = a -%}
+      {%- if rt and rt contains '<ul' -%}
+        {%- assign rt = rt | replace: '<ul', '<ul class="nutri-rt"' -%}
+        {%- assign rt = rt | replace: '<li>', '<li class="nutri-rt__row"><span class="k">' -%}
+        {%- assign rt = rt | replace: '</li>', '</span></li>' -%}
+        {%- comment -%} різні варіації роздільника | {%- endcomment -%}
+        {%- assign rt = rt | replace: ' | ', '</span><span class="v">' -%}
+        {%- assign rt = rt | replace: ' |', '</span><span class="v">' -%}
+        {%- assign rt = rt | replace: '| ', '</span><span class="v">' -%}
+        {%- assign rt = rt | replace: '|', '</span><span class="v">' -%}
+        {{- rt -}}
+      {%- else -%}
+        {{ a }}
+      {%- endif -%}
+    </div>
   </div>
 </div>
 
