@@ -11,6 +11,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import '../components/alp-main-store';
 import '../components/alp-cart';
 import '../components/alp-build-box'; // FE TODO Must be included only for the build box section
+import '../components/main-product-replaced';
 
 window.Alpine = Alpine;
 window.Swiper = Swiper;
@@ -21,6 +22,10 @@ Alpine.start();
 
 import { variantSelect } from '../components/variant-select';
 import { headerSticky } from '../components/header';
+import { productCarousel } from '../components/product-carousel';
 
 headerSticky();
 variantSelect();
+productCarousel();
+
+

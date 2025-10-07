@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-DFMjnUwm.css",
+    "file": "main-BrW0rSCm.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-yAH8z4Ac.js",
+    "file": "main.theme-V-dGGIpq.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp--K95JJbA.css",
+    "file": "page-pdp-B3k89mhm.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -22,7 +22,7 @@
     "isEntry": true
   },
   "frontend/scripts/sections/main-product.js": {
-    "file": "main-product-DyTyat1O.js",
+    "file": "main-product-CrbXoggx.js",
     "name": "main-product",
     "src": "frontend/scripts/sections/main-product.js",
     "isEntry": true

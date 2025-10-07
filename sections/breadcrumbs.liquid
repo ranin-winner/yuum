@@ -1,0 +1,116 @@
+<section class="breadcrumbs-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container mx-auto px-4">
+    <nav aria-label="Breadcrumb" class="breadcrumbs-nav">
+      <ol class="breadcrumbs-list">
+        <!-- Home -->
+        <li class="breadcrumbs-item">
+          <a href="/" class="breadcrumb-link">Home</a>
+        </li>
+
+        {% if collection %}
+          <!-- Collection -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <a href="{{ collection.url }}" class="breadcrumbs-link{% if template == 'collection' %} current-page{% endif %}">
+              {{ collection.title }}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if product %}
+          <!-- Product Collection -->
+          {% if product.collections.size > 0 %}
+            <li class="breadcrumbs-separator">|</li>
+            <li class="breadcrumbs-item">
+              <a href="{{ product.collections.first.url }}" class="breadcrumbs-link">
+                {{ product.collections.first.title }}
+              </a>
+            </li>
+          {% endif %}
+          
+          <!-- Product -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ product.title }}</span>
+          </li>
+        {% endif %}
+
+        {% if page %}
+          <!-- Page -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ page.title }}</span>
+          </li>
+        {% endif %}
+
+        {% if article %}
+          <!-- Blog -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <a href="{{ blog.url }}" class="breadcrumbs-link">{{ blog.title }}</a>
+          </li>
+          
+          <!-- Article -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ article.title }}</span>
+          </li>
+        {% endif %}
+
+        {% if template contains 'search' %}
+          <!-- Search -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">Search</span>
+          </li>
+        {% endif %}
+
+        {% if template contains 'cart' %}
+          <!-- Cart -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">Cart</span>
+          </li>
+        {% endif %}
+
+        {% if template contains 'account' %}
+          <!-- Account -->
+          <li class="breadcrumbs-separator">|</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">Account</span>
+          </li>
+        {% endif %}
+      </ol>
+    </nav>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "tag": "section",
+  "class": "section-breadcrumbs",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 16
+    }
+  ]
+}
+{% endschema %}

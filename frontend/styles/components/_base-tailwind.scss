@@ -6,21 +6,24 @@
   html {
     text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-variant-ligatures: none;
     font-size: 10px;
     line-height: 1.2em;
     // overflow-y: scroll;
   }
 
+  
   body {
+    @apply font-body; 
+    font-family: var(--font-body, 'Neue Haas Grotesk Display Pro'), system-ui, -apple-system, Arial, sans-serif;
     font-size: 1.6rem;
     line-height: 1.2em;
     background: var(--color-body-bg);
     color: var(--color-body-content);
-    font-family: 'Aksen', 'Arial', sans-serif;
     max-width: 100%;
     // overflow-x: hidden;
-
 
     &.no-scroll {
       overflow: hidden;
@@ -51,9 +54,7 @@
     overflow: hidden;
     width: 100%;
 
-    &.m-header-sticky {
-
-    }
+    &.m-header-sticky { }
   }
 
   details > summary {
@@ -64,13 +65,22 @@
     @apply hidden;
   }
 
-  // Heading
+  
+  h1,h2,h3,h4,h5,h6 {
+    @apply font-heading;
+    font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
+    font-weight: 400;
+  }
+
+  /* Класові заголовки */
   .heading-1,
   .heading-2,
   .heading-3,
   .heading-4,
   .heading-5 {
-    font-weight: 700;
+    @apply font-heading;
+    font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
+    font-weight: 400; /* було 700 — замінили на 400 */
     margin-bottom: 1.6rem;
   }
 
@@ -122,16 +132,12 @@
   }
 
   // Images
-  .figure-block {
-    position: relative;
-  }
+  .figure-block { position: relative; }
 
   .figure-image {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
   }
 
@@ -140,7 +146,7 @@
   }
 }
 
-// Icons
+/* Icons */
 .icon {
   width: 24px;
   height: 24px;
@@ -151,14 +157,9 @@
   }
 }
 
-//
-.shopify-challenge__container {
-  padding: 30px 0;
-}
-
-.shopify-challenge__message {
-  padding: 10px 0;
-}
+/* Shopify challenge */
+.shopify-challenge__container { padding: 30px 0; }
+.shopify-challenge__message { padding: 10px 0; }
 
 .container.m-responsive {
   @media (max-width: 767px) {
@@ -177,4 +178,61 @@
     before:bg-color_1 after:bg-color_1
     before:transition-[width] before:duration-300 after:transition-[width] after:duration-300;
   }
+}
+
+
+// breadcrumbs styles
+.section-breadcrumbs {
+    padding-bottom: 0!important;
+}
+
+.breadcrumbs {
+    &-nav {
+        width: 100%;
+    }
+
+    &-list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 0;
+    }
+
+    &-item {
+        display: inline-flex;
+    }
+
+    &-link {
+        color: #474747;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.6px;
+        font-weight: 400;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #ADAEB0;
+        }
+
+        &.current-page {
+            color: #ADAEB0;
+            cursor: default;
+
+            &:hover {
+                color: #474747;
+            }
+        }
+    }
+
+    &-separator {
+        color: #474747;
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 500;
+        margin: 0 14px;
+    }
 }

@@ -1,0 +1,32 @@
+{%- comment -%}
+Inputs:
+  q: String  – заголовок
+  a: HTML    – контент
+  open: Bool – початковий стан (optional)
+  class: String – дод. класи оболонки (optional)
+{%- endcomment -%}
+
+<div class="ui-acc border-t border-[#474747] {{ class }}"
+     x-data="{ open: {{ open | default: false | json }} }">
+
+  <button type="button"
+          class="ui-acc__summary flex w-full items-center justify-between gap-4 py-4 cursor-pointer text-[#474747]  text-base leading-[1.2]"
+          @click="open = !open"
+          :aria-expanded="open.toString()">
+    <span class="ui-acc__title">{{ q }}</span>
+
+    <!-- плюс/мінус -->
+    <svg class="ui-acc__icon shrink-0 w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 12H20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M12 4V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            :class="open ? 'opacity-0' : 'opacity-100'"></path>
+    </svg>
+  </button>
+
+  <div x-ref="panel"
+       class="ui-acc__content text-[16px] leading-[1.45] text-[#474747] overflow-hidden transition-[max-height] duration-300 ease-in-out"
+       :style="open ? `max-height:${$refs.panel.scrollHeight}px` : 'max-height:0px'">
+    {{ a }}
+  </div>
+</div>
+

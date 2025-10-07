@@ -1,3 +1,5 @@
+{% render 'entry' with '@/styles/elements/_product-slider.scss' %}
+
 {% capture arrowNext %}
     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"/>
@@ -11,19 +13,15 @@
 {% endcapture %}
 
 <article
-  class="
-  b-product__gallery
-  "
+  class="b-product__gallery"
   id="b-product__gallery-{{ section.id }}"
   x-show="!sliderLoading"
 >
   <div class="swiper-box relative">
-    <div class="swiper-button-next">{{ arrowNext }}</div>
-    <div class="swiper-button-prev">{{ arrowPrev }}</div>
-    <div
-      class="swiper-container !p-0"
-      id="swiper-container-{{ section.id }}"
-    >
+    <div class="swiper-button-next" x-ref="swiperNext">{{ arrowNext }}</div>
+    <div class="swiper-button-prev" x-ref="swiperPrev">{{ arrowPrev }}</div>
+
+    <div class="swiper-container !p-0" id="swiper-container-{{ section.id }}" x-ref="swiperEl">
       <div class="swiper-wrapper">
         {% for image in product.images %}
           <div class="swiper-slide pb-[100%]">
@@ -34,7 +32,7 @@
           </div>
         {% endfor %}
       </div>
-      <div class="swiper-pagination"></div>
+      <div class="swiper-pagination" x-ref="swiperPagination"></div>
     </div>
   </div>
 </article>

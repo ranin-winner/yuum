@@ -1,27 +1,19 @@
 
-.trial-faq__container {
-  max-width: 800px;
-  margin: 0 auto;
+.ui-acc + .ui-acc { 
+    border-top-width: 1px; 
 }
 
-.trial-faq__item:last-child {
-  border-bottom: 2px solid var(--color_4);
+.ui-acc:last-of-type { 
+    border-bottom: 1px solid #474747; 
 }
 
-.trial-faq__toggle {
-  transition: transform 0.3s ease;
+.ui-acc__icon path { 
+    transition: opacity .2s ease; 
+}
+summary::-webkit-details-marker{
+    display:none
 }
 
-.trial-faq__item[open] .trial-faq__toggle {
-  transform: rotate(135deg);
-}
-
-.trial-faq__item[open] {
-  border-bottom: none;
-}
-
-@media screen and (max-width: 768px) {
-  .trial-faq__container {
-      width: 90%;
-  }
+@media (prefers-reduced-motion: reduce){
+  .ui-acc__content{ transition: none !important; }
 }

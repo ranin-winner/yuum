@@ -403,6 +403,39 @@
     ]
   },
   {
+    "name": "Product badges",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "badges_enable_pdp",
+        "label": "Show on product page",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "badges_enable_card",
+        "label": "Show on product cards",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "badges_max",
+        "label": "Max badges per product",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "textarea",
+        "id": "badges_allowlist",
+        "label": "Allowed badge tags (comma-separated)",
+        "info": "Наприклад: Bestseller, New, Sale, Limited",
+        "default": "Bestseller, New, Sale, Limited"
+      }
+    ]
+  },
+  {
     "name": "Cart",
     "settings": [
       {

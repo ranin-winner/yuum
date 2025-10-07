@@ -1,0 +1,86 @@
+{%- comment -%}
+  Chips for product tags with "show 3 + more" logic
+  Uses Tailwind classes and Alpine.js (expects Alpine on the page)
+{%- endcomment -%}
+
+{%- assign supported = "sweet|sour|bitter|umami|salt|vegetarian|vegan|gluten-free" | split: "|" -%}
+{%- assign tags_down = product.tags | join: '|' | downcase | prepend: '|' | append: '|' -%}
+
+{%- assign chips_html = '' -%}
+{%- assign idx = 0 -%}
+
+{%- for key in supported -%}
+  {%- capture needle %}|{{ key }}|{% endcapture -%}
+  {%- if tags_down contains needle -%}
+    {%- assign idx = idx | plus: 1 -%}
+    {%- capture chip -%}
+      <div
+        x-show="expanded || {{ idx }} <= 3"
+        class="group inline-flex items-center gap-[8.6px] rounded-[100px] border border-[#ADAEB0] bg-white px-[12px] py-[7.5px] text-[13px] leading-4 tracking-normal text-[#474747] hover:border-[#6b6b6b] transition-colors cursor-pointer"
+        data-chip="{{ key }}"
+      >
+        {%- case key -%}
+          {%- when 'sweet' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 221 221" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M49.3 1.95C4.13 14.94-14.53 67.87 12.63 106.06l3.03 4.26-3.03 4.44C8.72 120.49 5.01 127.99 2.6 135.05-0.37 143.75-0.11 165.9 3.06 174.96c6.99 19.94 22.03 35.37 41.67 42.75 10.08 3.79 28.23 4.41 39.33 1.35 8.97-2.47 14.28-4.95 21.26-9.94 2.66-1.9 5.06-3.46 5.33-3.46.27 0 2.45 1.5 4.83 3.33 5.42 4.16 14.71 8.38 23.22 10.57 9.79 2.52 27.57 1.62 37.44-1.89 27.82-9.89 46.75-38.58 44.7-67.75-.78-11.09-4.84-23.5-10.42-31.86-2.5-3.75-4.55-7.15-4.55-7.55 0-.4 2-3.79 4.45-7.53 9.12-13.95 12.83-33.53 9.43-49.77-3.97-18.94-16.98-36.28-33.97-45.28C174.7 2.04 166.56.02 153.92 0c-14.55-.02-25.39 3.36-38.26 11.95l-5.29 3.53-5.05-3.65C99.21 7.43 91.06 3.71 82.85 1.57 74.5-.6 57.55-.41 49.32 1.95Z" stroke="currentColor" stroke-width="14" />
+            </svg>
+            <span>sweet</span>
+          {%- when 'sour' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 250 215" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M61.95 1.11c-.23.7-1.61 5.76-3.07 11.25-8.19 30.78-25.66 61.1-49.18 85.33L0 107.67l9.68 9.87c11.84 12.07 16.07 17.25 24.25 29.7 11.36 17.3 20.2 37.08 25.33 56.63 3.34 12.69 1.98 12.03 16.53 8.15 30.86-8.24 67.3-8.12 99.44.32 6.38 1.68 11.77 2.89 11.97 2.69.2-.2 1.54-4.9 2.98-10.44 5.3-20.4 14.65-40.84 27.36-59.84 7.62-11.39 23.05-29.58 29.14-34.35L250 107.7l-10.66-10.98c-16.8-17.31-26.15-30.74-36.63-52.65-5.18-10.84-11.06-27.37-14.18-39.9-1.2-4.8-1.83-5.02-8.24-2.76-2.45.86-10.17 2.77-17.17 4.25-11.75 2.49-14.59 2.7-37.63 2.72-26.58.03-33.06-.69-52.7-5.96C61.69-.59 62.48-.5 61.95 1.11Z" stroke="currentColor" stroke-width="14"/>
+            </svg>
+            <span>sour</span>
+          {%- when 'bitter' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 214 215" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M82.77 1.8 45.95 9.43c-15.81 3.21-29.13 6.19-29.58 6.62C15.34 17.01-.61 94.14.02 95.16c.25.4 5.69 3.16 12.09 6.13 6.41 2.97 11.65 5.73 11.65 6.11 0 .39-5.24 3.14-11.65 6.11-6.4 2.98-11.84 5.76-12.09 6.17C-.61 120.67 15.33 197.8 16.37 198.76c.86.8 74.19 16.25 77.08 16.24 1.05 0 3.62-4.25 7.51-12.44l5.9-12.43 5.85 12.43c3.96 8.41 6.38 12.43 7.5 12.43 2.55 0 76.43-15.43 77.22-16.13.39-.34 4.13-17.3 8.31-37.7 4.19-20.38 7.86-38.09 8.15-39.35.49-2.07-.62-2.84-11.58-8.02-6.67-3.15-12.13-6.05-12.13-6.45 0-.39 5.46-3.29 12.13-6.44 10.97-5.19 12.08-5.95 11.59-8.02-.3-1.26-3.95-18.95-8.12-39.31C197.87 33.26 194.13 16.3 193.73 15.94c-.4-.36-5.72-1.64-11.82-2.83-6.1-1.2-23.27-4.71-38.14-7.8C128.65 2.22 116.04-.17 115.51.01c-.53.18-3.59 5.79-6.8 12.48l-5.86 12.16L100.95 12.23C94.28-1.81 95.63-1.04 82.77 1.8Z" stroke="currentColor" stroke-width="14"/>
+            </svg>
+            <span>bitter</span>
+          {%- when 'umami' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 237 237" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M104.85 1.34C93.23 4.55 79.69 15.51 74.77 25.68 65.38 45.08 47.98 62.99 28.99 72.8 10.23 82.5 0 98.49 0 118.12c0 19.63 10.23 35.62 28.99 45.31 19.37 10.01 35 26.22 46.71 48.46 8.99 17.07 30.06 27.56 49.43 24.6 15.62-2.38 29.25-12.02 36.89-26.1 6.47-11.92 12.21-19.76 20.35-27.8 9.71-9.6 15.86-14.23 26.69-20.05 10.71-5.74 17.81-12.8 22.57-22.45 7.17-14.53 7.17-29.4 0-43.93-4.76-9.64-11.86-16.7-22.57-22.45-19.6-10.52-35.77-26.63-45.66-45.5C189.61 15.4 177.67 5.15 165.2 1.49c-6.54-1.92-20.73-1.99-27.42-.15Z" stroke="currentColor" stroke-width="14"/>
+            </svg>
+            <span>umami</span>
+          {%- when 'salt' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 215 215" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M43.88 1.24C13.45 7.98-5.44 36.56 1.4 65.52c2.18 9.26 7.04 18.12 13.8 25.15 12.18 12.68 12.15 20.11-.13 33.62-25.71 28.28-17.15 69.95 17.61 85.71 11.06 5.02 14.66 5.25 78.97 4.91l59.44-.32 6.78-2.63c28.79-11.18 43.68-40.4 34.37-67.45-2.86-8.29-6.46-14.09-13.4-21.18-6.61-7.09-7.95-9.73-7.95-15.55 0-5.82 1.34-8.46 7.95-15.55 6.96-7.09 10.55-12.91 13.43-20.99C221.63 43 206.32 13.51 177.27 2.88L170.05.24 110.1.04C62.51-.11 48.87.13 43.88 1.24Z" stroke="currentColor" stroke-width="14"/>
+            </svg>
+            <span>salt</span>
+          {%- when 'vegetarian' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 15c5 0 6-8 6-8s8 1 8 6a6 6 0 0 1-6 6H7a3 3 0 0 1-3-3Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>vegetarian</span>
+          {%- when 'vegan' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 12s3-8 9-8 9 5 9 8-4 8-9 8-9-5-9-8Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 6v12" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            </svg>
+            <span>vegan</span>
+          {%- when 'gluten-free' -%}
+            <svg class="h-[15px] w-[15px] text-[#ADAEB0] group-hover:text-[#6b6b6b] transition-colors" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 12c3-6 7-8 8-8 1 0 5 2 8 8-3 6-7 8-8 8s-5-2-8-8Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 5l14 14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            </svg>
+            <span>gluten-free</span>
+        {%- endcase -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign chips_html = chips_html | append: chip -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if idx > 0 -%}
+  <div x-data="{ expanded:false }" class="flex flex-wrap items-center gap-[8.6px] pt-2 mb-[32px]">
+    {{- chips_html -}}
+    {%- if idx > 3 -%}
+      <button
+        type="button"
+        @click="expanded = !expanded"
+        class="inline-flex items-center rounded-[100px] border border-[#ADAEB0] min-h-[32px] px-[12px] py-[7.5px] text-[13px] leading-4 text-[#474747] hover:border-[#6b6b6b] transition-colors cursor-pointer"
+      >
+        <span x-show="!expanded" x-cloak>more … +{{ idx | minus: 3 }}</span>
+        <span x-show="expanded" x-cloak>less</span>
+      </button>
+    {%- endif -%}
+  </div>
+{%- endif -%}

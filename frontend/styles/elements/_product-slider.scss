@@ -1,0 +1,19 @@
+.b-product__gallery {
+    .swiper-pagination {
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 2px;
+      background: #C2C2C2;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+  
+    .swiper-pagination-progressbar-fill {
+      background: #474747;
+      border-radius: inherit;
+    }
+  }
+  

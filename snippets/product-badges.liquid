@@ -1,0 +1,76 @@
+{%- comment -%}
+Reusable badges renderer (allowlist з textarea)
+Params:
+  product   – об’єкт продукту (required)
+  location  – 'pdp' | 'card'
+  max       – перекриває settings.badges_max
+  class     – додаткові класи на <ul>
+Мобільні стилі: 10px шрифт, py 4px, px 10px
+Десктоп: 12px шрифт, py 8px, px 12px
+{%- endcomment -%}
+
+{%- assign where = location | default: 'pdp' -%}
+{%- assign show_on_pdp  = settings.badges_enable_pdp -%}
+{%- assign show_on_card = settings.badges_enable_card -%}
+
+{%- assign can_show = false -%}
+{%- if product and product.tags != blank -%}
+  {%- if where == 'pdp' and show_on_pdp -%}{%- assign can_show = true -%}{%- endif -%}
+  {%- if where == 'card' and show_on_card -%}{%- assign can_show = true -%}{%- endif -%}
+{%- endif -%}
+
+{%- if can_show -%}
+  {%- assign allow_raw = settings.badges_allowlist | default: '' -%}
+  {%- assign allow_arr = allow_raw | split: ',' -%}
+  {%- if allow_arr.size > 0 -%}
+
+    {%- assign limit = max | default: settings.badges_max | default: 4 -%}
+    {%- assign printed = 0 -%}
+
+    {%- assign wrap_base = 'flex flex-wrap gap-2' -%}
+    {%- if where == 'card' -%}
+      {%- assign wrap_size = 'items-start' -%}
+    {%- else -%}
+      {%- assign wrap_size = 'items-center' -%}
+    {%- endif -%}
+    {%- assign wrap_classes = wrap_base | append: ' ' | append: wrap_size -%}
+    {%- if class != blank -%}{%- assign wrap_classes = wrap_classes | append: ' ' | append: class -%}{%- endif -%}
+
+    {%- capture items -%}
+      {%- for raw in allow_arr -%}
+        {%- if printed >= limit -%}{%- break -%}{%- endif -%}
+
+        {%- assign desired_label = raw | strip -%}
+        {%- if desired_label == blank -%}{%- continue -%}{%- endif -%}
+        {%- assign desired_norm = desired_label | downcase -%}
+
+        {%- assign has_tag = false -%}
+        {%- for t in product.tags -%}
+          {%- assign t_norm = t | strip | downcase -%}
+          {%- if t_norm == desired_norm -%}
+            {%- assign has_tag = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if has_tag -%}
+          {%- assign size_classes = 'px-[10px] py-[4px] md:px-[12px] md:py-[8px] rounded-full text-[10px] md:text-[12px] leading-[12px] md:leading-[16px] tracking-[1px] uppercase' -%}
+          {%- assign badge_classes = 'bg-[#ADAEB0] text-white' -%} 
+
+          <li class="{{ badge_classes }} {{ size_classes }}">
+            <span>{{- desired_label -}}</span>
+          </li>
+
+          {%- assign printed = printed | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if printed > 0 -%}
+      <ul class="product-badges {{ wrap_classes }} md:pb-[32px] pb-[24px]" aria-label="Product badges">
+        {{- items -}}
+      </ul>
+    {%- endif -%}
+
+  {%- endif -%}
+{%- endif -%}

@@ -5,28 +5,14 @@
   @click.outside="$store.cart.toggleCart(false)">
   <div class="p-5 h-full flex flex-col">
     <span class="b-mini_cart-close text-color_1" @click="$store.cart.toggleCart()">
-
       <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close" fill="currentColor" viewBox="0 0 18 17">
-        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
-      </path></svg>
+        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
+      </svg>
     </span>
+
     <div class="b-mini_cart-header py-5">
       <h3 class="b-mini_cart-title text-xl font-Gazpacho">Your Cart</h3>
     </div>
-
-    {% comment %} <template x-if="!$store.cart.shippingDiscount.isFreeShippingUnlocked">
-      <p class="text-left mb-4">
-        You are <span x-text="$store.cart.shippingDiscount.shippingLeft"></span> away from FREE SHIPPING
-      </p>
-    </template> {% endcomment %}
-    {% comment %} <template x-if="$store.cart.shippingDiscount.isFreeShippingUnlocked">
-      <p class="text-left mb-4 text-green-500">Congratulations! You unlocked FREE SHIPPING!</p>
-    </template> {% endcomment %}
-    {% comment %} <div class="b-mini_cart-progress-bar">
-      <div
-        class="b-mini_cart-progress-bar-fill"
-        :style="{ width: `${$store.cart.shippingDiscount.shippingProgress}%` }"></div>
-    </div> {% endcomment %}
 
     <div class="drawer__header-row progress-bar-row" x-show="$store.cart.items.length > 0">
       {% render 'progress-bar' data: 'cart' %}
@@ -40,61 +26,61 @@
       class="b-mini_cart-list flex flex-col gap-6 grow max-h-[70vh] overflow-y-auto"
       x-show="$store.cart.items.length > 0"
       :class="$store.cart.isLoading ? 'm-loading' : ''">
-      {% comment %} <div x-show="$store.cart.errorMessage" x-text="$store.cart.errorMessage" class="text-red-500 text-center"></div> {% endcomment %}
       <div class="flex justify-between uppercase opacity-50 border-b pb-4 text-xs font-Aksen font-normal tracking-wide">
         <span>Product</span>
         <span>Total</span>
       </div>
-      <template x-for="item in $store.cart.items" :key="`${item.id}-${index}`">
+
+      <template x-for="(item, index) in $store.cart.items" :key="`${item.id}-${index}`">
         <div class="b-mini_cart-item">
           <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
-            <img
-              :src="item.image"
-              class="absolute left-0 top-0 h-full w-full object-cover"
-              width="40"
-              height="40">
+            <img :src="item.image" class="absolute left-0 top-0 h-full w-full object-cover" width="40" height="40">
           </figure>
+
           <div class="b-mini_cart-item__desc">
             <div class="mb-4">
               <h4 x-html="item.title" class="w-full mb-4 pr-24 font-Gazpacho"></h4>
+
               <p class="mt-2 text-sm font-Aksen font-normal">
+                <!-- Перекреслена (порівняльна) ціна для звичайних товарів -->
                 <span
                   class="line-through opacity-50"
-                  x-show="item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.compare_at_price > item.price"
-                  x-text="'$' + (item.selling_plan_allocation.compare_at_price / 100).toFixed(2)"></span>
-                <span x-text="'$' + (item.price / 100).toFixed(2)"></span>
-                <div
-                  class="pt-4 text-sm text-color_1 font-Aksen font-normal"
-                    x-show="item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.selling_plan.name">
-                  <span
-                    x-show="item.selling_plan_allocation.selling_plan.price_adjustments[0].value > 0"
-                    x-text="item.selling_plan_allocation.selling_plan.name"></span>
-                  <span
-                    x-show="item.selling_plan_allocation.selling_plan.price_adjustments[0].value > 0"
-                    x-text="'and save ' + item.selling_plan_allocation.selling_plan.price_adjustments[0].value + '%'"></span>
-                </div>
+                  x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
+                  x-text="'{{ cart.currency.symbol }}' + (((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100).toFixed(2))">
+                </span>
+
+                <!-- Поточна ціна -->
+                <span
+                  x-text="'{{ cart.currency.symbol }}' + (((item.final_price ?? item.price ?? 0) / 100).toFixed(2))">
+                </span>
               </p>
             </div>
-            <div class="absolute right-4 top-4 flex flex-col  font-Aksen font-normal">
+
+            <div class="absolute right-4 top-4 flex flex-col font-Aksen font-normal">
+              <!-- Загальна перекреслена сума (qty) -->
               <span
-                x-show="item.selling_plan_allocation.selling_plan && item.selling_plan_allocation.compare_at_price > item.price"
+                x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
                 class="line-through opacity-50"
-                x-text="'$' + (item.selling_plan_allocation.compare_at_price / 100 * item.quantity).toFixed(2)"></span>
-              <span x-text="'$' + (item.price / 100 * item.quantity).toFixed(2)"></span>
+                x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
+              </span>
+
+              <!-- Загальна сума (qty) -->
+              <span
+                x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
+              </span>
             </div>
+
             <div class="flex">
               <div class="b-quantity !border-black mr-4">
                 <span
                   @click="$store.cart.decrementQuantity(item.id, item.quantity)"
-                  class="b-quantity-sign m-minus !text-black-content">
-                  -
-                </span>
+                  class="b-quantity-sign m-minus !text-black-content">-</span>
+
                 <div x-text="item.quantity" class="b-quantity-input !text-black-content"></div>
+
                 <span
-                  @click="$store.cart.updateCart(item.id, item.quantity + 1)"
-                  class="b-quantity-sign m-plus !text-black-content">
-                  +
-                </span>
+                  @click="$store.cart.updateCart(item.id, (item.quantity || 1) + 1)"
+                  class="b-quantity-sign m-plus !text-black-content">+</span>
               </div>
 
               <button @click="$store.cart.removeFromCart(item.key)" class="text-color_4">
@@ -108,6 +94,7 @@
         </div>
       </template>
     </div>
+
     {% if settings.show_cart_products_carousel %}
       <div class="b-mini_cart-carousel">
         <h4 class="font-Gazpacho text-xl mt-6 mb-4">You may also like</h4>
@@ -132,10 +119,10 @@
                     <div class="flex justify-between">
                       <span class="text-base grow">{{ product_item.price | money }}</span>
                       <span
-                        class="btn btn-primary   cursor-pointer"
+                        class="btn btn-primary cursor-pointer"
                         aria-label="Add to cart"
                         data-product-id="{{ product_item.first_available_variant.id }}"
-                        @click="$store.cart.addToCart({variantId: $el.dataset.productId}, false)"
+                        @click="$store.cart.addToCart({ variantId: $el.dataset.productId, quantity: 1 }, false)"
                       >Add +</span>
                     </div>
                   </div>
@@ -156,9 +143,7 @@
             slidesPerView: 1,
             spaceBetween: 10,
             loop: true,
-            autoplay: {
-              delay: 5000,
-            },
+            autoplay: { delay: 5000 },
             navigation: {
               nextEl: '.b-mini_cart-carousel #next-swiper',
               prevEl: '.b-mini_cart-carousel #prev-swiper',
@@ -171,16 +156,16 @@
         });
       </script>
     {% endif %}
-    <!-- Total block -->
+
     <div class="b-mini_cart-total flex flex-wrap justify-between">
       <p class="font-Gazpacho hidden">Total items: <span x-text="$store.cart.itemsCount"></span></p>
       <p class="flex items-center justify-between w-full pt-4 pb-2">
         <span class="font-Gazpacho">Total price:</span>
-        <span class="font-cenzo font-bold text-xl text-color_1"
-          >$<span x-text="$store.cart.totalPrice"></span
-        ></span>
+        <span class="font-cenzo font-bold text-xl text-color_1">
+          <span x-text="'{{ cart.currency.symbol }}' + $store.cart.totalPrice"></span>
+        </span>
       </p>
-      <button @click="window.location.href='/checkout'" class="btn btn-primary   min-w-full w-full mt-5">
+      <button @click="window.location.href='/checkout'" class="btn btn-primary min-w-full w-full mt-5">
         Proceed to Checkout
       </button>
     </div>

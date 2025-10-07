@@ -1,86 +1,147 @@
-<div  x-data="productCard('{{ section.id }}')">
+{% render 'entry' with '@/styles/elements/_main-product.scss' %}
+
+{% assign currentVariant = product.selected_or_first_available_variant %}
+{% assign sizeGuides = section.settings.size_guide.metafields.data.page_size_guides.value %}
+{% assign productCollections = product.collections | map: 'id' | join: ',' %}
+
+{% capture price %}
+    {%- assign show_compare = false -%}
+        {%- if currentVariant.compare_at_price and currentVariant.compare_at_price > currentVariant.price -%}
+            {%- assign show_compare = true -%}
+        {%- endif -%}
+        <div class="text-base font-bold text-color_1 mb-4 b-product__info-price">
+            {%- if show_compare -%}
+            <span class="line-through mr-2">
+                {{ currentVariant.compare_at_price | money }}
+            </span>
+            {%- endif -%}
+            <span>
+            {{ currentVariant.price | money }}
+            </span>
+            {% if productSubtitle != blank %}
+            <span class="font-Aksen font-bold text-color_1 text-base mb-2 b-product__info-subtitle">
+                – {{ product.metafields.custom.subtitle.value }}
+            </span>
+            {% endif %}
+    </div>
+{% endcapture %}
+
+<div
+  x-data="productCard($el)"
+  data-section-id="{{ section.id }}"
+  data-first-variant="{{ product.first_available_variant.id }}"
+>
   <section
     id="MainProduct-{{ section.id }}"
     data-section="{{ section.id }}"
     x-ref="productCardRef"
-    class="l-product pt-4 md:pt-24">
-    {% assign productColors = product.metafields.custom.color_palette.value %}
-    {% assign productCurrent = product %}
-    {% if section.settings.enable_color_palette %}
+    class="l-product pt-4 md:pt-24"
+  >
+
+    {%- assign productColors = product.metafields.custom.color_palette.value -%}
+    {%- assign productCurrent = product -%}
+
+    {%- if section.settings.enable_color_palette -%}
       {% render 'color-pallete', product: product %}
-    {% endif %}
+    {%- endif -%}
+
+    {%- comment -%} Передаємо дані продукту у зовнішній JS через JSON у DOM {%- endcomment -%}
+    <script type="application/json" data-product-json>
+      {{ productCurrent | json }}
+    </script>
 
     <div class="container m-responsive">
-      <div class="l-product__main md:flex md:px-4 pb-8 md:pb-0">
-        <article class="l-product__gallery md:w-1/2 mb-12 md:mb-0 md:pr-8">
+      <div class="l-product__main md:flex pb-8 md:pb-0">
+        <article class="l-product__gallery md:w-1/2 mb-12 md:mb-0">
           <div class="l-product__gallery--skeleton rounded-regular" x-show="sliderLoading">
             <div></div>
           </div>
-          {% assign all_images = product.images | map: 'src' %}
-          {% render 'product-media-gallery', product_images: all_images %}
+
+          {%- assign all_images = product.images | map: 'src' -%}
+          {%- render 'product-media-gallery', product_images: all_images -%}
+
           <div class="main-product__benefits">
             {% assign productBenefits = product.metafields.custom.benefits.value %}
             <ul class="main-product__benefits-list">
-                {% for benefit in productBenefits %}
-                    <li class="main-product__benefits-item">
-                        <figure class="main-product__benefits-icon">
-                            <img src="{{ benefit.icon | img_url: '64x' }}" alt="{{ benefit.name }}" class="main-product__benefits-image" />
-                        </figure>
-                        <span class="main-product__benefits-text">{{ benefit.name }}</span>
-                    </li>
-                {% endfor %}
+              {% for benefit in productBenefits %}
+                <li class="main-product__benefits-item">
+                  <figure class="main-product__benefits-icon">
+                    <img src="{{ benefit.icon | img_url: '64x' }}" alt="{{ benefit.name }}" class="main-product__benefits-image" />
+                  </figure>
+                  <span class="main-product__benefits-text">{{ benefit.name }}</span>
+                </li>
+              {% endfor %}
             </ul>
           </div>
         </article>
 
-        <article class="l-product__info md:w-1/2 md:pl-8">
+        <article class="l-product__info md:w-1/2 md:pl-[100px]">
           <div class="b-product__info page-width-mobile">
             <product-info
               id="ProductInfo-{{ section.id }}"
               data-section="{{ section.id }}"
               data-url="{{ product.url }}"
-              class="product__info-container">
+              class="product__info-container"
+            >
               {% for block in section.blocks %}
                 {% case block.type %}
+
+                  {% when 'badge' %}
+                    {% render 'product-badges', product: product, location: 'pdp' %}
+
                   {% when 'title' %}
                     {% assign productSubtitle = product.metafields.custom.subtitle.value %}
-                    <h1 class="heading-4 text-color_1 font-Gazpacho text-2xl mb-2 b-product__info-title">{{ product.title | escape }}</h1>
-                    {% when 'price' %}
-                      <div class="text-base font-bold text-color_1 mb-4 b-product__info-price">
-                        <span :class="{ 'line-through mr-2': discount > 0 && mode === 'subscribe' }">
-                          {{ product.price | money }}
+                    <h1 class="heading-4 text-color_1 font-normal tracking-normal leading-[110%] text-[36px] md:text-[48px] mb-[16px] b-product__info-title">
+                        {{ product.title | escape }}
+                    </h1>
+
+                  {% when 'short_description' %}
+                    {% assign shortDescription = product.metafields.custom.short_description %}
+                    <p class="text-[16px] leading-[22px] tracking-normal text-[#474747] mb-[16px]">
+                      {{ shortDescription }}
+                    </p>
+
+                    {% when 'product_detais' %}
+                        {% assign html = product.metafields.custom.product_detais | metafield_tag %}
+                      
+                        {% assign html = html
+                          | replace: '<ul>', '<ul class="my-6 border-t border-b border-[#474747] py-4 list-none m-0 p-0 space-y-3">'
+                          | replace: '<li>', '<li class="flex justify-between gap-[15px] text-right  pb-3 last:pb-0">'
+                          | replace: '<strong>', '<strong class="col-span-4 pr-4 text-base leading-[22px] tracking-[0.6px] font-semibold">'
+                          | replace: '<span class="value">', '<span class="value col-span-8 pl-4 text-base leading-[22px] font-medium text-right block">'
+                        %}
+                      
+                        {{ html }}
+                    
+                    {% when 'product_tags' %}
+                        {% render 'product-tags' %}
+                     
+
+                  {% when 'price' %}
+                    {%- assign show_compare = false -%}
+                    {%- if currentVariant.compare_at_price and currentVariant.compare_at_price > currentVariant.price -%}
+                      {%- assign show_compare = true -%}
+                    {%- endif -%}
+                    <div class="text-base font-bold text-color_1 mb-4 b-product__info-price">
+                      {%- if show_compare -%}
+                        <span class="line-through mr-2">
+                          {{ currentVariant.compare_at_price | money }}
                         </span>
-                        <span
-                          x-show="discount > 0 && mode === 'subscribe'"
-                          x-text="formatPrice(actualPrice)"></span>
-                          {% comment %} <span
-                            x-show="discount > 0 && mode === 'subscribe'"
-                            x-text="actualPrice"></span> {% endcomment %}
-                          {% if productSubtitle != blank %}
-                            <span class=" font-Aksen font-bold text-color_1 text-base mb-2 b-product__info-subtitle">- {{ product.metafields.custom.subtitle.value }}</span>
-                          {% endif %}
-                      </div>
-                    {% when 'reviews' %}
-                    {% assign rating = product.metafields.custom.rating %}
-                    {% if rating != blank %}
-                      <div class="flex mb-10">
-                        <div class="flex">
-                          {% for i in (1..5) %}
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="{% if i <= rating %}#1D49CA{% else %}#b2e3ff{% endif %}"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path d="M21.9646 10.7672L17.7459 14.4075L19.0312 19.8516C19.1021 20.1471 19.0838 20.457 18.9787 20.7422C18.8736 21.0273 18.6863 21.2749 18.4405 21.4537C18.1947 21.6325 17.9015 21.7344 17.5978 21.7466C17.2941 21.7588 16.9936 21.6807 16.7343 21.5222L11.9999 18.6084L7.26275 21.5222C7.00347 21.6798 6.70335 21.7571 6.4002 21.7445C6.09704 21.7318 5.8044 21.6298 5.55913 21.4512C5.31386 21.2726 5.12692 21.0254 5.02185 20.7407C4.91679 20.4561 4.89829 20.1467 4.96869 19.8516L6.25869 14.4075L2.03994 10.7672C1.81053 10.5689 1.64462 10.3075 1.56293 10.0155C1.48123 9.72345 1.48737 9.41385 1.58058 9.12531C1.67379 8.83678 1.84994 8.5821 2.08703 8.39308C2.32412 8.20407 2.61164 8.08908 2.91369 8.0625L8.44494 7.61625L10.5787 2.4525C10.6942 2.17108 10.8908 1.93036 11.1434 1.76094C11.3961 1.59153 11.6934 1.50107 11.9976 1.50107C12.3018 1.50107 12.5991 1.59153 12.8518 1.76094C13.1044 1.93036 13.301 2.17108 13.4165 2.4525L15.5493 7.61625L21.0806 8.0625C21.3832 8.0881 21.6716 8.20244 21.9095 8.39119C22.1475 8.57995 22.3244 8.83473 22.4182 9.12361C22.512 9.4125 22.5185 9.72264 22.4368 10.0152C22.3551 10.3077 22.1889 10.5696 21.959 10.7681L21.9646 10.7672Z" />
-                            </svg>
-                          {% endfor %}
-                        </div>
-                        <div class="text-base ml-4">500 Reviews</div>
-                      </div>
-                    {% endif %}
+                      {%- endif -%}
+                      <span>
+                        {{ currentVariant.price | money }}
+                      </span>
+                      {% if productSubtitle != blank %}
+                        <span class="font-Aksen font-bold text-color_1 text-base mb-2 b-product__info-subtitle">
+                          – {{ product.metafields.custom.subtitle.value }}
+                        </span>
+                      {% endif %}
+                    </div>
+
+
                   {% when '@app' %}
                     {% render block %}
+
                   {%- when 'tabs_product_selector' -%}
                     <div class="mb-4">
                       {% render 'tabs_product_selector',
@@ -88,95 +149,165 @@
                         product: product,
                       %}
                     </div>
-                  {% when 'buy_buttons' %}
-                    {% comment %} {%- render 'buy-buttons',
-                      block: block,
-                      product: product,
-                      product_form_id: product_form_id,
-                      section_id: section.id,
-                      show_pickup_availability: true,
-                      sub_only: block.settings.rtx_sub_only
-                    -%} {% endcomment %}
-                    <form method="post" x-data="{ quantity: 1 }">
-                      {% comment %} <article>
-                        <div class="b-subscription">
-                          <div
-                              class="b-subscription__select"
-                              :class="{ 'm-disabled': mode !== 'subscribe'}"
-                              x-show="showSubscription"
-                          >
-                            <template x-if="sellingPlansMap.length > 0">
-                              <select
-                                id="subscription-plan"
-                                x-model="selectedPlanId"
-                                class="b-subscription__select-field"
-                              >
-                                <template
-                                  x-for="plan in sellingPlansMap"
-                                  :key="plan.id"
-                                >
-                                  <option
-                                    :value="plan.id"
-                                    x-text="plan.name ? plan.name : 'Default Title'"
-                                    class="b-subscription__select-option"
-                                  ></option>
-                                </template>
-                              </select>
-                            </template>
-                              <template x-if="Object.keys(sellingPlansMap).length === 0">
-                                  <p>Loading subscription plans...</p>
-                              </template>
+
+                    {% when 'buy_buttons' %}
+                        <form method="post"
+                              x-data="{
+                                quantity: 1,
+                                min: {{ currentVariant.quantity_rule.min | default: 1 }},
+                                max: {% if currentVariant.quantity_rule.max != null %}{{ currentVariant.quantity_rule.max }}{% else %}null{% endif %}
+                              }"
+                              @keydown.enter.prevent
+                              class="w-full mb-[24px] md:mb-[32px]">
+                          <div class="flex flex-col w-full items-center gap-[24px] md:gap-[32px]  mb-8">
+                            <input type="hidden" name="quantity" :value="quantity">
+                            
+                            <!-- Qty control -->
+                            <div class="flex w-full justify-between">
+                                <p class="text-[14px] leading-[20px] tracking-[4px] uppercase text-[#474747]">Quantity</p>
+                                <div class="flex items-center justify-between rounded-full min-w-[160px]">
+                                <!-- Decrease -->
+                                <button
+                                    type="button"
+                                    aria-label="Decrease quantity"
+                                    @click="if (quantity > min) quantity--"
+                                    :disabled="quantity <= min"
+                                    class="inline-flex items-center justify-center md:w-[48px] md:h-[48px]
+                                    w-[40px] h-[40px] rounded-full border p-[14px] text-xl transition
+                                        text-[#474747] border-[#474747] bg-[#F5F5F5]
+                                        disabled:border-[#ADAEB0] disabled:text-[#ADAEB0]
+                                        hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
+                                    −
+                                </button>
+                            
+                                <!-- Value -->
+                                <input
+                                    x-model.number="quantity"
+                                    name="updates[]"
+                                    type="number"
+                                    inputmode="numeric"
+                                    step="1"
+                                    :min="min"
+                                    :max="max ?? undefined"
+                                    aria-label="Quantity"
+                                    role="spinbutton"
+                                    class="w-12 h-[48px] text-center bg-[#00000000] border-0 p-0 outline-none appearance-none
+                                        text-[18px] leading-5 tracking-[4px] uppercase
+                                        text-[#474747]">
+                            
+                                <!-- Increase -->
+                                <button
+                                    type="button"
+                                    aria-label="Increase quantity"
+                                    @click="if (!max || quantity < max) quantity++"
+                                    :disabled="max && quantity >= max"
+                                    class="inline-flex items-center justify-center md:w-[48px] md:h-[48px]
+                                    w-[40px] h-[40px] rounded-full border p-[14px] text-xl transition
+                                        text-[#474747] border-[#474747] bg-[#F5F5F5]
+                                        disabled:border-[#ADAEB0] disabled:text-[#ADAEB0]
+                                        hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
+                                    +
+                                </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex w-full items-center gap-2 sm:gap-[8px]">
+                              <!-- Add to cart -->
+                              <button
+                                type="button"
+                                @click.prevent="addToCartPDP(quantity)"
+                                class="w-full inline-flex items-center justify-center
+                                       md:px-[32px] px-[24px] md:py-[16px] py-[12px] rounded-full
+                                       bg-[#474747] text-white
+                                       text-[14px] leading-4 tracking-[4px] uppercase
+                                       transition hover:opacity-90 active:opacity-80
+                                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
+                                <span class="product-price">{{ price }} </span>
+                                 <span class="separator">-</span>
+                                <span> Add to cart</span>
+                              </button>
+                        
+                              <!-- Wishlist placeholder -->
+                                <button
+                                type="button"
+                                aria-label="Add to wishlist"
+                                class="inline-flex shrink-0 items-center justify-center md:w-[48px] md:h-[48px]
+                                w-[40px] h-[40px]
+                                    rounded-full border border-white bg-[#474747] text-white
+                                    transition hover:opacity-90 active:opacity-80
+                                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                                </button>
+
+                            </div>
                           </div>
-                        </div>
-                      </article> {% endcomment %}
-                      <div class="flex gap-4 mb-8">
-                        <input type="hidden" name="quantity" :value="quantity">
-                        <div
-                          class="flex justify-between items-center rounded-xl bg-white-bg shadow-regular min-w-[160px]"
-                        >
-                          <button
-                            type="button"
-                            class="w-12 h-12 text-center text-xl"
-                            @click="if (quantity > 1) quantity--"
-                            aria-label="Decrease quantity"
-                            style="color: var(--secondary-color);"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            class="text-center w-12 border-0 bg-transparent p-0 text-baseLarge appearance-none outline-none  h-12"
-                            style="color: var(--secondary-color);"
-                            x-model="quantity"
-                            min="1"
-                            data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                            min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                            {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
-                              data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                              max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                        </form>
+
+                  {% when 'delivery' %}
+                    <div class="product-delivery__info border border-[#ADAEB0] rounded-2xl p-5 md:p-6 mb-[24px]">
+                        <ul class="list-none m-0 p-0 space-y-[14px]">
+                        {% for i in (1..3) %}
+                            {% assign key_t  = 'text_' | append: i %}
+                            {% assign key_ic = 'icon_' | append: i %}
+                            {% assign key_svg = 'svg_' | append: i %}
+                    
+                            {% assign t = block.settings[key_t] %}
+                            {% assign ic = block.settings[key_ic] %}
+                            {% assign svg = block.settings[key_svg] %}
+                    
+                            {% if t != blank or ic != blank or svg != blank %}
+                            <li class="flex items-center gap-[16px]">
+                                {% if svg != blank %}
+                                <span class="[&_svg]:w-[24px] [&_svg]:h-[24px] md:[&_svg]:w-[32px] md:[&_svg]:h-[32px] [&_svg]:flex-none [&_svg]:shrink-0" aria-hidden="true">
+                                    {{ svg }}
+                                </span>
+                                {% elsif ic != blank %}
+                                {{ ic | image_url: width: 64 | image_tag:
+                                    class: 'w-6 h-6 md:w-8 md:h-8 shrink-0 flex-none',
+                                    loading: 'lazy',
+                                    alt: '' }}
+                                {% endif %}
+                    
+                                {% if t != blank %}
+                                <p class="text-sm leading-5 tracking-normal">
+                                    {{ t }}
+                                </p>
+                                {% endif %}
+                            </li>
                             {% endif %}
-                          />
-                          <button
-                            type="button"
-                            class="w-12 text-center text-xl  h-12"
-                            @click="quantity++"
-                            aria-label="Increase quantity"
-                            style="color: var(--secondary-color);"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <button
-                          type="button"
-                          class="btn btn-primary w-full"
-                          data-first-variant="{{ product.first_available_variant.id }}"
-                          @click.prevent="
-                            addToCartPDP(quantity);
-                          ">
-                          ADD TO CART
-                        </button>
-                      </div>
-                    </form>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                        
+                    {%- assign tabs_rendered = false -%}
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+
+                            {%- when 'tab_item' -%}
+                                {%- unless tabs_rendered -%}
+                                    {%- assign tabs_rendered = true -%}
+                                    {%- assign tab_items = section.blocks | where: 'type', 'tab_item' -%}
+                                    <div class="product-tabs ui-acc-group  border-[#474747]">
+                                    {%- for b in tab_items -%}
+                                        {%- render 'accordion-item',
+                                        q: b.settings.question,
+                                        a: b.settings.answer,
+                                        open: b.settings.open_by_default,
+                                        class: 'last:border-b border-[#474747]'
+                                        -%}
+                                    {%- endfor -%}
+                                    </div>
+                                {%- endunless -%}
+
+                            {%- else -%}
+                            
+                        {%- endcase -%}
+                    {%- endfor -%}
+
+                      
                   {% when 'description' %}
                     {% if product.description != blank %}
                       <div
@@ -186,6 +317,7 @@
                         {{ product.description }}
                       </div>
                     {% endif %}
+
                   {% when 'custom_liquid' %}
                     {% render block %}
                 {% endcase %}
@@ -195,8 +327,10 @@
         </article>
       </div>
     </div>
+
     <article class="l-product__details"></article>
     <article class="l-product__recommended"></article>
+
     {%- if product.metafields.custom.ingredients_nutrition_facts.value != blank
       or product.metafields.custom.variety_pack_products.value != blank
     -%}
@@ -204,209 +338,7 @@
     {% endif %}
   </section>
 </div>
-<script>
 
-  document.addEventListener('alpine:init', () => {
-
-    Alpine.data('productCard', (sectionId) => ({
-      sectionId,
-      mainProduct: {{ productCurrent | json }} || {},
-      mode: null, // one-time | subscribe
-      showSubscription: false,
-      discount: 0,
-      regularPrice: 0,
-      discountedPrice: 0,
-      actualPrice: 0,
-      isLoading: false,
-      sellingPlanGroups: undefined,
-      sellingPlanId: null,
-      sellingPlansMap: [],
-      selectedPlanId: null,
-      selectedPlan: {},
-      selectedProduct: null,
-      quantity: 1,
-
-      init() {
-        console.log('Main product INIT:', this.mainProduct);
-        if (!this.mainProduct || !this.mainProduct.price) {
-          console.error('mainProduct or its price is missing');
-          return;
-        }
-
-        const tabElement = this.$el.querySelector('.tabs-product-selector');
-        this.sellingPlanGroups = this.mainProduct.selling_plan_groups;
-
-        if (this.sellingPlanGroups?.length > 0) {
-          const firstGroup = this.sellingPlanGroups[0];
-          if (firstGroup?.selling_plans?.length > 0) {
-            this.sellingPlanId = firstGroup.app_id;
-            this.sellingPlansMap = firstGroup.selling_plans;
-            this.selectedPlanId = this.sellingPlansMap[0].id;
-            this.selectedPlan = this.sellingPlansMap.find((plan) => plan.id === this.selectedPlanId);
-            this.discount = this.selectedPlan.price_adjustments[0].value;
-          }
-        }
-
-        if (tabElement) {
-          this.tab1Selected = JSON.parse(tabElement.getAttribute('data-tab1-selected'));
-          this.tab2Selected = JSON.parse(tabElement.getAttribute('data-tab2-selected'));
-          this.mode = tabElement.getAttribute('data-tab-selected');
-        }
-
-        this.showSubscription = this.mode === 'subscribe';
-        this.updateActualPrice();
-        this.showSkeletonAndInitSlider();
-      },
-
-      showSkeletonAndInitSlider() {
-        this.sliderInitialized = false;
-        this.sliderLoading = true;
-
-        // Delay for skeleton
-        setTimeout(() => {
-          this.initSlider();
-        }, 100);
-      },
-
-      initNewProduct(product) {
-        this.mainProduct = product;
-        console.log('New product:', this.mainProduct);
-        this.init();
-        // this.$nextTick(() => {
-          // Alpine.initTree(this.$el);
-        // });
-      },
-
-      initSlider() {
-        const swiper = new Swiper('#swiper-container-{{ section.id }}', {
-          loop: true,
-          navigation: {
-            nextEl: '#b-product__gallery-{{ section.id }} .swiper-button-next',
-            prevEl: '#b-product__gallery-{{ section.id }} .swiper-button-prev',
-          },
-          pagination: {
-            el: '#swiper-container-{{ section.id }} .swiper-pagination',
-            clickable: true,
-          },
-        });
-        this.sliderInitialized = true;
-        this.sliderLoading = false;
-      },
-
-      formatPrice(price) {
-        const formattedPrice = price.toFixed(2);
-        return `$${formattedPrice}`;
-      },
-
-      watchSelectedPlanId() {
-        this.$watch('selectedPlan', (newValue) => {
-          console.log('Selected plan changed:', newValue);
-          this.updateActualPrice();
-        });
-      },
-
-      updateActualPrice() {
-        this.regularPrice = this.mainProduct.price / 100;
-
-        if (this.mode === 'subscribe' && this.discount > 0) {
-          this.discountedPrice = this.regularPrice - (this.regularPrice * this.discount / 100);
-          this.actualPrice = this.discountedPrice;
-          console.log('this.actualPrice:', this.actualPrice);
-        } else {
-          this.actualPrice = this.regularPrice;
-        }
-      },
-
-      switchTab(tab) {
-        this.mode = tab;
-        this.showSubscription = (tab === 'subscribe');
-        this.updateActualPrice();
-        console.log('Switched tab this.regularPrice:', this.regularPrice);
-      },
-
-      addToCartPDP(quantity) {
-        const variantId = this.$el.getAttribute('data-first-variant');
-        const product = {
-          variantId,
-          quantity,
-          properties: {},
-        };
-        if (this.mode === 'subscribe') {
-          product.sellingPlanId = this.selectedPlanId;
-        }
-        Alpine.store('cart').addToCart(product);
-        this.quantity = 1;
-      },
-
-      loadProduct(productHandle) {
-        const url = `/products/${productHandle}?sections=${this.sectionId}`;
-        const productUrl = `/products/${productHandle}.js`
-
-        fetch(url)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            console.log('Product details:', response);
-            return response.json();
-          })
-          .then((product) => {
-            if (!product[this.sectionId]) {
-              console.error('Product section not found');
-              return;
-            }
-            const container = document.createElement('div');
-            container.innerHTML = product[this.sectionId];
-            const productDetails = container.querySelector('#MainProduct-' + this.sectionId);
-            if (this.$refs.productCardRef) {
-              this.$refs.productCardRef.replaceWith(productDetails);
-            } else {
-              console.error('Reference to productCardRef not found');
-            }
-            return fetch(productUrl);
-          })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Failed to fetch product data');
-            }
-            return response.json();
-          })
-          .then((productData) => {
-            this.$nextTick(() => {
-              this.initNewProduct(productData);
-            });
-            window.history.pushState({ urlPath: productHandle }, '', productHandle);
-          })
-          .catch((error) => {
-            console.error('Error loading product:', error);
-          });
-      },
-    }));
-
-    Alpine.data('variantSelector', (defaultVariantId) => ({
-      selectedVariants: [],
-      defaultVariantId,
-
-      updateSelectedVariants(event) {
-        const form = this.$el;
-        const selectedCheckbox = event.target;
-
-        form.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-          if (checkbox !== selectedCheckbox) {
-            checkbox.checked = false;
-          }
-        });
-        this.selectedVariants = selectedCheckbox.checked ? [selectedCheckbox.value] : [];
-      },
-
-      addToCart() {
-        const variantId = this.selectedVariants.length > 0 ? this.selectedVariants[0] : this.defaultVariantId;
-
-        Alpine.store('cart').addToCart(variantId);
-      },
-    }));
-  });
-</script>
 
 {% schema %}
 {
@@ -418,8 +350,103 @@
       "type": "@app"
     },
     {
+        "type": "badge",
+        "name": "Badge",
+        "limit": 1
+    },
+    {
       "type": "title",
       "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "short_description",
+      "name": "Short description",
+      "limit": 1
+    },
+    {
+        "type": "delivery",
+        "name": "Delivery",
+        "limit": 1,
+        "settings": [
+            { "type": "paragraph", 
+            "content": "Choose photo or paste svg code" },
+
+            { 
+                "type": "header", 
+                "content": "Row 1" 
+            },
+            { 
+                "type": "image_picker",
+                "id": "icon_1", 
+                "label": "Icon 1 (SVG/PNG)" 
+            },
+            { 
+                "type": "textarea", 
+                "id": "svg_1", 
+                "label": "Icon 1 — SVG code", 
+                "info": "Paste <svg>...</svg>" 
+            },
+            { 
+                "type": "text", 
+                "id": "text_1", 
+                "label": "Text 1", 
+                "default": "Next business day delivery UK nationwide" 
+            },
+
+            { 
+                "type": "header", 
+                "content": "Row 2" 
+            },
+            { 
+                "type": "image_picker", 
+                "id": "icon_2", 
+                "label": "Icon 2 (SVG/PNG)" 
+            },
+            { 
+                "type": "textarea", 
+                "id": "svg_2", 
+                "label": "Icon 2 — SVG code", 
+                "info": "Paste <svg>...</svg>" 
+            },
+            { 
+                "type": "text", 
+                "id": "text_2", 
+                "label": "Text 2", 
+                "default": "Same-day delivery in London" 
+            },
+
+            { 
+                "type": "header", 
+                "content": "Row 3" 
+            },
+            { 
+                "type": "image_picker", 
+                "id": "icon_3", 
+                "label": "Icon 3 (SVG/PNG)" 
+            },
+            { 
+                "type": "textarea", 
+                "id": "svg_3", 
+                "label": "Icon 3 — SVG code", 
+                "info": "Paste <svg>...</svg>" 
+            },
+            { 
+                "type": "text", 
+                "id": "text_3", 
+                "label": "Text 3", 
+                "default": "Instant delivery on delivery platforms" 
+            }
+        ]
+    },
+    {
+      "type": "product_detais",
+      "name": "Product details",
+      "limit": 1
+    },
+    {
+      "type": "product_tags",
+      "name": "Product tags",
       "limit": 1
     },
     {
@@ -428,14 +455,18 @@
       "limit": 1
     },
     {
-      "type": "reviews",
-      "name": "Review Product",
-      "limit": 1
-    },
-    {
       "type": "description",
       "name": "Product Description",
       "limit": 1
+    },
+    {
+        "type": "tab_item",
+        "name": "Tab",
+        "settings": [
+            { "type": "text", "id": "question", "label": "Title", "default": "Ingredients" },
+            { "type": "richtext", "id": "answer", "label": "Content", "default": "<p>Add your content here</p>" },
+            { "type": "checkbox", "id": "open_by_default", "label": "Open by default", "default": false }
+        ]
     },
     {
       "type": "variant_picker",

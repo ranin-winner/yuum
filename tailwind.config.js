@@ -32,13 +32,13 @@ export default {
           sm: '100%',
           md: '100%',
           lg: '100%',
-          xl: '1400px',
+          xl: '1440px',
         },
     },
     extend: {
       fontFamily: {
-        Aksen: ['Aksen', 'system-ui'],
-        Gazpacho: ['Gazpacho', 'system-ui'],
+        heading: ['WT Monarch Nova', 'system-ui', '-apple-system', 'Arial', 'sans-serif'],
+        body: ['Neue Haas Grotesk Display Pro', 'system-ui', '-apple-system', 'Arial', 'sans-serif'],
       },
       container: {
         center: true,
@@ -65,7 +65,7 @@ export default {
         bg: '#474747'
       },
       color_1: {
-        DEFAULT: '#1b4c62',
+        DEFAULT: '#474747',
         secondary: '#61A2C7',
         tertiary: '#C1E0EB',
       },

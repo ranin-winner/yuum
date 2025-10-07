@@ -1,0 +1,23 @@
+.l-product {
+    &__info {
+        .product-price {
+            
+            span {
+                color: #fff;
+            }
+
+            .b-product__info-price {
+                margin-bottom: 0;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16px;
+            }
+        }    
+
+        .separator {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin: 0 5px;
+        }    
+    }
+}
