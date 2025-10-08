@@ -1,26 +1,31 @@
-{% comment %}
-рекомендується підключити SCSS зверху секції, як ви робите з іншими файлами
-{% render 'entry' with '@/styles/components/product-card.scss' %}
-{% render 'entry' with '@/styles/sections/product-slider.scss' %}
-{% endcomment %}
+
+{% render 'entry' with '@/styles/sections/about-product.scss' %}
 
 <section
   id="productSection-{{ section.id }}"
-  class="product-section mx-auto py-12 md:py-30 font-Gazpacho palette-{{ section.settings.color_scheme }}"
+  class="about-product product-section mx-auto py-12 md:py-30 font-Gazpacho palette-{{ section.settings.color_scheme }}"
 >
   <div class="container m-responsive px-10">
     {% if section.settings.title != blank %}
-      <h2 class="heading-1 product-section__heading text-4xl md:text-7xl text-center xl:text-left font-bold mb-10 xl:mb-20 text-scheme-tertiary">
+      <h2 class="about-product__title">
         {{ section.settings.title | default: "Products" }}
       </h2>
     {% endif %}
 
-    <div class="swiper-box relative rounded-[8px] xl:pt-20 xl:pb-16 pt-12 pb-8">
+    <div class="swiper-box">
       {% if section.settings.products_list != blank %}
         {% assign collection = section.settings.products_list %}
 
-        <div class="swiper-button-next !bg-white"></div>
-        <div class="swiper-button-prev !bg-white"></div>
+        <div class="swiper-button-next  hidden md:block">
+            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
+            </svg>
+        </div>
+        <div class="swiper-button-prev  hidden md:block">
+            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
+            </svg>
+        </div>
 
         <div id="swiper-container-{{ section.id }}" class="swiper-container">
           <div class="swiper-wrapper">
@@ -87,26 +92,6 @@
   })
 </script>
 
-  <style>
-    #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} .heading-1 em {
-      color: var(--theme-color-primary);
-      font-style: normal;
-    }
-
-    @media (min-width: 1300px) {
-      #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} .heading-1 p em:first-child {
-        padding-left: 20%;
-      }
-
-      #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} .heading-1 p em:last-child {
-        padding-left: 30%;
-      }
-    }
-
-    #productSection-{{ section.id }}.palette-{{ section.settings.color_scheme }} {
-      background-color: var(--theme-color-bg);
-    }
-  </style>
 
 {% schema %}
 {

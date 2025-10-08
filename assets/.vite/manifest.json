@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-BrW0rSCm.css",
+    "file": "main-BQFN0zxH.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-V-dGGIpq.js",
+    "file": "main.theme-zCMUxy8I.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp-B3k89mhm.css",
+    "file": "page-pdp-x2ik6FQh.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -25,6 +25,11 @@
     "file": "main-product-CrbXoggx.js",
     "name": "main-product",
     "src": "frontend/scripts/sections/main-product.js",
+    "isEntry": true
+  },
+  "frontend/styles/sections/about-product.scss": {
+    "file": "about-product-CyduNt4u.css",
+    "src": "frontend/styles/sections/about-product.scss",
     "isEntry": true
   },
   "frontend/styles/sections/be-all-in.scss": {
@@ -75,7 +80,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/trial-faq.scss": {
-    "file": "trial-faq-BHr7zDDp.css",
+    "file": "trial-faq-DS1iBYem.css",
     "src": "frontend/styles/sections/trial-faq.scss",
     "isEntry": true
   }

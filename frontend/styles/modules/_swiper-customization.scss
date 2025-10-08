@@ -18,7 +18,9 @@
     text-align: center;
     transition: all 0.3s ease;
     margin: 0;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &::after {
       font-size: 20px;
