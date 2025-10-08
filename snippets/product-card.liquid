@@ -9,8 +9,6 @@ Notes:
 
 {%- assign p = product | default: item -%}
 {%- if p == blank -%}{% break %}{%- endif -%}
-{%- assign price_cents = p.price -%}
-{%- assign money_format = shop.money_format | json -%}
 
 <article
   class="product-card"
@@ -21,7 +19,6 @@ Notes:
   })"
   data-money-format="{{ shop.money_format | escape | strip_newlines }}"
 >
-
   <!-- вся картка клікабельна -->
   <a class="product-card__link" href="{{ p.url }}" aria-label="{{ p.title | escape }}"></a>
 
@@ -43,13 +40,19 @@ Notes:
     <p class="product-card__price">{{ p.price | money }}</p>
   </div>
 
+  <!-- CTA у картці (відображається й на мобайлі) -->
   <div class="product-card__cta">
-    <button class="product-card__btn btn btn-scheme btn-fourth w-full" @click.prevent.stop="addToCart">
-        <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
+    <button class="product-card__btn btn btn-scheme btn-fourth w-full relative z-10"
+            @click.prevent.stop="addToCart">
+      <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
+    </button>
+    <button class="product-card__read btn btn-outline w-full mt-3 relative z-10"
+            @click.prevent.stop="openSheet($refs.details)">
+      READ MORE
     </button>
   </div>
 
-  <!-- DESKTOP OVERLAY -->
+  <!-- DESKTOP OVERLAY (hover) -->
   <div class="product-card__hover" @click.stop="handleAction($event)">
     <div class="pcd" x-ref="details">
       <header class="pcd__header">
@@ -109,35 +112,32 @@ Notes:
 
 <script>
 document.addEventListener('alpine:init', () => {
-  Alpine.data('productCard', ({ variantId, productUrl, priceCents, moneyFormat }) => ({
-    variantId, productUrl, priceCents, moneyFormat,
+  Alpine.data('productCard', ({ variantId, productUrl, priceCents }) => ({
+    // ---- state ----
+    variantId,
+    productUrl,
+    priceCents,
     qty: 1,
     wish: false,
 
+    // ---- actions ----
     inc(){ this.qty++ },
-    dec(){ if(this.qty > 1) this.qty-- },
-    addToCart(){ Alpine.store('cart')?.addToCart({ variantId: this.variantId, quantity: this.qty }) },
+    dec(){ if (this.qty > 1) this.qty-- },
+    addToCart(){
+      Alpine.store('cart')?.addToCart({ variantId: this.variantId, quantity: this.qty })
+    },
     toggleWish(){ this.wish = !this.wish },
 
+    // ---- computed ----
     get totalPrice(){
-        const cents = this.qty * this.priceCents
-        if (window.Shopify && typeof Shopify.formatMoney === 'function') {
-            // тема зазвичай має глобальний формат за замовчуванням
-            return Shopify.formatMoney(cents)
-        }
-        // фолбек: £ + 2 знаки після коми (можеш підставити свою валюту)
-        return '£' + (cents / 100).toFixed(2)
+      const cents = this.qty * this.priceCents
+      if (window.Shopify && typeof Shopify.formatMoney === 'function') {
+        return Shopify.formatMoney(cents)
+      }
+      return '£' + (cents / 100).toFixed(2)
     },
 
-    _formatMoney(cents, format){
-      const noDec='{{amount_no_decimals}}', withDec='{{amount}}'
-      const hasNoDec = format.includes(noDec)
-      const n = hasNoDec ? Math.round(cents/100) : (cents/100).toFixed(2)
-      const val = (''+n).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      return format.replace(hasNoDec?noDec:withDec, val)
-    },
-
-    /* Делегований обробник подій для overlay (desktop) */
+    // ---- desktop overlay delegated handler ----
     handleAction(e){
       const btn = e.target.closest('[data-action]')
       if(!btn) return
@@ -149,56 +149,108 @@ document.addEventListener('alpine:init', () => {
       if(action==='sheet'){ this.openSheet(this.$refs.details) }
     },
 
-    /* ===== Mobile bottom-sheet ===== */
+    // =========================================================
+    //                    Mobile bottom-sheet
+    // =========================================================
     ensureSheet(){
       let root = document.getElementById('pcard-sheet')
       if (root) return root
+
       document.body.insertAdjacentHTML('beforeend', `
         <div id="pcard-sheet" class="pcard-sheet" aria-hidden="true">
-        <div class="pcard-sheet__backdrop"></div>
-        <div class="pcard-sheet__panel" role="dialog" aria-modal="true" aria-label="Product details">
+          <div class="pcard-sheet__backdrop"></div>
+          <div class="pcard-sheet__panel" role="dialog" aria-modal="true" aria-label="Product details">
             <button class="pcard-sheet__close" aria-label="Close">✕</button>
-            <div class="pcard-sheet__body"></div>
+            <!-- very important: prevent Alpine from evaluating x-* inside -->
+            <div class="pcard-sheet__body" x-ignore></div>
+          </div>
         </div>
-        </div>`)
+      `)
+
       root = document.getElementById('pcard-sheet')
-      root.querySelector('.pcard-sheet__backdrop').addEventListener('click', () => this.closeSheet())
-      root.querySelector('.pcard-sheet__close').addEventListener('click', () => this.closeSheet())
+      root.querySelector('.pcard-sheet__backdrop')
+        .addEventListener('click', () => this.closeSheet())
+      root.querySelector('.pcard-sheet__close')
+        .addEventListener('click', () => this.closeSheet())
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.closeSheet() })
       return root
     },
+
+    // remove Alpine directives from cloned content
+    _sanitizeForSheet(node){
+      const walk = (el) => {
+        if (el.nodeType !== 1) return
+        // drop all x-* attributes so Alpine doesn't try to evaluate qty/totalPrice inside sheet
+        for (const attr of [...el.attributes]) {
+          if (attr.name.startsWith('x-')) el.removeAttribute(attr.name)
+        }
+        // optional: hide desktop-only "read" row if it exists
+        if (el.classList && el.classList.contains('pcd__read')) {
+          el.style.display = 'none'
+        }
+        el.childNodes.forEach(walk)
+      }
+      walk(node)
+      return node
+    },
+
     openSheet(detailsEl){
       const sheet = this.ensureSheet()
       const body = sheet.querySelector('.pcard-sheet__body')
-      body.innerHTML = detailsEl.innerHTML
+
+      // clone product details and sanitize
+      const clone = detailsEl.cloneNode(true)
+      this._sanitizeForSheet(clone)
+
+      // replace body content
+      body.replaceChildren(...clone.childNodes)
+
+      // open
       sheet.classList.add('is-open')
       sheet.removeAttribute('aria-hidden')
+      document.documentElement.classList.add('no-scroll')
+
+      // wire events and sync UI with current state
       this._wireSheetActions(sheet)
     },
+
     closeSheet(){
       const sheet = document.getElementById('pcard-sheet')
       if (!sheet) return
       sheet.classList.remove('is-open')
       sheet.setAttribute('aria-hidden', 'true')
+      document.documentElement.classList.remove('no-scroll')
     },
+
+    _sheetBound: false,
     _wireSheetActions(sheet){
       const body = sheet.querySelector('.pcard-sheet__body')
+
       const update = () => {
-        const qtyVal = body.querySelector('.pcd__qty-val')
+        const qtyEl = body.querySelector('.pcd__qty-val')
         const addSpan = body.querySelector('.pcd__add > span')
-        if(qtyVal) qtyVal.textContent = this.qty
-        if(addSpan) addSpan.textContent = this.totalPrice + ' · ADD TO CART'
+        if (qtyEl) qtyEl.textContent = this.qty              // show current qty immediately
+        if (addSpan) addSpan.textContent = this.totalPrice + ' · ADD TO CART'
       }
-      body.addEventListener('click', (ev) => {
-        const btn = ev.target.closest('[data-action]')
-        if(!btn) return
-        const a = btn.dataset.action
-        if(a==='inc'){ this.inc(); update() }
-        if(a==='dec'){ this.dec(); update() }
-        if(a==='add'){ ev.preventDefault(); this.addToCart(); update() }
-        if(a==='wish'){ this.toggleWish() }
-      })
+
+      // bind clicks only once; we reuse the same sheet for all products
+      if (!this._sheetBound){
+        body.addEventListener('click', (ev) => {
+          const btn = ev.target.closest('[data-action]')
+          if(!btn) return
+          const a = btn.dataset.action
+          if(a==='inc'){ this.inc(); update() }
+          if(a==='dec'){ this.dec(); update() }
+          if(a==='add'){ ev.preventDefault(); this.addToCart(); update() }
+          if(a==='wish'){ this.toggleWish() }
+        }, { passive: false })
+        this._sheetBound = true
+      }
+
+      // sync UI on open
       update()
     }
   }))
 })
 </script>
+
