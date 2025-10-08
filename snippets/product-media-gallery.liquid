@@ -15,7 +15,10 @@
 <article
   class="b-product__gallery"
   id="b-product__gallery-{{ section.id }}"
-  x-show="!sliderLoading"
+  x-data="{
+    get sliderLoading(){ return $store.ui?.sliderLoading ?? false },
+    set sliderLoading(v){ if ($store.ui) $store.ui.sliderLoading = !!v }
+  }"
 >
   <div class="swiper-box relative">
     <div class="swiper-button-next" x-ref="swiperNext">{{ arrowNext }}</div>

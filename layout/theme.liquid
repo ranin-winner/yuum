@@ -78,7 +78,7 @@
   <body
     x-data
     :class="$store.shopMainStore.body_no_scroll ? 'no-scroll' : ''"
-    class="grid min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}"
+    class=" min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}"
   >
     <div id="l-main">
       <header
@@ -95,7 +95,7 @@
       </header>
       <main
         id="MainContent"
-        class="flex flex-col outline-none overflow-x-hidden max-w-full"
+        class="flex flex-col outline-none max-w-full"
         tabindex="-1">
         {{ content_for_layout }}
       </main>

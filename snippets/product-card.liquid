@@ -1,0 +1,204 @@
+{%- comment -%}
+Inputs:
+  product: Product
+Notes:
+  — логіка вибору варіанта та addToCart інкапсульована тут
+  — стилі винесені у SCSS (див. product-card.scss)
+{%- endcomment -%}
+{% render 'entry' with '@/styles/elements/_product-card.scss' %}
+
+{%- assign p = product | default: item -%}
+{%- if p == blank -%}{% break %}{%- endif -%}
+{%- assign price_cents = p.price -%}
+{%- assign money_format = shop.money_format | json -%}
+
+<article
+  class="product-card"
+  x-data="productCard({
+    variantId: '{{ p.first_available_variant.id }}',
+    productUrl: '{{ p.url }}',
+    priceCents: {{ p.price }}
+  })"
+  data-money-format="{{ shop.money_format | escape | strip_newlines }}"
+>
+
+  <!-- вся картка клікабельна -->
+  <a class="product-card__link" href="{{ p.url }}" aria-label="{{ p.title | escape }}"></a>
+
+  <div class="product-card__media">
+    {%- assign _img = p.featured_media.preview_image | default: p.featured_image -%}
+    {%- render 'image',
+      image: _img,
+      class: 'product-card__img',
+      placeholder: 'image',
+      lazyload: true,
+      fetchpriority: 'auto',
+      alt: p.title,
+      decoding: 'async'
+    -%}
+  </div>
+
+  <div class="product-card__content">
+    <h3 class="product-card__title"><a href="{{ p.url }}">{{ p.title }}</a></h3>
+    <p class="product-card__price">{{ p.price | money }}</p>
+  </div>
+
+  <div class="product-card__cta">
+    <button class="product-card__btn btn btn-scheme btn-fourth w-full" @click.prevent.stop="addToCart">
+        <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
+    </button>
+  </div>
+
+  <!-- DESKTOP OVERLAY -->
+  <div class="product-card__hover" @click.stop="handleAction($event)">
+    <div class="pcd" x-ref="details">
+      <header class="pcd__header">
+        <h4 class="pcd__title">{{ p.title }}</h4>
+        <button type="button" class="pcd__wish" aria-label="Add to wishlist" data-action="wish">
+          <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+      </header>
+
+      {%- assign short = p.metafields.custom.short_description -%}
+      {%- if short != blank -%}
+        <p class="pcd__short">{{ short | metafield_text }}</p>
+      {%- endif -%}
+
+      <div class="pcd__divider" role="separator"></div>
+
+      {%- assign details = p.metafields.custom.product_detais -%}
+      {%- if details != blank -%}
+        <div class="pcd__details">
+          {{ details | metafield_tag }}
+        </div>
+      {%- endif -%}
+
+      <div class="pcd__divider" role="separator"></div>
+
+      <div class="pcd__controls">
+        <div class="pcd__qty">
+          <span class="pcd__qty-label">Quantity</span>
+          <div class="pcd__qty-box">
+            <button type="button" class="pcd__qty-btn" data-action="dec">−</button>
+            <span class="pcd__qty-val" x-text="qty">1</span>
+            <button type="button" class="pcd__qty-btn" data-action="inc">+</button>
+          </div>
+        </div>
+
+        <div class="pcd__actions">
+          <button class="pcd__add btn btn-scheme btn-fourth" data-action="add">
+            <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
+          </button>
+          <button type="button" class="pcd__wish-round" aria-label="Add to wishlist" data-action="wish">
+            <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="pcd__read">
+          <a class="pcd__read-link pcd__read-link--desk" href="{{ p.url }}">READ MORE</a>
+          <button class="pcd__read-link pcd__read-link--mob" data-action="sheet">READ MORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('productCard', ({ variantId, productUrl, priceCents, moneyFormat }) => ({
+    variantId, productUrl, priceCents, moneyFormat,
+    qty: 1,
+    wish: false,
+
+    inc(){ this.qty++ },
+    dec(){ if(this.qty > 1) this.qty-- },
+    addToCart(){ Alpine.store('cart')?.addToCart({ variantId: this.variantId, quantity: this.qty }) },
+    toggleWish(){ this.wish = !this.wish },
+
+    get totalPrice(){
+        const cents = this.qty * this.priceCents
+        if (window.Shopify && typeof Shopify.formatMoney === 'function') {
+            // тема зазвичай має глобальний формат за замовчуванням
+            return Shopify.formatMoney(cents)
+        }
+        // фолбек: £ + 2 знаки після коми (можеш підставити свою валюту)
+        return '£' + (cents / 100).toFixed(2)
+    },
+
+    _formatMoney(cents, format){
+      const noDec='{{amount_no_decimals}}', withDec='{{amount}}'
+      const hasNoDec = format.includes(noDec)
+      const n = hasNoDec ? Math.round(cents/100) : (cents/100).toFixed(2)
+      const val = (''+n).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      return format.replace(hasNoDec?noDec:withDec, val)
+    },
+
+    /* Делегований обробник подій для overlay (desktop) */
+    handleAction(e){
+      const btn = e.target.closest('[data-action]')
+      if(!btn) return
+      const action = btn.dataset.action
+      if(action==='inc'){ this.inc() }
+      if(action==='dec'){ this.dec() }
+      if(action==='add'){ this.addToCart() }
+      if(action==='wish'){ this.toggleWish() }
+      if(action==='sheet'){ this.openSheet(this.$refs.details) }
+    },
+
+    /* ===== Mobile bottom-sheet ===== */
+    ensureSheet(){
+      let root = document.getElementById('pcard-sheet')
+      if (root) return root
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="pcard-sheet" class="pcard-sheet" aria-hidden="true">
+        <div class="pcard-sheet__backdrop"></div>
+        <div class="pcard-sheet__panel" role="dialog" aria-modal="true" aria-label="Product details">
+            <button class="pcard-sheet__close" aria-label="Close">✕</button>
+            <div class="pcard-sheet__body"></div>
+        </div>
+        </div>`)
+      root = document.getElementById('pcard-sheet')
+      root.querySelector('.pcard-sheet__backdrop').addEventListener('click', () => this.closeSheet())
+      root.querySelector('.pcard-sheet__close').addEventListener('click', () => this.closeSheet())
+      return root
+    },
+    openSheet(detailsEl){
+      const sheet = this.ensureSheet()
+      const body = sheet.querySelector('.pcard-sheet__body')
+      body.innerHTML = detailsEl.innerHTML
+      sheet.classList.add('is-open')
+      sheet.removeAttribute('aria-hidden')
+      this._wireSheetActions(sheet)
+    },
+    closeSheet(){
+      const sheet = document.getElementById('pcard-sheet')
+      if (!sheet) return
+      sheet.classList.remove('is-open')
+      sheet.setAttribute('aria-hidden', 'true')
+    },
+    _wireSheetActions(sheet){
+      const body = sheet.querySelector('.pcard-sheet__body')
+      const update = () => {
+        const qtyVal = body.querySelector('.pcd__qty-val')
+        const addSpan = body.querySelector('.pcd__add > span')
+        if(qtyVal) qtyVal.textContent = this.qty
+        if(addSpan) addSpan.textContent = this.totalPrice + ' · ADD TO CART'
+      }
+      body.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('[data-action]')
+        if(!btn) return
+        const a = btn.dataset.action
+        if(a==='inc'){ this.inc(); update() }
+        if(a==='dec'){ this.dec(); update() }
+        if(a==='add'){ ev.preventDefault(); this.addToCart(); update() }
+        if(a==='wish'){ this.toggleWish() }
+      })
+      update()
+    }
+  }))
+})
+</script>

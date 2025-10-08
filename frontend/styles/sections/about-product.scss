@@ -1,47 +1,67 @@
 .about-product {
-    .about-product__container {
-      @apply mx-auto;
+    &__text-container {
+      @apply mx-auto mb-[60px] md:mb-[120px];
       max-width: 903px;
-      padding-left: 16px;
-      padding-right: 16px;
     }
   
     .about-product__kicker {
-      @apply text-center uppercase text-xs tracking-[0.2em]  mb-1;
+      @apply text-center 
+        uppercase 
+        text-xs tracking-[4px]  
+        mb-[40px] md:mb-[60px]
+        pb-[16px] md:pb-[20px]
+        border-b border-b-[#ADAEB0];
     }
   
     .about-product__title {
-      @apply text-center text-[28px] md:text-[32px] leading-[1.2] text-[#474747] mb-4;
-      letter-spacing: .6px;
+      @apply text-center text-[36px] md:text-[56px] leading-[1.2] text-[#474747] mb-[24px];
     }
   
     .about-product__desc {
-      @apply text-center md:text-left text-[14px] md:text-[15px] leading-7 text-[#6b6b6b] mb-8 md:mb-12;
+      @apply text-center text-[16px] leading-[150%] text-[#6b6b6b];
     }
   
     .about-product__section {
-      @apply grid gap-5 md:gap-8 md:grid-cols-2 items-stretch;
+      @apply grid grid-cols-2 items-stretch;
+
+      @media (max-width: 1200px) {
+        @apply grid grid-cols-1 items-stretch;
+      }
     }
   
     .about-product__img {
-      @apply rounded-2xl overflow-hidden;
+      @apply rounded-[20px] overflow-hidden md:mr-[-30px] z-[1];
+      
+      @media (max-width: 1200px) {
+        @apply mr-[0px] mb-[-30px];
+      }
     }
   
     .about-product__card {
       /* сірий блок як на макеті */
-      @apply rounded-2xl p-5 md:p-7;
+      @apply rounded-[20px] md:px-[130px] px-[32px] md:py-[60px] py-[40px];
       background-color: #AEB1B5; /* можна змінити за потреби */
       color: #fff;
+
+      @media (max-width: 1200px) {
+        @apply pt-[70px];
+      }
+
+        &--title {
+            @apply text-white md:text-[48px] 
+            text-[36px] leading-[110%]
+            md:mb-[40px] mb-[24px];
+        }
     }
   
     /* нумерація списку як у прикладі */
     .about-product__ol {
       counter-reset: step;
-      @apply space-y-4;
     }
+
     .about-product__ol > li {
       counter-increment: step;
-      @apply relative pl-8;
+      @apply relative pl-8 md:mb-[40px] mb-[24px];
     }
     .about-product__ol > li::before {
       content: counter(step) ".";

@@ -52,8 +52,8 @@
 
     <div class="container m-responsive">
       <div class="l-product__main md:flex pb-8 md:pb-0">
-        <article class="l-product__gallery md:w-1/2 mb-12 md:mb-0">
-          <div class="l-product__gallery--skeleton rounded-regular" x-show="sliderLoading">
+        <article class="l-product__gallery md:w-1/2 mb-12 md:mb-0 h-auto">
+          <div class="l-product__gallery--skeleton rounded-regular" x-show="$store.ui.sliderLoading">
             <div></div>
           </div>
 
@@ -338,6 +338,12 @@
     {% endif %}
   </section>
 </div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    if (!Alpine.store('ui')) Alpine.store('ui', { sliderLoading: true })
+  })
+</script>
 
 
 {% schema %}
