@@ -15,7 +15,7 @@
     }
   
     .about-product__title {
-      @apply text-left text-[36px] md:text-[56px] leading-[1.2] text-[#474747] mb-[40px] md:mb-[60px] ;
+      @apply text-center text-[36px] md:text-[56px] leading-[1.2] text-[#474747] mb-[40px] md:mb-[60px] ;
     }
   
     .about-product__desc {
@@ -74,6 +74,7 @@
         display: none;
         border: none;
         background-color: #fff;
+        transform: translateY(100%);
 
         &:hover {
             background-color: #474747;
@@ -104,4 +105,3 @@
   
 
  
-  

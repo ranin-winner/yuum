@@ -1,5 +1,16 @@
 .l-product {
     &__info {
+
+        @media (max-width: 1439px) {
+            max-width: 480px;
+        }
+
+
+        @media (max-width: 1000px) {
+            max-width: 100%;
+        }
+
+
         .product-price {
             
             span {

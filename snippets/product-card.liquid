@@ -72,7 +72,7 @@ Notes:
         <h4 class="pcd__title">{{ p.title }}</h4>
       </header>
 
-      {%- assign short = p.metafields.custom.short_description -%}
+      {%- assign short = p.metafields.custom.product_card_excerpt -%}
       {%- if short != blank -%}
         <p class="pcd__short">{{ short | metafield_text }}</p>
       {%- endif -%}

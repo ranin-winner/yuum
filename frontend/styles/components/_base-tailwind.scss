@@ -1,3 +1,5 @@
+@use '../config/all-config' as cfg;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -238,3 +240,93 @@
 }
 
 
+// styles for review app
+.yotpo-layout-header-wrapper {
+    .yotpo-summary-section,
+    .yotpo-star-distribution {
+        display: none!important;
+    }
+}
+
+.yotpo-display-s .yotpo-head .yotpo-headline {
+    width: 100%!important;
+    text-align: left!important;
+}
+
+#yotpo-headline-reviews {
+    color: #474747;
+    text-align: left!important;
+    @include cfg.h3;
+}
+
+.yotpo-filters-container,
+.yotpo-reviewer-verified-buyer-text,
+.yotpo-review-votes-wrapper,
+.yotpo-review-title {
+    display: none!important;
+}
+
+.yotpo-review-border-smooth {
+    background-image: none;
+    border-bottom: 1px solid #474747;
+}
+
+.yotpo-reviewer {
+    flex-direction: column!important;
+    align-items: flex-start !important;
+}
+
+
+
+#yotpo-app > div > div > div > div:nth-child(2) > div.yotpo-review-border-smooth {
+    display: none!important;
+}
+
+.yotpo-horizontal-pagination .selected {
+    background-color: transparent!important;
+    border-radius: 0!important;
+    border-bottom: 1px solid #474747!important;
+    color: #474747!important;
+}
+
+
+
+.yotpo-horizontal-pagination .selected, .yotpo-horizontal-pagination .yotpo-pagination-number-container .yotpo-pagination-number:hover {
+    background-color: transparent!important;
+    border-radius: 0!important;
+    border-bottom: 1px solid #474747!important;
+    color: #474747!important;
+    transition: all 0.3s ease;
+}
+
+.yotpo-review-content .yotpo-read-more-text {
+    font-size: 14px!important;
+    color: #474747!important;
+    font-weight: 500!important;
+}
+.yotpo-star-rating .star-container {
+    width: 13.4px !important;
+}
+
+.yotpo-head {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+}
+
+.yotpo-headline-reviews {
+    text-align: left!important;
+}
+
+.yotpo-display-l .yotpo-main-layout .yotpo-head, .yotpo-display-m .yotpo-main-layout .yotpo-head {
+    margin-bottom: 60px!important;
+    margin-top: 0px!important;
+}
+
+.yotpo-display-s .yotpo-head {
+    margin-top: 0!important;
+}
+
+.yotpo-display-s .yotpo-head .yotpo-headline {
+    margin-top: 0!important;
+}
+ 

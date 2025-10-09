@@ -60,19 +60,19 @@
           {%- assign all_images = product.images | map: 'src' -%}
           {%- render 'product-media-gallery', product_images: all_images -%}
 
-          <div class="main-product__benefits">
-            {% assign productBenefits = product.metafields.custom.benefits.value %}
-            <ul class="main-product__benefits-list">
-              {% for benefit in productBenefits %}
-                <li class="main-product__benefits-item">
-                  <figure class="main-product__benefits-icon">
-                    <img src="{{ benefit.icon | img_url: '64x' }}" alt="{{ benefit.name }}" class="main-product__benefits-image" />
-                  </figure>
-                  <span class="main-product__benefits-text">{{ benefit.name }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
+            {% comment %} <div class="main-product__benefits">
+                {% assign productBenefits = product.metafields.custom.benefits.value %}
+                <ul class="main-product__benefits-list">
+                {% for benefit in productBenefits %}
+                    <li class="main-product__benefits-item">
+                    <figure class="main-product__benefits-icon">
+                        <img src="{{ benefit.icon | img_url: '64x' }}" alt="{{ benefit.name }}" class="main-product__benefits-image" />
+                    </figure>
+                    <span class="main-product__benefits-text">{{ benefit.name }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div> {% endcomment %}
         </article>
 
         <article class="l-product__info md:w-1/2 md:pl-[100px]">
@@ -151,7 +151,7 @@
                     </div>
 
                     {% when 'buy_buttons' %}
-                        <form method="post"
+                        <form id="pdp-buy-buttons" method="post"
                               x-data="{
                                 quantity: 1,
                                 min: {{ currentVariant.quantity_rule.min | default: 1 }},
@@ -336,6 +336,25 @@
     -%}
       {% render 'product-ingredients-and-nutrition-new', product: product %}
     {% endif %}
+
+        <!-- Mobile back-to-buy toast -->
+        <div x-data="toastBackToBuy('#pdp-buy-buttons')"
+        x-show="visible"
+        x-transition.opacity.duration.200ms
+        class="md:hidden fixed inset-x-0 bottom-0 z-50 w-full">
+            <div class="rounded-tl-[20px] rounded-tr-[20px] border border-[#DADADA] bg-white shadow-regular p-[16px]">
+                <h4 class="text-[18px] leading-[120%] text-[#474747] truncate mb-[12px]">
+                {{ product.title }}
+                </h4>
+                <button type="button"
+                    @click="scrollToBuy"
+                    class="w-full inline-flex items-center justify-center px-4 py-[8px] rounded-full
+                            bg-[#474747] text-white text-[12px] leading-4 tracking-[3px] uppercase
+                            transition hover:opacity-90 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
+                Back to buy
+                </button>
+            </div>
+        </div>
   </section>
 </div>
 
@@ -344,6 +363,87 @@
     if (!Alpine.store('ui')) Alpine.store('ui', { sliderLoading: true })
   })
 </script>
+
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('toastBackToBuy', (targetSelector, opts = {}) => ({
+    visible: false,
+    threshold: 300,
+    io: null,
+    headerOffset: 0,
+    ro: null,
+
+    init() {
+      const target = document.querySelector(targetSelector)
+      if (!target) return
+
+      const selHeader = '#id_header, .m-sticky, header, .site-header'
+      const selAnnounce = '[data-announcement-bar], .announcement-bar'
+
+      const getTotalHeight = (selector) => {
+        let total = 0
+        document.querySelectorAll(selector).forEach(el => {
+          if (!el) return
+          const rect = el.getBoundingClientRect()
+          // врахуємо тільки видимі зверху елементи
+          const style = getComputedStyle(el)
+          const isHidden = style.display === 'none' || style.visibility === 'hidden'
+          if (!isHidden) total += rect.height
+        })
+        return total
+      }
+
+      const computeOffset = () => {
+        const extra = 12 // невеликий запас
+        this.headerOffset = (opts.offsetPx ?? 0) + getTotalHeight(selHeader) + getTotalHeight(selAnnounce) + extra
+      }
+
+      computeOffset()
+
+      // оновлюємо офсет при зміні розміру/висоти хедера
+      this.ro = new ResizeObserver(() => computeOffset())
+      document.querySelectorAll(selHeader + ',' + selAnnounce).forEach(el => this.ro.observe(el))
+      window.addEventListener('resize', computeOffset)
+
+      const makeObserver = () => {
+        if (this.io) this.io.disconnect()
+        this.io = new IntersectionObserver((entries) => {
+          const e = entries[0]
+          const away = !e.isIntersecting
+          this.updateVisibility(away)
+        }, { rootMargin: `-${this.headerOffset}px 0px -40% 0px`, threshold: [0, 1] })
+        this.io.observe(target)
+      }
+      makeObserver()
+      setTimeout(makeObserver, 0) // на випадок асинхронного рендеру хедера
+
+      this.onScroll = () => { if (window.scrollY < this.threshold) this.visible = false }
+      window.addEventListener('scroll', this.onScroll, { passive: true })
+    },
+
+    updateVisibility(away) {
+      this.visible = away && window.innerWidth < 768 && window.scrollY > this.threshold
+    },
+
+    scrollToBuy() {
+      const target = document.querySelector(targetSelector)
+      if (!target) return
+      const top = target.getBoundingClientRect().top + window.pageYOffset - this.headerOffset
+      window.scrollTo({ top, behavior: 'smooth' })
+    },
+
+    destroy() {
+      if (this.io) this.io.disconnect()
+      if (this.ro) this.ro.disconnect()
+      window.removeEventListener('resize', this.computeOffset)
+      window.removeEventListener('scroll', this.onScroll)
+    }
+  }))
+})
+</script>
+
+
 
 
 {% schema %}

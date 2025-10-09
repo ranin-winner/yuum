@@ -1,0 +1,32 @@
+@use '../config/all-config' as cfg;
+
+.feature-brick {
+    &__main-title {
+        color: #474747;
+        margin:60px 0;
+        @include cfg.h2;
+    }
+
+    &__title{
+        color: #474747;
+        margin-bottom: 16px;
+        @include cfg.h3;
+    }
+
+    &__text {
+        max-width: 900px;
+        margin-bottom: 32px;
+        @include cfg.body-2;
+    }
+
+    
+    &__image-inner {
+        
+        @include cfg.media(max-t) {
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+  }
+  

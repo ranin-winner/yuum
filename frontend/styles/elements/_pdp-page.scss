@@ -1,7 +1,7 @@
 @use '../config/all-config' as cfg;
 
 .l-product {
-    padding-bottom: 40px;
+    // padding-bottom: 40px;
     padding-left: 16px;
     padding-right: 16px;
 
@@ -301,62 +301,62 @@
 
 // Benefits
 
-.main-product__benefits {
-  padding: 20px 0;
-}
+// .main-product__benefits {
+//   padding: 20px 0;
+// }
 
-@media (max-width: 767px) {
-  .main-product__benefits {
-    padding: 20px 0;
-  }
-}
+// @media (max-width: 767px) {
+//   .main-product__benefits {
+//     padding: 20px 0;
+//   }
+// }
 
 
-.main-product__benefits-list {
-  display: grid;
-  grid-template-columns: repeat(3, 33%);
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-}
+// .main-product__benefits-list {
+//   display: grid;
+//   grid-template-columns: repeat(3, 33%);
+//   gap: 10px;
+//   margin: 0;
+//   padding: 0;
+// }
 
-.main-product__benefits-icon {
-  background-color: var(--secondary-color);
-  margin: 0;
-  padding: 4px;
-  border-radius: 50%;
+// .main-product__benefits-icon {
+//   background-color: var(--secondary-color);
+//   margin: 0;
+//   padding: 4px;
+//   border-radius: 50%;
 
-}
+// }
 
-.main-product__benefits-image {
-  display: block;
-  min-width: 64px;
-  width: 64px;
-}
+// .main-product__benefits-image {
+//   display: block;
+//   min-width: 64px;
+//   width: 64px;
+// }
 
-.main-product__benefits-item {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
+// .main-product__benefits-item {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 12px;
+//   align-items: center;
+// }
 
-.main-product__benefits-text {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--secondary-color);
-  text-align: center;
-}
+// .main-product__benefits-text {
+//   font-size: 16px;
+//   line-height: 24px;
+//   font-weight: 700;
+//   text-transform: uppercase;
+//   color: var(--secondary-color);
+//   text-align: center;
+// }
 
-@media (max-width: 767px) {
-  .main-product__benefits-item {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-}
+// @media (max-width: 767px) {
+//   .main-product__benefits-item {
+//     flex-direction: column;
+//     align-items: center;
+//     text-align: center;
+//   }
+// }
 
 .b-pdp_accordion {
   &--item {

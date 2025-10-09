@@ -25,7 +25,7 @@
     <div class="swiper-button-prev" x-ref="swiperPrev">{{ arrowPrev }}</div>
 
     <div class="swiper-container !p-0" id="swiper-container-{{ section.id }}" x-ref="swiperEl">
-      <div class="swiper-wrapper">
+      <div class="swiper-wrapper pb-[12px]">
         {% for image in product.images %}
           <div class="swiper-slide pb-[100%]">
             {% render 'image' with image,

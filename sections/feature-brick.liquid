@@ -1,0 +1,137 @@
+{% comment %}
+  Feature Tiles (1–2 blocks)
+  - Tailwind first
+  - Mobile/desktop images via <picture>
+  - Two configurable buttons per card
+{% endcomment %}
+{% render 'entry' with '@/styles/sections/feature-brick.scss' %}
+
+<section
+  id="feature-brick-{{ section.id }}"
+  class="feature-brick palette-{{ section.settings.color_scheme }}"
+>
+  <div class="container">
+    {% if section.settings.main_title != blank %}
+        <h1 class="feature-brick__main-title">{{ section.settings.main_title }}</h1>
+    {% endif %}
+
+    {%- assign cards = section.blocks -%}
+    <div class="grid grid-cols-1 md:grid-cols-{{ cards.size | at_least: 1 | at_most: 2 }} gap-[60px] md:gap-[24px]">
+      {%- for block in cards -%}
+        {%- assign img_desktop = block.settings.image_desktop -%}
+        {%- assign img_mobile  = block.settings.image_mobile | default: img_desktop -%}
+
+        <article class="overflow-hidden">
+          <div class="relative pb-[24px]">
+            {%- comment -%} 
+              Обгортка робить усі мобільні картинки 328×328, а на md+ повертає auto 
+            {%- endcomment -%}
+            <div class="feature-brick__image-inner rounded-[20px] overflow-hidden md:w-auto md:h-auto">
+              <picture>
+                {%- if img_desktop != blank -%}
+                  <source media="(min-width:768px)" srcset="{{ img_desktop | image_url: width: 1400 }}">
+                {%- endif -%}
+                {%- if img_mobile != blank -%}
+                  <img
+                    src="{{ img_mobile | image_url: width: 900 }}"
+                    alt="{{ block.settings.image_alt | escape }}"
+                    loading="lazy"
+                    class="block w-full h-full md:h-auto object-cover"
+                  >
+                {%- endif -%}
+              </picture>
+            </div>
+          </div>
+
+          <div>
+            {%- if block.settings.title != blank -%}
+              <h3 class="feature-brick__title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <div class="feature-brick__text">
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+
+            <div class="flex flex-wrap gap-[12px]">
+              {%- if block.settings.primary_label != blank and block.settings.primary_url != blank -%}
+                <a
+                  href="{{ block.settings.primary_url }}"
+                  class="btn btn-primary btn-primary-mini"
+                >
+                  {{ block.settings.primary_label | escape }}
+                </a>
+              {%- endif -%}
+
+              {%- if block.settings.secondary_label != blank and block.settings.secondary_url != blank -%}
+                <a
+                  href="{{ block.settings.secondary_url }}"
+                  class="btn btn-secondary btn-secondary-mini"
+                >
+                  {{ block.settings.secondary_label | escape }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Feature brick",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "inverse", "label": "Inverse" }
+      ]
+    },
+    {
+      "type": "text",
+      "label": "Main section title",
+      "id": "main_title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "limit": 2,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Mochi" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Short description goes here.</p>" },
+
+        { "type": "image_picker", "id": "image_desktop", "label": "Image (desktop)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile, optional)" },
+        { "type": "text", "id": "image_alt", "label": "Image alt" },
+
+        { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Read more" },
+        { "type": "url", "id": "primary_url", "label": "Primary button link" },
+
+        { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "To catalogue" },
+        { "type": "url", "id": "secondary_url", "label": "Secondary button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature brick",
+      "blocks": [
+        { "type": "tile" },
+        { "type": "tile" }
+      ]
+    }
+  ]
+}
+{% endschema %}

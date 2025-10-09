@@ -66,11 +66,11 @@ export default {
       },
       color_1: {
         DEFAULT: '#474747',
-        secondary: '#61A2C7',
+        secondary: '#F5F5F5',
         tertiary: '#C1E0EB',
       },
       color_2: {
-        DEFAULT: '#5F1F5B',
+        DEFAULT: '#F5F5F5',
         secondary: '#A85C9D',
         tertiary: '#E8C7E8',
       },
