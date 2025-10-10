@@ -1,0 +1,44 @@
+@use '../config/all-config' as cfg;
+
+
+.advantages {
+
+    &__inner {
+        @include cfg.media(min-t) {
+            display: grid;
+            grid-template-columns: 350px 1fr 1fr;
+        }
+        
+    }
+
+    &__text {
+        text-align: center;
+        
+        @include cfg.media(min-t) {
+            text-align: left;
+            max-width: 350px; 
+            transform: translateX(170px);
+        }
+    }
+
+    &__list {
+        column-gap: 80px;
+    }
+  
+    .advantages__num-badge {
+        color: #474747;
+    }
+  
+    .opacity-85 { opacity: .85; }
+  
+    .advantages__decor {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: min(92%, 520px);
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+  }
+  

@@ -7,34 +7,57 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "main": {
       "type": "main-product",
       "blocks": {
+        "badge_6prFYK": {
+          "type": "badge",
+          "settings": {}
+        },
         "title_hijtjK": {
           "type": "title",
           "settings": {}
         },
-        "price_LVaq8i": {
-          "type": "price",
+        "short_description_kFAmgt": {
+          "type": "short_description",
           "settings": {}
         },
-        "reviews_T3jPBg": {
-          "type": "reviews",
+        "yotpo_product_reviews_star_rating_Tgcakf": {
+          "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "product_detais_WDcgtB": {
+          "type": "product_detais",
+          "settings": {}
+        },
+        "product_tags_k6gdCn": {
+          "type": "product_tags",
+          "settings": {}
+        },
+        "price_LVaq8i": {
+          "type": "price",
+          "disabled": true,
           "settings": {}
         },
         "tabs_product_selector_BVHa78": {
           "type": "tabs_product_selector",
+          "disabled": true,
           "settings": {
             "tab_selected": "subscribe",
             "tab1_title": "One-time purchase",
             "tab1_product_list": [
-              "best-sellers-variety-pack",
-              "chocolate-chip",
-              "madagascar-vanilla-honey-almond",
-              "nut-seed-variety-pack",
-              "peruvian-dark-chocolate-peanut-butter"
+              "lite-bundle-mochi",
+              "lunar-festival-bundle",
+              "mango-mochi",
+              "first-experience-mochi-bundle",
+              "coffee-mochi",
+              "choco-mochi",
+              "choco-banana-mochi",
+              "chestnut-mochi"
             ],
             "tab2_title": "Subscribe and Save"
           }
@@ -48,81 +71,192 @@
           "type": "buy_buttons",
           "settings": {}
         },
+        "delivery_AjM9aM": {
+          "type": "delivery",
+          "settings": {
+            "svg_1": "<svg width=\"23\" height=\"32\" viewbox=\"0 0 23 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.11946 29.0686C6.29499 29.3 5.22125 29.3965 4.30091 29.3965C1.90426 29.3965 0.332031 28.1429 0.332031 25.848C0.332031 23.6688 1.80839 22.261 3.95578 22.261C4.43513 22.261 4.95282 22.3188 5.2596 22.4731V19.3103H7.11946V29.0686ZM5.2596 24.093C4.97199 23.958 4.56934 23.8809 4.10917 23.8809C2.97799 23.8809 2.23021 24.5752 2.23021 25.7901C2.23021 27.0822 3.03551 27.8151 4.35843 27.8151C4.58852 27.8151 4.95282 27.8151 5.2596 27.7379V24.093ZM22.401 29.0686C21.5765 29.3 20.5028 29.3965 19.5633 29.3965C17.1857 29.3965 15.5943 28.1429 15.5943 25.848C15.5943 23.6688 17.0707 22.261 19.2181 22.261C19.7167 22.261 20.2152 22.3188 20.522 22.4731V19.3103H22.401V29.0686ZM20.522 24.093C20.2344 23.958 19.8509 23.8809 19.3907 23.8809C18.2403 23.8809 17.4925 24.5752 17.4925 25.7901C17.4925 27.0822 18.317 27.8151 19.64 27.8151C19.8701 27.8151 20.2152 27.8151 20.522 27.7379V24.093ZM10.0531 24.093C10.3598 23.958 10.8008 23.9195 11.1651 23.9195C12.3156 23.9195 13.1017 24.5752 13.1017 25.7516C13.1017 27.1401 12.2197 27.7765 11.0501 27.7958V29.3965H11.146C13.5619 29.3965 14.9999 28.0658 14.9999 25.6937C14.9999 23.5338 13.466 22.261 11.2035 22.261C10.0531 22.261 8.9218 22.5309 8.17402 22.8395V32H10.0531V24.093Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M18.9844 4.0498L19.31 4.41612L19.4931 4.31436L18.9844 4.0498Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M18.4961 3.78528L19.1269 4.5179L19.3508 4.3958L19.1066 4.11089L18.4961 3.78528Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M17.9883 3.52063L18.9448 4.61956L19.1686 4.49746L18.6191 3.84624L17.9883 3.52063Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M17.4961 3.25598L18.7578 4.72122L18.9817 4.59912L18.1066 3.58159L17.4961 3.25598ZM19.9178 5.84048L19.7753 5.92188L19.9178 6.08468V5.84048Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M17.0117 2.99133L18.5787 4.82288L18.8026 4.70078L17.6222 3.31694L17.0117 2.99133ZM19.8404 5.88109L19.6166 6.02354L19.9218 6.38985V6.00319L19.8404 5.88109Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M16.5 2.72693L18.3926 4.92479L18.6368 4.80269L17.1309 3.05254L16.5 2.72693ZM19.6543 5.98299L19.4305 6.12545L19.9189 6.69526V6.3086L19.6543 5.98299Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M16.0117 2.4624L18.2299 5.02657L18.4538 4.90446L16.6222 2.788L16.0117 2.4624ZM19.4713 6.10512L19.2474 6.22722L19.919 7.0209V6.63423L19.4713 6.10512Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.5234 2.19775L18.0469 5.12823L18.2708 5.00612L16.134 2.52336L15.5234 2.19775ZM19.2883 6.20678L19.0644 6.32888L19.9191 7.32606V6.9394L19.2883 6.20678Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.0156 1.93323L17.8647 5.23001L18.0885 5.1079L15.6465 2.25883L15.0156 1.93323ZM19.106 6.30856L18.8822 6.43066L19.9201 7.63135V7.24469L19.106 6.30856Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M14.5273 1.66882L17.6817 5.35226L17.9055 5.20981L15.1379 1.99443L14.5273 1.66882ZM18.923 6.41047L18.6992 6.53257L19.9202 7.95711V7.57045L18.923 6.41047Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M14.0195 1.40417L17.4995 5.45392L17.7233 5.31147L14.6504 1.72978L14.0195 1.40417ZM18.7612 6.51212L18.517 6.63423L19.9211 8.26227V7.87561L18.7612 6.51212Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M13.5273 1.13965L17.3125 5.55568L17.5567 5.41325L14.1582 1.46525L13.5273 1.13965ZM18.5743 6.61391L18.3504 6.73601L19.9174 8.58791V8.1809L18.5743 6.61391Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M13.043 0.875122L17.1538 5.65746L17.3776 5.515L13.6535 1.20073L13.043 0.875122ZM18.3951 6.71569L18.1713 6.83779L19.9214 8.8932V8.50654L18.3951 6.71569Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12.5312 0.59021L16.9676 5.75921L17.1915 5.61675L13.1621 0.936167L12.5312 0.59021ZM18.209 6.81744L17.9852 6.93954L19.9185 9.19843V8.81179L18.209 6.81744Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12.043 0.325684L16.7846 5.86099L17.0085 5.73888L12.6738 0.671641L12.043 0.325684ZM18.026 6.91922L17.8022 7.04132L19.9186 9.52406V9.11708L18.026 6.91922Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.5508 0.0814209L16.5977 5.96268L16.8215 5.84058L12.1613 0.407028L11.5508 0.0814209ZM17.8391 7.02091L17.6152 7.14302L19.9148 9.82927V9.44261L17.8391 7.02091Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.2305 0L16.4198 6.06442L16.6437 5.94231L11.6782 0.142453L11.5561 0.0814018C11.4543 0.0203504 11.3526 0 11.2305 0ZM17.6612 7.12265L17.4373 7.24475L19.9201 10.1345V9.74784L17.6612 7.12265Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.2286 0C11.1472 0 11.0658 0.0203504 10.9844 0.0407009L16.2348 6.16617L16.479 6.04407L11.2896 0C11.2693 0 11.2489 0 11.2286 0ZM17.4965 7.2244L17.2726 7.3465L19.9182 10.4601V10.0531L17.4965 7.2244Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.045 0.0203857C11.0043 0.0407362 10.9432 0.0610865 10.9229 0.0814371L10.8008 0.142488L16.0715 6.26796L16.2954 6.14585L11.045 0.0203857ZM17.3129 7.32619L17.0891 7.46864L19.9178 10.7654V10.3787L17.3129 7.32619Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.845 0.101807L10.6211 0.223909L15.8918 6.36973L16.1157 6.24763L10.845 0.101807ZM17.1332 7.42796L16.9094 7.57041L19.9212 11.0707V10.684L17.1332 7.42796Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.6614 0.203491L10.4375 0.325594L15.7082 6.47142L15.9321 6.34931L10.6614 0.203491ZM16.9496 7.52964L16.7258 7.6721L19.9208 11.3962V11.0096L16.9496 7.52964Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.4778 0.305176L10.2539 0.427279L15.5246 6.5731L15.7485 6.451L10.4778 0.305176ZM16.766 7.63133L16.5422 7.77379L19.9203 11.7014V11.3148L16.766 7.63133Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.2942 0.407104L10.0703 0.529208L15.3411 6.67503L15.5649 6.55293L10.2942 0.407104ZM16.5824 7.73326L16.3586 7.87571L19.9199 12.0069V11.6202L16.5824 7.73326Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.1106 0.508667L9.88672 0.630768L15.1575 6.77659L15.3813 6.65449L10.1106 0.508667ZM16.4192 7.83482L16.1953 7.97728L19.9195 12.3323V11.9456L16.4192 7.83482Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.93089 0.59021L9.70703 0.732664L14.9982 6.87849L15.222 6.75639L9.93089 0.59021ZM16.2395 7.95707L16.0157 8.07917L19.9229 12.6377V12.251L16.2395 7.95707Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.74339 0.691895L9.51953 0.813998L14.8107 6.98017L15.0345 6.85807L9.74339 0.691895ZM16.052 8.05875L15.8282 8.18086L19.9186 12.9632V12.5562L16.052 8.05875Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.55979 0.793823L9.33594 0.915927L14.6271 7.10245L14.8509 6.96L9.55979 0.793823ZM15.8684 8.16068L15.6446 8.28279L19.9182 13.2686V12.882L15.8684 8.16068Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.3762 0.895386L9.15234 1.01749L14.4435 7.20402L14.6673 7.06156L9.3762 0.895386ZM15.6848 8.26224L15.461 8.38435L19.9177 13.5737V13.187L15.6848 8.26224Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.19651 0.99707L8.97266 1.11917L14.2638 7.3057L14.4876 7.16325L9.19651 0.99707ZM15.5051 8.36393L15.2813 8.48604L19.9212 13.8992V13.4922L15.5051 8.36393Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.01292 1.099L8.78906 1.2211L14.0802 7.40763L14.304 7.26518L9.01292 1.099ZM15.3419 8.46586L15.1181 8.58796L19.9207 14.2047V13.818L15.3419 8.46586Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M8.82624 1.1803L8.58203 1.3024L13.9139 7.50928L14.1377 7.36683L8.82624 1.1803ZM15.1552 8.56751L14.9314 8.68961L19.9172 14.5098V14.1232L15.1552 8.56751Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M8.64655 1.28211L8.40234 1.40421L13.7545 7.63144C13.7749 7.59074 13.7952 7.57039 13.8359 7.55004L13.958 7.46863L8.64655 1.28211ZM14.9756 8.66932L14.7517 8.79142L19.88 14.7744C19.9003 14.7134 19.9207 14.6523 19.9207 14.5913V14.4285L14.9756 8.66932Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M8.45905 1.38379L8.21484 1.50589L13.6891 7.87558V7.79418C13.6891 7.73312 13.7298 7.65172 13.7705 7.59067L8.45905 1.38379ZM14.7881 8.771L14.6252 8.87276C14.6049 8.87276 14.5845 8.89311 14.5642 8.89311L19.7739 14.9779C19.8349 14.8965 19.8756 14.8151 19.896 14.7337L14.7881 8.771Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M8.27934 1.4856L8.03516 1.6077L13.6926 8.20124V7.79423L8.27934 1.4856ZM14.2217 8.79141L19.6349 15.1204C19.6959 15.0797 19.757 14.9983 19.818 14.9372L14.6083 8.87281C14.5269 8.91351 14.4048 8.91351 14.3234 8.87281L14.2217 8.79141Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M8.09574 1.5874L7.85156 1.7095L19.4513 15.2222L19.6141 15.1408C19.6344 15.1204 19.6548 15.1001 19.6751 15.0797L14.3433 8.87286H14.323L13.8549 8.58796C13.8142 8.5676 13.7939 8.5269 13.7532 8.4862C13.7125 8.42515 13.7125 8.38445 13.6921 8.34375V8.11989L8.09574 1.5874Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.91218 1.68896L7.66797 1.81107L19.2677 15.3238L19.4915 15.2016L7.91218 1.68896Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.72858 1.77051L7.48438 1.89261L19.1044 15.4256L19.3283 15.3035L7.72858 1.77051Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.54499 1.87219L7.30078 1.9943L18.9209 15.5273L19.1447 15.4052L7.54499 1.87219Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.3653 1.97412L7.12109 2.09622L18.7412 15.6293L18.965 15.5072L7.3653 1.97412Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.15745 2.07581L6.93359 2.19791L18.5537 15.7513L18.7775 15.6088L7.15745 2.07581Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.97776 2.17761L6.75391 2.29972L18.374 15.8531L18.5979 15.7107L6.97776 2.17761Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.79417 2.2793L6.57031 2.4014L18.2108 15.9548L18.4346 15.8123L6.79417 2.2793Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.61058 2.36047L6.38672 2.48257L18.0272 16.0563L18.251 15.9139L6.61058 2.36047Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.42698 2.4624L6.20312 2.58451L17.8436 16.1582L18.0674 16.0361L6.42698 2.4624Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.24339 2.56409L6.01953 2.68619L11.677 9.27971L11.8601 9.40182C11.9415 9.44252 12.0229 9.54427 12.0229 9.64602V9.66638L17.66 16.2599L17.8838 16.1378L6.24339 2.56409Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.0637 2.66602L5.83984 2.78811L11.1513 8.99501L11.8229 9.36129L6.0637 2.66602ZM12.006 9.58515C12.006 9.6055 12.0264 9.62585 12.0264 9.6462V9.99216L17.4803 16.3619L17.7041 16.2398L12.006 9.58515Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M5.8762 2.76758L5.65234 2.88968L10.6179 8.68957L11.2894 9.05588L5.8762 2.76758ZM12.022 9.91057V10.2972L17.3131 16.4634L17.537 16.3413L12.022 9.91057Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M5.69651 2.86938L5.47266 2.99149L10.1126 8.38436L10.7638 8.75067L5.69651 2.86938ZM12.0255 10.2159V10.6229L17.1335 16.5652L17.3573 16.4431L12.0255 10.2159Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M5.50901 2.95081L5.28516 3.07291L9.5791 8.07912L10.2303 8.46578L5.50901 2.95081ZM12.0211 10.5415V10.9282L16.946 16.667L17.1698 16.5449L12.0211 10.5415Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M5.32932 3.05261L5.10547 3.17472L9.05344 7.77392L9.70466 8.16058L5.32932 3.05261ZM12.0246 10.8468V11.2335L16.7663 16.7688L16.9901 16.6467L12.0246 10.8468Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M5.14182 3.15442L4.91797 3.27652L8.51998 7.48906L9.1712 7.85537L5.14182 3.15442ZM12.0203 11.1521V11.5592L16.5788 16.8909L16.8026 16.7485L12.0203 11.1521Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.96213 3.25598L4.73828 3.37808L7.99436 7.18361L8.64555 7.54993L4.96213 3.25598ZM12.0237 11.4776V11.8642L16.4194 16.9925L16.6433 16.8501L12.0237 11.4776Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.77854 3.35779L4.55469 3.47989L7.46481 6.87841L8.13635 7.24472L4.77854 3.35779ZM12.0233 11.7829V12.1695L16.2358 17.0943L16.4597 16.9519L12.0233 11.7829Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.59495 3.45947L4.37109 3.58158L6.93525 6.57308L7.60682 6.95974L4.59495 3.45947ZM9.92676 10.053L10.4559 10.6635V10.4397C10.4559 10.399 10.4152 10.3379 10.3745 10.3176L9.92676 10.053ZM12.0228 12.0881V12.4951L16.0522 17.196L16.2761 17.0535L12.0228 12.0881Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.41135 3.54102L4.1875 3.66312L6.4057 6.26797L7.07727 6.65463L4.41135 3.54102ZM9.3972 9.74789L10.4554 10.9689V10.5823L10.0688 10.1345L9.3972 9.74789ZM12.0224 12.4138V12.8005L15.8686 17.2979L16.0925 17.1758L12.0224 12.4138Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.22776 3.6427L4.00391 3.7648L5.89649 5.98299L6.54771 6.3493L4.22776 3.6427ZM8.86765 9.46291L10.455 11.2945V10.9078L9.53922 9.82922L8.86765 9.46291ZM12.022 12.719V13.1056L15.685 17.3996L15.9089 17.2775L12.022 12.719Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.04807 3.74451L3.82422 3.86661L5.37084 5.67778L6.02206 6.04409L4.04807 3.74451ZM8.36235 9.15773L10.4585 11.5998V11.2131L9.01357 9.52402L8.36235 9.15773ZM12.0254 13.0446V13.4313L15.5257 17.5014L15.7496 17.3793L12.0254 13.0446Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.86057 3.84631L3.63672 3.96842L4.83739 5.37261L5.4886 5.73889L3.86057 3.84631ZM7.82892 8.85253L10.4541 11.9051V11.5184L8.48011 9.23916L7.82892 8.85253ZM12.0211 13.3499V13.7366L15.3382 17.6032L15.5621 17.4811L12.0211 13.3499Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.68088 3.94788L3.45703 4.06998L4.31175 5.06716L4.96296 5.45382L3.68088 3.94788ZM7.30327 8.54708L10.4576 12.2305V11.8438L7.95449 8.93374L7.30327 8.54708ZM12.0245 13.655V14.0417L15.1585 17.7048L15.3824 17.5827L12.0245 13.655Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.49338 4.0498L3.26953 4.17191L3.77829 4.76208L4.44986 5.14874L3.49338 4.0498ZM6.76981 8.26235L10.4532 12.5359V12.1493L7.42103 8.62866L6.76981 8.26235ZM12.0202 13.9808V14.3675L14.971 17.8067L15.1949 17.6846L12.0202 13.9808Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.31061 4.13123L3.06641 4.25333L3.24956 4.47719L3.92112 4.8435L3.31061 4.13123ZM6.24107 7.95711L10.4536 12.8615V12.4546L6.91264 8.32342L6.24107 7.95711ZM12.0206 14.2861V14.6727L14.7883 17.9288L15.0121 17.7864L12.0206 14.2861Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.13073 4.23279L2.98828 4.31419L3.39529 4.53805L3.13073 4.23279ZM5.71523 7.65166L10.4569 13.1666V12.78L6.3868 8.03832L5.71523 7.65166ZM12.0239 14.5911V14.9982L14.6287 18.0304L14.8526 17.8879L12.0239 14.5911Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M5.20703 7.34656L10.4574 13.472V13.0854L5.85824 7.73322L5.20703 7.34656ZM12.0244 14.9169V15.3036L14.4461 18.1323L14.67 17.9898L12.0244 14.9169Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.67578 7.06152L10.4553 13.7975V13.3905L5.32699 7.42783L4.67578 7.06152ZM12.0223 15.222V15.6087L14.2608 18.2339L14.4847 18.0915L12.0223 15.222Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.14453 6.75635L10.4532 14.1028V13.7162L4.79574 7.12266L4.14453 6.75635ZM12.0201 15.5274V15.9344L14.0755 18.3357L14.2994 18.2136L12.0201 15.5274Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.62109 6.45105L10.4588 14.4081V14.0214L4.27231 6.83771L3.62109 6.45105ZM12.0258 15.853V16.2396L13.8981 18.4375L14.1219 18.3154L12.0258 15.853Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.08984 6.14575L10.4567 14.7336V14.347L3.74106 6.53241L3.08984 6.14575ZM12.0237 16.1582V16.5448L13.7331 18.5392L13.957 18.4171L12.0237 16.1582Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.55859 5.86096L10.4546 15.039V14.6524L3.23016 6.22727L2.55859 5.86096ZM12.0215 16.4636V16.8705L13.5478 18.641L13.7717 18.5189L12.0215 16.4636Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 5.8407V6.12561L10.4554 15.3444V14.9577L2.70187 5.9221L2.53906 5.8407ZM12.0223 16.7892V17.0334C12.0223 17.0741 12.002 17.1148 11.9816 17.1352L13.3655 18.7429L13.5893 18.6208L12.0223 16.7892Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 6.04407V6.45108L10.4554 15.6698V15.2832L2.53906 6.04407ZM12.002 17.0943C11.9816 17.1758 11.9206 17.2572 11.8595 17.2775L11.8392 17.2979L13.1823 18.8445L13.4062 18.7224L12.002 17.0943Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 6.36963V6.75629L10.4554 15.975V15.5884L2.53906 6.36963ZM11.8799 17.2571C11.8799 17.2775 11.8799 17.2775 11.8595 17.2775L11.6561 17.3996L12.9992 18.9462L13.223 18.8241L11.8799 17.2571Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 6.67493V7.06159L10.4554 16.2803V15.8937L2.53906 6.67493ZM11.7171 17.3589L11.4729 17.5014L12.8364 19.0683L13.0602 18.9259L11.7171 17.3589Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 7.00049V7.38715L10.4554 16.6059V16.2192L2.53906 7.00049ZM11.534 17.4606L11.3915 17.542C11.3508 17.5624 11.3101 17.5624 11.2694 17.5624L12.6532 19.1701L12.8771 19.0276L11.534 17.4606Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 7.30579V7.69245L10.4554 16.9112V16.5245L2.53906 7.30579ZM10.9031 17.4606L12.4701 19.2718L12.6939 19.1294L11.3305 17.5624C11.3101 17.5624 11.2694 17.5827 11.2491 17.5827H11.2287C11.1677 17.5827 11.1269 17.5624 11.0862 17.5421L10.9031 17.4606Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 7.61096V8.01797L12.2869 19.3735L12.5108 19.2311L11.0455 17.5216L10.5978 17.2774C10.5164 17.2367 10.4554 17.1349 10.4554 17.0332V16.8297L2.53906 7.61096Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 7.93665V8.32331L12.1038 19.4753L12.3276 19.3532L2.53906 7.93665Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 8.24182V8.62848L11.9206 19.577L12.1445 19.4549L2.53906 8.24182Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 8.54724V8.95425L11.7578 19.6789L11.9816 19.5568L2.53906 8.54724Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 8.87292V9.25956L11.5747 19.7808L11.7985 19.6586L2.53906 8.87292Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 9.1781V9.56476L11.3712 19.8621C11.4322 19.8417 11.4933 19.8214 11.5543 19.801L11.6154 19.7603L2.53906 9.1781Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 9.48328V9.89029L11.1066 19.862C11.1473 19.862 11.188 19.862 11.2287 19.862C11.2898 19.862 11.3508 19.862 11.4119 19.8417L2.53906 9.48328Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 9.80896V10.1956L10.6385 19.6382L10.9234 19.801C10.9845 19.8417 11.0862 19.8621 11.1677 19.8621L2.53906 9.80896Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 10.1141V10.5008L10.1094 19.3329L10.781 19.7196L2.53906 10.1141Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 10.4396V10.8262L9.58031 19.0275L10.2519 19.4141L2.53906 10.4396Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 10.7451V11.1318L9.05119 18.7225L9.70241 19.1091L2.53906 10.7451Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 11.0503V11.437L8.52208 18.4171L9.1733 18.8038L2.53906 11.0503Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 11.3759V11.7625L7.97264 18.0915L8.64418 18.4782L2.53906 11.3759Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 11.681V12.0677L7.44352 17.7861L8.11507 18.1728L2.53906 11.681Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 11.9865V12.3731L6.91441 17.4811L7.58598 17.8677L2.53906 11.9865Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 12.312V12.6987L6.38529 17.1757L7.05686 17.5624L2.53906 12.312Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 12.6172V13.0038L5.85618 16.8704L6.52775 17.2571L2.53906 12.6172Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 12.9224V13.3294L5.32706 16.5651L5.97828 16.9518L2.53906 12.9224Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 13.2482V13.6348L4.77761 16.2601L5.44917 16.6467L2.53906 13.2482Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 13.5533V13.94L4.2485 15.9547L4.92006 16.321L2.53906 13.5533Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 13.8585V14.2655L3.71939 15.629L4.39095 16.0157L2.53906 13.8585Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 14.1842V14.5709L3.19028 15.3238L3.86184 15.7105L2.53906 14.1842Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.53906 14.4894V14.5911C2.53906 14.7946 2.68152 15.0388 2.84432 15.1406L3.33273 15.4052L2.53906 14.4894Z\" fill=\"#474747\"></path>\n    <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.66016 14.9576C2.70086 14.9983 2.72121 15.039 2.76191 15.0594L2.66016 14.9576Z\" fill=\"#474747\"></path>\n</svg>",
+            "text_1": "Next business day delivery UK nationwide",
+            "svg_2": "<svg width=\"24\" height=\"28\" viewbox=\"0 0 24 28\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M19.9877 6.37227C20.3379 6.37318 20.6806 6.27147 20.9723 6.07999C21.2639 5.88852 21.4915 5.61591 21.6261 5.29665C21.7608 4.9774 21.7965 4.62587 21.7287 4.28657C21.661 3.94726 21.4928 3.63544 21.2455 3.39057C20.9982 3.1457 20.6828 2.9788 20.3394 2.91099C19.996 2.84319 19.6399 2.87753 19.3163 3.00966C18.9926 3.1418 18.716 3.36579 18.5212 3.65328C18.3266 3.94077 18.2227 4.27883 18.2227 4.62467C18.223 5.08727 18.4089 5.5309 18.7397 5.85844C19.0705 6.18599 19.5193 6.37075 19.9877 6.37227Z\" fill=\"#474747\"></path>\n<path d=\"M14.6481 23.4894C14.4662 23.4895 14.2855 23.5183 14.1128 23.5748C12.4771 24.1131 10.7107 24.1254 9.06743 23.61C7.42423 23.0946 5.98877 22.0779 4.96745 20.7063C3.94612 19.3346 3.3915 17.6785 3.38331 15.9759C3.37512 14.2734 3.91378 12.6121 4.92186 11.2309C5.92993 9.8497 7.35555 8.8197 8.99372 8.2889C10.6319 7.75805 12.3984 7.75384 14.0392 8.27676C15.6799 8.79973 17.1106 9.82286 18.1255 11.1993C19.1403 12.5756 19.6872 14.2342 19.6874 15.9368C19.6872 16.38 19.6505 16.8224 19.5775 17.2596C19.5043 17.6974 19.6103 18.1459 19.872 18.5066C20.1337 18.8672 20.5299 19.1104 20.9732 19.1827C21.4165 19.2549 21.8707 19.1503 22.2359 18.8918C22.6012 18.6334 22.8475 18.2422 22.9206 17.8045C23.0238 17.1864 23.0754 16.561 23.0749 15.9345C23.0746 14.4383 22.7758 12.9567 22.1957 11.5746C21.6155 10.1924 20.7653 8.93655 19.6937 7.87881C18.622 6.82107 17.3498 5.98216 15.9498 5.40996C14.5498 4.83776 13.0493 4.54349 11.5341 4.54395C9.25255 4.54479 7.02242 5.21358 5.12563 6.46577C3.22886 7.71793 1.75062 9.49732 0.877756 11.579C0.0048942 13.6607 -0.223405 15.9511 0.221719 18.1609C0.666844 20.3706 1.7654 22.4004 3.37854 23.9938C4.89383 25.4891 6.80021 26.539 8.88481 27.0264C10.9693 27.5138 13.1501 27.4194 15.1835 26.7537C15.5648 26.6277 15.8882 26.3719 16.0962 26.0321C16.3041 25.6923 16.3829 25.2906 16.3185 24.8987C16.2542 24.5068 16.0509 24.1502 15.7449 23.8927C15.4389 23.6352 15.0502 23.4935 14.6481 23.4928V23.4894Z\" fill=\"#474747\"></path>\n<path d=\"M23.8135 24.7257C23.7989 24.5184 23.7408 24.3164 23.643 24.1324C23.5453 23.9484 23.4098 23.7865 23.2453 23.6568L14.8618 16.8788C14.5256 16.6124 14.1005 16.4801 13.6704 16.5079C13.2403 16.5356 12.8363 16.7215 12.538 17.0289C12.396 17.1781 12.2867 17.3547 12.2169 17.5475C12.1471 17.7404 12.1183 17.9454 12.1324 18.1497C12.1476 18.3569 12.2059 18.5587 12.3036 18.7426C12.4014 18.9265 12.5365 19.0885 12.7005 19.2186L21.0852 25.9966C21.4213 26.2627 21.8463 26.3948 22.2763 26.3668C22.7062 26.3389 23.1099 26.1528 23.4078 25.8453C23.5501 25.6965 23.6595 25.5202 23.7293 25.3275C23.7991 25.1348 23.8278 24.9299 23.8135 24.7257Z\" fill=\"#474747\"></path>\n<path d=\"M12.5853 0.666626H10.2778C9.44699 0.666626 8.77344 1.33174 8.77344 2.1522V2.15335C8.77344 2.97382 9.44699 3.63893 10.2778 3.63893H12.5853C13.4161 3.63893 14.0897 2.97382 14.0897 2.15335V2.1522C14.0897 1.33174 13.4161 0.666626 12.5853 0.666626Z\" fill=\"#474747\"></path>\n</svg>",
+            "text_2": "Same-day delivery in London",
+            "svg_3": "<svg width=\"32\" height=\"31\" viewbox=\"0 0 32 31\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M20.141 0.333664L19.0965 10.2749L17.315 1.89353L11.7293 3.08142L13.51 11.4622L5.45703 13.1741L6.87941 19.8688L21.0408 22.8789L24.2794 15.6042L25.8207 0.93109L20.1404 0.333374L20.141 0.333954V0.333664ZM15.6661 14.7552C15.3741 15.0227 14.9881 14.998 14.5784 14.8616C14.1696 14.7259 13.9878 14.2311 14.1428 13.6331C14.2582 13.1892 14.8014 13.1225 15.0732 13.1178C15.1765 13.1161 15.2781 13.137 15.3718 13.1793C15.564 13.2664 15.8894 13.4521 15.9555 13.7353C16.0507 14.1438 15.959 14.4868 15.667 14.7543H15.6664V14.7549L15.6661 14.7552ZM19.7659 15.2165C19.5538 15.585 18.997 15.6337 18.4491 15.3656C18.0798 15.1846 18.0827 14.7238 18.1231 14.443C18.1445 14.2898 18.2063 14.1451 18.302 14.024C18.4338 13.8568 18.654 13.6389 18.9084 13.6323C19.3222 13.6212 19.6782 13.8069 19.8793 14.1429C20.0812 14.4778 19.9803 14.8471 19.7676 15.2165H19.7659Z\" fill=\"#474747\"></path>\n<path d=\"M3.0849 30.068H4.12341L3.95137 29.2553V24.4098H2.95795V26.6198C2.65912 26.2705 2.24812 26.0656 1.7628 26.0656C0.769222 26.0656 0 26.8932 0 28.1086C0 29.3237 0.769222 30.1516 1.7628 30.1516C2.25582 30.1516 2.68144 29.9389 2.98042 29.5742L3.0849 30.068ZM22.7227 27.1517C22.9244 27.1517 23.1111 27.2047 23.2828 27.3261L23.7535 26.2554C23.5367 26.1185 23.2828 26.058 23.0364 26.058C22.5882 26.058 22.2147 26.2624 21.9759 26.6428L21.8711 26.1486H20.8477L21.012 26.9157V30.0674H22.005V27.5691C22.1395 27.3107 22.3935 27.1514 22.7222 27.1514V27.1517H22.7227ZM25.6355 29.0958C25.0608 29.0958 24.6347 28.7086 24.6347 28.1084C24.6347 27.5009 25.0608 27.1213 25.6355 27.1213C26.2184 27.1213 26.6368 27.5009 26.6368 28.1084C26.6368 28.7086 26.2183 29.0958 25.6355 29.0958ZM0.963412 28.1084C0.963412 27.5009 1.38919 27.1213 1.96422 27.1213C2.5471 27.1213 2.96534 27.5009 2.96534 28.1084C2.96534 28.7086 2.5471 29.0958 1.96453 29.0958C1.3895 29.0958 0.963412 28.7086 0.963412 28.1084ZM30.0355 29.0958C29.4604 29.0958 29.0347 28.7086 29.0347 28.1084C29.0347 27.5009 29.4604 27.1213 30.0355 27.1213C30.618 27.1213 31.0363 27.5009 31.0363 28.1084C31.0363 28.7086 30.618 29.0958 30.0355 29.0958ZM6.53587 27.0604C7.0512 27.0604 7.38742 27.3034 7.4919 27.7515H5.57984C5.69186 27.3034 6.02808 27.0604 6.53587 27.0604ZM18.4198 27.0604C18.9355 27.0604 19.2717 27.3034 19.3762 27.7515H17.4641C17.5762 27.3034 17.9122 27.0604 18.42 27.0604H18.4198ZM13.5725 30.068H15.1709L16.2094 26.1491H15.1263L14.3646 29.3237L13.6026 26.1491H12.5343L13.5728 30.0679L13.5725 30.068ZM11.0103 30.068H12.0032V26.1489H11.0103V30.068ZM6.68811 30.1406C7.24115 30.1406 7.78633 29.9885 8.24195 29.6924L7.86111 28.8267C7.50242 29.0166 7.10666 29.1305 6.7032 29.1305C6.18048 29.1305 5.81441 28.9255 5.65745 28.5457H8.45091C8.48076 28.4015 8.496 28.2572 8.496 28.0824C8.496 26.8672 7.66692 26.0546 6.55378 26.0546C5.43357 26.0546 4.61187 26.8748 4.61187 28.0976C4.61187 29.3431 5.42603 30.1406 6.68843 30.1406H6.68811ZM32 28.1084C32 26.8932 31.1634 26.0654 30.0355 26.0654C28.9074 26.0654 28.0709 26.8932 28.0709 28.1084C28.0709 29.3237 28.9074 30.1514 30.0353 30.1514C31.1634 30.1514 31.9998 29.3237 31.9998 28.1084H32ZM18.5546 30.1514C19.1071 30.1514 19.6524 29.9996 20.1085 29.7033L19.7272 28.8372C19.3686 29.027 18.9727 29.1408 18.5693 29.1408C18.0465 29.1408 17.6805 28.9361 17.5235 28.556H20.3173C20.3471 28.4118 20.3619 28.2675 20.3619 28.0929C20.3619 26.8777 19.5327 26.0651 18.4197 26.0651C17.2995 26.0651 16.4778 26.8851 16.4778 28.1081C16.4778 29.3535 17.2921 30.1511 18.5545 30.1511V30.1514H18.5546ZM25.6357 30.1514C26.7638 30.1514 27.6001 29.3237 27.6001 28.1084C27.6001 26.8932 26.7636 26.0654 25.6355 26.0654C24.5075 26.0654 23.671 26.8932 23.671 28.1084C23.671 29.3237 24.5076 30.1514 25.6354 30.1514H25.6357ZM9.12791 30.0679H10.1212V24.4096H9.12775V30.0679H9.12791ZM11.5105 25.6094C11.8615 25.6094 12.1305 25.3359 12.1305 24.9713C12.1305 24.6068 11.8618 24.3334 11.5107 24.3334C11.1521 24.3334 10.8832 24.6068 10.8832 24.9713C10.8832 25.3359 11.1523 25.6093 11.5108 25.6093L11.5105 25.6094Z\" fill=\"#474747\"></path>\n</svg>",
+            "text_3": "Instant delivery on delivery platforms"
+          }
+        },
+        "tab_item_673a9W": {
+          "type": "tab_item",
+          "settings": {
+            "question": "Ingredients",
+            "answer": "{{ product.metafields.custom.ingredients | metafield_tag }}",
+            "open_by_default": false
+          }
+        },
+        "tab_item_WFyTXB": {
+          "type": "tab_item",
+          "settings": {
+            "question": "Instructions for storage and use",
+            "answer": "{{ product.metafields.custom.instructions_for_storage_and_use | metafield_tag }}",
+            "open_by_default": false
+          }
+        },
+        "tab_item_Y3zfQJ": {
+          "type": "tab_item",
+          "settings": {
+            "question": "Nutritional information | 40g |",
+            "answer": "{{ product.metafields.custom.nutritional_information | metafield_tag }}",
+            "open_by_default": false
+          }
+        },
         "description_RgQkN8": {
           "type": "description",
+          "disabled": true,
           "settings": {}
         }
       },
       "block_order": [
+        "badge_6prFYK",
         "title_hijtjK",
+        "short_description_kFAmgt",
+        "yotpo_product_reviews_star_rating_Tgcakf",
+        "product_detais_WDcgtB",
+        "product_tags_k6gdCn",
         "price_LVaq8i",
-        "reviews_T3jPBg",
         "tabs_product_selector_BVHa78",
         "variant_picker_AHmrDG",
         "buy_buttons_7BMHpx",
+        "delivery_AjM9aM",
+        "tab_item_673a9W",
+        "tab_item_WFyTXB",
+        "tab_item_Y3zfQJ",
         "description_RgQkN8"
       ],
       "settings": {
-        "product_list": [
-          "chocolate-chip",
-          "madagascar-vanilla-honey-almond",
-          "best-sellers-variety-pack",
-          "nut-seed-variety-pack",
-          "peruvian-dark-chocolate-peanut-butter",
-          "smores",
-          "whole-grain-variety-pack"
-        ],
-        "enable_color_palette": true
+        "product_list": [],
+        "enable_color_palette": false
+      }
+    },
+    "text_kicker_description_C9WwPN": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "ABOUT THE PRODUCT",
+        "title": "Description",
+        "richtext": "<p>Experience the elegance of Japanese springtime with our 40g Sakura Cream Ice Mochi. This flavour captures the delicate sweetness of Sakura cherry blossom. A hint of tartness creates a candy-like taste that invites you back with every bite.<br/><br/>As it warms, the chewy rice shell softens to reveal a creamy Sakura-flavoured filling. This mochi doesn’t melt quickly, so you can enjoy its delicate, nuanced taste without rushing. Perfect for those seeking a taste of Japanese tradition, our Sakura Cream Ice Mochi offers a light and captivating flavour. Treat yourself to a refreshing bite of cherry blossom season. It’s an experience that brings the beauty of spring to every bite.</p>"
+      }
+    },
+    "image_tips_card_NagFt8": {
+      "type": "image-tips-card",
+      "blocks": {
+        "tip_p3fmqH": {
+          "type": "tip",
+          "settings": {
+            "tip_title": "Complete defrosting",
+            "tip_text": "<p>Allow mochi to defrost completely at room temperature before enjoying the dessert. This takes approximately 2-3 hours.</p>"
+          }
+        },
+        "tip_KWTGd4": {
+          "type": "tip",
+          "settings": {
+            "tip_title": "Cooling before serving",
+            "tip_text": "<p>To achieve the perfect texture and flavour, after defrosting, place the Mochi in the refrigerator at +4°C for 40 minutes. This will ensure a gentle and slow defrosting process, keeping the dessert tender and fresh.</p>"
+          }
+        },
+        "tip_K674X4": {
+          "type": "tip",
+          "settings": {
+            "tip_title": "Term of use",
+            "tip_text": "<p>It is recommended to consume the dessert within 24 hours after it has been completely defrosted to enjoy its original taste.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tip_p3fmqH",
+        "tip_KWTGd4",
+        "tip_K674X4"
+      ],
+      "name": "Image & Tips Card",
+      "settings": {
+        "image": "shopify://shop_images/Rectangle_1612.png",
+        "image_alt": "",
+        "card_title": "How to enjoy moti better Mochi:"
+      }
+    },
+    "trial_faq_Yyqc9p": {
+      "type": "trial-faq",
+      "blocks": {
+        "faq_item_Gbga4D": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "answer": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem error iure harum laboriosam nisi modi tempora, incidunt corrupti repudiandae numquam iusto, quasi architecto eius dignissimos ea id libero deleniti consequuntur enim earum sunt qui? Adipisci dolorem quo quis obcaecati rem cumque perspiciatis rerum assumenda mollitia, animi blanditiis asperiores doloremque pariatur. Rerum totam eaque, modi corporis ipsum voluptate cupiditate, tempore ut consequatur quaerat dolorum, obcaecati a maiores possimus quis! Vitae, vel eaque sapiente, officiis repellendus beatae tempora, perferendis deserunt cupiditate nobis dolorem nesciunt assumenda est? Eligendi dolores rem dignissimos consectetur nisi. Eaque, quisquam quis quod, consequuntur aliquam eos accusantium cum facilis vero quidem consequatur cumque laudantium rem voluptatem explicabo. Voluptates consequuntur sunt laudantium sed esse reiciendis non, doloremque iure placeat iste accusamus pariatur velit libero facilis quasi repudiandae vel similique quod facere tenetur. Enim in dolorem facilis delectus repudiandae, asperiores nobis quidem fugiat veniam voluptatibus inventore perspiciatis deserunt, sed, corporis possimus accusantium doloribus ea amet nihil! Maiores voluptate pariatur reiciendis deleniti velit quas a atque, voluptates doloremque nulla, praesentium quia eaque consectetur asperiores doloribus neque laudantium libero. Architecto doloremque quas consequuntur, nobis repellendus modi, explicabo esse ipsa aut aliquid dicta repellat! Enim quod odio dignissimos nemo ab fugiat consequatur eaque iusto sequi magni et a eligendi architecto impedit quidem repellat consectetur voluptatum sit quia, porro, aperiam id? At laboriosam dolore non neque corrupti ratione quae rem nam necessitatibus voluptate voluptas minima possimus fuga animi tempora cumque, in autem quo ut. Nesciunt voluptatum eius doloribus illum porro debitis saepe veniam possimus. Quam amet suscipit nemo non excepturi quidem accusamus ex quibusdam commodi est exercitationem sapiente fugit ab eos consectetur recusandae nobis repellendus voluptas, laboriosam qui! Amet esse doloremque molestiae commodi deleniti placeat suscipit itaque officiis omnis earum illo minus quas eius fugit quia ullam corrupti, excepturi hic repellat. Dolores architecto optio fuga.</p>"
+          }
+        },
+        "faq_item_yDYaqN": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "answer": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.</p>"
+          }
+        },
+        "faq_item_REEepT": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "answer": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_Gbga4D",
+        "faq_item_yDYaqN",
+        "faq_item_REEepT"
+      ],
+      "name": "Trial FAQ",
+      "settings": {
+        "title": "Your questions answered"
       }
     },
     "product_custom_section_CAMdPa": {
       "type": "product-custom-section",
       "settings": {
         "products_list": [
-          "chocolate-chip",
-          "madagascar-vanilla-honey-almond",
-          "nut-seed-variety-pack",
-          "peruvian-dark-chocolate-peanut-butter",
-          "smores",
-          "whole-grain-variety-pack"
+          "sakura-mochi",
+          "choco-mochi",
+          "coffee-mochi",
+          "first-experience-mochi-bundle",
+          "mango-mochi",
+          "matcha-mochi",
+          "summer-bundle-mochi-pack"
         ],
-        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>",
+        "title": "<p>We think you will also love</p>",
         "color_scheme": "scheme-951c1d93-12b5-4f78-b84c-2e55165ed91d",
-        "show_bottom_panel": true,
+        "show_bottom_panel": false,
         "bottom_text": "having a hard time choosing?",
         "button_text": "Learn More",
         "button_link": "shopify://blogs/partners"
       }
     },
-    "be_all_in_xwgr8t": {
-      "type": "be-all-in",
-      "settings": {
-        "background_image": "shopify://shop_images/woomen-1.png",
-        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
-        "title": "Subscribe & be",
-        "subtitle": "<p>ALL IN</p>",
-        "copy": "<p><strong>Get 10% off and free shipping on every order<br/></strong><br/><strong>Give Back</strong><br/>You’re getting a lot more than a delicious bar. Every purchase supports an organization working to increase good, nutritious food access in our backyard and yours.<br/><br/><strong>Total Flexibility </strong><br/>Edit your subscription anytime. Add, swap, skip or cancel with no commitment.</p>",
-        "button_text": "",
-        "button_url": "/",
-        "button_text_1": "SUBscribe & Save",
-        "button_url_1": "shopify://products/best-sellers-variety-pack"
-      }
-    },
-    "footer_image_carousel_zAEHnV": {
-      "type": "footer-image-carousel",
-      "settings": {
-        "title": "coming to a store near you",
-        "footer_title": "",
-        "background_color": "#e55454",
-        "title_background_color": "#ffffff",
-        "text_color": "#68185e"
-      }
+    "17599442408b31d2f4": {
+      "type": "apps",
+      "blocks": {
+        "yotpo_product_reviews_reviews_cCfr4g": {
+          "type": "shopify://apps/yotpo-product-reviews/blocks/reviews/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "yotpo_product_reviews_reviews_cCfr4g"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
+    "text_kicker_description_C9WwPN",
+    "image_tips_card_NagFt8",
+    "trial_faq_Yyqc9p",
     "product_custom_section_CAMdPa",
-    "be_all_in_xwgr8t",
-    "footer_image_carousel_zAEHnV"
+    "17599442408b31d2f4"
   ]
 }

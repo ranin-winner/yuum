@@ -1,13 +1,13 @@
 
-{% render 'entry' with '@/styles/sections/about-product.scss' %}
+{% render 'entry' with '@/styles/sections/products-section.scss' %}
 
 <section
   id="productSection-{{ section.id }}"
-  class="about-product product-section mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }}"
+  class="products-section products-section mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }}"
 >
   <div class="container m-responsive px-10">
     {% if section.settings.title != blank %}
-      <h2 class="about-product__title">
+      <h2 class="products-section__title">
         {{ section.settings.title | default: "Products" }}
       </h2>
     {% endif %}
@@ -43,18 +43,6 @@
           <p class="col-span-full text-center text-gray-600 py-8">No products selected.</p>
         {% endif %}
       </div>
-      
-
-    {% if section.settings.show_bottom_panel %}
-      <div class="md:flex items-center justify-center pt-10 md:pt-30">
-        <h3 class="heading-4 text-center text-scheme-primary mb-4 md:mb-0">{{ section.settings.bottom_text }}</h3>
-        {% if section.settings.button_text != blank %}
-          <a href="{{ section.settings.button_link }}" class="btn btn-scheme btn-fourth flex ml-4">
-            {{ section.settings.button_text }}
-          </a>
-        {% endif %}
-      </div>
-    {% endif %}
   </div>
 </section>
 
@@ -131,7 +119,7 @@
 
 {% schema %}
 {
-"name": "Product Section",
+"name": "Products Section",
 "settings": [
   {
     "type": "product_list",
@@ -143,39 +131,10 @@
     "id": "title",
     "label": "Section Title",
   },
-  {
-    "type": "color_scheme",
-    "id": "color_scheme",
-    "label": "Color Scheme",
-    "default": "scheme-1"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_bottom_panel",
-    "label": "Show bottom panel",
-    "default": true
-  },
-  {
-    "type": "text",
-    "id": "bottom_text",
-    "label": "Bottom Text",
-    "default": "Not sure where to start?"
-  },
-  {
-    "type": "text",
-    "id": "button_text",
-    "label": "Button Text",
-    "default": "TRY THEM ALL"
-  },
-  {
-    "type": "url",
-    "id": "button_link",
-    "label": "Button Link"
-  },
 ],
 "presets": [
   {
-    "name": "Customizable Product Section"
+    "name": "Products Section"
   }
 ]
 }

@@ -6,10 +6,10 @@
 
     <div class="b-hero-banner__content">
         {% if section.settings.title != blank %}
-            <h1 class="b-hero-banner__title font-Gazpacho uppercase">{{ section.settings.title }}</h1>
+            <h1 class="b-hero-banner__title heading-1 mb-[12px]">{{ section.settings.title }}</h1>
         {% endif %}
         {% if section.settings.subtitle != blank %}
-            <p class="b-hero-banner__text">{{ section.settings.subtitle }}</p>
+            <p class="b-hero-banner__text body-2">{{ section.settings.subtitle }}</p>
         {% endif %}
         {% if section.settings.baner_button != blank %}
             <a href="{{ section.settings.baner_button_link }}" class="b-hero-banner_btn">{{ section.settings.baner_button }}</a>
@@ -26,7 +26,7 @@
         position: relative;
         width: 100%;
         display: flex;
-        padding: {{ section.settings.padding_desktop }}px;
+        padding: 0 {{ section.settings.padding_desktop }}px;
     }
 
     /* Image Position */
@@ -299,13 +299,10 @@
       "default": "#000000"
     },
     {
-      "type": "range",
-      "label": "Padding DeskTop",
-      "id": "padding_desktop",
-      "default": 40,
-      "min": 20,
-      "max": 100,
-      "unit": "px"
+        "type": "number",
+        "id": "padding_desktop",
+        "label": "Padding Desktop (px)",
+        "default": 40
     },
     {
       "type": "range",

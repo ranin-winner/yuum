@@ -1,11 +1,11 @@
-.about-product {
+.products-section {
     position: relative;
     &__text-container {
       @apply mx-auto mb-[60px] md:mb-[120px];
       max-width: 903px;
     }
   
-    .about-product__kicker {
+    .products-section__kicker {
       @apply text-center 
         uppercase 
         text-xs tracking-[4px]  
@@ -14,15 +14,15 @@
         border-b border-b-[#ADAEB0];
     }
   
-    .about-product__title {
-      @apply text-center text-[36px] md:text-[56px] leading-[1.2] text-[#474747] mb-[40px] md:mb-[60px] ;
+    .products-section__title {
+      @apply text-left text-[36px] md:text-[56px] leading-[1.2] text-[#474747] mb-[40px] md:mb-[60px] ;
     }
   
-    .about-product__desc {
+    .products-section__desc {
       @apply text-center text-[16px] leading-[150%] text-[#6b6b6b];
     }
   
-    .about-product__section {
+    .products-section__section {
       @apply grid grid-cols-2 items-stretch;
 
       @media (max-width: 1200px) {
@@ -30,7 +30,7 @@
       }
     }
   
-    .about-product__img {
+    .products-section__img {
       @apply rounded-[20px] overflow-hidden md:mr-[-30px] z-[1];
       
       @media (max-width: 1200px) {
@@ -38,7 +38,7 @@
       }
     }
   
-    .about-product__card {
+    .products-section__card {
       /* сірий блок як на макеті */
       @apply rounded-[20px] md:px-[130px] px-[32px] md:py-[60px] py-[40px];
       background-color: #AEB1B5; /* можна змінити за потреби */
@@ -56,15 +56,15 @@
     }
   
     /* нумерація списку як у прикладі */
-    .about-product__ol {
+    .products-section__ol {
       counter-reset: step;
     }
 
-    .about-product__ol > li {
+    .products-section__ol > li {
       counter-increment: step;
       @apply relative pl-8 md:mb-[40px] mb-[24px];
     }
-    .about-product__ol > li::before {
+    .products-section__ol > li::before {
       content: counter(step) ".";
       @apply absolute left-0 top-0 font-semibold;
       line-height: 1.2;
@@ -97,7 +97,7 @@
   
   /* дрібні твіки під великі екрани */
   @media (min-width: 768px) {
-    .about-product .about-product__container {
+    .products-section .products-section__container {
       padding-left: 0;
       padding-right: 0;
     }

@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "trial_hero_6dknCb": {
       "type": "trial-hero",
@@ -56,12 +56,6 @@
           "type": "title",
           "settings": {}
         },
-        "junip_product_reviews_ugc_junip_product_summary_dcHkLz": {
-          "type": "shopify://apps/junip-product-reviews-ugc/blocks/junip-product-summary/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
-          "settings": {
-            "product": "{{product}}"
-          }
-        },
         "description_iA74yF": {
           "type": "description",
           "settings": {}
@@ -73,7 +67,6 @@
       },
       "block_order": [
         "title_WFTDbN",
-        "junip_product_reviews_ugc_junip_product_summary_dcHkLz",
         "description_iA74yF",
         "buy_buttons_GdKQBk"
       ],

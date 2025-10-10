@@ -1,0 +1,103 @@
+{% comment %}
+  Section: Heading Only (H1)
+  - Виводить тільки <h1>
+  - Відступи зверху/знизу кастомні: mobile/desktop
+  - Вміст загорнуто в .container
+{% endcomment %}
+
+<section id="heading-only-{{ section.id }}" class="heading-only">
+  {% style %}
+    #heading-only-{{ section.id }}{
+      --pt-m: {{ section.settings.pt_mobile }}px;
+      --pb-m: {{ section.settings.pb_mobile }}px;
+      --pt-d: {{ section.settings.pt_desktop }}px;
+      --pb-d: {{ section.settings.pb_desktop }}px;
+      padding-top: var(--pt-m);
+      padding-bottom: var(--pb-m);
+    }
+    @media (min-width: 768px){
+      #heading-only-{{ section.id }}{
+        padding-top: var(--pt-d);
+        padding-bottom: var(--pb-d);
+      }
+    }
+  {% endstyle %}
+
+  <div class="container">
+    <h1 class="{{ section.settings.h1_classes | escape }}">
+      {{ section.settings.title | escape }}
+    </h1>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heading H1",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "H1 text",
+      "default": "Discover authentic products from around the world"
+    },
+    {
+      "type": "text",
+      "id": "h1_classes",
+      "label": "Additional classess (optional)",
+    },
+    {
+      "type": "header",
+      "content": "Mobile paddings (<768px)"
+    },
+    {
+      "type": "range",
+      "id": "pt_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "pb_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Відступи десктопні (≥768px)"
+    },
+    {
+      "type": "range",
+      "id": "pt_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "pb_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom (desktop)",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heading H1"
+    }
+  ]
+}
+{% endschema %}

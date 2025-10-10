@@ -1,0 +1,76 @@
+{% render 'entry' with '@/styles/sections/image-tips-card.scss' %}
+
+<section class="image-tips-card">
+  <div class="container">
+    <div class="image-tips-card__wrap">
+      <div class="image-tips-card__img bg-white rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 1500 | image_tag:
+            loading: 'lazy',
+            class: 'w-full h-[100%] block object-cover',
+            alt: section.settings.image_alt | escape
+          }}
+        {% else %}
+          <div class="aspect-[4/3] bg-gray-200"></div>
+        {% endif %}
+      </div>
+
+      <aside class="image-tips-card__card">
+        {% if section.settings.card_title != blank %}
+          <h3 class="image-tips-card__card--title">
+            {{ section.settings.card_title | escape }}
+          </h3>
+        {% endif %}
+
+        {% if section.settings.card_text != blank %}
+            <div class="image-tips-card__card--list">
+                {{ section.settings.card_text }}
+            </div>
+        {% endif %}
+
+        <ol class="image-tips-card__list">
+          {% for block in section.blocks %}
+            {% if block.type == 'tip' %}
+              <li class="image-tips-card__item">
+                {% if block.settings.tip_title != blank %}
+                  <p class="image-tips-card__step font-semibold mb-[12px]">
+                    {{ block.settings.tip_title | escape }}
+                  </p>
+                {% endif %}
+                {% if block.settings.tip_text != blank %}
+                  <p class="image-tips-card__text text-white/85">
+                    {{ block.settings.tip_text }}
+                  </p>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image & Tips Card",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Left image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt" },
+    { "type": "text", "id": "card_title", "label": "Right card title", "default": "How to enjoy mochi better:" },
+    { "type": "richtext", "id": "card_text", "label": "Right card text" }
+  ],
+  "blocks": [
+    {
+      "type": "tip",
+      "name": "Tip item",
+      "settings": [
+        { "type": "text", "id": "tip_title", "label": "Step title", "default": "Complete defrosting" },
+        { "type": "richtext", "id": "tip_text", "label": "Step text", "default": "<p>Add your step description here.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Image & Tips Card" }]
+}
+{% endschema %}

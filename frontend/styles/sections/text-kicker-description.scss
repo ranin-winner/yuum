@@ -1,0 +1,26 @@
+.text-kicker-description {
+    
+    &__kicker { 
+        @apply text-center 
+        uppercase 
+        text-xs tracking-[4px]  
+        mb-[40px] md:mb-[60px]
+        pb-[16px] md:pb-[20px]
+        border-b border-b-[#ADAEB0]; 
+    }
+  
+    &__text { @apply max-w-[903px] mx-auto; }
+  
+    &__title {  @apply 
+        text-center 
+        text-[36px] 
+        md:text-[56px] 
+        leading-[1.2] text-[#474747] 
+        mb-[40px] md:mb-[60px];
+    }
+  
+    &__desc { 
+        @apply text-center text-[16px] leading-[150%] text-[#6b6b6b];
+    }
+}
+  

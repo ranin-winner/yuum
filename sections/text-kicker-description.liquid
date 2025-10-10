@@ -1,0 +1,33 @@
+{% render 'entry' with '@/styles/sections/text-kicker-description.scss' %}
+
+<section class="text-kicker-description">
+  <div class="container">
+    {% if section.settings.kicker != blank %}
+      <p class="text-kicker-description__kicker">{{ section.settings.kicker | escape }}</p>
+    {% endif %}
+
+    <div class="text-kicker-description__text">
+      {% if section.settings.title != blank %}
+        <h2 class="text-kicker-description__title">{{ section.settings.title | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.richtext != blank %}
+        <div class="text-kicker-description__desc rte mx-auto">
+          {{ section.settings.richtext }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text Kicker & Description",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small label", "default": "ABOUT THE PRODUCT" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Description" },
+    { "type": "richtext", "id": "richtext", "label": "Description text", "default": "<p>Write your description here.</p>" }
+  ],
+  "presets": [{ "name": "Text Kicker & Description" }]
+}
+{% endschema %}
