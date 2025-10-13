@@ -1,0 +1,11 @@
+.build-bundle {
+    @media (max-width: 1320px) {
+        padding-bottom: 40px;
+    }
+
+    &__text {
+        @media (max-width: 767px) {
+            margin-top: -100px;
+        }
+    }
+}

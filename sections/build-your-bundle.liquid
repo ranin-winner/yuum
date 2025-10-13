@@ -8,15 +8,15 @@
 
 <section
   id="build-your-bundle-{{ section.id }}"
-  class="build-bundle relative overflow-hidden {{ section.settings.bg_color }} {{ section.settings.additional_classes }}"
+  class="pt-[40px] md:pt-[60px] build-bundle relative overflow-hidden {{ section.settings.bg_color }} {{ section.settings.additional_classes }}"
 >
   {%- assign pad_y_mobile = section.settings.padding_y_mobile | default: 40 -%}
   {%- assign pad_y_desktop = section.settings.padding_y_desktop | default: 80 -%}
 
   <div class="container mx-auto px-4 md:px-6 py-[{{ pad_y_mobile }}px] md:py-[{{ pad_y_desktop }}px]">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+    <div class="flex flex-col md:flex-row items-start">
 
-      <div class="relative order-1 md:order-none">
+      <div class="flex-1 relative w-full">
         {%- comment -%} optional decorative bg image (desktop/mobile) {%- endcomment -%}
         {% if section.settings.bg_image_desktop or section.settings.bg_image_mobile %}
           <picture aria-hidden="true" class="pointer-events-none select-none block">
@@ -35,7 +35,7 @@
 
         {%- comment -%} Main phone mockup {%- endcomment -%}
         {% if section.settings.phone_image_desktop or section.settings.phone_image_mobile %}
-          <div class="absolute inset-0 flex items-center justify-center md:static md:flex-none">
+          <div class="flex items-center justify-center md:flex-none">
             <picture>
               {% if section.settings.phone_image_mobile != blank %}
                 <source media="(max-width: 767px)" srcset="{{ section.settings.phone_image_mobile | image_url: width: 600 }}">
@@ -43,7 +43,7 @@
               <img
                 src="{{ section.settings.phone_image_desktop | default: section.settings.phone_image_mobile | image_url: width: 900 }}"
                 alt="{{ section.settings.phone_image_alt | escape }}"
-                class="mx-auto w-[240px] md:w-[300px] lg:w-[760px] h-auto"
+                class="mx-auto w-full h-auto"
                 loading="lazy">
             </picture>
           </div>
@@ -59,7 +59,7 @@
         {% endif %}
       </div>
 
-      <div>
+      <div class="flex-1 build-bundle__text md:ml-[-20px]">
         {%- if section.settings.show_badge -%}
           <div class="inline-block relative mb-6">
             {% if section.settings.bird_image %}
@@ -70,7 +70,7 @@
               <img
                 src="{{ section.settings.bird_image | image_url: width: 300 }}"
                 alt="{{ section.settings.bird_alt | escape }}"
-                class="bundle-bird absolute w-[{{ section.settings.bird_width_mobile }}px] md:w-[{{ section.settings.bird_width_desktop }}px] pointer-events-none select-none"
+                class="bundle-bird w-[80px] md:w-[100px] mb-[-9px] md:mr-[0px] md:mb-[-13px] md:mr-[-5px]"
                 style="left: {{ bird_x_m }}px; top: {{ bird_y_m }}px; "
                 data-bird-desktop-left="{{ bird_x_d }}"
                 data-bird-desktop-top="{{ bird_y_d }}">

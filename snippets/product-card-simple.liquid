@@ -1,16 +1,23 @@
 {%- comment -%}
-Inputs:
-  product: Product
-Notes:
-  — логіка вибору варіанта та addToCart інкапсульована тут
-  — стилі винесені у SCSS (див. product-card.scss)
+product-card-simple.liquid
+параметри
+  product
+  simple_hover (Boolean) — опційно. Якщо не передавати, візьме section.settings.simple_product_card_hover
 {%- endcomment -%}
 
 {%- assign p = product | default: item -%}
 {%- if p == blank -%}{% break %}{%- endif -%}
 
+{%- assign use_simple_hover =
+  simple_hover
+  | default: section.settings.simple_product_card_hover
+  | default: false
+-%}
+{%- assign hover_mode = use_simple_hover | default: false | stringify -%}
+
 <article
-  class="product-card"
+  class="product-card SIMPLE!!!!!"
+data-hover="simple"
   x-data="productCard({
     variantId: '{{ p.first_available_variant.id }}',
     productUrl: '{{ p.url }}',
@@ -18,22 +25,20 @@ Notes:
   })"
   data-money-format="{{ shop.money_format | escape | strip_newlines }}"
 >
-  <!-- вся картка клікабельна -->
   <a class="product-card__link" href="{{ p.url }}" aria-label="{{ p.title | escape }}"></a>
 
   <div class="product-card__media">
-    <div class="product-card__badge-and-btn absolute top-0 left-0 w-full
-    flex justify-between p-[16px]">
-        <div class="badges">
-            {% render 'product-badges', product: product, location: 'pdp' %}
-        </div>
-        <div>
-            <button type="button" class="md:hidden" aria-label="Add to wishlist" data-action="wish">
-                <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-          </button>
-        </div>
+    <div class="product-card__badge-and-btn absolute top-0 left-0 w-full flex justify-between p-[16px]">
+      <div class="badges">
+        {% render 'product-badges', product: product, location: 'pdp' %}
+      </div>
+      <div>
+        <button type="button" class="md:hidden" aria-label="Add to wishlist" data-action="wish">
+          <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
 
     {%- assign _img = p.featured_media.preview_image | default: p.featured_image -%}
@@ -53,19 +58,18 @@ Notes:
     <p class="product-card__price">{{ p.price | money }}</p>
   </div>
 
-  <!-- CTA у картці (відображається й на мобайлі) -->
-  <div class="product-card__cta md:hidden text-center">
-    <button class="product-card__btn btnw-full relative z-10"
-            @click.prevent.stop="addToCart">
-      <span x-text="ADD TO CART">ADD TO CART</span>
+  {%- comment -%} CTA завжди видима на мобайлі. На десктопі:
+    • simple — показуємо на hover
+    • full — ховаємо, бо працює overlay
+  {%- endcomment -%}
+  <div class="product-card__cta text-center">
+    <button class="product-card__btn btn max-w-[176px] relative z-10" @click.prevent.stop="addToCart">
+      <span>ADD TO CART</span>
     </button>
-    <button class="product-card__read btn btn-outline w-full mt-3 relative z-10"
-            @click.prevent.stop="openSheet($refs.details)">
-      READ MORE
-    </button>
+    {% comment %} <a class="product-card__read hidden btn btn-outline w-full mt-3 relative z-10" href="{{ p.url }}">READ MORE</a> {% endcomment %}
   </div>
 
-  <!-- DESKTOP OVERLAY (hover) -->
+  {%- comment -%} Повний десктопний overlay залишаємо в DOM, але він буде вимкнений стилями коли simple {%- endcomment -%}
   <div class="product-card__hover" @click.stop="handleAction($event)">
     <div class="pcd" x-ref="details">
       <header class="pcd__header">
@@ -96,12 +100,12 @@ Notes:
 
         <div class="pcd__actions">
           <button class="pcd__add btn" data-action="add">
-            <span x-text="totalPrice + ' - ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
+            <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
           </button>
         </div>
 
         <div class="pcd__read">
-          <a class="pcd__read-link pcd__read-link--mob underline underline-offset-[4px] font-medium text-[12px] leading-[16px] tracking-[3px] text-center align-middle uppercase" href="{{ p.url }}">READ MORE</a>
+          <a class="pcd__read-link underline underline-offset-[4px] font-medium text-[12px] leading-[16px] tracking-[3px] text-center align-middle uppercase" href="{{ p.url }}">READ MORE</a>
         </div>
       </div>
     </div>
@@ -111,14 +115,17 @@ Notes:
 <script>
 document.addEventListener('alpine:init', () => {
   Alpine.data('productCard', ({ variantId, productUrl, priceCents }) => ({
-    // ---- state ----
+    // base state
     variantId,
     productUrl,
     priceCents,
     qty: 1,
     wish: false,
 
-    // ---- actions ----
+    // derived
+    get mode() { return (this.$el?.dataset?.hover || 'full'); },
+
+    // actions
     inc(){ this.qty++ },
     dec(){ if (this.qty > 1) this.qty-- },
     addToCart(){
@@ -126,7 +133,7 @@ document.addEventListener('alpine:init', () => {
     },
     toggleWish(){ this.wish = !this.wish },
 
-    // ---- computed ----
+    // computed
     get totalPrice(){
       const cents = this.qty * this.priceCents
       if (window.Shopify && typeof Shopify.formatMoney === 'function') {
@@ -135,8 +142,9 @@ document.addEventListener('alpine:init', () => {
       return '£' + (cents / 100).toFixed(2)
     },
 
-    // ---- desktop overlay delegated handler ----
+    // delegate clicks для FULL режиму
     handleAction(e){
+      if (this.mode !== 'full') return
       const btn = e.target.closest('[data-action]')
       if(!btn) return
       const action = btn.dataset.action
@@ -147,45 +155,34 @@ document.addEventListener('alpine:init', () => {
       if(action==='sheet'){ this.openSheet(this.$refs.details) }
     },
 
-    // =========================================================
-    //                    Mobile bottom-sheet
-    // =========================================================
+    // ===== Mobile bottom-sheet — лише для FULL режиму =====
     ensureSheet(){
+      if (this.mode !== 'full') return null
       let root = document.getElementById('pcard-sheet')
       if (root) return root
-
       document.body.insertAdjacentHTML('beforeend', `
         <div id="pcard-sheet" class="pcard-sheet" aria-hidden="true">
           <div class="pcard-sheet__backdrop"></div>
           <div class="pcard-sheet__panel" role="dialog" aria-modal="true" aria-label="Product details">
             <button class="pcard-sheet__close" aria-label="Close">✕</button>
-            <!-- very important: prevent Alpine from evaluating x-* inside -->
             <div class="pcard-sheet__body" x-ignore></div>
           </div>
         </div>
       `)
-
       root = document.getElementById('pcard-sheet')
-      root.querySelector('.pcard-sheet__backdrop')
-        .addEventListener('click', () => this.closeSheet())
-      root.querySelector('.pcard-sheet__close')
-        .addEventListener('click', () => this.closeSheet())
+      root.querySelector('.pcard-sheet__backdrop').addEventListener('click', () => this.closeSheet())
+      root.querySelector('.pcard-sheet__close').addEventListener('click', () => this.closeSheet())
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.closeSheet() })
       return root
     },
 
-    // remove Alpine directives from cloned content
     _sanitizeForSheet(node){
+      if (this.mode !== 'full') return node
       const walk = (el) => {
         if (el.nodeType !== 1) return
-        // drop all x-* attributes so Alpine doesn't try to evaluate qty/totalPrice inside sheet
         for (const attr of [...el.attributes]) {
           if (attr.name.startsWith('x-')) el.removeAttribute(attr.name)
         }
-        // // optional: hide desktop-only "read" row if it exists
-        // if (el.classList && el.classList.contains('pcd__read')) {
-        //   el.style.display = 'none'
-        // }
         el.childNodes.forEach(walk)
       }
       walk(node)
@@ -193,26 +190,21 @@ document.addEventListener('alpine:init', () => {
     },
 
     openSheet(detailsEl){
+      if (this.mode !== 'full') return
       const sheet = this.ensureSheet()
+      if (!sheet) return
       const body = sheet.querySelector('.pcard-sheet__body')
-
-      // clone product details and sanitize
       const clone = detailsEl.cloneNode(true)
       this._sanitizeForSheet(clone)
-
-      // replace body content
       body.replaceChildren(...clone.childNodes)
-
-      // open
       sheet.classList.add('is-open')
       sheet.removeAttribute('aria-hidden')
       document.documentElement.classList.add('no-scroll')
-
-      // wire events and sync UI with current state
       this._wireSheetActions(sheet)
     },
 
     closeSheet(){
+      if (this.mode !== 'full') return
       const sheet = document.getElementById('pcard-sheet')
       if (!sheet) return
       sheet.classList.remove('is-open')
@@ -222,16 +214,14 @@ document.addEventListener('alpine:init', () => {
 
     _sheetBound: false,
     _wireSheetActions(sheet){
+      if (this.mode !== 'full') return
       const body = sheet.querySelector('.pcard-sheet__body')
-
       const update = () => {
         const qtyEl = body.querySelector('.pcd__qty-val')
         const addSpan = body.querySelector('.pcd__add > span')
-        if (qtyEl) qtyEl.textContent = this.qty              // show current qty immediately
+        if (qtyEl) qtyEl.textContent = this.qty
         if (addSpan) addSpan.textContent = this.totalPrice + ' · ADD TO CART'
       }
-
-      // bind clicks only once; we reuse the same sheet for all products
       if (!this._sheetBound){
         body.addEventListener('click', (ev) => {
           const btn = ev.target.closest('[data-action]')
@@ -244,11 +234,8 @@ document.addEventListener('alpine:init', () => {
         }, { passive: false })
         this._sheetBound = true
       }
-
-      // sync UI on open
       update()
     }
   }))
 })
 </script>
-

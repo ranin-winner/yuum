@@ -83,6 +83,7 @@
     @apply font-heading;
     font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
     font-weight: 400; 
+    color: #474747;
   }
 
   .heading-1 {
@@ -308,3 +309,10 @@
     margin-top: 0!important;
 }
  
+.m-page-about_products {
+    .shopify-section {
+        &:first-child {
+            padding-bottom: 0;
+        }
+    }
+}

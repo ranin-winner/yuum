@@ -31,19 +31,27 @@
   
     .swiper-button-next,
     .swiper-button-prev {
-        // display: none;
         border: none;
         background-color: #fff;
-        transform: translateY(100%);
+        // transform: translateY(100%);
 
         &:hover {
             background-color: #474747;
             color: #fff;
         }
 
-        // @media (min-width: 768px) {
-        //     display: flex;
-        // }        
+        @media (max-width: 1024px) {
+            display: none;
+        }
+   
+    }
+
+    .swiper-pagination {
+        bottom: -60px;
+        @media (max-width: 1024px) {
+            bottom: -40px;
+        }
+
     }
 
     .swiper-box .swiper-button-next {

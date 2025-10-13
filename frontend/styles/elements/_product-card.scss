@@ -538,3 +538,81 @@
         font-weight: 600; 
     }
   
+
+/* SIMPLE hover mode */
+.product-card[data-hover='simple'] {
+    height: 100%;
+    .product-card__hover { display: none !important; }
+  
+    .product-card__cta {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 15;
+
+      @media (max-width: 767.98px) {
+        bottom: 5px;
+      }
+
+      .product-card__btn {
+        background-color: #F5F5F5;
+      }
+    }
+  
+    /* мобайл — кнопка завжди видима */
+    @media (max-width: 767.98px) {
+      .product-card__cta {
+        opacity: 1;
+        transform: none;
+        visibility: visible;
+        pointer-events: auto;
+      }
+    }
+  
+    /* десктоп — плавна поява */
+    @media (min-width: 768px) {
+      .product-card__cta {
+        opacity: 0;
+        transform: translateY(8px);
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity .22s ease,
+          transform .22s ease,
+          visibility 0s linear .22s; /* сховаємо після фейду */
+        will-change: opacity, transform;
+      }
+  
+      &:hover .product-card__cta,
+      &:focus-within .product-card__cta {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+          opacity .22s ease,
+          transform .22s ease,
+          visibility 0s; /* показати одразу */
+      }
+    }
+  }
+  
+  /* у full режимі мобільна CTA ховається на десктопі (без змін) */
+  @media (min-width: 768px) {
+    .product-card[data-hover='full'] .product-card__cta { display: none !important; }
+  }
+  
+  /* повага до reduce-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .product-card[data-hover='simple'] .product-card__cta {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+  
+  .products-section {
+    .swiper-wrapper {
+        min-height: 474px;
+    }
+  }

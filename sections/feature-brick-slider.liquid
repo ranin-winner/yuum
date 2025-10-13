@@ -1,0 +1,213 @@
+{% comment %}
+  Feature Tiles (1–3 blocks)
+  - Tailwind first
+  - Mobile/desktop images via <picture>
+  - Two configurable buttons per card
+  - Mobile slider with progress bar
+{% endcomment %}
+{% render 'entry' with '@/styles/sections/feature-brick.scss' %}
+<section
+  id="feature-brick-{{ section.id }}"
+  class="feature-brick palette-{{ section.settings.color_scheme }}"
+>
+  <div class="container">
+    <div class="feature-brick__inner flex md:flex-row flex-col">
+        {% if section.settings.main_title != blank %}
+            <h1 class="feature-brick__main-title feature-brick__main-title-sm">{{ section.settings.main_title }}</h1>
+        {% endif %}
+        {%- assign cards = section.blocks -%}
+        
+        <div class="feature-brick__cards-wrapper w-full">
+          <div 
+            id="feature-brick-swiper-{{ section.id }}"
+            class="feature-brick__cards swiper"
+          >
+            <div class="swiper-wrapper">
+              {%- for block in cards -%}
+                {%- assign img_desktop = block.settings.image_desktop -%}
+                {%- assign img_mobile  = block.settings.image_mobile | default: img_desktop -%}
+                <article class="swiper-slide">
+                  <div class="relative pb-[24px]">
+                    {%- comment -%} 
+                    Обгортка робить усі мобільні картинки 328×328, а на md+ повертає auto 
+                    {%- endcomment -%}
+                    <div class="feature-brick__image-inner rounded-[20px] overflow-hidden md:w-auto md:h-auto">
+                      <picture>
+                        {%- if img_desktop != blank -%}
+                        <source media="(min-width:768px)" srcset="{{ img_desktop | image_url: width: 1400 }}">
+                        {%- endif -%}
+                        {%- if img_mobile != blank -%}
+                        <img
+                          src="{{ img_mobile | image_url: width: 900 }}"
+                          alt="{{ block.settings.image_alt | escape }}"
+                          loading="lazy"
+                          class="block w-full h-full md:h-auto object-cover"
+                        >
+                        {%- endif -%}
+                      </picture>
+                    </div>
+                  </div>
+                  <div>
+                    {%- if block.settings.title != blank -%}
+                    <h3 class="feature-brick__title heading-4">{{ block.settings.title | escape }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                    <div class="feature-brick__text">
+                      {{ block.settings.text }}
+                    </div>
+                    {%- endif -%}
+                    <div class="flex flex-wrap gap-[12px]">
+                      {%- if block.settings.primary_label != blank and block.settings.primary_url != blank -%}
+                        
+                          href="{{ block.settings.primary_url }}"
+                          class="btn btn-primary btn-primary-mini"
+                        >
+                          {{ block.settings.primary_label | escape }}
+                        </a>
+                      {%- endif -%}
+                      {%- if block.settings.secondary_label != blank and block.settings.secondary_url != blank -%}
+                        
+                          href="{{ block.settings.secondary_url }}"
+                          class="btn btn-secondary btn-secondary-mini"
+                        >
+                          {{ block.settings.secondary_label | escape }}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </article>
+              {%- endfor -%}
+            </div>
+            <div class="flex justify-center">
+                {%- comment -%} Progress bar pagination {%- endcomment -%}
+                <div class="swiper-pagination h-[2px] bg-black/10 w-full w-[180px]"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Ховаємо пагінацію на десктопі */
+  @media (min-width: 768px) {
+    #feature-brick-{{ section.id }} .swiper-pagination {
+      display: none;
+    }
+  }
+  
+  /* На десктопі робимо grid замість слайдера */
+  @media (min-width: 768px) {
+    #feature-brick-{{ section.id }} .feature-brick__cards.swiper {
+      overflow: visible;
+    }
+    
+    #feature-brick-{{ section.id }} .swiper-wrapper {
+      display: grid;
+      grid-template-columns: repeat({{ cards.size | at_least: 1 | at_most: 3 }}, 1fr);
+      gap: 1rem;
+      transform: none !important;
+    }
+    
+    #feature-brick-{{ section.id }} .swiper-slide {
+      width: auto !important;
+      height: auto !important;
+      margin: 0 !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionSel   = '#feature-brick-{{ section.id }}'
+    const containerSel = '#feature-brick-swiper-{{ section.id }}'
+
+    const swiper = new Swiper(containerSel, {
+      slidesPerView: 1,
+      spaceBetween: 16,
+      centeredSlides: true,
+      
+      pagination: {
+        el: `${sectionSel} .swiper-pagination`,
+        type: 'progressbar',
+        enabled: true
+      },
+
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          centeredSlides: true,
+          spaceBetween: 16,
+          pagination: { 
+            enabled: true, 
+            type: 'progressbar' 
+          }
+        },
+        768: {
+          slidesPerView: {{ cards.size | at_least: 1 | at_most: 3 }},
+          centeredSlides: false,
+          spaceBetween: 16,
+          pagination: { 
+            enabled: false 
+          },
+          allowTouchMove: false
+        }
+      }
+    })
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Feature brick slider",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "inverse", "label": "Inverse" }
+      ]
+    },
+    {
+      "type": "text",
+      "label": "Main section title",
+      "id": "main_title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Mochi" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Short description goes here.</p>" },
+
+        { "type": "image_picker", "id": "image_desktop", "label": "Image (desktop)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile, optional)" },
+        { "type": "text", "id": "image_alt", "label": "Image alt" },
+
+        { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Read more" },
+        { "type": "url", "id": "primary_url", "label": "Primary button link" },
+
+        { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "To catalogue" },
+        { "type": "url", "id": "secondary_url", "label": "Secondary button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature brick slider",
+      "blocks": [
+        { "type": "tile" },
+        { "type": "tile" }
+      ]
+    }
+  ]
+}
+{% endschema %}
