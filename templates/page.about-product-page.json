@@ -126,13 +126,131 @@
       "name": "Products Section",
       "settings": {
         "products_list": [
-          "matcha-mochi",
-          "yuzu-mochi",
           "coffee-mochi",
           "choco-mochi",
-          "chestnut-mochi"
+          "chestnut-mochi",
+          "matcha-mochi",
+          "all-flavours-discovery-mochi-bundle",
+          "sakura-mochi"
         ],
-        "title": "<p>Collection “Cream Ice”</p>"
+        "simple_hover": false,
+        "title": "<p>Collection “Vegan Cream Ice” (Lactose free)</p>",
+        "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. </p>",
+        "section_text_1": "<p>A unique Japanese translucent rice dough shell with delicate vanilla and airy cream ice cream. The collection includes 10 flavours, including strawberry, melon, Kyoho grape, chestnut, etc.</p>",
+        "section_badge_icon": "<svg width=\"26\" height=\"26\" viewbox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M14.7387 18.3179C14.4729 18.3427 14.2061 18.2827 13.9764 18.1465C13.8086 17.9743 13.7282 17.7351 13.7578 17.4965C13.764 17.2979 13.7877 17.1001 13.8287 16.9056C13.8684 16.6825 13.9196 16.4616 13.9823 16.2438L14.6796 13.8447C14.7515 13.6079 14.799 13.3643 14.8214 13.1179C14.8214 12.852 14.8569 12.6687 14.8569 12.5624C14.8717 12.0885 14.6693 11.6337 14.3073 11.3274C13.862 10.9855 13.3075 10.8175 12.7473 10.8547C12.3459 10.8607 11.9476 10.9264 11.5655 11.0497C11.1479 11.1797 10.7087 11.3353 10.2478 11.5165L10.0469 12.2965C10.1828 12.2492 10.3483 12.1961 10.5373 12.137C10.7177 12.0835 10.9047 12.0557 11.0928 12.0542C11.3566 12.0256 11.6222 12.0904 11.8432 12.2374C11.9933 12.4165 12.0638 12.6492 12.0382 12.8815C12.0376 13.0802 12.0158 13.2783 11.9732 13.4724C11.9318 13.6792 11.8787 13.8979 11.8137 14.1283L11.1105 16.5392C11.0538 16.7633 11.0085 16.9901 10.9746 17.2187C10.947 17.4145 10.9332 17.6119 10.9332 17.8096C10.9303 18.2868 11.1485 18.7385 11.5241 19.0328C11.9763 19.38 12.5387 19.5521 13.1077 19.5174C13.5084 19.5256 13.9077 19.4677 14.2895 19.346C14.6244 19.2317 15.0715 19.0682 15.6309 18.8555L15.82 18.111C15.6685 18.1738 15.5125 18.2252 15.3532 18.2646C15.1518 18.3106 14.945 18.3285 14.7387 18.3179Z\" fill=\"#474747\"></path>\n<path d=\"M15.4767 6.94322C15.1551 6.64788 14.7314 6.48898 14.2949 6.50005C13.8586 6.4902 13.4353 6.64894 13.1131 6.94322C12.5224 7.45256 12.4564 8.34433 12.9658 8.93507C13.0112 8.98773 13.0604 9.03693 13.1131 9.08233C13.786 9.68424 14.8038 9.68424 15.4767 9.08233C16.0674 8.56797 16.1293 7.67219 15.6149 7.0815C15.5722 7.03229 15.5259 6.98608 15.4767 6.94322Z\" fill=\"#474747\"></path>\n<path d=\"M13 0C5.82029 0 0 5.82029 0 13C0 20.1797 5.82029 26 13 26C20.1797 26 26 20.1797 26 13C26 5.82029 20.1797 0 13 0ZM13 24.8182C6.47298 24.8182 1.18183 19.527 1.18183 13C1.18183 6.47298 6.47298 1.18183 13 1.18183C19.527 1.18183 24.8182 6.47298 24.8182 13C24.8182 19.527 19.527 24.8182 13 24.8182Z\" fill=\"#474747\"></path>\n</svg>",
+        "section_badge_text": "Important information",
+        "section_text_2": "<p>Use Mochi Premium Collection after 10 minutes to enjoy the original taste of Japanese cream ice cream. To experience the unique taste of Japanese cream dessert, consume after 40 minutes. Store at a temperature of +2 - +4C. Do not heat treat or re-freeze. Consume within 24 hours</p>",
+        "section_button_text": "Shop Now",
+        "section_button_link": "shopify://collections/all"
+      }
+    },
+    "build_your_bundle_8pxK7L": {
+      "type": "build-your-bundle",
+      "blocks": {
+        "feature_MMK9PX": {
+          "type": "feature",
+          "settings": {
+            "text": "Free delivery over £50"
+          }
+        },
+        "feature_iPR3Wh": {
+          "type": "feature",
+          "settings": {
+            "text": "Additional discounts"
+          }
+        },
+        "feature_BxMfK4": {
+          "type": "feature",
+          "settings": {
+            "text": "Matcha mochi as a gift"
+          }
+        }
+      },
+      "block_order": [
+        "feature_MMK9PX",
+        "feature_iPR3Wh",
+        "feature_BxMfK4"
+      ],
+      "name": "Build Your Bundle",
+      "settings": {
+        "additional_classes": "bg-[#ADAEB0]",
+        "padding_y_mobile": 40,
+        "padding_y_desktop": 60,
+        "bg_color": "bg-[#9B9B9D]",
+        "bg_tint": "",
+        "phone_image_desktop": "shopify://shop_images/Frame_7938_97062921-49bc-4a9e-afc9-11edf4a1fec2.png",
+        "phone_image_mobile": "shopify://shop_images/Frame_6949_33f712cf-697e-4de7-9af1-7b66a38b8ed3.png",
+        "phone_image_alt": "Build your own bundle – preview",
+        "side_image_alt": "Product box",
+        "show_badge": true,
+        "badge_text": "New",
+        "bird_image": "shopify://shop_images/2.png",
+        "bird_alt": "Decorative bird",
+        "bird_width_mobile": 82,
+        "bird_width_desktop": 100,
+        "bird_offset_x_mobile": 14,
+        "bird_offset_y_mobile": -44,
+        "bird_offset_x_desktop": 28,
+        "bird_offset_y_desktop": -28,
+        "kicker": "",
+        "title": "Build your own bundle",
+        "text": "Create a completely individual its.box set and combine products from all collections to your liking!",
+        "btn_label": "Build bundle",
+        "btn_link": ""
+      }
+    },
+    "feature_brick_slider_FtLwwi": {
+      "type": "feature-brick-slider",
+      "blocks": {
+        "tile_zeC9Vd": {
+          "type": "tile",
+          "settings": {
+            "title": "Matcha",
+            "text": "<p>Matcha is a green tea traditionally used for the Japanese tea ceremony.</p>",
+            "image_desktop": "shopify://shop_images/Rectangle_1615_f7ed33d8-e784-435a-9692-d0adcd767de5.png",
+            "image_alt": "",
+            "primary_label": "Read more",
+            "primary_url": "",
+            "secondary_label": "To catalogue",
+            "secondary_url": ""
+          }
+        },
+        "tile_p8rrXr": {
+          "type": "tile",
+          "settings": {
+            "title": "Acai",
+            "text": "<p>Description needed - it is a popular Japanese non-alcoholic non-carbonated drink.</p>",
+            "image_desktop": "shopify://shop_images/Rectangle_1615_b4f6daa9-4e4c-4a66-a8f1-cf4780bd2994.png",
+            "image_alt": "",
+            "primary_label": "Read more",
+            "primary_url": "",
+            "secondary_label": "To catalogue",
+            "secondary_url": ""
+          }
+        },
+        "tile_XC4dJi": {
+          "type": "tile",
+          "settings": {
+            "title": "Yuzu",
+            "text": "<p>Yuzu is a fruit of the genus Citrus, common in Japan, China, and Korea.</p>",
+            "image_desktop": "shopify://shop_images/Rectangle_1615_506f0688-c333-489b-b7d6-ba0f09df4229.png",
+            "image_alt": "",
+            "primary_label": "Read more",
+            "primary_url": "",
+            "secondary_label": "To catalogue",
+            "secondary_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "tile_zeC9Vd",
+        "tile_p8rrXr",
+        "tile_XC4dJi"
+      ],
+      "name": "Feature brick slider",
+      "settings": {
+        "color_scheme": "default",
+        "main_title": "Other products"
       }
     },
     "main": {
@@ -151,6 +269,8 @@
     "advantages_gG7EYx",
     "image_tips_card_wWEQgt",
     "product_custom_section_9tiJmr",
+    "build_your_bundle_8pxK7L",
+    "feature_brick_slider_FtLwwi",
     "main"
   ]
 }
