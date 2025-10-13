@@ -1,16 +1,52 @@
-
 {% render 'entry' with '@/styles/sections/products-section.scss' %}
+
+{% assign sectionText1 = section.settings.section_text_1 %}
+{% assign sectionText2 = section.settings.section_text_2 %}
+
+{% assign sectionSubtitle = section.settings.subtitle %}
+
+{% assign sectionBadgeText = section.settings.section_badge_text %}
+{% assign sectionButtonText = section.settings.section_button_text %}
 
 <section
   id="productSection-{{ section.id }}"
   class="products-section products-section mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }}"
 >
   <div class="container m-responsive px-10">
-    {% if section.settings.title != blank %}
-      <h2 class="products-section__title">
-        {{ section.settings.title | default: "Products" }}
-      </h2>
-    {% endif %}
+    <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
+        {% if section.settings.title != blank %}
+            <div class="products-section__header--title">
+                <h2 class="products-section__title heading-3">
+                    {{ section.settings.title | default: "Products" }}
+                </h2>
+                {% if sectionSubtitle != blank %}
+                    <p class="products-section__subtitle">{{ sectionSubtitle }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="products-section__header--text-and-btn">
+            {% if sectionText1 != blank %}
+                <div class="text">
+                    {{ sectionText1 }}
+                </div>
+            {% endif %}
+            {% if sectionBadgeText != blank %}
+                <div class="badge flex items-center gap-[15px] mt-[32px] mb-[12px]">
+                    {{ section.settings.section_badge_icon }} {{ sectionBadgeText }}
+                </div>
+            {% endif %}
+            {% if sectionText2 != blank %}
+                <div class="text">
+                    {{ sectionText2 }}
+                </div>
+            {% endif %}
+
+            {% if sectionButtonText != blank %}
+                <a href="{{ section.settings.section_button_link }}" class="btn btn-light">{{ sectionButtonText }}</a>
+            {% endif %}
+        </div>
+    </div>
 
     <div id="productSection-{{ section.id }}" class="swiper-box">
         {% if section.settings.products_list != blank %}
@@ -131,6 +167,43 @@
     "id": "title",
     "label": "Section Title",
   },
+  {
+    "type": "richtext",
+    "id": "subtitle",
+    "label": "Section subtitle",
+  },
+  {
+    "type": "richtext",
+    "id": "section_text_1",
+    "label": "Section text 1",
+  },
+  {
+    "type": "textarea",
+    "id": "section_badge_icon",
+    "label": "Paste icon for badge",
+  },
+  {
+    "type": "text",
+    "id": "section_badge_text",
+    "label": "Section badge text",
+
+  },
+  {
+    "type": "richtext",
+    "id": "section_text_2",
+    "label": "Section text 2"
+  },
+  {
+    "type": "text",
+    "label": "Button Text",
+    "id": "section_button_text",
+    "default": "Shop Now"
+  },
+  {
+    "type": "url",
+    "label": "Button Link",
+    "id": "section_button_link"
+  }
 ],
 "presets": [
   {
