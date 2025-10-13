@@ -36,6 +36,13 @@
     color: #474747;
     line-height: 16px;
 
+    &-no-border {
+        border: 1px solid #F5F5F5;
+        &:hover {
+            border: 1px solid #474747;
+        }
+    }
+
     &:hover {
         background-color: #474747;
         color:#F5F5F5;

@@ -31,7 +31,7 @@
   
     .swiper-button-next,
     .swiper-button-prev {
-        display: none;
+        // display: none;
         border: none;
         background-color: #fff;
         transform: translateY(100%);
@@ -41,9 +41,9 @@
             color: #fff;
         }
 
-        @media (min-width: 768px) {
-            display: flex;
-        }        
+        // @media (min-width: 768px) {
+        //     display: flex;
+        // }        
     }
 
     .swiper-box .swiper-button-next {
