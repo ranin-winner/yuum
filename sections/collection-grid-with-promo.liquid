@@ -1,0 +1,187 @@
+{% render 'entry' with '@/styles/sections/products-section.scss' %}
+
+{%- assign title_rich = section.settings.title -%}
+{%- assign subtitle_rich = section.settings.subtitle -%}
+
+{%- assign collection = section.settings.collection -%}
+{%- assign limit = section.settings.limit | default: 12 -%}
+{%- assign products = collection.products -%}
+
+{%- assign banner_pos = section.settings.banner_position | default: 0 -%}
+{%- assign banner_pos = banner_pos | at_least: 0 | at_most: limit -%}
+{%- assign banner_index0 = banner_pos | minus: 1 -%}
+
+<section id="collectionGridPromo-{{ section.id }}" class="products-section collection-grid mx-auto py-[40px] palette-{{ section.settings.color_scheme }}">
+  <div class="container">
+    {%- if title_rich != blank or subtitle_rich != blank -%}
+      <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
+        <div class="products-section__header--title">
+          {%- if title_rich != blank -%}
+            <h2 class="products-section__title heading-3">{{ title_rich }}</h2>
+          {%- endif -%}
+          {%- if subtitle_rich != blank -%}
+            <p class="products-section__subtitle">{{ subtitle_rich }}</p>
+          {%- endif -%}
+        </div>
+        <div class="products-section__header--text-and-btn">
+          {%- if section.settings.section_text_1 != blank -%}
+            <div class="text">{{ section.settings.section_text_1 }}</div>
+          {%- endif -%}
+          {%- if section.settings.section_badge_text != blank -%}
+            <div class="badge flex items-center gap-[15px] mt-[32px] mb-[12px]">
+              {{ section.settings.section_badge_icon }} {{ section.settings.section_badge_text }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.section_text_2 != blank -%}
+            <div class="text">{{ section.settings.section_text_2 }}</div>
+          {%- endif -%}
+          {%- if section.settings.section_button_text != blank -%}
+            <a href="{{ section.settings.section_button_link }}" class="btn btn-light">{{ section.settings.section_button_text }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment %} ===== Promo banner template ===== {%- endcomment -%}
+    {%- assign v = section.settings.banner_text_valign | default: 'center' -%}
+    {%- case v -%}
+        {%- when 'top' -%}{%- assign v_class = 'justify-start' -%}
+        {%- when 'bottom' -%}{%- assign v_class = 'justify-end' -%}
+        {%- else -%}{%- assign v_class = 'justify-center' -%}
+    {%- endcase -%}
+
+    {%- capture promo_banner -%}
+      {%- assign mob = section.settings.banner_image_mobile -%}
+      {%- assign desk = section.settings.banner_image_desktop -%}
+      {%- assign alpha = section.settings.banner_overlay_opacity | times: 0.01 -%}
+      {%- assign overlay = section.settings.banner_overlay_color | color_modify: 'alpha', alpha -%}
+      <div class="promo-banner relative rounded-[16px] overflow-hidden">
+        <a class="block group" {%- if section.settings.banner_link != blank -%} href="{{ section.settings.banner_link }}"{%- endif -%}>
+          <picture>
+            {%- if mob != blank -%}
+              <source media="(max-width: 767px)" srcset="{{ mob | image_url: width: 750 }}">
+            {%- endif -%}
+            {%- if desk != blank -%}
+              <img
+                class="w-full h-full object-cover block"
+                src="{{ desk | image_url: width: 1600 }}"
+                alt="{{ section.settings.banner_alt | escape }}"
+                loading="lazy"
+                decoding="async">
+            {%- else -%}
+              <div class="w-full aspect-[16/6] md:aspect-[16/5] bg-gray-100"></div>
+            {%- endif -%}
+          </picture>
+
+          {%- if section.settings.banner_overlay -%}
+            <span class="absolute inset-0" style="background: {{ overlay }};"></span>
+          {%- endif -%}
+
+          <span class="absolute inset-0 flex flex-col items-center {{ v_class }} px-6 md:px-10 py-[35px]">
+            <span class="text-center pointer-events-none">
+              {%- if section.settings.banner_kicker != blank -%}
+                <span class="block text-[12px] md:text-[13px] leading-[16px] tracking-[3px] uppercase mb-2 opacity-90" style="color: {{ section.settings.banner_text_color }};">{{ section.settings.banner_kicker }}</span>
+              {%- endif -%}
+              {%- if section.settings.banner_title != blank -%}
+                <span class="block font-medium md:font-normal text-[28px] md:text-[44px] leading-tight" style="color: {{ section.settings.banner_text_color }};">{{ section.settings.banner_title }}</span>
+              {%- endif -%}
+            </span>
+          </span>
+        </a>
+      </div>
+    {%- endcapture -%}
+
+    {%- if collection == blank -%}
+      <p class="text-center text-gray-600 py-8">Choose a collection in the section settings.</p>
+    {%- else -%}
+
+      {%- if banner_pos == 0 and section.settings.show_banner -%}
+        <div class="mb-8 md:mb-10">
+          {{ promo_banner }}
+        </div>
+      {%- endif -%}
+
+      {%- assign shown = 0 -%}
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {%- for p in products limit: limit -%}
+          {%- assign idx0 = forloop.index0 -%}
+
+          {%- if section.settings.show_banner and banner_pos > 0 and idx0 == banner_index0 -%}
+            <div class="md:col-span-1 col-span-2">
+              {{ promo_banner }}
+            </div>
+          {%- endif -%}
+
+          <div>
+            {% render 'product-card', product: p, simple_hover: section.settings.simple_hover %}
+          </div>
+
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+
+        {%- comment -%} якщо позиція банера більша за кількість товарів — покажемо банер в кінці {%- endcomment -%}
+        {%- if section.settings.show_banner and banner_pos > 0 and shown > 0 and banner_pos > shown -%}
+          <div class="md:col-span-1 col-span-2">
+            {{ promo_banner }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Collection grid",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 1, "max": 24, "step": 1, "default": 12 },
+
+    { "type": "checkbox", "id": "simple_hover", "label": "Simplified hover for product card", "default": false },
+
+    { "type": "richtext", "id": "title", "label": "Section title" },
+    { "type": "richtext", "id": "subtitle", "label": "Section subtitle" },
+    { "type": "richtext", "id": "section_text_1", "label": "Text 1" },
+    { "type": "textarea", "id": "section_badge_icon", "label": "Badge icon (SVG)" },
+    { "type": "text", "id": "section_badge_text", "label": "Badge text" },
+    { "type": "richtext", "id": "section_text_2", "label": "Text 2" },
+    { "type": "text", "id": "section_button_text", "label": "Button text" },
+    { "type": "url", "id": "section_button_link", "label": "Button link" },
+
+    { "type": "header", "content": "Promo banner" },
+    { "type": "checkbox", "id": "show_banner", "label": "Show promo banner", "default": true },
+    { "type": "range", "id": "banner_position", "label": "Banner position in grid", "info": "0 — full-width above grid; 1 — first cell; 2 — second; …", "min": 0, "max": 50, "step": 1, "default": 0 },
+
+    { "type": "image_picker", "id": "banner_image_desktop", "label": "Banner image · Desktop" },
+    { "type": "image_picker", "id": "banner_image_mobile", "label": "Banner image · Mobile (optional)" },
+    { "type": "text", "id": "banner_alt", "label": "Banner alt text" },
+    { "type": "url", "id": "banner_link", "label": "Banner link (optional)" },
+
+    { "type": "text", "id": "banner_kicker", "label": "Banner kicker (small top text)" },
+    { "type": "text", "id": "banner_title", "label": "Banner title" },
+    { "type": "color", "id": "banner_text_color", "label": "Banner text color", "default": "#FFFFFF" },
+    {
+        "type": "select",
+        "id": "banner_text_valign",
+        "label": "Banner text vertical align",
+        "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "center", "label": "Center" },
+            { "value": "bottom", "label": "Bottom" }
+        ],
+        "default": "center"
+    },
+
+    { "type": "checkbox", "id": "banner_overlay", "label": "Add overlay", "default": true },
+    { "type": "color", "id": "banner_overlay_color", "label": "Overlay color", "default": "#000000" },
+    { "type": "range", "id": "banner_overlay_opacity", "label": "Overlay opacity, %", "min": 0, "max": 100, "step": 5, "default": 35 },
+
+    { "type": "select", "id": "color_scheme", "label": "Color scheme", "default": "default", "options": [
+      { "value": "default", "label": "Default" },
+      { "value": "inverse", "label": "Inverse" }
+    ] }
+  ],
+  "presets": [{ "name": "Collection grid" }]
+}
+{% endschema %}

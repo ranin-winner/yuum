@@ -5,11 +5,11 @@
    overflow: hidden;
 
    @include media(max-t) {
-        padding: 0 24px;
+        padding: 0 24px!important;
    }
 
    @include media(max-m) {
-        padding: 0 16px;
+        padding: 0 16px!important;
     }
 }
 

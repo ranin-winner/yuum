@@ -309,10 +309,16 @@
     margin-top: 0!important;
 }
  
-.m-page-about_products {
+.m-page-about_products,
+.m-collection {
     .shopify-section {
         &:first-child {
             padding-bottom: 0;
         }
     }
+
+    [id*="__collection_filters"] {
+        padding-bottom: 0;
+    }
+
 }

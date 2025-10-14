@@ -2,7 +2,7 @@
 product-card-simple.liquid
 параметри
   product
-  simple_hover (Boolean) — опційно. Якщо не передавати, візьме section.settings.simple_product_card_hover
+  simple_hover (Boolean) — опційно. Якщо не передавати, візьме section.settings.simple_hover
 {%- endcomment -%}
 
 {%- assign p = product | default: item -%}
@@ -10,7 +10,7 @@ product-card-simple.liquid
 
 {%- assign use_simple_hover =
   simple_hover
-  | default: section.settings.simple_product_card_hover
+  | default: section.settings.simple_hover
   | default: false
 -%}
 {%- assign hover_mode = use_simple_hover | default: false | stringify -%}
@@ -24,6 +24,7 @@ product-card-simple.liquid
     priceCents: {{ p.price }}
   })"
   data-money-format="{{ shop.money_format | escape | strip_newlines }}"
+  data-tags="{{ p.tags | join: ' ' | downcase }}"
 >
   <a class="product-card__link" href="{{ p.url }}" aria-label="{{ p.title | escape }}"></a>
 
@@ -62,11 +63,11 @@ product-card-simple.liquid
     • simple — показуємо на hover
     • full — ховаємо, бо працює overlay
   {%- endcomment -%}
-  <div class="product-card__cta md:hidden text-center">
+  <div class="product-card__cta text-center">
     <button class="product-card__btn btn relative z-10" @click.prevent.stop="addToCart">
       <span>ADD TO CART</span>
     </button>
-    <a class="product-card__read btn btn-outline w-full mt-3 relative z-10" href="{{ p.url }}">READ MORE</a>
+    {% comment %} <a class="product-card__read btn btn-outline mt-3 relative z-10" href="{{ p.url }}">READ MORE</a> {% endcomment %}
   </div>
 
   {%- comment -%} Повний десктопний overlay залишаємо в DOM, але він буде вимкнений стилями коли simple {%- endcomment -%}
@@ -111,6 +112,7 @@ product-card-simple.liquid
     </div>
   </div>
 </article>
+
 
 
 <script>
@@ -240,5 +242,3 @@ document.addEventListener('alpine:init', () => {
   }))
 })
 </script>
-
-
