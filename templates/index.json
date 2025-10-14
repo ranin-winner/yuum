@@ -16,7 +16,7 @@
         "title": "Welcome!",
         "subtitle": "Get amazing discounts!",
         "baner_button": "Shop Now",
-        "baner_button_link": "",
+        "baner_button_link": "shopify://products/sakura-mochi",
         "image_bg": "shopify://shop_images/Image_43a72e1d-85e5-401a-b931-70929ab1d4a3.png",
         "bg_color": "#ffffff",
         "bg_size": "cover",
@@ -86,7 +86,15 @@
           "smores",
           "whole-grain-variety-pack"
         ],
-        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>"
+        "simple_hover": false,
+        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>",
+        "subtitle": "",
+        "section_text_1": "",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "Shop Now",
+        "section_button_link": ""
       }
     },
     "c_rotating_icon_strip_RDBxaK": {

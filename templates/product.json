@@ -9,6 +9,14 @@
  */
 {
   "sections": {
+    "breadcrumbs_6ycTDY": {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -177,7 +185,8 @@
       "settings": {
         "image": "shopify://shop_images/Rectangle_1612.png",
         "image_alt": "",
-        "card_title": "How to enjoy moti better Mochi:"
+        "card_title": "How to enjoy moti better Mochi:",
+        "card_text": ""
       }
     },
     "trial_faq_Yyqc9p": {
@@ -227,7 +236,15 @@
           "matcha-mochi",
           "summer-bundle-mochi-pack"
         ],
-        "title": "<p>We think you will also love</p>"
+        "simple_hover": false,
+        "title": "<p>We think you will also love</p>",
+        "subtitle": "",
+        "section_text_1": "",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "Shop Now",
+        "section_button_link": ""
       }
     },
     "17599442408b31d2f4": {
@@ -247,6 +264,7 @@
     }
   },
   "order": [
+    "breadcrumbs_6ycTDY",
     "main",
     "text_kicker_description_C9WwPN",
     "image_tips_card_NagFt8",
