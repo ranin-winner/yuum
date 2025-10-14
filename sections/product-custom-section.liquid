@@ -70,11 +70,7 @@
                     <div class="swiper-wrapper">
                     {% for item in collection %}
                         <div class="swiper-slide">
-                            {% if section.settings.simple_hover == true %}
-                                {% render 'product-card-simple', product: item %}
-                            {% else %}
-                                {% render 'product-card', product: item %}
-                            {% endif %}
+                            {% render 'product-card', product: item %}
                         </div>
                     {% endfor %}
                     </div>

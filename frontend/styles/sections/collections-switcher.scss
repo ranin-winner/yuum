@@ -1,0 +1,48 @@
+.collections-switcher {
+    
+    &__inner {
+        display: grid;
+        // grid-template-columns: 330px minmax(0, 1fr);
+        grid-template-columns: 1fr 2fr;
+        @media (max-width: 767px) {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        padding: 40px 0;
+        border-bottom: 1px solid #ADAEB0;
+    }
+
+    &__title {
+        color: #ADAEB0;
+        transition: all 0.5s ease;
+        cursor: pointer;
+        @media (max-width: 767px) {
+            font-size: 24px;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        &.active {
+            color: #474747;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 8px;
+        }
+
+        &:hover {
+            color: #474747;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 6px;
+        }
+    }
+
+    &__main-title {
+        @media (max-width: 767px) {
+            font-size: 52px;
+        }
+    }
+}

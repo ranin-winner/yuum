@@ -1,0 +1,223 @@
+{% comment %} Collections Switcher & Heading (manual links via blocks) {% endcomment %}
+{% render 'entry' with '@/styles/sections/collections-switcher.scss' %}
+
+<section id="collections-switcher-{{ section.id }}" class="collections-switcher">
+  <div class="container">
+    <div class="collections-switcher__inner">
+      {%- assign current_handle = collection.handle | default: '' -%}
+
+      {%- comment -%}
+        Обчислюємо заголовок праворуч: беремо heading активного блоку.
+        Активний блок: або його collection.handle == поточній колекції,
+        або manual_url співпадає з request.path / request.url.
+      {%- endcomment -%}
+      {%- assign heading_text = collection.title -%}
+      {%- for block in section.blocks -%}
+        {%- assign col = block.settings.collection -%}
+        {%- assign manual_url = block.settings.manual_url -%}
+        {%- assign href = manual_url | default: col.url -%}
+        {%- assign is_active_block = false -%}
+        {%- if col and col.handle == current_handle -%}
+          {%- assign is_active_block = true -%}
+        {%- elsif manual_url != blank -%}
+          {%- if href == request.path or href == request.url -%}
+            {%- assign is_active_block = true -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- if is_active_block -%}
+          {%- if block.settings.heading != blank -%}
+            {%- assign heading_text = block.settings.heading -%}
+          {%- elsif col and col.title != blank -%}
+            {%- assign heading_text = col.title -%}
+          {%- endif -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      <!-- MOBILE: горизонтальний слайдер із посиланнями -->
+      <div class="md:hidden mb-6">
+        <div class="swiper collectionsTabsSwiper-{{ section.id }}">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              {%- assign col = block.settings.collection -%}
+              {%- assign manual_url = block.settings.manual_url -%}
+              {%- assign display_text = block.settings.display_text -%}
+              {%- assign custom_label = block.settings.custom_label -%}
+
+              {%- if manual_url == blank and col == blank -%}{% continue %}{%- endif -%}
+
+              {%- assign href = manual_url | default: col.url -%}
+              {%- assign text = display_text | default: custom_label | default: col.title -%}
+
+              {%- assign is_active = false -%}
+              {%- if col and col.handle == current_handle -%}
+                {%- assign is_active = true -%}
+              {%- elsif manual_url != blank -%}
+                {%- if href == request.path or href == request.url -%}
+                  {%- assign is_active = true -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              <div class="swiper-slide">
+                <a href="{{ href }}"
+                   class="heading-4 collections-switcher__title {% if is_active %} active {% endif %}"
+                   {% if is_active %}aria-current="page"{% endif %}
+                >{{ text }}</a>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      <!-- DESKTOP: ліва вертикальна навігація -->
+      <nav class="hidden md:block">
+        <ul class="space-y-3">
+          {%- for block in section.blocks -%}
+            {%- assign col = block.settings.collection -%}
+            {%- assign manual_url = block.settings.manual_url -%}
+            {%- assign display_text = block.settings.display_text -%}
+            {%- assign custom_label = block.settings.custom_label -%}
+
+            {%- if manual_url == blank and col == blank -%}{% continue %}{%- endif -%}
+
+            {%- assign href = manual_url | default: col.url -%}
+            {%- assign text = display_text | default: custom_label | default: col.title -%}
+
+            {%- assign is_active = false -%}
+            {%- if col and col.handle == current_handle -%}
+              {%- assign is_active = true -%}
+            {%- elsif manual_url != blank -%}
+              {%- if href == request.path or href == request.url -%}
+                {%- assign is_active = true -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            <li>
+              <a href="{{ href }}"
+                 class="heading-4 collections-switcher__title {% if is_active %} active {% endif %}"
+                 {% if is_active %}aria-current="page"{% endif %}
+              >{{ text }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <!-- ПРАВО: заголовок колекції -->
+      <div class="flex items-center">
+        {%- if heading_text != blank -%}
+          <h1 class="heading-1 collections-switcher__main-title">
+            {{ heading_text }}
+          </h1>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile-only Swiper для табів (3.5 слайда)
+    (function () {
+      var swiperInstance = null;
+      var selector = '.collectionsTabsSwiper-{{ section.id }}';
+      var MQ_DESKTOP = '(min-width: 768px)';
+      var RETRY_MS = 80;
+      var MAX_RETRIES = 100; // ~8с максимум
+  
+      function hasContainer() { return !!document.querySelector(selector); }
+      function isDesktop() { return window.matchMedia(MQ_DESKTOP).matches; }
+  
+      function enable() {
+        if (swiperInstance || !hasContainer() || typeof window.Swiper !== 'function') return;
+        swiperInstance = new Swiper(selector, {
+          slidesPerView: 3.5,       
+          spaceBetween: 12,
+          freeMode: true,
+          watchOverflow: true,
+          resistanceRatio: 0.85
+        });
+      }
+  
+      function disable() {
+        if (!swiperInstance) return;
+        try { swiperInstance.destroy(true, true); } catch (e) {}
+        swiperInstance = null;
+      }
+  
+      function toggle() {
+        if (isDesktop()) disable();
+        else enable();
+      }
+  
+      // Дочекаємось DOM
+      function ready(fn){ 
+        if (document.readyState !== 'loading') fn(); 
+        else document.addEventListener('DOMContentLoaded', fn, { once:true }); 
+      }
+  
+      // Ретрай, поки не підвантажився Swiper
+      function waitForSwiperAndToggle(tries) {
+        tries = (tries || 0);
+        if (typeof window.Swiper === 'function') { toggle(); return; }
+        if (tries >= MAX_RETRIES) return; // тихо здаємось
+        setTimeout(function(){ waitForSwiperAndToggle(tries + 1); }, RETRY_MS);
+      }
+  
+      // Старт
+      ready(function () { waitForSwiperAndToggle(0); });
+      window.addEventListener('load', function(){ waitForSwiperAndToggle(0); }, { once:true });
+  
+      // Реагуємо на ресайз та події редактора
+      window.addEventListener('resize', toggle, { passive: true });
+      document.addEventListener('shopify:section:load', function(e){
+        if (!e || !e.detail || !e.detail.sectionId) { toggle(); return; }
+        // якщо саме наша секція — перевмикнемо
+        if (('collections-switcher-{{ section.id }}').includes(e.detail.sectionId)) {
+          waitForSwiperAndToggle(0);
+        }
+      });
+      document.addEventListener('shopify:section:unload', function(e){
+        if (swiperInstance) disable();
+      });
+    })();
+  </script>
+  
+</section>
+
+{% schema %}
+{
+  "name": "Collections Switcher",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "link_item",
+      "name": "Link item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "display_text",
+          "label": "Display text (optional)",
+          "info": "Якщо порожньо — показує назву вибраної колекції."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Custom heading"
+        },
+        {
+          "type": "url",
+          "id": "manual_url",
+          "label": "Manual URL (optional)",
+          "info": "Якщо вказано — використовується цей URL замість URL колекції."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Or pick a collection (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Collections Switcher" }
+  ]
+}
+{% endschema %}
