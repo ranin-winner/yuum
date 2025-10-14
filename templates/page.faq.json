@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "about_us_e6xJLC": {
+      "type": "about-us",
+      "name": "About us",
+      "settings": {
+        "heading": "ABOUT US",
+        "text": "Lopaus Point uses thoughtfully selected ingredients. We use only whole, organic fruit to lightly sweeten our batters.",
+        "button_label": "Learn More",
+        "button_link": "",
+        "spacing": 16
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    }
+  },
+  "order": [
+    "about_us_e6xJLC",
+    "main"
+  ]
+}

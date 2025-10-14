@@ -9,12 +9,12 @@
  */
 {
   "current": {
-    "header_logo": "shopify://shop_images/AllIn_Logo-Secondary-TM.png",
-    "header_bg": "#b9e1ed",
+    "header_logo": "shopify://shop_images/Default-Dark-Grey.png",
+    "header_bg": "#ffffff",
     "show_promo": true,
     "show_promo_link": "shopify://products/trial-kit",
-    "promo_text": "<p>Try all our snacks for just $0.99 + FREE Shipping!</p>",
-    "header_menu_1": "test-menu",
+    "promo_text": "<p>Free  delivery over £50</p>",
+    "header_menu_1": "new-menu",
     "header_menu_2": "",
     "footer_menu_1": "footer-contant",
     "footer_menu_2": "footer-about",

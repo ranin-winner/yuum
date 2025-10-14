@@ -1,0 +1,39 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "be_all_in_yy78DB": {
+      "type": "be-all-in",
+      "name": "Be All In",
+      "settings": {
+        "color_scheme": "",
+        "title": "Be All In",
+        "subtitle": "<p>Join a Movement that</p><p><i>Makes a Difference</i></p>",
+        "copy": "<p>At All In, we believe that food has the power to connect us. From family dinners to community potlucks, food is a universal way to share joy and build bonds.</p><p>That's why we're committed to supporting local communities by giving back 2% of our sales to increase food access.</p>",
+        "button_text": "try them all for free",
+        "button_url": "/",
+        "button_text_1": "SUBscribe & Save",
+        "button_url_1": "/"
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    }
+  },
+  "order": [
+    "be_all_in_yy78DB",
+    "main"
+  ]
+}
