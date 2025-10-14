@@ -28,36 +28,43 @@
             {%- render 'breadcrumbs', padding_top: 0, padding_bottom: 0, separator: '|' -%}
         </div>
 
-        <nav class="collection-filters__colection-list flex  gap-[8px] flex-wrap">
+        <nav
+        class="collection-filters__colection-list swiper md:!overflow-visible"
+        x-ref="linksSwiper"
+      >
+        <div class="swiper-wrapper md:flex md:flex-wrap md:gap-[8px]">
           {%- for block in section.blocks -%}
             {%- assign label = block.settings.display_text | default: 'Link' -%}
             {%- assign url   = block.settings.manual_url | default: routes.root_url -%}
-
-            {%- comment -%} Нормалізуємо шлях без домену/параметрів/якорів {%- endcomment -%}
+      
+            {%- comment -%} нормалізуємо шлях без домену/параметрів/якоря {%- endcomment -%}
             {%- assign link_path = url
-            | remove: shop.url
-            | remove: shop.secure_url
-            | split: '?' | first
-            | split: '#' | first
+              | remove: shop.url
+              | remove: shop.secure_url
+              | split: '?' | first
+              | split: '#' | first
             -%}
             {%- assign link_path_slash = link_path | append: '/' -%}
-
+      
             {%- assign is_active = false -%}
             {%- if request.path == link_path or request.path == link_path_slash -%}
-                {%- assign is_active = true -%}
+              {%- assign is_active = true -%}
             {%- endif -%}
-
-            <a
-            href="{{ url }}"
-            class="inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0]  hover:bg-white hover:text-black transition {% if is_active %}bg-white text-[#474747]{% else %}bg-[#E7E7E7] text-[#474747]{% endif %}"
-            x-on:click="persistBeforeNavigate($event)"
-            {{ block.shopify_attributes }}
-            >
+      
+            <div class="swiper-slide !w-auto md:!w-auto">
+              <a
+                href="{{ url }}"
+                class="inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0] hover:bg-white hover:text-black transition {% if is_active %}bg-white text-[#474747]{% else %}bg-[#E7E7E7] text-[#474747]{% endif %}"
+                x-on:click="persistBeforeNavigate($event)"
+                {{ block.shopify_attributes }}
+              >
                 {{ label }}
-            </a>
-
+              </a>
+            </div>
           {%- endfor -%}
-        </nav>
+        </div>
+      </nav>
+      
 
         {% if section.settings.show_hint %}
           <p class="text-xs text-black/50 mt-2">Порада: ліві пункти — це звичайні лінки. Обрані теги збережуться між сторінками, доки не натиснути "Clear all".</p>
@@ -109,9 +116,14 @@
         storageKey: opts.storageKey,
         pageKey: opts.pageKey,
         rawTags: opts.rawTags,
+  
         allTags: [],
         visibleTags: [],
         selected: [],
+  
+        // mobile swiper (<600px) for .collection-filters__colection-list
+        linksSwiper: null,
+        linksSwiperMM: null,
   
         init() {
           document.documentElement.classList.remove('hidden');
@@ -123,9 +135,35 @@
           const fromLs  = this.readFromStorage();
           this.selected = fromUrl.length ? fromUrl : fromLs;
   
+          // init/destroy swiper depending on viewport
+          this.linksSwiperMM = window.matchMedia('(max-width: 600px)');
+          const applyMM = (e) => (e.matches ? this.enableLinksSwiper() : this.disableLinksSwiper());
+          applyMM(this.linksSwiperMM);
+          if (this.linksSwiperMM.addEventListener) {
+            this.linksSwiperMM.addEventListener('change', applyMM);
+          } else {
+            this.linksSwiperMM.addListener(applyMM); // older Safari
+          }
+  
           this.$nextTick(() => {
             this.apply();
           });
+        },
+  
+        enableLinksSwiper() {
+          if (this.linksSwiper || !this.$refs.linksSwiper) return;
+          // Swiper is expected to be globally available
+          this.linksSwiper = new Swiper(this.$refs.linksSwiper, {
+            slidesPerView: 'auto',
+            spaceBetween: 8,
+            freeMode: true,
+            watchOverflow: true,
+          });
+        },
+        disableLinksSwiper() {
+          if (!this.linksSwiper) return;
+          this.linksSwiper.destroy(true, true);
+          this.linksSwiper = null;
         },
   
         // utils
@@ -192,25 +230,19 @@
   
         // helpers for finding cards & wrappers reliably
         getCardsInSection(sectionEl) {
-          // шукаємо всі картки в межах секції (без прив'язки до конкретного .grid)
           return sectionEl.querySelectorAll('.product-card[data-tags]');
         },
         getWrapperForCard(cardEl) {
-          // типово: .grid > DIV (wrapper) > article.product-card
           return cardEl.closest('.grid > *') || cardEl.parentElement;
         },
   
         // core
         apply() {
           const selected = this.selected.map(t => t.toLowerCase());
-  
           const sections = document.querySelectorAll('.collection-grid');
-        //   console.log('Found sections:', sections.length);
-        //   console.log('Selected tags:', selected);
   
           sections.forEach(sectionEl => {
             const cards = this.getCardsInSection(sectionEl);
-            // console.log(sectionEl.id || 'section', 'Found cards in section:', cards.length);
   
             cards.forEach(card => {
               const wrapper = this.getWrapperForCard(card);
@@ -222,7 +254,6 @@
               const tagsAttr = (card.dataset.tags || card.getAttribute('data-tags') || '').toLowerCase();
               const productTags = tagsAttr.split(/[\s,;]+/g).filter(Boolean);
   
-              // AND-логіка: всі вибрані теги мають бути присутні
               const match = !selected.length || selected.every(t => productTags.includes(t));
   
               if (match) {
@@ -239,6 +270,7 @@
       }));
     });
   </script>
+  
   
   
 </section>

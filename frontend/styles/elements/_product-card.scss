@@ -616,3 +616,40 @@
         min-height: 474px;
     }
   }
+
+.template-collection {
+    @media (max-width: 768px) {
+
+        .product-card[data-hover=simple] {
+            .product-card__cta {
+                padding: 12px 0px 0px;
+            }
+
+            .product-card__cta {
+                left: 12px;
+                right: 12px;
+            }
+        }
+        
+        .product-card__cta {
+            padding: 10px 4px 16px;
+        }
+
+        .product-card__btn {
+            font-weight: normal;
+            padding: 8px 10px;
+        }
+
+        .product-card__content {
+            padding: 0 8px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-card__media {
+            margin-bottom: 12px;
+        }
+    }
+}
