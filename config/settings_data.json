@@ -9,12 +9,12 @@
  */
 {
   "current": {
-    "header_logo": "shopify://shop_images/AllIn_Logo-Secondary-TM.png",
-    "header_bg": "#b9e1ed",
+    "header_logo": "shopify://shop_images/Default-Dark-Grey.png",
+    "header_bg": "rgba(0,0,0,0)",
     "show_promo": true,
-    "show_promo_link": "shopify://products/trial-kit",
-    "promo_text": "<p>Try all our snacks for just $0.99 + FREE Shipping!</p>",
-    "header_menu_1": "test-menu",
+    "show_promo_link": "",
+    "promo_text": "<p>Free  delivery over £50</p>",
+    "header_menu_1": "new-menu",
     "header_menu_2": "",
     "footer_menu_1": "footer-contant",
     "footer_menu_2": "footer-about",
@@ -29,12 +29,8 @@
     "social_youtube_icon": "shopify://shop_images/Frame_3.svg",
     "footer_menu_3": "",
     "copyright_text": "© 2024 All In Food",
-    "cart_products": [
-      "madagascar-vanilla-honey-almond",
-      "chocolate-chip",
-      "peruvian-dark-chocolate-peanut-butter",
-      "smores"
-    ],
+    "cart_type": "drawer",
+    "cart_products": [],
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {

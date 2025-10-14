@@ -3,27 +3,30 @@
   x-data="megamenu"
   @resize.debounce.window="handleResize"
   @click.outside="closeMegamenu"
-  @keydown.escape.window="closeMegamenu">
+  @keydown.escape.window="closeMegamenu"
+  @mouseenter="onEnterRoot"
+  @mouseleave="onLeaveRoot"
+>
   <button
     type="button"
     @click="toggleMegamenu"
-    class="text-color_1 hover:text-black-content transition-colors duration-300 relative pr-8">
-    <span class="link-underline font-jakarta text-[1.6rem] leading-[20px] font-extrabold capitalize">
+  @mouseenter="onEnterButton"
+  @focusin="onEnterButton"
+  class="text-color_1 hover:text-black-content transition-colors duration-300 relative pr-8"
+  :aria-expanded="isOpened.toString()"
+  aria-haspopup="true"
+  >
+  <span class="link-underline font-jakarta text-[1.6rem] leading-[20px] font-extrabold capitalize">
       {{ link.title }}
     </span>
-    <svg
-      class="absolute top-1/2 -translate-y-[0.4em] right-0 w-7 h-7 transform transition-transform duration-200"
-      :class="{ 'rotate-180': isOpened }"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M19 9l-7 7-7-7"
-      />
-    </svg>
+  <svg
+    class="absolute top-1/2 -translate-y-[0.4em] right-0 w-7 h-7 transform transition-transform duration-200"
+    :class="{ 'rotate-180': isOpened }"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+  </svg>
   </button>
 
   <div
@@ -35,24 +38,115 @@
     x-transition:enter-end="opacity-100"
     x-transition:leave="transition ease-in duration-150"
     x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0">
-    <div class="container mx-auto px-4 py-12">
-      <div class="grid grid-cols-4 gap-8">
-        {% if link.links.size > 0 %}
-          {% render 'megamenu-category', categoryItems: link.links, title: link.title %}
-        {% endif %}
-        {% comment %} how to determine the greater column size between category and featured blocks {% endcomment %}
-        {% assign total_columns = settings.featured_blocks_column_size | plus: settings.category_column_size %}
-        {% assign remaining_columns = 4 | minus: total_columns %}
-        {% if remaining_columns > 0 %}
-          <div class="col-span-{{remaining_columns}}"></div>
-        {% endif %}
-        {% if settings.featured_block_1_image != blank %}
-          {% render 'megamenu-featured-block', title: settings.featured_blocks_title %}
-        {% endif %}
+    x-transition:leave-end="opacity-0"
+    @mouseenter="onEnterPanel"
+  @mouseleave="onLeavePanel"
+  >
+  <div class="container mx-auto px-4 py-12">
+    {%- comment -%}
+  Map the N-th dropdown to slot N in global settings.
+{%- endcomment -%}
+    {%- assign idx         = dropdown_index | default: 1 -%}
+    {%- assign slot_enable = settings['mm' | append: idx | append: '_enable'] -%}
+
+    {%- assign prod_handle = settings['mm' | append: idx | append: '_product'] -%}
+    {%- assign prod_head   = settings['mm' | append: idx | append: '_product_heading'] -%}
+
+    {%- assign coll_list   = settings['mm' | append: idx | append: '_collections'] -%}
+    {%- assign cats_head   = settings['mm' | append: idx | append: '_categories_heading'] -%}
+    {%- assign show_imgs   = settings['mm' | append: idx | append: '_show_category_images'] -%}
+
+    {%- assign has_left    = link.links.size > 0 -%}
+    {%- assign has_produ   = prod_handle != blank -%}
+    {%- assign has_colls   = coll_list and coll_list.size > 0 -%}
+    {%- assign slot_on     = slot_enable == true -%}
+
+    <div class="grid grid-cols-4 gap-8">
+      {%- comment -%} 1) ЛІВА КОЛОНКА — завжди меню підпунктів (якщо воно є) {%- endcomment -%}
+      <div class="col-span-1">
+        {%- if has_left -%}
+          <div class="text-xs uppercase tracking-wide mb-4 opacity-70">{{ link.title }}</div>
+          <ul class="space-y-3">
+            {%- for sub in link.links -%}
+              <li>
+                <a href="{{ sub.url }}" class="block no-underline hover:underline text-sm">
+                  {{ sub.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} 2) СЕРЕДНІ КОЛОНКИ — продукт (показуємо тільки коли слот увімкнено і є продукт) {%- endcomment -%}
+      <div class="col-span-2">
+        {%- if slot_on and has_produ -%}
+          {%- assign p = all_products[prod_handle] -%}
+          {%- if p -%}
+            {%- if prod_head != blank -%}
+              <div class="text-xs uppercase tracking-wide mb-4 opacity-70">{{ prod_head }}</div>
+            {%- endif -%}
+            <a href="{{ p.url }}" class="block no-underline group/card">
+              <div class="aspect-[4/5] bg-gray-50 rounded-2xl overflow-hidden mb-3 border border-gray-100">
+                {%- comment -%} Безпечно віддаємо картинку продукту {%- endcomment -%}
+                {%- if p.media and p.media.size > 0 -%}
+                  {%- assign m = p.media | first -%}
+                  <img
+                    src="{{ m | image_url: width: 900 }}"
+                    alt="{{ p.title | escape }}"
+                    class="w-full h-full object-cover group-hover/card:scale-[1.03] transition-transform duration-300"
+                    loading="lazy">
+                {%- elsif p.featured_image -%}
+                  <img
+                    src="{{ p.featured_image | img_url: '900x' }}"
+                    alt="{{ p.title | escape }}"
+                    class="w-full h-full object-cover group-hover/card:scale-[1.03] transition-transform duration-300"
+                    loading="lazy">
+                {%- endif -%}
+              </div>
+
+              <div class="text-base font-medium">{{ p.title }}</div>
+              {%- if p.compare_at_price and p.compare_at_price > p.price -%}
+                <div class="text-sm">
+                  <span class="opacity-60 line-through mr-2">{{ p.compare_at_price | money }}</span>
+                  <span class="font-semibold">{{ p.price | money }}</span>
+                </div>
+              {%- else -%}
+                <div class="text-sm opacity-80">{{ p.price | money }}</div>
+              {%- endif -%}
+            </a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} 3) ПРАВА КОЛОНКА — колекції (показуємо тільки коли слот увімкнено і є вибір) {%- endcomment -%}
+      <div class="col-span-1">
+        {%- if slot_on and has_colls -%}
+          {%- if cats_head != blank -%}
+            <div class="text-xs uppercase tracking-wide mb-4 opacity-70">{{ cats_head }}</div>
+          {%- endif -%}
+          <div class="space-y-3">
+            {%- for c in coll_list -%}
+              <a href="{{ c.url }}" class="group/item flex items-center gap-3 no-underline">
+                {%- if show_imgs and c.image -%}
+                  <div class="w-12 h-12 overflow-hidden rounded-xl border border-gray-100">
+                    <img
+                      src="{{ c.image | image_url: width: 160, height: 160, crop: 'center' }}"
+                      alt="{{ c.title | escape }}"
+                      class="w-full h-full object-cover"
+                      loading="lazy">
+                  </div>
+                {%- endif -%}
+                <span class="text-sm font-medium group-hover/item:underline">{{ c.title }}</span>
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
       </div>
     </div>
+
   </div>
+</div>
 </div>
 
 <script>
@@ -60,39 +154,58 @@
     Alpine.data('megamenu', () => ({
       isOpened: false,
       isLoading: false,
+      hoverTimer: null,
+      isDesktop: window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1024,
 
       handleResize() {
-        if (window.innerWidth < 768) {
-          this.closeMegamenu();
-        }
+        this.isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1024;
+        if (!this.isDesktop) this.closeMegamenu();
       },
 
+      // CLICK (мобайл / страховка)
       async toggleMegamenu() {
+        if (this.isDesktop) return; // на десктопі керуємо ховером
         try {
           this.isLoading = true;
           this.isOpened = !this.isOpened;
-
-          if (this.isOpened) {
-            this.openMegamenu();
-          } else {
-            this.closeMegamenu();
-          }
-        } catch (error) {
-          console.error('Error toggling megamenu:', error);
-        } finally {
-          this.isLoading = false;
-        }
+          if (this.isOpened) this.openMegamenu(); else this.closeMegamenu();
+        } catch (e) { console.error('Error toggling megamenu:', e); }
+        finally { this.isLoading = false; }
       },
+
+      // HOVER/FOCUS — десктоп
+      onEnterRoot(){ if (this.isDesktop) this.clearHoverTimer(); }
+      ,
+      onLeaveRoot(){ if (this.isDesktop) this.startHoverCloseTimer(); }
+      ,
+      onEnterButton(){ if (this.isDesktop) { this.clearHoverTimer(); this.openMegamenu(); } }
+      ,
+      onEnterPanel(){ if (this.isDesktop) this.clearHoverTimer(); }
+      ,
+      onLeavePanel(){ if (this.isDesktop) this.startHoverCloseTimer(); }
+      ,
+
+      startHoverCloseTimer() {
+        this.clearHoverTimer();
+        this.hoverTimer = setTimeout(() => this.closeMegamenu(), 120); // невелика затримка
+      },
+      clearHoverTimer() {
+        if (this.hoverTimer) { clearTimeout(this.hoverTimer); this.hoverTimer = null; }
+      },
+
       openMegamenu() {
         this.isOpened = true;
-        document.body.classList.add('overflow-hidden');
+        // НЕ блокуємо скрол під час hover на десктопі:
+        if (!this.isDesktop) document.body.classList.add('overflow-hidden');
       },
       closeMegamenu() {
         this.isOpened = false;
         document.body.classList.remove('overflow-hidden');
-        setTimeout(() => {
-          this.activeSubmenu = null;
-        }, 200);
+        this.clearHoverTimer();
+        // якщо використовуєш підменю
+        if (this.activeSubmenu !== undefined) {
+          setTimeout(() => { this.activeSubmenu = null; }, 200);
+        }
       },
     }));
   });

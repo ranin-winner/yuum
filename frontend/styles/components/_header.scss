@@ -204,6 +204,10 @@
     @include cfg.media(max-t) {
       gap: 20px;
     }
+
+    [x-show="isOpened"] {
+      z-index: 9;
+    }
   }
 
   &__list-item {

@@ -18,19 +18,21 @@
   <div class="b-header__inner container m-responsive md:py-8 mx-auto m-{{settings.header_layout}} {% if shop.customer_accounts_enabled %} header--has-account{% endif %}">
     {% render 'menu-mobile', menuItems: settings.header_menu_1.links %}
     <nav class="b-header__nav-left">
+      {% assign dropdown_counter = 0 %}
       <ul class="b-header__list flex">
         {% for link in settings.header_menu_1.links %}
+          {% assign is_active = (link.url == request.path or link.url == request.fullpath) %}
           {% if link.links.size > 0 and settings.is_enabled_megamenu %}
-            {% render 'megamenu', link: link %}
+            {% assign dropdown_counter = dropdown_counter | plus: 1 %}
+            {% render 'megamenu', link: link, dropdown_index: dropdown_counter, is_active: is_active %}
           {% else %}
             <li class="menu-item b-header__list-item font-Aksen">
               <a
                 href="{{ link.url }}"
                 title="{{ link.title }}"
-                class="
-                  b-header__list-link
-                  {% if link.url == request.path or link.url == request.fullpath %}m-active{% endif %}
-                ">
+                class="b-header__list-link {% if is_active %}m-active{% endif %}"
+                {% if is_active %}aria-current="page"{% endif %}
+              >
                 {{ link.title }}
               </a>
             </li>

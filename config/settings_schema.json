@@ -65,7 +65,40 @@
         "type": "link_list",
         "id": "header_menu_2",
         "label": "Header Menu 2"
-      }
+      },
+      { "type": "header", "content": "Mega slots (collections only, by dropdown order)" },
+
+      { "type": "header", "content": "Slot #1" },
+      { "type": "checkbox", "id": "mm1_enable", "label": "Enable slot #1", "default": false },
+      { "type": "text", "id": "mm1_categories_heading", "label": "Categories small heading", "default": "Categories" },
+      { "type": "collection_list", "id": "mm1_collections", "label": "Collections (select multiple)" },
+      { "type": "checkbox", "id": "mm1_show_collection_images", "label": "Show collection images", "default": true },
+      { "type": "text", "id": "mm1_product_heading", "label": "Product small heading", "default": "Featured" },
+      { "type": "product", "id": "mm1_product", "label": "Product (optional)" },
+
+      { "type": "header", "content": "Slot #2" },
+      { "type": "checkbox", "id": "mm2_enable", "label": "Enable slot #2", "default": false },
+      { "type": "text", "id": "mm2_categories_heading", "label": "Categories small heading", "default": "Categories" },
+      { "type": "collection_list", "id": "mm2_collections", "label": "Collections (select multiple)" },
+      { "type": "checkbox", "id": "mm2_show_collection_images", "label": "Show collection images", "default": true },
+      { "type": "text", "id": "mm2_product_heading", "label": "Product small heading", "default": "Featured" },
+      { "type": "product", "id": "mm2_product", "label": "Product (optional)" },
+
+      { "type": "header", "content": "Slot #3" },
+      { "type": "checkbox", "id": "mm3_enable", "label": "Enable slot #3", "default": false },
+      { "type": "text", "id": "mm3_categories_heading", "label": "Categories small heading", "default": "Categories" },
+      { "type": "collection_list", "id": "mm3_collections", "label": "Collections (select multiple)" },
+      { "type": "checkbox", "id": "mm3_show_collection_images", "label": "Show collection images", "default": true },
+      { "type": "text", "id": "mm3_product_heading", "label": "Product small heading", "default": "Featured" },
+      { "type": "product", "id": "mm3_product", "label": "Product (optional)" },
+
+      { "type": "header", "content": "Slot #4" },
+      { "type": "checkbox", "id": "mm4_enable", "label": "Enable slot #4", "default": false },
+      { "type": "text", "id": "mm4_categories_heading", "label": "Categories small heading", "default": "Categories" },
+      { "type": "collection_list", "id": "mm4_collections", "label": "Collections (select multiple)" },
+      { "type": "checkbox", "id": "mm4_show_collection_images", "label": "Show collection images", "default": true },
+      { "type": "text", "id": "mm4_product_heading", "label": "Product small heading", "default": "Featured" },
+      { "type": "product", "id": "mm4_product", "label": "Product (optional)" }
     ]
   },
   {
