@@ -18,14 +18,17 @@
   x-init="init()"
 >
   <div class="container">
-    <div class="grid grid-cols-1 md:grid-cols-[260px_minmax(0,1fr)] gap-6 md:gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2  gap-[20px] md:gap-10">
       {%- comment -%} LEFT: manual link list {%- endcomment -%}
-      <aside class="space-y-3">
-        {% if section.settings.left_title != blank %}
+      <aside>
+        {% comment %} {% if section.settings.left_title != blank %}
           <h3 class="text-lg md:text-xl font-medium">{{ section.settings.left_title }}</h3>
-        {% endif %}
+        {% endif %} {% endcomment %}
+        <div class="md:pb-[24px] pb-[16px]">
+            {%- render 'breadcrumbs', padding_top: 0, padding_bottom: 0, separator: '|' -%}
+        </div>
 
-        <nav class="flex md:block gap-2 md:gap-3 flex-wrap">
+        <nav class="collection-filters__colection-list flex  gap-[8px] flex-wrap">
           {%- for block in section.blocks -%}
             {%- assign label = block.settings.display_text | default: 'Link' -%}
             {%- assign url   = block.settings.manual_url | default: routes.root_url -%}
@@ -46,7 +49,7 @@
 
             <a
             href="{{ url }}"
-            class="inline-flex items-center rounded-full px-4 py-2 text-sm border border-black/10 hover:border-black/40 transition {% if is_active %}bg-black text-white{% else %}bg-white text-black{% endif %}"
+            class="inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0]  hover:bg-white hover:text-black transition {% if is_active %}bg-white text-[#474747]{% else %}bg-[#E7E7E7] text-[#474747]{% endif %}"
             x-on:click="persistBeforeNavigate($event)"
             {{ block.shopify_attributes }}
             >
@@ -57,29 +60,25 @@
         </nav>
 
         {% if section.settings.show_hint %}
-          <p class="text-xs text-black/50 mt-2">Порада: ліві пункти — це звичайні лінки. Обрані теги збережуться між сторінками, доки не натиснути “Clear all”.</p>
+          <p class="text-xs text-black/50 mt-2">Порада: ліві пункти — це звичайні лінки. Обрані теги збережуться між сторінками, доки не натиснути "Clear all".</p>
         {% endif %}
       </aside>
 
       {%- comment -%} RIGHT: tag chips + clear {%- endcomment -%}
-      <div>
-        {% if section.settings.right_title != blank %}
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-lg md:text-xl font-medium">{{ section.settings.right_title }}</h3>
-            <template x-if="selected.length">
-              <button type="button" class="text-sm underline" @click="clearAll()">Clear all</button>
-            </template>
-          </div>
-        {% endif %}
+      <div class="text-start md:text-end">
+        <div class="pb-[16px] md:pb-[24px]">
+            <span class="breadcrumb-link breadcrumb-link--tag">Tags</span> 
+        </div>
+           
 
-        <div class="flex flex-wrap gap-2" aria-label="Tags">
+        <div class="flex flex-wrap gap-2 md:justify-end" aria-label="Tags">
           <!-- chips -->
           <template x-for="tag in visibleTags" :key="tag">
             <button
               type="button"
-              class="chip inline-flex items-center gap-2 rounded-full border border-black/15 px-3 py-1.5 text-sm transition
-                     hover:border-black/40"
-              :class="isSelected(tag) ? 'bg-black text-white' : 'bg-white text-black'"
+              class="chip inline-flex items-center gap-2 rounded-full border border-[#ADAEB0] transition
+                      text-[13px] px-[10px] py-[6px] md:px-[12px] md:py-[8px] hover:bg-white hover:text-[#474747]"
+              :class="isSelected(tag) ? 'bg-white text-[#474747]' : 'bg-[#E7E7E7] text-[#474747]'"
               @click="toggle(tag)"
               x-text="tag"
             ></button>
@@ -89,7 +88,7 @@
           <template x-if="selected.length">
             <button
               type="button"
-              class="chip inline-flex items-center rounded-full border border-black/15 px-3 py-1.5 text-sm bg-white hover:border-black/40"
+              class="chip inline-flex items-center rounded-full border border-black/15 px-3 py-1.5 text-[13px] text-[#474747] bg-white "
               @click="clearAll()"
             >
               Clear all
@@ -115,113 +114,132 @@
         selected: [],
   
         init() {
-          this.allTags = this.parseTags(this.rawTags)
-          this.visibleTags = this.allTags
+          document.documentElement.classList.remove('hidden');
   
-          const fromUrl = this.readTagsFromUrl()
-          const fromLs  = this.readFromStorage()
-          this.selected = fromUrl.length ? fromUrl : fromLs
+          this.allTags = this.parseTags(this.rawTags);
+          this.visibleTags = this.allTags;
   
-          this.apply()
+          const fromUrl = this.readTagsFromUrl();
+          const fromLs  = this.readFromStorage();
+          this.selected = fromUrl.length ? fromUrl : fromLs;
+  
+          this.$nextTick(() => {
+            this.apply();
+          });
         },
   
-        // ---- utils
+        // utils
         parseTags(str) {
-          if (!str) return []
+          if (!str) return [];
           return str
             .split(/[\n,;]+/g)
             .map(s => s.trim().toLowerCase())
             .filter(Boolean)
-            .filter((v, i, a) => a.indexOf(v) === i)
+            .filter((v, i, a) => a.indexOf(v) === i);
         },
-        isSelected(tag) { return this.selected.includes(tag) },
+        isSelected(tag) {
+          return this.selected.includes(tag);
+        },
   
-        // ---- selection actions
+        // selection
         toggle(tag) {
-          const i = this.selected.indexOf(tag)
-          if (i === -1) this.selected.push(tag); else this.selected.splice(i, 1)
-          this.apply()
+          const i = this.selected.indexOf(tag);
+          if (i === -1) this.selected.push(tag);
+          else this.selected.splice(i, 1);
+          this.apply();
         },
         clearAll() {
-          this.selected = []
-          this.apply()
+          this.selected = [];
+          this.apply();
         },
   
-        // ---- persistence
+        // persistence
         persistBeforeNavigate(e) {
-          this.writeToStorage()
-          const url = new URL(e.currentTarget.href, window.location.origin)
-          if (this.selected.length) url.searchParams.set('tags', this.selected.join(','))
-          else url.searchParams.delete('tags')
-          e.currentTarget.href = url.toString()
+          this.writeToStorage();
+          const url = new URL(e.currentTarget.href, window.location.origin);
+          if (this.selected.length) url.searchParams.set('tags', this.selected.join(','));
+          else url.searchParams.delete('tags');
+          e.currentTarget.href = url.toString();
         },
         readFromStorage() {
           try {
-            const raw = localStorage.getItem(this.storageKey)
-            if (!raw) return []
-            const all = JSON.parse(raw)
-            return Array.isArray(all?.global) ? all.global : []
-          } catch(_) { return [] }
+            const raw = localStorage.getItem(this.storageKey);
+            if (!raw) return [];
+            const all = JSON.parse(raw);
+            return Array.isArray(all?.global) ? all.global : [];
+          } catch (_) {
+            return [];
+          }
         },
         writeToStorage() {
-          try { localStorage.setItem(this.storageKey, JSON.stringify({ global: this.selected })) } catch(_){}
+          try {
+            localStorage.setItem(this.storageKey, JSON.stringify({ global: this.selected }));
+          } catch (_) {}
         },
         readTagsFromUrl() {
-          const sp = new URLSearchParams(window.location.search)
-          const q = sp.get('tags')
-          if (!q) return []
-          return q.split(',').map(s => s.trim().toLowerCase()).filter(Boolean)
+          const sp = new URLSearchParams(window.location.search);
+          const q = sp.get('tags');
+          if (!q) return [];
+          return q.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
         },
         updateQueryParam() {
-          const sp = new URLSearchParams(window.location.search)
-          if (this.selected.length) sp.set('tags', this.selected.join(','))
-          else sp.delete('tags')
-          const url = `${window.location.pathname}?${sp.toString()}${window.location.hash || ''}`
-          history.replaceState({}, '', url)
+          const sp = new URLSearchParams(window.location.search);
+          if (this.selected.length) sp.set('tags', this.selected.join(','));
+          else sp.delete('tags');
+          const newUrl = `${window.location.pathname}?${sp.toString()}${window.location.hash || ''}`.replace(/\?$/, '');
+          history.replaceState({}, '', newUrl);
         },
   
-        // ---- core filtering (scoped by .collection-grid)
+        // helpers for finding cards & wrappers reliably
+        getCardsInSection(sectionEl) {
+          // шукаємо всі картки в межах секції (без прив'язки до конкретного .grid)
+          return sectionEl.querySelectorAll('.product-card[data-tags]');
+        },
+        getWrapperForCard(cardEl) {
+          // типово: .grid > DIV (wrapper) > article.product-card
+          return cardEl.closest('.grid > *') || cardEl.parentElement;
+        },
+  
+        // core
         apply() {
-          const selected = this.selected.map(t => t.toLowerCase())
-          const grids = document.querySelectorAll('.collection-grid')
+          const selected = this.selected.map(t => t.toLowerCase());
   
-          // якщо тегів немає — показуємо все у кожній грід-секції
-          if (!selected.length) {
-            grids.forEach(grid => {
-              grid.querySelectorAll('.product-card[data-tags]').forEach(card => {
-                card.classList.remove('hidden')
-              })
-            })
-            this.writeToStorage()
-            this.updateQueryParam()
-            return
-          }
+          const sections = document.querySelectorAll('.collection-grid');
+        //   console.log('Found sections:', sections.length);
+        //   console.log('Selected tags:', selected);
   
-          grids.forEach(grid => {
-            const cards = grid.querySelectorAll('.product-card[data-tags]')
+          sections.forEach(sectionEl => {
+            const cards = this.getCardsInSection(sectionEl);
+            // console.log(sectionEl.id || 'section', 'Found cards in section:', cards.length);
+  
             cards.forEach(card => {
-              // читаємо з dataset (швидше) з fallback на getAttribute
-              const tagsAttr = (card.dataset.tags || card.getAttribute('data-tags') || '').toLowerCase()
-              // нормалізуємо: пробіли/коми/крапки з комою
-              const productTags = tagsAttr.split(/[\s,;]+/g).filter(Boolean)
+              const wrapper = this.getWrapperForCard(card);
+              if (!wrapper) {
+                console.warn('Wrapper not found for card:', card);
+                return;
+              }
   
-              // AND-режим: усі вибрані теги мають бути в продукті
-              const match = selected.every(t => productTags.includes(t))
+              const tagsAttr = (card.dataset.tags || card.getAttribute('data-tags') || '').toLowerCase();
+              const productTags = tagsAttr.split(/[\s,;]+/g).filter(Boolean);
   
-              // ------ щоб перейти на OR, заміни попередній рядок на:
-              // const match = selected.some(t => productTags.includes(t))
+              // AND-логіка: всі вибрані теги мають бути присутні
+              const match = !selected.length || selected.every(t => productTags.includes(t));
   
-              if (match) card.classList.remove('hidden')
-              else card.classList.add('hidden')
-            })
-          })
+              if (match) {
+                wrapper.classList.remove('hidden');
+              } else {
+                wrapper.classList.add('hidden');
+              }
+            });
+          });
   
-          this.writeToStorage()
-          this.updateQueryParam()
+          this.writeToStorage();
+          this.updateQueryParam();
         },
-      }))
-    })
+      }));
+    });
   </script>
+  
   
 </section>
 
@@ -229,8 +247,6 @@
 {
   "name": "Collection Filters",
   "settings": [
-    { "type": "text", "id": "left_title", "label": "Left title", "default": "Collections" },
-    { "type": "text", "id": "right_title", "label": "Right title", "default": "Tags" },
     {
       "type": "textarea",
       "id": "tags_source",
@@ -239,8 +255,8 @@
       "default": "sweet, sour, bitter, salt, umami, chilled, frozen, vegetarian, gluten free, japan, brazil"
     },
     { "type": "checkbox", "id": "show_hint", "label": "Show note under links", "default": false },
-    { "type": "text", "id": "note", "label": "Small note under tags" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" }
+    { "type": "text", "id": "note", "label": "Small note under tags" }
+    // { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" }
   ],
   "blocks": [
     {
