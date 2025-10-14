@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "main": {
       "type": "main-product-bundle",
@@ -81,12 +81,7 @@
           "smores",
           "whole-grain-variety-pack"
         ],
-        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>",
-        "color_scheme": "scheme-951c1d93-12b5-4f78-b84c-2e55165ed91d",
-        "show_bottom_panel": true,
-        "bottom_text": "Not sure where to start?",
-        "button_text": "TRY THEM ALL",
-        "button_link": ""
+        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>"
       }
     },
     "be_all_in_xwgr8t": {

@@ -13,11 +13,11 @@
       "type": "c-hero-banner",
       "name": "Hero Banner",
       "settings": {
-        "title": "Welcome!",
-        "subtitle": "Get amazing discounts!",
+        "title": "Aesthetics in every detail",
+        "subtitle": "Dive into the world of Yuum with our most popular products",
         "baner_button": "Shop Now",
-        "baner_button_link": "",
-        "image_bg": "shopify://shop_images/Image_43a72e1d-85e5-401a-b931-70929ab1d4a3.png",
+        "baner_button_link": "shopify://collections",
+        "image_bg": "shopify://shop_images/Image_8bd6a1e1-8d75-495a-b8df-0ab0884fc8ed.png",
         "bg_color": "#ffffff",
         "bg_size": "cover",
         "image_alignment_x": "center",
@@ -25,191 +25,129 @@
         "text_position-x": "center",
         "text_position-y": "center",
         "text_alignment": "center",
-        "title_font_size": 60,
-        "title_font_size_mobile": 77,
-        "title_color": "#000000",
-        "subtitle_font_size": 20,
-        "subtitle_font_size_mobile": 16,
-        "text_color": "#000000",
+        "title_font_size": 100,
+        "title_font_size_mobile": 48,
+        "title_color": "#ffffff",
+        "subtitle_font_size": 18,
+        "subtitle_font_size_mobile": 14,
+        "text_color": "#ffffff",
         "padding_desktop": 40,
         "padding_mobile": 20,
-        "banner_text_width": "300",
-        "banner_height_desktop": "568",
-        "banner_height_mobile": "300"
+        "banner_text_width": "1200",
+        "banner_height_desktop": "800",
+        "banner_height_mobile": "400"
       }
     },
-    "c_hero_img_X3JPMY": {
-      "type": "c-hero-img",
-      "settings": {
-        "title": "",
-        "subtitle": "",
-        "baner_button": "",
-        "baner_button_link": "#",
-        "image_bg": "shopify://shop_images/Image-Mochi.png",
-        "bg_color": "#b9e1ed",
-        "title_font_size": 72,
-        "title_font_size_mobile": 54,
-        "title_color": "#48a4cb",
-        "subtitle_font_size": 24,
-        "subtitle_font_size_mobile": 18,
-        "text_color": "#1b4c62",
-        "padding_desktop": 20,
-        "padding_mobile": 12,
-        "banner_text_width": "",
-        "banner_height_desktop": "",
-        "banner_height_mobile": ""
-      }
-    },
-    "homepage_community_MARQgw": {
-      "type": "homepage-community",
-      "settings": {
-        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
-        "title": "we're [all in]for good food access",
-        "cta_title": "our INpact",
-        "cta_subtitle": "That’s not a typo. We’re All In for positive impact.",
-        "cta_button_text": "Learn more",
-        "cta_url": "shopify://blogs/partners",
-        "bottom_text": "Nominate our next partner!",
-        "bottom_button_link": "shopify://pages/contact",
-        "bottom_button_label": "Support good food access"
-      }
-    },
-    "product_custom_section_V938Vn": {
+    "product_custom_section_FMbR8E": {
       "type": "product-custom-section",
+      "name": "Products Section",
       "settings": {
         "products_list": [
-          "best-sellers-variety-pack",
-          "chocolate-chip",
-          "madagascar-vanilla-honey-almond",
-          "nut-seed-variety-pack",
-          "peruvian-dark-chocolate-peanut-butter",
-          "smores",
-          "whole-grain-variety-pack"
+          "lunar-festival-bundle",
+          "lite-bundle-mochi",
+          "japanese-temptations-mochi-bundle",
+          "first-experience-mochi-bundle",
+          "mochi-box",
+          "bestseller-flavours-mochi-bundle",
+          "all-flavours-discovery-mochi-bundle"
         ],
-        "title": "<p><em>ALL</em> good <br/><em>      IN</em>gredients</p>"
+        "simple_hover": true,
+        "title": "<p>Seasonal bestsellers</p>",
+        "subtitle": "<p>Dive into the world of Yuum with our most popular products</p>",
+        "section_text_1": "",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "",
+        "section_button_link": ""
       }
     },
-    "c_rotating_icon_strip_RDBxaK": {
-      "type": "c-rotating-icon-strip",
+    "build_your_bundle_GgVk8X": {
+      "type": "build-your-bundle",
+      "name": "Build Your Bundle",
+      "settings": {
+        "additional_classes": "bg-[#9B9B9D]",
+        "padding_y_mobile": 40,
+        "padding_y_desktop": 96,
+        "bg_color": "bg-[#9B9B9D]",
+        "bg_tint": "",
+        "bg_image_desktop": "shopify://shop_images/Frame_7938_97062921-49bc-4a9e-afc9-11edf4a1fec2.png",
+        "phone_image_alt": "Build your own bundle – preview",
+        "side_image_alt": "Product box",
+        "show_badge": true,
+        "badge_text": "New",
+        "bird_image": "shopify://shop_images/2.png",
+        "bird_alt": "Decorative bird",
+        "bird_width_mobile": 80,
+        "bird_width_desktop": 140,
+        "bird_offset_x_mobile": 14,
+        "bird_offset_y_mobile": -14,
+        "bird_offset_x_desktop": 28,
+        "bird_offset_y_desktop": -28,
+        "kicker": "",
+        "title": "Build your own bundle",
+        "text": "Create a completely individual itis.box set and combine products from all collections to your liking!",
+        "btn_label": "Build bundle",
+        "btn_link": ""
+      }
+    },
+    "product_custom_section_VKxaX9": {
+      "type": "product-custom-section",
+      "name": "Products Section",
+      "settings": {
+        "products_list": [
+          "all-flavours-discovery-mochi-bundle",
+          "bestseller-flavours-mochi-bundle",
+          "black-sesame-mochi",
+          "caramel-almond-mochi",
+          "chestnut-mochi",
+          "choco-banana-mochi",
+          "choco-mochi"
+        ],
+        "simple_hover": true,
+        "title": "<p>Pre-packed bundles</p>",
+        "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. </p>",
+        "section_text_1": "",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "Shop Now",
+        "section_button_link": ""
+      }
+    },
+    "1760450543b63ee4d1": {
+      "type": "apps",
       "blocks": {
-        "icon_GkYAAK": {
-          "type": "icon",
+        "instafeed_app_block_GxYyfp": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
           "settings": {
-            "icon_alt_text": "",
-            "text": ""
-          }
-        },
-        "icon_YXaRjY": {
-          "type": "icon",
-          "settings": {
-            "icon_alt_text": "",
-            "text": ""
-          }
-        },
-        "icon_93GrMj": {
-          "type": "icon",
-          "settings": {
-            "icon_alt_text": "",
-            "text": ""
-          }
-        },
-        "icon_GNDK6G": {
-          "type": "icon",
-          "settings": {
-            "icon_alt_text": "",
-            "text": ""
-          }
-        },
-        "icon_DzF4zP": {
-          "type": "icon",
-          "settings": {
-            "icon_alt_text": "",
-            "text": ""
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
           }
         }
       },
       "block_order": [
-        "icon_GkYAAK",
-        "icon_YXaRjY",
-        "icon_93GrMj",
-        "icon_GNDK6G",
-        "icon_DzF4zP"
+        "instafeed_app_block_GxYyfp"
       ],
-      "settings": {
-        "text_section": "previously featured on",
-        "number_repetitions": 2,
-        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
-        "width_item": 200
-      }
-    },
-    "reviews_section_8V6TLA": {
-      "type": "reviews-section",
-      "blocks": {
-        "review_FGMPk9": {
-          "type": "review",
-          "settings": {
-            "review_text": "\"These bars are seriously craveable, and I love that they’re organic! The Madagascar Vanilla is my favorite – it’s just the right amount of sweet without being too sugary.\"",
-            "reviewer_name": "Tina H."
-          }
-        },
-        "review_rbXxHH": {
-          "type": "review",
-          "settings": {
-            "review_text": "\"I can always count on these bars to keep me fueled during a busy day. They’re packed with flavor, made with organic ingredients, and I love knowing they’re a healthier option.\"",
-            "reviewer_name": "Molly F."
-          }
-        },
-        "review_JBCUGV": {
-          "type": "review",
-          "settings": {
-            "review_text": "\"As someone with nut allergies, it’s hard to find snacks I can trust. I was so excited to find these nut-free bars that taste amazing! My kids love them too!\"",
-            "reviewer_name": "James T."
-          }
-        }
-      },
-      "block_order": [
-        "review_FGMPk9",
-        "review_rbXxHH",
-        "review_JBCUGV"
-      ],
-      "settings": {
-        "button_text": "TRY NOW",
-        "button_link": "#",
-        "color_scheme": "scheme-1"
-      }
-    },
-    "be_all_in_zydCgB": {
-      "type": "be-all-in",
-      "settings": {
-        "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
-        "title": "Subscribe & be",
-        "subtitle": "<p>ALL IN</p>",
-        "copy": "<p><strong>Get 10% off and free shipping on every order<br/></strong><br/><strong>Give Back</strong><br/>You’re getting a lot more than a delicious bar. Every purchase supports an organization working to increase good, nutritious food access in our backyard and yours.<br/><br/><strong>Total Flexibility </strong><br/>Edit your subscription anytime. Add, swap, skip or cancel with no commitment.</p>",
-        "button_text": "",
-        "button_url": "shopify://products/trial-kit",
-        "button_text_1": "Subscribe & Save",
-        "button_url_1": "shopify://products/trial-kit"
-      }
-    },
-    "footer_image_carousel_g98qVQ": {
-      "type": "footer-image-carousel",
-      "settings": {
-        "title": "coming to a store near you",
-        "footer_title": "",
-        "background_color": "#e55454",
-        "title_background_color": "#ffffff",
-        "text_color": "#e55454"
-      }
+      "settings": {}
     }
   },
   "order": [
     "c_hero_banner_bhLXqh",
-    "c_hero_img_X3JPMY",
-    "homepage_community_MARQgw",
-    "product_custom_section_V938Vn",
-    "c_rotating_icon_strip_RDBxaK",
-    "reviews_section_8V6TLA",
-    "be_all_in_zydCgB",
-    "footer_image_carousel_g98qVQ"
+    "product_custom_section_FMbR8E",
+    "build_your_bundle_GgVk8X",
+    "product_custom_section_VKxaX9",
+    "1760450543b63ee4d1"
   ]
 }
