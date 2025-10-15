@@ -1,0 +1,105 @@
+{%- comment -%}
+  Snippet: breadcrumbs
+  Params (optional):
+    padding_top: Number (px)
+    padding_bottom: Number (px)
+    separator: String (default: "|")
+{%- endcomment -%}
+
+{%- assign _pad_top = padding_top | default: 16 -%}
+{%- assign _pad_bot = padding_bottom | default: 16 -%}
+{%- assign _sep = separator | default: '|' -%}
+
+<section class="breadcrumbs-section breadcrumbs-section--snippet" style="padding-top: {{ _pad_top }}px; padding-bottom: {{ _pad_bot }}px;">
+  {% comment %} <div class="container mx-auto"> {% endcomment %}
+    <nav aria-label="Breadcrumb" class="breadcrumbs-nav">
+      <ol class="breadcrumbs-list">
+        <!-- Home -->
+        <li class="breadcrumbs-item">
+          <a href="{{ routes.root_url }}" class="breadcrumb-link">Home</a>
+        </li>
+
+        {%- comment -%} Collection page {%- endcomment -%}
+        {%- if template == 'collection' and collection -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ collection.title }}</span>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Product page {%- endcomment -%}
+        {%- if template contains 'product' and product -%}
+          {%- assign bc_collection = nil -%}
+          {%- if collection -%}
+            {%- assign bc_collection = collection -%}
+          {%- elsif product.collections.size > 0 -%}
+            {%- assign bc_collection = product.collections.first -%}
+          {%- endif -%}
+
+          {%- if bc_collection -%}
+            <li class="breadcrumbs-separator">{{ _sep }}</li>
+            <li class="breadcrumbs-item">
+              <a href="{{ bc_collection.url }}" class="breadcrumbs-link">{{ bc_collection.title }}</a>
+            </li>
+          {%- endif -%}
+
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ product.title }}</span>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Static page {%- endcomment -%}
+        {%- if template contains 'page' and page -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ page.title }}</span>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Blog / Article {%- endcomment -%}
+        {%- if template contains 'blog' and blog -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ blog.title }}</span>
+          </li>
+        {%- endif -%}
+
+        {%- if template contains 'article' and article -%}
+          {%- if blog -%}
+            <li class="breadcrumbs-separator">{{ _sep }}</li>
+            <li class="breadcrumbs-item">
+              <a href="{{ blog.url }}" class="breadcrumbs-link">{{ blog.title }}</a>
+            </li>
+          {%- endif -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">{{ article.title }}</span>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Utility templates {%- endcomment -%}
+        {%- if template contains 'search' -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">Search</span>
+          </li>
+        {%- endif -%}
+
+        {%- if template contains 'cart' -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">Cart</span>
+          </li>
+        {%- endif -%}
+
+        {%- if template contains 'account' -%}
+          <li class="breadcrumbs-separator">{{ _sep }}</li>
+          <li class="breadcrumbs-item">
+            <span class="breadcrumbs-link current-page">Account</span>
+          </li>
+        {%- endif -%}
+      </ol>
+    </nav>
+  {% comment %} </div> {% endcomment %}
+</section>

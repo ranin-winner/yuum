@@ -91,28 +91,41 @@
             "display_text": "Mochi Premium",
             "manual_url": "shopify://collections/cool-fruit-collection"
           }
+        },
+        "link_item_iqYdPE": {
+          "type": "link_item",
+          "settings": {
+            "display_text": "Mochi Cream Ice",
+            "manual_url": "shopify://collections/cream-ice-mochi-collection"
+          }
+        },
+        "link_item_xGwyiX": {
+          "type": "link_item",
+          "settings": {
+            "display_text": "Mochi Vegan Cream Ice",
+            "manual_url": "shopify://collections/whole-fruit-mochi-collection"
+          }
         }
       },
       "block_order": [
         "link_item_KjVnNt",
         "link_item_xfcRTh",
-        "link_item_tzcPRb"
+        "link_item_tzcPRb",
+        "link_item_iqYdPE",
+        "link_item_xGwyiX"
       ],
       "name": "Collection Filters",
       "settings": {
-        "left_title": "Collections",
-        "right_title": "Tags",
         "tags_source": "sweet, sour, bitter, salt, umami, chilled, frozen, vegetarian, gluten free, japan, brazil",
         "show_hint": false,
-        "note": "",
-        "color_scheme": ""
+        "note": ""
       }
     },
     "collection_grid_with_promo_kLMfHV": {
       "type": "collection-grid-with-promo",
       "name": "Collection grid",
       "settings": {
-        "collection": "the-real-mochi-collection",
+        "collection": "mochi-taster-packs",
         "limit": 12,
         "simple_hover": true,
         "title": "<p>Mochi Classic</p>",
@@ -129,12 +142,42 @@
         "banner_alt": "",
         "banner_link": "",
         "banner_kicker": "",
-        "banner_title": "Promo banner",
+        "banner_title": "Promo text",
         "banner_text_color": "#ffffff",
         "banner_text_valign": "bottom",
         "banner_overlay": true,
         "banner_overlay_color": "#000000",
         "banner_overlay_opacity": 10,
+        "color_scheme": "default"
+      }
+    },
+    "collection_grid_with_promo_UT6L7w": {
+      "type": "collection-grid-with-promo",
+      "name": "Collection grid",
+      "settings": {
+        "collection": "cream-ice-mochi-collection",
+        "limit": 12,
+        "simple_hover": false,
+        "title": "",
+        "subtitle": "",
+        "section_text_1": "",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "show_banner": true,
+        "banner_position": 0,
+        "banner_image_desktop": "shopify://shop_images/Image_aa370056-cca5-4b20-a4e7-e3eaf6e43816.png",
+        "banner_alt": "",
+        "banner_link": "",
+        "banner_kicker": "",
+        "banner_title": "Promo banner",
+        "banner_text_color": "#ffffff",
+        "banner_text_valign": "center",
+        "banner_overlay": true,
+        "banner_overlay_color": "#000000",
+        "banner_overlay_opacity": 0,
         "color_scheme": "default"
       }
     },
@@ -152,6 +195,7 @@
     "collections_switcher_4XJfaR",
     "collection_filters_yW7Xdg",
     "collection_grid_with_promo_kLMfHV",
+    "collection_grid_with_promo_UT6L7w",
     "main"
   ]
 }
