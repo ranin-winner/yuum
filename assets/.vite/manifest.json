@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-DklnY0ld.css",
+    "file": "main-j5wI8Q6O.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -51,6 +51,11 @@
   "frontend/styles/sections/build-your-bundle.scss": {
     "file": "build-your-bundle-Wbd_sYJC.css",
     "src": "frontend/styles/sections/build-your-bundle.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/collection-grid.scss": {
+    "file": "collection-grid-DbTvZDNP.css",
+    "src": "frontend/styles/sections/collection-grid.scss",
     "isEntry": true
   },
   "frontend/styles/sections/collections-switcher.scss": {
