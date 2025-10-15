@@ -1,5 +1,7 @@
 {% render 'entry' with '@/styles/sections/products-section.scss' %}
 
+{% render 'entry' with '@/styles/sections/collection-grid.scss' %}
+
 {%- assign title_rich = section.settings.title -%}
 {%- assign subtitle_rich = section.settings.subtitle -%}
 
@@ -11,7 +13,7 @@
 {%- assign banner_pos = banner_pos | at_least: 0 | at_most: limit -%}
 {%- assign banner_index0 = banner_pos | minus: 1 -%}
 
-<section id="collectionGridPromo-{{ section.id }}" class="products-section collection-grid mx-auto py-[40px] palette-{{ section.settings.color_scheme }}">
+<section id="collectionGridPromo-{{ section.id }}" class="products-section collection-grid mx-auto palette-{{ section.settings.color_scheme }}">
   <div class="container">
     {%- if title_rich != blank or subtitle_rich != blank -%}
       <div class="products-section__header grid md:grid-cols-2 grid-cols-1 mb-[24px] md:mb-[40px]">
@@ -102,17 +104,17 @@
       {%- endif -%}
 
       {%- assign shown = 0 -%}
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[4px] md:gap-[8px]">
+      <div class="collection-grid__inner">
         {%- for p in products limit: limit -%}
           {%- assign idx0 = forloop.index0 -%}
 
           {%- if section.settings.show_banner and banner_pos > 0 and idx0 == banner_index0 -%}
-            <div class="md:col-span-1 col-span-2">
+            <div class="md:col-span-1 col-span-2 collection-grid__inner--row">
               {{ promo_banner }}
             </div>
           {%- endif -%}
 
-          <div class="md:mb-[0] mb-[20px]">
+          <div class="collection-grid__inner--row">
             {% render 'product-card', product: p, simple_hover: section.settings.simple_hover %}
           </div>
 
