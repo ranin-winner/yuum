@@ -9,31 +9,174 @@
  */
 {
   "sections": {
-    "be_all_in_yy78DB": {
-      "type": "be-all-in",
-      "name": "Be All In",
-      "settings": {
-        "color_scheme": "",
-        "title": "Be All In",
-        "subtitle": "<p>Join a Movement that</p><p><i>Makes a Difference</i></p>",
-        "copy": "<p>At All In, we believe that food has the power to connect us. From family dinners to community potlucks, food is a universal way to share joy and build bonds.</p><p>That's why we're committed to supporting local communities by giving back 2% of our sales to increase food access.</p>",
-        "button_text": "try them all for free",
-        "button_url": "/",
-        "button_text_1": "SUBscribe & Save",
-        "button_url_1": "/"
-      }
-    },
     "main": {
       "type": "main-404",
+      "disabled": true,
       "settings": {
         "heading": "404 Page Not Found",
         "text": "The page you are looking for does not exist.",
         "button_label": "Go to Home"
       }
+    },
+    "heading_Qz4rfj": {
+      "type": "heading",
+      "name": "Heading H1",
+      "settings": {
+        "title": "Your questions answered",
+        "pt_mobile": 40,
+        "pb_mobile": 32,
+        "pt_desktop": 60,
+        "pb_desktop": 60
+      }
+    },
+    "faq_tabs_EKxACm": {
+      "type": "faq-tabs",
+      "blocks": {
+        "nav_link_PfBTKV": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Mochi",
+            "heading": "Mochi",
+            "tab_index": "1"
+          }
+        },
+        "nav_link_GyR8Tg": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Matcha",
+            "heading": "Matcha",
+            "tab_index": "2"
+          }
+        },
+        "nav_link_Ei6UmM": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Coffee",
+            "heading": "Coffee",
+            "tab_index": ""
+          }
+        },
+        "nav_link_qG3nfm": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Tea",
+            "heading": "Tea",
+            "tab_index": ""
+          }
+        },
+        "nav_link_DRHwjc": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Other products",
+            "heading": "Other products",
+            "tab_index": ""
+          }
+        },
+        "nav_link_YWWwTg": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Payment and delivery",
+            "heading": "Payment and delivery",
+            "tab_index": ""
+          }
+        },
+        "nav_link_MEQUzH": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Contacts",
+            "heading": "Contacts",
+            "tab_index": ""
+          }
+        },
+        "collapsible_3EEEVd": {
+          "type": "collapsible",
+          "settings": {
+            "question": "What is the right way to enjoy mochi?",
+            "answer": "<p>Due to the unique technology that is used in preparing our mochi, you can enjoy them both frozen and defrosted as they do not melt and drip like ice cream, but rather turn into a mousse-like texture.<br/><br/>However, for Cream Ice Mochi we do recommend waiting for 10 minutes once they have been taken out of freezer for the best consistency of the shell and the fillings.<br/><br/>As for the Cool Fruit and Whole Fruit collections, we recommend waiting at least 40 minutes for all the fruits to be fully defrosted.</p>",
+            "open_by_default": false,
+            "tab_index": "1"
+          }
+        },
+        "collapsible_w8wx99": {
+          "type": "collapsible",
+          "settings": {
+            "question": "What is the right way to store mochi?",
+            "answer": "<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi repudiandae minima repellendus harum natus temporibus voluptas hic mollitia autem nulla ducimus eligendi veniam ipsum fugiat, perferendis laboriosam! Voluptatem, delectus cupiditate.</p>",
+            "open_by_default": false,
+            "tab_index": "1"
+          }
+        },
+        "collapsible_9NRbwQ": {
+          "type": "collapsible",
+          "settings": {
+            "question": "What makes our mochi unique?",
+            "answer": "<p>Lorem</p>",
+            "open_by_default": false,
+            "tab_index": "1"
+          }
+        },
+        "collapsible_GmzkXA": {
+          "type": "collapsible",
+          "settings": {
+            "question": "HOW DO WE DELIVER MOCHI?",
+            "answer": "<p>Lorem</p>",
+            "open_by_default": false,
+            "tab_index": "1"
+          }
+        },
+        "collapsible_Jt4exX": {
+          "type": "collapsible",
+          "settings": {
+            "question": "What is matcha and how does it differ from regular green tea?",
+            "answer": "",
+            "open_by_default": false,
+            "tab_index": "2"
+          }
+        },
+        "collapsible_eG7BWF": {
+          "type": "collapsible",
+          "settings": {
+            "question": "How to brew matcha at home?",
+            "answer": "",
+            "open_by_default": false,
+            "tab_index": "2"
+          }
+        },
+        "collapsible_nRmayj": {
+          "type": "collapsible",
+          "settings": {
+            "question": "Are there any contraindications to using matcha?",
+            "answer": "",
+            "open_by_default": false,
+            "tab_index": "2"
+          }
+        }
+      },
+      "block_order": [
+        "nav_link_PfBTKV",
+        "nav_link_GyR8Tg",
+        "nav_link_Ei6UmM",
+        "nav_link_qG3nfm",
+        "nav_link_DRHwjc",
+        "nav_link_YWWwTg",
+        "nav_link_MEQUzH",
+        "collapsible_3EEEVd",
+        "collapsible_w8wx99",
+        "collapsible_9NRbwQ",
+        "collapsible_GmzkXA",
+        "collapsible_Jt4exX",
+        "collapsible_eG7BWF",
+        "collapsible_nRmayj"
+      ],
+      "name": "FAQ Tabs",
+      "settings": {
+        "padding_top": 0
+      }
     }
   },
   "order": [
-    "be_all_in_yy78DB",
-    "main"
+    "main",
+    "heading_Qz4rfj",
+    "faq_tabs_EKxACm"
   ]
 }
