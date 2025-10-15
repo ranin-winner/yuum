@@ -293,10 +293,10 @@
                                     <div class="product-tabs ui-acc-group  border-[#474747]">
                                     {%- for b in tab_items -%}
                                         {%- render 'accordion-item',
-                                        q: b.settings.question,
-                                        a: b.settings.answer,
-                                        open: b.settings.open_by_default,
-                                        class: 'last:border-b border-[#474747]'
+                                            q: b.settings.question,
+                                            a: b.settings.answer,
+                                            open: b.settings.open_by_default,
+                                            class: 'last:border-b border-[#474747]'
                                         -%}
                                     {%- endfor -%}
                                     </div>

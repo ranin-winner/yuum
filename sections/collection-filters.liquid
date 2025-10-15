@@ -18,7 +18,7 @@
   x-init="init()"
 >
   <div class="container">
-    <div class="grid grid-cols-1 md:grid-cols-2  gap-[20px] md:gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2  gap-[20px] md:gap-10 mb-[60px]">
       {%- comment -%} LEFT: manual link list {%- endcomment -%}
       <aside>
         {% comment %} {% if section.settings.left_title != blank %}
@@ -54,7 +54,7 @@
             <div class="swiper-slide !w-auto md:!w-auto">
               <a
                 href="{{ url }}"
-                class="inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0] hover:bg-white hover:text-black transition {% if is_active %}bg-white text-[#474747]{% else %}bg-[#E7E7E7] text-[#474747]{% endif %}"
+                class="inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0] hover:bg-white hover:text-[#474747] transition {% if is_active %}bg-white text-[#474747]{% else %}bg-[#E7E7E7] text-[#474747]{% endif %}"
                 x-on:click="persistBeforeNavigate($event)"
                 {{ block.shopify_attributes }}
               >

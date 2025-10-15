@@ -1,0 +1,35 @@
+.faq-tabs {
+    // grid grid-cols-1 md:grid-cols-[230px_1fr] gap-[60px] md:gap-[227px]
+    &__inner {
+        display: grid;
+        grid-template-columns: 230px 1fr;
+        gap: 227px;
+        @media (max-width: 1250px) {
+            gap: 60px;
+        }
+
+        @media (max-width: 780px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__content-inner {
+        width: 100%;
+        max-width: 903px;
+    }
+
+    &__content {
+        .faq-acc {
+            &:last-child {
+                border-bottom: 1px solid #474747;
+            }
+        }
+        
+    }
+
+    .ui-acc__summary {
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        line-height: 22px;
+    }
+}
