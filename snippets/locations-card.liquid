@@ -1,0 +1,73 @@
+{%- comment -%}
+  locations-card.liquid
+  Параметри:
+    image, title, subtitle, address, city, hours, phone, badge,
+    link_page, link_url, link_label
+  Весь сніпет — це посилання на сторінку локації
+{%- endcomment -%}
+
+{%- assign href = link_page.url | default: link_url | default: '#' -%}
+<a href="{{ href }}"
+   class="locations-card group block rounded-[16px] overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+  <div class="relative aspect-[4/3] bg-neutral-100 overflow-hidden">
+    {%- if image != blank -%}
+      {%- assign img = image -%}
+      <img
+        class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+        src="{{ img | image_url: width: 900 }}"
+        srcset="
+          {{ img | image_url: width: 480 }} 480w,
+          {{ img | image_url: width: 720 }} 720w,
+          {{ img | image_url: width: 900 }} 900w,
+          {{ img | image_url: width: 1200 }} 1200w
+        "
+        sizes="(min-width: 1024px) 25vw, 90vw"
+        alt="{{ title | escape }}"
+        loading="lazy">
+    {%- else -%}
+      <div class="w-full h-full grid place-items-center text-sm text-neutral-500">No image</div>
+    {%- endif -%}
+
+    {%- if badge != blank -%}
+      <span class="absolute left-3 top-3 inline-flex items-center rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow">
+        {{ badge }}
+      </span>
+    {%- endif -%}
+  </div>
+
+  <div class="p-4 md:p-5">
+    {%- if title != blank -%}
+      <h3 class="text-baseBig md:text-xl leading-tight mb-1">{{ title }}</h3>
+    {%- endif -%}
+    {%- if subtitle != blank -%}
+      <div class="text-sm text-neutral-600 mb-3">{{ subtitle }}</div>
+    {%- endif -%}
+
+    <div class="space-y-1 text-sm">
+      {%- if address != blank -%}
+        <div class="flex items-start gap-2">
+          <span class="shrink-0">📍</span>
+          <span>{{ address }}{% if city %}, {{ city }}{% endif %}</span>
+        </div>
+      {%- endif -%}
+      {%- if hours != blank -%}
+        <div class="flex items-start gap-2">
+          <span class="shrink-0">🕒</span>
+          <span>{{ hours }}</span>
+        </div>
+      {%- endif -%}
+      {%- if phone != blank -%}
+        <div class="flex items-start gap-2">
+          <span class="shrink-0">📞</span>
+          <span>{{ phone }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if href != '#' and link_label != blank -%}
+      <div class="mt-4 text-sm font-medium underline underline-offset-2 group-hover:no-underline">
+        {{ link_label }}
+      </div>
+    {%- endif -%}
+  </div>
+</a>

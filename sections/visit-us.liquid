@@ -1,0 +1,84 @@
+{% render 'entry' with '@/styles/sections/visit-us.scss' %}
+
+<section id="visit-us-{{ section.id }}" class="visit-us">
+  <div class="container container-full">
+    <div
+      class="visit-us__inner grid md:grid-cols-2 gap-8 items-start"
+      x-data="{
+        query: '',
+        scrollToMap() {
+          const el = this.$refs.mapWrap
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }"
+    >
+      <!-- Left -->
+      <div class="visit-us__text-inner">
+        {% if section.settings.title != blank %}
+          <h1 class="heading-1 mb-[12px]">{{ section.settings.title }}</h1>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <div class="text-[#474747] mb-[40px]">
+            {{ section.settings.subtitle }}
+          </div>
+        {% endif %}
+
+        <div class="max-w-[280px]">
+          <input
+            id="visit-input-{{ section.id }}"
+            type="text"
+            x-model="query"
+            inputmode="text"
+            autocomplete="off"
+            placeholder="{{ section.settings.input_placeholder }}"
+            class="mb-[16px] w-full bg-[#E7E7E7] outline-none border-0 border-b border-neutral-400 focus:border-neutral-900 focus:ring-0 py-2 text-[13px] md:text-[14px] placeholder-neutral-400"
+            aria-describedby="visit-help-{{ section.id }}"
+          />
+
+          {% if section.settings.button_label != blank %}
+            <button
+              type="button"
+              class="btn btn-primary w-full"
+              @click="scrollToMap()"
+            >
+              {{ section.settings.button_label }}
+            </button>
+          {% endif %}
+          <p id="visit-help-{{ section.id }}" class="sr-only">Type postcode or city and press Confirm to jump to the map.</p>
+        </div>
+      </div>
+
+      <!-- Right (map) -->
+      <div class="visit-us__map-inner" x-ref="mapWrap">
+        {{ section.settings.fallback_map_iframe }}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+    {
+      "name": "Visit Us",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Visit Us" },
+        { "type": "richtext", "id": "subtitle", "label": "Subtitle", "default": "<p>YUUM is a combination of modern design and technology with high quality and original taste of natural authentic products from different cultures with quality service.</p>" },
+    
+        { "type": "text", "id": "input_label", "label": "Input label", "default": "Enter Postcode or City" },
+        { "type": "text", "id": "input_placeholder", "label": "Input placeholder", "default": "Enter Postcode" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "CONFIRM", "info": "Кнопка просто скролить до мапи" },
+    
+        {
+          "type": "html",
+          "id": "fallback_map_iframe",
+          "label": "Map iframe (HTML)",
+          "info": "Встав сюди моковий iframe з мапою. Він займатиме всю праву колонку."
+        }
+      ],
+      "presets": [
+        { "name": "Visit Us", "category": "Contact" }
+      ]
+    }
+{% endschema %}
+    

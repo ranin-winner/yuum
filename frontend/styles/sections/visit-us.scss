@@ -1,0 +1,26 @@
+.visit-us {
+    &__inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 100px;
+        @media (max-width: 1250px) {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+    }
+
+    &__map-inner {
+        height: 720px;
+        width: 100%;
+        @media (max-width: 1250px) {
+            height: 500px;
+        }
+    }
+
+    &__text-inner {
+        padding: 60px 0px 0px 280px;
+        @media (max-width: 1250px) {
+            padding: 40px 16px 0px 16px;
+        }
+    }
+}
