@@ -22,9 +22,9 @@
 >
   {% comment %} <div class="container m-responsive px-10"> {% endcomment %}
   <div class="container">
-    <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
+    <div class="products-section__header grid grid-cols-1 gap-[24px] mb-[50px]">
       {% if section.settings.title != blank %}
-        <div class="products-section__header--title">
+        <div class="products-section__header--title products-section__header--title-bg ">
           <h2 class="products-section__title heading-3">
             {{ section.settings.title | default: "Products" }}
           </h2>
@@ -69,8 +69,8 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="products-section__header--text-and-btn">
+  <div class="container" style="margin-top: 100px;">
+    <div class="products-section__header--text-and-btn flex justify-center">
       {% if sectionButtonText != blank %}
         <a href="{{ section.settings.section_button_link }}" class="btn btn-light">{{ sectionButtonText }}</a>
       {% endif %}

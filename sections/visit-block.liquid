@@ -1,9 +1,10 @@
 {% comment %}
-  Section: Visit Block (Tailwind + GSAP hooks)
+  Section: Visit Block (Tailwind + GSAP hooks) — FLEX version
+  - Layout: flex-row on desktop, flex-col on mobile
   - Left: large image
   - Right: title + text + button + small image
   - Uses data-reveal and data-parallax/data-parallax-item
-  - Adjustable paddings, column gap, inner gap, colors, radii, sizes
+  - Adjustable paddings, gaps, colors, radii, sizes
 {% endcomment %}
 
 <section
@@ -19,12 +20,12 @@
 >
   <div class="{% if section.settings.container == 'narrow' %}max-w-5xl{% elsif section.settings.container == 'wide' %}max-w-7xl{% else %}max-w-screen-xl{% endif %} mx-auto px-4">
     <div
-      class="grid items-center"
-      style="gap: {{ section.settings.col_gap }}px; grid-template-columns: 1fr minmax(0, 0.9fr);"
+      class="visit-flex-{{ section.id }}"
+      style="display:flex; align-items:center; gap: {{ section.settings.col_gap }}px; flex-wrap: nowrap;"
     >
       {%- comment -%} Left large image {%- endcomment -%}
       {% if section.settings.image_left != blank %}
-        <div class="w-full" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+        <div class="visit-col visit-left-{{ section.id }}" style="flex: 1 1 0;" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
           <img
             src="{{ section.settings.image_left | image_url: width: 1600 }}"
             alt="{{ section.settings.image_left_alt | escape }}"
@@ -35,38 +36,39 @@
           >
         </div>
       {% else %}
-        <div></div>
+        <div class="visit-col visit-left-{{ section.id }}" style="flex: 1 1 0;"></div>
       {% endif %}
 
       {%- comment -%} Right: text group + small image {%- endcomment -%}
-      <div class="flex flex-col"
-           style="row-gap: {{ section.settings.inner_gap }}px; color: {{ section.settings.text_color }};">
-        <div class="flex flex-col" style="row-gap: {{ section.settings.text_gap }}px;" data-reveal>
+      <div class="visit-col visit-right-{{ section.id }} flex flex-col"
+           style="flex: 0.9 1 0; row-gap: {{ section.settings.inner_gap }}px; color: {{ section.settings.text_color }};">
+        <div class="flex flex-col items-start self-start w-auto" style="row-gap: {{ section.settings.text_gap }}px;" data-reveal>
           {% if section.settings.title != blank %}
-            <h2 class="m-0 font-semibold leading-tight"
-                style="font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }};">
+            <h2 class="m-0"
+                style="font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }}; line-height: 1.2; margin-bottom: 16px;">
               {{ section.settings.title }}
             </h2>
           {% endif %}
 
           {% if section.settings.text != blank %}
             <p class="m-0 opacity-90"
-               style="font-size: {{ section.settings.text_size }}px;">
+               style="font-size: {{ section.settings.text_size }}px; margin-bottom: 32px;">
               {{ section.settings.text }}
             </p>
           {% endif %}
 
           {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
-            <a href="{{ section.settings.btn_url }}"
-               class="inline-flex items-center justify-center rounded-full border px-5 py-2 transition hover:opacity-90 focus:outline-none focus:ring"
-               style="column-gap: 10px; border-color: currentColor; color: {{ section.settings.button_text_color }}; background-color: {{ section.settings.button_bg_color }};">
+            <a
+              href="{{ section.settings.btn_url }}"
+              class="inline-flex btn btn-light items-center justify-center transition"
+            >
               {{ section.settings.btn_label }}
             </a>
           {% endif %}
         </div>
 
         {% if section.settings.image_right != blank %}
-          <div class="w-full" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+          <div {% if section.settings.enable_parallax %}data-parallax{% endif %}>
             <img
               src="{{ section.settings.image_right | image_url: width: 1200 }}"
               alt="{{ section.settings.image_right_alt | escape }}"
@@ -82,17 +84,23 @@
   </div>
 
   <script>
-    // Re-init GSAP hooks for this section (if your init is available)
+    // Re-init GSAP hooks for this section (scoped init)
     if (window.initScrollAnimations) {
       window.initScrollAnimations(document.getElementById('visit-{{ section.id }}'));
     }
   </script>
 
   <style>
-    /* Responsive: stack on small screens */
+    /* Responsive: stack on small screens (<= 1023px) */
     @media (max-width: 1023px) {
-      #visit-{{ section.id }} .grid {
-        grid-template-columns: 1fr !important;
+      #visit-{{ section.id }} .visit-flex-{{ section.id }} {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      #visit-{{ section.id }} .visit-left-{{ section.id }},
+      #visit-{{ section.id }} .visit-right-{{ section.id }} {
+        flex: 1 1 auto !important;
+        width: 100%;
       }
     }
   </style>
@@ -110,7 +118,11 @@
     { "type": "range", "id": "pad_top", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding top", "default": 48 },
     { "type": "range", "id": "pad_bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding bottom", "default": 48 },
 
-    { "type": "select", "id": "container", "label": "Container width", "default": "xl",
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container width",
+      "default": "xl",
       "options": [
         { "value": "narrow", "label": "Narrow (max-w-5xl)" },
         { "value": "xl",     "label": "Standard (max-w-screen-xl)" },
@@ -124,7 +136,7 @@
 
     { "type": "color", "id": "title_color", "label": "Title color", "default": "#1A1A1A" },
     { "type": "color", "id": "text_color", "label": "Body text color", "default": "#5B5B5B" },
-    { "type": "range", "id": "title_size", "min": 18, "max": 64, "step": 1, "unit": "px", "label": "Title size", "default": 48 },
+    { "type": "range", "id": "title_size", "min": 18, "max": 80, "step": 1, "unit": "px", "label": "Title size", "default": 48 },
     { "type": "range", "id": "text_size", "min": 12, "max": 22, "step": 1, "unit": "px", "label": "Body text size", "default": 14 },
 
     { "type": "checkbox", "id": "enable_parallax", "label": "Enable parallax on images (uses data-parallax)", "default": true },

@@ -26,7 +26,7 @@
                 </div>
             {% endif %}
 
-            <div class="products-section__header--text-and-btn">
+            <div class="products-section__header--text-and-btn flex flex-col items-end w-auto">
                 {% if sectionText1 != blank %}
                     <div class="text">
                         {{ sectionText1 }}
@@ -53,13 +53,13 @@
         <div id="productSection-{{ section.id }}" class="swiper-box">
             {% if section.settings.products_list != blank %}
             {% assign collection = section.settings.products_list %}
-        
+
             <div class="swiper-button-next md:block">
                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
                 </svg>
             </div>
-        
+
             <div class="swiper-button-prev md:block">
                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>

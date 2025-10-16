@@ -2,14 +2,13 @@
 
 .b-footer {
   &-input {
-    background-color: var(--color-body-bg);
-    border: 2px solid var(--color_1);
-    border-radius:  5px;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(231, 231, 231, 1);
     color: var(--color_1);
     font-size: 1.6rem;
     line-height: 2rem;
-    padding: 13px 15px 14px;
-    width: 300px;
+    padding: 26px 0 12px;
+    width: 290px;
 
     &::placeholder {
       color: var(--color_1);
@@ -32,5 +31,11 @@
       width: 100%;
       max-width: 380px;
     }
+  }
+
+  &-top {
+    border-bottom: 1px solid rgba(108, 109, 110, 1);
+    padding-bottom: 40px;
+    margin-bottom: 40px;
   }
 }
