@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CgxOq26U.css",
+    "file": "main-DRTF8VcM.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-dYg-SeoO.js",
+    "file": "main.theme-BphrViZ1.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp-DQZewZ6j.css",
+    "file": "page-pdp-D93d1Fie.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/advantages.scss": {
-    "file": "advantages-B5uHysNi.css",
+    "file": "advantages-C2qABq_L.css",
     "src": "frontend/styles/sections/advantages.scss",
     "isEntry": true
   },
@@ -69,7 +69,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/feature-brick.scss": {
-    "file": "feature-brick-DhcdYBLt.css",
+    "file": "feature-brick-BRzgEHy9.css",
     "src": "frontend/styles/sections/feature-brick.scss",
     "isEntry": true
   },
@@ -125,7 +125,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/visit-us.scss": {
-    "file": "visit-us-CoFdbMk0.css",
+    "file": "visit-us-Dod8yEEX.css",
     "src": "frontend/styles/sections/visit-us.scss",
     "isEntry": true
   }
