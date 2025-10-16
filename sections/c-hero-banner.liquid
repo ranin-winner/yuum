@@ -1,4 +1,4 @@
-<div class="b-hero-banner
+<div id="hero-{{ section.id }}" class="b-hero-banner
     text-pos-x-{{ section.settings.text_position-x }}
     text-pos-y-{{ section.settings.text_position-y }}
     bg-image-pos-x-{{ section.settings.image_alignment_x }}
@@ -11,140 +11,112 @@
         {% if section.settings.subtitle != blank %}
             <p class="b-hero-banner__text body-2">{{ section.settings.subtitle }}</p>
         {% endif %}
-        {% if section.settings.baner_button != blank %}
+
+        <div class="flex flex-col gap-[12px] justify-center items-center">
+          {% if section.settings.baner_button != blank %}
             <a href="{{ section.settings.baner_button_link }}" class="b-hero-banner_btn">{{ section.settings.baner_button }}</a>
-        {% endif %}
+          {% endif %}
+
+          {% if section.settings.baner_button2 != blank %}
+            <a href="{{ section.settings.baner_button_link2 }}" class="b-hero-banner_btn btn-outline">{{ section.settings.baner_button2 }}</a>
+          {% endif %}
+        </div>
     </div>
 </div>
 
 <style>
-    .b-hero-banner {
-        background-image: url({{ section.settings.image_bg | img_url: 'master' }});
-        background-size: {{ section.settings.bg_size }};
-        background-color: {{ section.settings.bg_color }};
-        background-repeat: no-repeat;
-        position: relative;
-        width: 100%;
-        display: flex;
-        padding: 0 {{ section.settings.padding_desktop }}px;
+  /* базовий блок */
+  #hero-{{ section.id }}.b-hero-banner {
+    background-image: url({{ section.settings.image_bg | img_url: 'master' }});
+    background-size: {{ section.settings.bg_size }};
+    background-color: {{ section.settings.bg_color }};
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    display: flex;
+    padding: 0 {{ section.settings.padding_desktop }}px;
+  }
+
+  /* Image Position */
+  #hero-{{ section.id }}.bg-image-pos-x-left { background-position-x: left; }
+  #hero-{{ section.id }}.bg-image-pos-x-right { background-position-x: right; }
+  #hero-{{ section.id }}.bg-image-pos-x-center { background-position-x: center; }
+
+  #hero-{{ section.id }}.bg-image-pos-y-top { background-position-y: top; }
+  #hero-{{ section.id }}.bg-image-pos-y-bottom { background-position-y: bottom; }
+  #hero-{{ section.id }}.bg-image-pos-y-middle { background-position-y: center; }
+
+  /* Text Position */
+  #hero-{{ section.id }}.text-pos-x-center { justify-content: center; }
+  #hero-{{ section.id }}.text-pos-x-left   { justify-content: flex-start; }
+  #hero-{{ section.id }}.text-pos-x-right  { justify-content: flex-end; }
+
+  #hero-{{ section.id }}.text-pos-y-center { align-items: center; }
+  #hero-{{ section.id }}.text-pos-y-top    { align-items: flex-start; }
+  #hero-{{ section.id }}.text-pos-y-bottom { align-items: flex-end; }
+
+  /* Main Styles */
+  #hero-{{ section.id }} .b-hero-banner__content {
+    text-align: {{ section.settings.text_alignment }};
+    max-width: {{ section.settings.banner_text_width }}px;
+    line-height: 1.5;
+  }
+
+  #hero-{{ section.id }} .b-hero-banner__title {
+    font-size: {{ section.settings.title_font_size }}px;
+    color: {{ section.settings.title_color }};
+  }
+
+  #hero-{{ section.id }} .b-hero-banner__text {
+    font-size: {{ section.settings.subtitle_font_size }}px;
+    color: {{ section.settings.text_color }};
+    font-weight: 400;
+    margin-top: 12px;
+    margin-bottom: 32px;
+  }
+
+  #hero-{{ section.id }} .b-hero-banner_btn {
+    display: inline-block;
+    padding: 16px 30px 16px;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(71, 71, 71, 1);
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 32px;
+    min-width: 220px;
+    font-weight: 400;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 1);
+  }
+  #hero-{{ section.id }} .b-hero-banner_btn.btn-outline {
+    background: transparent; border-color: #fff; color: #fff;
+  }
+  #hero-{{ section.id }} .b-hero-banner_btn.btn-outline:hover {
+    background-color: rgba(71, 71, 71, 1); border-color: rgba(71, 71, 71, 1); color: #fff;
+  }
+  #hero-{{ section.id }} .b-hero-banner_btn:hover {
+    background-color: rgba(71, 71, 71, 1); border-color: rgba(71, 71, 71, 1); color: #fff;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    #hero-{{ section.id }}.b-hero-banner {
+      height: {{ section.settings.banner_height_mobile }}px;
+      padding: {{ section.settings.padding_mobile }}px;
     }
+    #hero-{{ section.id }} .b-hero-banner__title { font-size: {{ section.settings.title_font_size_mobile }}px; }
+    #hero-{{ section.id }} .b-hero-banner__text  { font-size: {{ section.settings.subtitle_font_size_mobile }}px; }
+    #hero-{{ section.id }} .b-hero-banner__content { max-width: 100%; width: 100%; text-align: center; }
+  }
 
-    /* Image Position */
-    .b-hero-banner.bg-image-pos-x-left {
-        background-position-x: left;
+  /* Desktop */
+  @media (min-width: 768px) {
+    #hero-{{ section.id }}.b-hero-banner {
+      height: {{ section.settings.banner_height_desktop }}px;
     }
-
-    .b-hero-banner.bg-image-pos-x-right {
-        background-position-x: right;
-    }
-
-    .b-hero-banner.bg-image-pos-x-center {
-        background-position-x: center;
-    }
-
-    .b-hero-banner.bg-image-pos-y-top {
-        background-position-y: top;
-    }
-
-    .b-hero-banner.bg-image-pos-y-bottom {
-        background-position-y: bottom;
-    }
-
-    .b-hero-banner.bg-image-pos-y-middle {
-        background-position-y: center;
-    }
-
-    /* Text Position */
-    .b-hero-banner.text-pos-x-center {
-        justify-content: center;
-    }
-
-    .b-hero-banner.text-pos-x-left {
-        justify-content: flex-start;
-    }
-
-    .b-hero-banner.text-pos-x-right {
-        justify-content: flex-end;
-    }
-
-    .b-hero-banner.text-pos-y-center {
-        align-items: center;
-    }
-
-    .b-hero-banner.text-pos-y-top {
-        align-items: flex-start;
-    }
-
-    .b-hero-banner.text-pos-y-bottom {
-        align-items: flex-end;
-    }
-
-    /* Main Styles */
-    .b-hero-banner__content {
-        text-align: {{ section.settings.text_alignment }};
-        max-width: {{ section.settings.banner_text_width }}px;
-        line-height: 1.5;
-    }
-
-    .b-hero-banner__title {
-        font-size: {{ section.settings.title_font_size }}px;
-        color: {{ section.settings.title_color }};
-    }
-
-    .b-hero-banner__text {
-        font-size: {{ section.settings.subtitle_font_size }}px;
-        color: {{ section.settings.text_color }};
-        font-weight: 600;
-    }
-
-    .b-hero-banner_btn {
-        display: inline-block;
-        padding: 12px 26px 13px;
-        background-color: #014ad3;
-        color: #fff;
-        font-size: 16px;
-        line-height: 20px;
-        text-decoration: none;
-        text-transform: uppercase;
-        margin-top: 6px;
-        border-radius: 10px;
-        min-width: 145px;
-        font-weight: 800;
-        transition: all 0.3s;
-    }
-
-    .b-hero-banner_btn:hover {
-        background-color: #000;
-    }
-
-    /* Mobile Styles */
-    @media (max-width: 767px) {
-        .b-hero-banner {
-            height: {{ section.settings.banner_height_mobile }}px;
-            padding: {{ section.settings.padding_mobile }}px;
-        }
-
-        .b-hero-banner__title {
-            font-size: {{ section.settings.title_font_size_mobile }}px;
-        }
-
-        .b-hero-banner__text {
-            font-size: {{ section.settings.subtitle_font_size_mobile }}px;
-        }
-
-        .b-hero-banner__content {
-            max-width: 100%;
-            width: 100%;
-            text-align: center;
-        }
-    }
-
-    /* Desktop Styles */
-    @media (min-width: 768px) {
-        .b-hero-banner {
-            height: {{ section.settings.banner_height_desktop }}px;
-        }
-    }
+  }
 </style>
 
 {% schema %}
@@ -173,6 +145,17 @@
       "type": "url",
       "label": "Button Link",
       "id": "baner_button_link"
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "baner_button2",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "label": "Button Link",
+      "id": "baner_button_link2"
     },
     {
       "type": "image_picker",

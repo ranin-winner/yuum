@@ -3,6 +3,14 @@
 /* Header */
 .b-header {
   $mobile-resolutions: 768px;
+  border-bottom: 1px solid rgba(173, 174, 176, 1);
+  border-top: 0;
+
+  transition: all .6ms;
+
+  > a, > button {
+    color: rgba(71, 71, 71, 1) !important;
+  }
 
   &.m-sticky {
     position: fixed;
@@ -10,10 +18,32 @@
     right: 0;
     top: 0;
     z-index: 998;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    //box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-color: rgba(173, 174, 176, 1) !important;
+    background: rgba(231, 231, 231, 1);
+    transition: all .6ms;
+
+    .b-header__list-link, .group button, .b-header__list-link.m-active{
+      color: rgba(71, 71, 71, 1) !important;
+    }
+
+    .group button svg path {
+      fill: rgba(71, 71, 71, 1) !important;
+    }
+
+    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+      background: rgba(71, 71, 71, 1) !important;
+    }
+
+    .b-header__cartlogin svg path {
+      fill: rgba(71, 71, 71, 1) !important;
+    }
   }
 
   &__promo {
+    background: rgba(71, 71, 71, 1);
+    font-size: 16px;
+    font-weight: 400;
     a {
       display: flex;
       justify-content: center;
@@ -63,10 +93,10 @@
     padding: 2rem 1rem;
 
     &.m-center {
-      height: 10rem;
+      height: 92px;
 
       @include cfg.media(max-t) {
-        height: 8rem;
+        height: 60px;
       }
     }
 
@@ -208,13 +238,19 @@
     [x-show="isOpened"] {
       z-index: 9;
     }
+
+    .groups {
+      button {
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
   }
 
   &__list-item {
-    font-size: 1.6rem;
+    font-size: 16px;
     line-height: 20px;
-    font-weight: 900;
-    text-transform: uppercase;
+    font-weight: 400;
   }
 
   &__list-link {
@@ -226,9 +262,9 @@
     &::before {
       content: '';
       position: absolute;
-      bottom: -2px;
+      bottom: -1px;
       width: 0;
-      height: 2px;
+      height: 1px;
       background-color: var(--color_1);
       transition: width 0.3s;
     }
@@ -253,5 +289,22 @@
   }
 
   &__mobmenu {
+  }
+}
+
+.megamenu-list {
+  ul {
+    li {
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+
+      a {
+        font-size: 48px;
+        line-height: 1.1;
+        font-weight: 300;
+        font-family: var(--font-heading, "WT Monarch Nova"), system-ui, -apple-system, Arial, sans-serif;
+      }
+    }
   }
 }

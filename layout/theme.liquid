@@ -74,6 +74,12 @@
     {{ content_for_header }}
     {% render 'custom-fonts' %}
 
+    {%- comment -%} Smooth scroll (Lenis) {%- endcomment -%}
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.1.19/dist/lenis.min.js"></script>
+
+    {%- comment -%} GSAP + ScrollTrigger {%- endcomment -%}
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
   </head>
   <body
     x-data
@@ -84,12 +90,9 @@
       <header
         id="id_header"
         class="
-              bg-white
           top-0
           z-50
           b-header
-          font-plusJakarta
-          font-semibold
         ">
         {% include 'header' %}
       </header>

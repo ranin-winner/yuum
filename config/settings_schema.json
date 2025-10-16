@@ -300,6 +300,46 @@
     "name": "Footer",
     "settings": [
       {
+        "type": "image_picker",
+        "id": "footer_logo",
+        "label": "Footer logo"
+      },
+      {
+        "type": "range",
+        "id": "footer_logo_width",
+        "label": "Footer logo width",
+        "min": 60,
+        "max": 220,
+        "step": 4,
+        "unit": "px",
+        "default": 120
+      },
+      {
+        "type": "image_picker",
+        "id": "footer_tagline_image",
+        "label": "Footer tagline image (optional)"
+      },
+      {
+        "type": "range",
+        "id": "footer_tagline_height",
+        "label": "Footer tagline image max height",
+        "min": 40,
+        "max": 400,
+        "step": 4,
+        "unit": "px",
+        "default": 180
+      },
+      {
+        "type": "range",
+        "id": "footer_corner_radius",
+        "label": "Footer top corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "default": 16
+      },
+      {
         "type": "color",
         "id": "footer_bg",
         "label": "Footer Background",

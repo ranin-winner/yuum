@@ -1,0 +1,291 @@
+{% comment %}
+  Section: Marquee — Seamless JS (full width)
+  - Infinite, jump-free ticker using requestAnimationFrame
+  - Group A is padded to >= viewport, then cloned to Group B (A+B) for seamless loop
+  - Speed in px/sec, direction, paddings, gaps, text color
+  - Global "text max width" + per-item override
+  - No hover pause. Responsive rebuild (resize, images loaded, Theme Editor events).
+{% endcomment %}
+
+<section
+  id="marquee-{{ section.id }}"
+  class="relative w-full overflow-hidden"
+  style="
+    --gap-items: {{ section.settings.items_gap }}px;
+  {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
+  {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
+    padding-top: {{ section.settings.pad_top }}px;
+    padding-bottom: {{ section.settings.pad_bottom }}px;
+    "
+  data-reveal
+>
+  <!-- Viewport -->
+  <div
+    id="marquee-vp-{{ section.id }}"
+    class="relative w-full overflow-hidden"
+    style="color: {{ section.settings.text_color }};"
+  >
+    <!-- Track (JS will fill with groups) -->
+    <div
+      class="marquee-track flex items-center will-change-transform"
+      style="gap:0"  <!-- важливо: без gap між A і B -->
+    >
+    <!-- Source items (hidden). JS reads and builds Group A (+ clone B) -->
+    <div class="marquee-source hidden">
+      {% for block in section.blocks %}
+        {% assign img = block.settings.image %}
+        {% if img != blank or block.settings.text != blank %}
+          <div class="marquee-item flex items-center" style="column-gap: {{ section.settings.inner_gap }}px;">
+            {% if img != blank %}
+              <img
+                src="{{ img | image_url: width: 1000 }}"
+                alt="{{ block.settings.alt | default: block.settings.text | escape }}"
+                class="block h-auto object-contain"
+                style="width: {{ block.settings.image_width }}px; opacity: {{ block.settings.image_opacity | divided_by: 100.0 }};"
+                loading="lazy"
+                decoding="async"
+              >
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <span
+                class="leading-none"
+                style="
+                  white-space: normal;
+                  display: inline-block;
+                {% if block.settings.text_max_width and block.settings.text_max_width > 0 %}
+                  max-width: {{ block.settings.text_max_width }}px;
+                {% else %}
+                  max-width: {{ section.settings.text_max_width }}px;
+                {% endif %}
+                  font-size: {{ block.settings.text_size }}px;
+                  opacity: {{ block.settings.text_opacity | divided_by: 100.0 }};
+                  "
+              >{{ block.settings.text }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <!-- JS will append: .marquee-group[data-k="A"] + .marquee-group[data-k="B"] -->
+  </div>
+  </div>
+
+  {% if section.settings.show_fade %}
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-24 from-[var(--bg,_transparent)] to-transparent bg-gradient-to-r"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-24 from-transparent to-[var(--bg,_transparent)] bg-gradient-to-l"></div>
+    <style>#marquee-{{ section.id }}{ --bg: {{ section.settings.bg_color | default: 'transparent' }}; }</style>
+  {% endif %}
+</section>
+
+<style>
+  #marquee-{{ section.id }} .marquee-item img { flex: 0 0 auto; }
+  #marquee-{{ section.id }} .marquee-item { flex: 0 0 auto; }
+
+  /* групи ідуть в один ряд, не стискаються, між елементами групи — заданий gap */
+  #marquee-{{ section.id }} .marquee-group {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-items, 0px);
+    flex: 0 0 auto; /* важливо, щоб ширина групи була фіксованою одиницею циклу */
+  }
+
+  #marquee-{{ section.id }} .marquee-source { display: none; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #marquee-{{ section.id }} .marquee-track { transform: none !important; }
+  }
+</style>
+
+<script>
+  (function() {
+    var root = document.getElementById('marquee-{{ section.id }}');
+    if (!root || root.__jsMarquee) return;
+    root.__jsMarquee = true;
+
+    var vp     = root.querySelector('#marquee-vp-{{ section.id }}');
+    var track  = root.querySelector('.marquee-track');
+    var source = root.querySelector('.marquee-source');
+
+    // Settings
+    var speedPxPerSec = {{ section.settings.speed_px_s | default: 120 }}; // px/sec
+    // UI: "Right → Left" = 'ltr'
+    var dirSetting = {{ section.settings.direction | json }}; // "ltr" | "rtl"
+    var dir = (dirSetting === 'ltr') ? -1 : 1; // -1: right->left, 1: left->right
+
+    // Internals
+    var rafId = null;
+    var lastTs = null;
+    var offset = 0;
+    var groupWidth = 0; // ширина однієї групи (A)
+    var groups = [];    // [A, B]
+
+    function w(el){ return el.getBoundingClientRect().width; }
+    function clearNode(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+    function cloneNodeDeep(node){ return node.cloneNode(true); }
+
+    function buildGroups() {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+      lastTs = null;
+      offset = 0;
+      groups = [];
+      track.style.transform = 'translate3d(0,0,0)';
+
+      // Джерело
+      var items = source ? Array.from(source.children) : [];
+      if (!items.length) return;
+
+      // Створюємо Group A
+      var A = document.createElement('div');
+      A.className = 'marquee-group';
+      items.forEach(function(n){ A.appendChild(cloneNodeDeep(n)); });
+
+      // Очистити трек та додати A для вимірювання
+      clearNode(track);
+      track.appendChild(A);
+
+      var vpWidth = Math.max(1, w(vp));
+
+      // Якщо шири на 0 — зачекаємо на зображення
+      if (w(A) === 0) {
+        setTimeout(buildGroups, 100);
+        return;
+      }
+
+      // Якщо контент вузький — дублюємо елементи ВНУТРІШНЬО A,
+      // доки A не перекриє вьюпорт (щоб не було дірок між A і B)
+      var safety = 0;
+      while (w(A) < vpWidth && safety < 40) {
+        items.forEach(function(n){ A.appendChild(cloneNodeDeep(n)); });
+        safety++;
+      }
+
+      groupWidth = Math.ceil(w(A));
+
+      // Створюємо рівно одну копію — Group B
+      var B = document.createElement('div');
+      B.className = 'marquee-group';
+      Array.from(A.children).forEach(function(n){
+        B.appendChild(cloneNodeDeep(n));
+      });
+
+      // У треку рівно дві групи — A і B
+      track.appendChild(B);
+      groups = [A, B];
+
+      start();
+    }
+
+    function step(ts) {
+      if (lastTs == null) lastTs = ts;
+      var dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+
+      var delta = speedPxPerSec * dt * dir;
+      offset += delta;
+
+      // Тримаємо offset у проміжку [-groupWidth, 0) для чистого loop з рівно 2-х копій
+      if (offset <= -groupWidth) offset += groupWidth;
+      if (offset >= 0) offset -= groupWidth;
+
+      // Субпіксельне згладжування
+      var x = Math.round(offset * 1000) / 1000;
+      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+
+      rafId = requestAnimationFrame(step);
+    }
+
+    function start(){ rafId = requestAnimationFrame(step); }
+
+    // Debounced rebuild on resize
+    var resizeTimer;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildGroups, 150);
+    }
+
+    // Rebuild after load (images)
+    function onLoadReady() {
+      buildGroups();
+      setTimeout(function(){
+        if (!groups.length || groupWidth === 0) buildGroups();
+      }, 250);
+    }
+
+    // Theme Editor events
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e && e.detail && e.detail.sectionId && root.id.indexOf(e.detail.sectionId) !== -1) {
+        buildGroups();
+      }
+    });
+    document.addEventListener('shopify:section:reorder', buildGroups);
+    document.addEventListener('shopify:block:select', buildGroups);
+    document.addEventListener('shopify:block:deselect', buildGroups);
+
+    window.addEventListener('resize', onResize);
+
+    if (document.readyState === 'complete') {
+      onLoadReady();
+    } else {
+      window.addEventListener('load', onLoadReady);
+      setTimeout(onLoadReady, 300);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Marquee — Seamless JS",
+  "tag": "section",
+  "class": "section-marquee-js",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#EDEDED" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
+
+    { "type": "range", "id": "pad_top", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding top", "default": 32 },
+    { "type": "range", "id": "pad_bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding bottom", "default": 32 },
+
+    { "type": "range", "id": "items_gap", "min": 0, "max": 120, "step": 2, "unit": "px", "label": "Gap between items", "default": 48 },
+    { "type": "range", "id": "inner_gap", "min": 0, "max": 64, "step": 2, "unit": "px", "label": "Inner gap (image ↔ text)", "default": 24 },
+
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#5B5B5B" },
+
+    { "type": "range", "id": "speed_px_s", "min": 20, "max": 600, "step": 10, "unit": "px", "label": "Scroll speed (px/s)", "default": 120 },
+
+    { "type": "range", "id": "text_max_width", "min": 120, "max": 1000, "step": 10, "unit": "px", "label": "Global text max width", "default": 280 },
+
+    { "type": "select", "id": "direction", "label": "Direction", "default": "ltr",
+      "options": [
+        { "value": "ltr", "label": "Right → Left" },
+        { "value": "rtl", "label": "Left → Right" }
+      ]
+    },
+
+    { "type": "checkbox", "id": "show_fade", "label": "Show edge fade masks", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text (optional)" },
+
+        { "type": "text", "id": "text", "label": "Text (optional)" },
+        { "type": "range", "id": "text_size", "min": 12, "max": 28, "step": 1, "unit": "px", "label": "Text size", "default": 16 },
+        { "type": "range", "id": "text_opacity", "min": 10, "max": 100, "step": 5, "unit": "%", "label": "Text opacity", "default": 85 },
+
+        { "type": "range", "id": "text_max_width", "min": 0, "max": 1000, "step": 10, "unit": "px", "label": "Text max width (this item, 0 = inherit)", "default": 0 },
+
+        { "type": "range", "id": "image_width", "min": 24, "max": 240, "step": 4, "unit": "px", "label": "Image width", "default": 96 },
+        { "type": "range", "id": "image_opacity", "min": 10, "max": 100, "step": 5, "unit": "%", "label": "Image opacity", "default": 80 }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    { "name": "Marquee — Seamless JS", "category": "Banners" }
+  ]
+}
+{% endschema %}

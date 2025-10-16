@@ -13,12 +13,14 @@
     font-variant-ligatures: none;
     font-size: 10px;
     line-height: 1.2em;
-    // overflow-y: scroll;
+    scroll-behavior: auto !important;
   }
 
-  
+  [data-reveal] { will-change: transform, opacity; }
+  [data-parallax] img, [data-parallax] [data-parallax-item] { will-change: transform; display:block; }
+
   body {
-    @apply font-body; 
+    @apply font-body;
     font-family: var(--font-body, 'Neue Haas Grotesk Display Pro'), system-ui, -apple-system, Arial, sans-serif;
     font-size: 1.6rem;
     line-height: 1.2em;
@@ -67,7 +69,7 @@
     @apply hidden;
   }
 
-  
+
   h1,h2,h3,h4,h5,h6 {
     @apply font-heading;
     font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
@@ -82,7 +84,7 @@
   .heading-5 {
     @apply font-heading;
     font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
-    font-weight: 400; 
+    font-weight: 400;
     color: #474747;
   }
 
@@ -106,7 +108,7 @@
     @include cfg.h5;
   }
 
-  
+
 
   .body-2 {
     @include cfg.body-2;
@@ -172,7 +174,7 @@
         &-nav {
             width: 100%;
         }
-    
+
         &-list {
             display: flex;
             align-items: center;
@@ -182,12 +184,12 @@
             padding: 0;
             gap: 0;
         }
-    
+
         &-item {
             display: inline-flex;
             font-size: 14px;
         }
-    
+
         &-link {
             color: #474747;
             font-size: 14px;
@@ -196,21 +198,21 @@
             font-weight: 400;
             text-decoration: none;
             transition: color 0.3s ease;
-    
+
             &:hover {
                 color: #ADAEB0;
             }
-    
+
             &.current-page {
                 color: #ADAEB0;
                 cursor: default;
-    
+
                 &:hover {
                     color: #474747;
                 }
             }
         }
-    
+
         &-separator {
             color: #474747;
             font-size: 14px;
@@ -223,7 +225,7 @@
     &--snippet {
 
     }
-   
+
 }
 
 .breadcrumb-link--tag {
@@ -327,7 +329,7 @@
 .yotpo-display-s .yotpo-head .yotpo-headline {
     margin-top: 0!important;
 }
- 
+
 .m-page-about_products,
 .template-collection {
     .shopify-section {
@@ -340,4 +342,57 @@
         padding-bottom: 0;
     }
 
+}
+
+.template-index {
+  .shopify-section {
+    padding-bottom: 0;
+  }
+  #hero-template--26463982190966__c_hero_banner_bhLXqh.b-hero-banner {
+    margin-top: -93px;
+
+    @include cfg.media(max-t) {
+      margin-top: -60px;
+    }
+  }
+
+  .b-header {
+    border-color: #fff;
+    position: relative;
+    z-index: 9;
+
+    .b-header__list-link, .group button, .b-header__list-link.m-active{
+      color: #fff !important;
+    }
+
+    .group button svg path {
+      fill: #fff !important;
+    }
+
+    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+      background: #fff !important;
+    }
+
+    .b-header__cartlogin svg path {
+      fill: #fff !important;
+    }
+  }
+
+  #insta-feed {
+    margin-bottom: 60px !important;
+
+    h2 {
+      line-height: 1.4;
+      color: rgba(71, 71, 71, 1) !important;
+    }
+  }
+
+  .instafeed-new-layout-wrapper {
+    gap: 8px !important;
+
+    .instafeed-new-layout-item {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+  }
 }

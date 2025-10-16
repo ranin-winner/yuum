@@ -1,86 +1,162 @@
 {% assign settingsFooterBg = settings.footer_bg %}
-<div class=" text-white py-8 px-4 lg:pt-32 lg:pb-24 lg:px-4 flex flex-col items-center" style="background-color: {{ settingsFooterBg }};">
-  <div class="container flex flex-col justify-center items-center gap-12">
-    <div class="flex flex-wrap md:flex-nowrap justify-center gap-0 md:gap-12 lg:gap-32 w-full">
-      <div class="space-y-4 basis-1/2 lg:basis-1/4 text-center lg:text-start">
-        {% if settings.footer_menu_title_1 != blank %}
-          <h3 class="text-base uppercase font-Gazpacho mb-10">
-            {{ settings.footer_menu_title_1 }}
-          </h3>
+
+<footer
+  class="text-white px-4 py-8 lg:px-6 lg:py-16"
+  style="background-color: {{ settingsFooterBg }}; border-top-left-radius: {{ settings.footer_corner_radius | default: 16 }}px; border-top-right-radius: {{ settings.footer_corner_radius | default: 16 }}px;"
+>
+  <div class="container mx-auto max-w-screen-xl">
+    {%- comment -%} Top row: logo + (optional) socials on the right {%- endcomment -%}
+    <div class="flex items-start justify-between gap-6">
+      <div class="flex items-center gap-4">
+        {% if settings.footer_logo != blank %}
+          <a href="{{ routes.root_url }}" class="inline-block">
+            <img
+              src="{{ settings.footer_logo | image_url: width: 320 }}"
+              alt="{{ shop.name }}"
+              class="block h-auto"
+              style="width: {{ settings.footer_logo_width | default: 120 }}px;"
+              loading="lazy"
+            >
+          </a>
+        {% else %}
+          <span class="text-xl font-semibold tracking-wide">{{ shop.name }}</span>
         {% endif %}
-        {% for link in settings.footer_menu_1.links %}
-          <div class="pb-4 font-Aksen">
-            <a href="{{ link.url }}" class="text-white hover:opacity-75">{{ link.title }}</a>
-          </div>
-        {% endfor %}
       </div>
 
-      <div class="space-y-4 basis-1/2 lg:basis-1/4 pb-8 md:pb-0 text-center lg:text-start">
-        {% if settings.footer_menu_title_2 != blank %}
-          <h3 class="text-base uppercase font-Gazpacho mb-10">
-            {{ settings.footer_menu_title_2 }}
-          </h3>
+      {%- comment -%} Small social icons (optional) {%- endcomment -%}
+      <div class="hidden md:flex items-center gap-4">
+        {% if settings.social_facebook and settings.social_facebook_icon %}
+          <a href="{{ settings.social_facebook }}" target="_blank" class="opacity-90 hover:opacity-100 transition">
+            <img src="{{ settings.social_facebook_icon | image_url: width: 64 }}" alt="Facebook" class="w-6 h-6">
+          </a>
         {% endif %}
-        {% for link in settings.footer_menu_2.links %}
-          <div class="pb-4 font-Aksen">
-            <a href="{{ link.url }}" class="text-white hover:opacity-75">{{ link.title }}</a>
-          </div>
-        {% endfor %}
+        {% if settings.social_instagram and settings.social_instagram_icon %}
+          <a href="{{ settings.social_instagram }}" target="_blank" class="opacity-90 hover:opacity-100 transition">
+            <img src="{{ settings.social_instagram_icon | image_url: width: 64 }}" alt="Instagram" class="w-6 h-6">
+          </a>
+        {% endif %}
+        {% if settings.social_twitter and settings.social_twitter_icon %}
+          <a href="{{ settings.social_twitter }}" target="_blank" class="opacity-90 hover:opacity-100 transition">
+            <img src="{{ settings.social_twitter_icon | image_url: width: 64 }}" alt="Twitter/X" class="w-6 h-6">
+          </a>
+        {% endif %}
+        {% if settings.social_youtube and settings.social_youtube_icon %}
+          <a href="{{ settings.social_youtube }}" target="_blank" class="opacity-90 hover:opacity-100 transition">
+            <img src="{{ settings.social_youtube_icon | image_url: width: 64 }}" alt="YouTube" class="w-6 h-6">
+          </a>
+        {% endif %}
       </div>
+    </div>
 
-      <div class="space-y-4 basis-full lg:basis-1/2  pb-8 md:pb-0 flex-shrink">
-        <h3 class="text-white font-Gazpacho uppercase text-base py-2 text-center lg:text-start">
-          {{ settings.newsletter_title }}
-        </h3>
-        {% form 'customer', class: 'flex flex-col py-2 items-center lg:flex-row gap-2 w-full' %}
-          <input
-            type="email"
-            name="contact[email]"
-            class="b-footer-input"
-            placeholder="{{ settings.newsletter_placeholder }}"
-            required
-          >
-          <button
-            type="submit"
-            class="btn btn-primary b-footer-btn"
-          >
+    {%- comment -%} Middle: newsletter (left) + link columns (right) {%- endcomment -%}
+    <div class="mt-10 grid gap-10 lg:gap-16 lg:grid-cols-12 items-start">
+      <div class="lg:col-span-5">
+        {% if settings.newsletter_title != blank %}
+          <p class="mb-6 max-w-xl leading-relaxed opacity-90">{{ settings.newsletter_title }}</p>
+        {% endif %}
+
+        {% form 'customer', class: 'flex flex-col sm:flex-row items-center gap-4 max-w-xl' %}
+          <div class="relative w-full">
+            <input
+              type="email"
+              name="contact[email]"
+              class="peer w-full bg-transparent border-0 border-b border-white/60 focus:border-white outline-none placeholder:text-white/50 py-2"
+              placeholder="{{ settings.newsletter_placeholder }}"
+              required
+            >
+          </div>
+          <button type="submit" class="shrink-0 inline-flex items-center justify-center rounded-full px-6 py-2 border border-white/80 bg-white text-black hover:opacity-90 transition">
             {{ settings.newsletter_button_text }}
           </button>
         {% endform %}
+      </div>
 
-        <div class="mt-6 flex items-center justify-center lg:justify-start gap-4">
-          <p class="text-white font-bold">{{ settings.social_title }}</p>
-          <div class="flex gap-4">
-            {% if settings.social_facebook != blank and settings.social_facebook_icon != blank %}
-              <a href="{{ settings.social_facebook }}" target="_blank" class="hover:opacity-75">
-                <img src="{{ settings.social_facebook_icon | image_url }}" alt="Facebook" class="w-12 h-12">
-              </a>
-            {% endif %}
-            {% if settings.social_instagram != blank and settings.social_instagram_icon != blank %}
-              <a href="{{ settings.social_instagram }}" target="_blank" class="hover:opacity-75">
-                <img src="{{ settings.social_instagram_icon  | image_url }}" alt="Instagram" class="w-12 h-12">
-              </a>
-            {% endif %}
-            {% if settings.social_twitter != blank and settings.social_twitter_icon != blank %}
-              <a href="{{ settings.social_twitter }}" target="_blank" class="hover:opacity-75">
-                <img src="{{ settings.social_twitter_icon | image_url }}" alt="Twitter" class="w-12 h-12">
-              </a>
-            {% endif %}
-            {% if settings.social_youtube != blank and settings.social_youtube_icon != blank %}
-              <a href="{{ settings.social_youtube }}" target="_blank" class="hover:opacity-75">
-                <img src="{{ settings.social_youtube_icon | image_url }}" alt="YouTube" class="w-12 h-12">
-              </a>
-            {% endif %}
-          </div>
+      <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div>
+          {% if settings.footer_menu_title_1 != blank %}
+            <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_1 }}</h3>
+          {% endif %}
+          {% for link in settings.footer_menu_1.links %}
+            <div class="mb-3 font-Aksen">
+              <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+            </div>
+          {% endfor %}
         </div>
+
+        <div>
+          {% if settings.footer_menu_title_2 != blank %}
+            <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_2 }}</h3>
+          {% endif %}
+          {% for link in settings.footer_menu_2.links %}
+            <div class="mb-3 font-Aksen">
+              <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if settings.footer_menu_4 and settings.footer_menu_4.links.size > 0 %}
+          <div>
+            {% if settings.footer_menu_title_4 != blank %}
+              <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_4 }}</h3>
+            {% endif %}
+            {% for link in settings.footer_menu_4.links %}
+              <div class="mb-3 font-Aksen">
+                <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if settings.footer_menu_5 and settings.footer_menu_5.links.size > 0 %}
+          <div>
+            {% if settings.footer_menu_title_5 != blank %}
+              <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_5 }}</h3>
+            {% endif %}
+            {% for link in settings.footer_menu_5.links %}
+              <div class="mb-3 font-Aksen">
+                <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
 
-    <div class="w-full ">
-      <p class="text-base text-right text-white-content border-b border-white-bd pb-4 font-Aksen">{{ settings.copyright_text }}</p>
-      {% for link in settings.footer_menu_3.links %}
-        <a href="{{ link.url }}" class="text-base text-white-content hover:text-black-content">{{ link.title }}</a>
-      {% endfor %}
+    {%- comment -%} Big tagline row {%- endcomment -%}
+    {% if settings.footer_tagline_image != blank %}
+      <div class="mt-12 lg:mt-16 flex justify-center">
+        <img
+          src="{{ settings.footer_tagline_image | image_url: width: 1600 }}"
+          alt="{{ settings.footer_tagline | default: shop.name }}"
+          class="max-w-full h-auto opacity-20"
+          style="max-height: {{ settings.footer_tagline_height | default: 240 }}px;"
+          loading="lazy"
+        >
+      </div>
+    {% elsif settings.footer_tagline != blank %}
+      <div class="mt-12 lg:mt-16">
+        <div class="leading-none tracking-tight opacity-20 select-none text-center"
+             style="font-size: {{ settings.footer_tagline_size | default: 128 }}px; line-height: 0.9;">
+          {{ settings.footer_tagline }}
+        </div>
+      </div>
+    {% endif %}
+
+    {%- comment -%} Bottom bar {%- endcomment -%}
+    <div class="mt-10 border-t border-white/20 pt-4 flex flex-col-reverse md:flex-row items-center justify-between gap-4">
+      <div class="text-sm opacity-80">
+        {{ settings.copyright_text }}
+      </div>
+
+      <div class="flex items-center gap-4">
+        {% for link in settings.footer_menu_3.links %}
+          <a href="{{ link.url }}" class="text-sm opacity-80 hover:opacity-100 transition">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="flex items-center gap-2">
+        {% comment %} place your payment icons snippet if you have one {% endcomment %}
+      </div>
     </div>
   </div>
-</div>
+</footer>

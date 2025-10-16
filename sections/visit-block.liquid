@@ -1,0 +1,154 @@
+{% comment %}
+  Section: Visit Block (Tailwind + GSAP hooks)
+  - Left: large image
+  - Right: title + text + button + small image
+  - Uses data-reveal and data-parallax/data-parallax-item
+  - Adjustable paddings, column gap, inner gap, colors, radii, sizes
+{% endcomment %}
+
+<section
+  id="visit-{{ section.id }}"
+  class="w-full"
+  style="
+  {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
+  {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
+    padding-top: {{ section.settings.pad_top }}px;
+    padding-bottom: {{ section.settings.pad_bottom }}px;
+    "
+  data-reveal
+>
+  <div class="{% if section.settings.container == 'narrow' %}max-w-5xl{% elsif section.settings.container == 'wide' %}max-w-7xl{% else %}max-w-screen-xl{% endif %} mx-auto px-4">
+    <div
+      class="grid items-center"
+      style="gap: {{ section.settings.col_gap }}px; grid-template-columns: 1fr minmax(0, 0.9fr);"
+    >
+      {%- comment -%} Left large image {%- endcomment -%}
+      {% if section.settings.image_left != blank %}
+        <div class="w-full" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+          <img
+            src="{{ section.settings.image_left | image_url: width: 1600 }}"
+            alt="{{ section.settings.image_left_alt | escape }}"
+            class="block w-full h-auto object-cover"
+            style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.left_opacity | divided_by: 100.0 }};"
+            loading="lazy"
+            {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
+          >
+        </div>
+      {% else %}
+        <div></div>
+      {% endif %}
+
+      {%- comment -%} Right: text group + small image {%- endcomment -%}
+      <div class="flex flex-col"
+           style="row-gap: {{ section.settings.inner_gap }}px; color: {{ section.settings.text_color }};">
+        <div class="flex flex-col" style="row-gap: {{ section.settings.text_gap }}px;" data-reveal>
+          {% if section.settings.title != blank %}
+            <h2 class="m-0 font-semibold leading-tight"
+                style="font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }};">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+
+          {% if section.settings.text != blank %}
+            <p class="m-0 opacity-90"
+               style="font-size: {{ section.settings.text_size }}px;">
+              {{ section.settings.text }}
+            </p>
+          {% endif %}
+
+          {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
+            <a href="{{ section.settings.btn_url }}"
+               class="inline-flex items-center justify-center rounded-full border px-5 py-2 transition hover:opacity-90 focus:outline-none focus:ring"
+               style="column-gap: 10px; border-color: currentColor; color: {{ section.settings.button_text_color }}; background-color: {{ section.settings.button_bg_color }};">
+              {{ section.settings.btn_label }}
+            </a>
+          {% endif %}
+        </div>
+
+        {% if section.settings.image_right != blank %}
+          <div class="w-full" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+            <img
+              src="{{ section.settings.image_right | image_url: width: 1200 }}"
+              alt="{{ section.settings.image_right_alt | escape }}"
+              class="block w-full h-auto object-cover"
+              style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.right_opacity | divided_by: 100.0 }};"
+              loading="lazy"
+              {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
+            >
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Re-init GSAP hooks for this section (if your init is available)
+    if (window.initScrollAnimations) {
+      window.initScrollAnimations(document.getElementById('visit-{{ section.id }}'));
+    }
+  </script>
+
+  <style>
+    /* Responsive: stack on small screens */
+    @media (max-width: 1023px) {
+      #visit-{{ section.id }} .grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Visit block",
+  "tag": "section",
+  "class": "section-visit-block",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#EEEEEE" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
+
+    { "type": "range", "id": "pad_top", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding top", "default": 48 },
+    { "type": "range", "id": "pad_bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding bottom", "default": 48 },
+
+    { "type": "select", "id": "container", "label": "Container width", "default": "xl",
+      "options": [
+        { "value": "narrow", "label": "Narrow (max-w-5xl)" },
+        { "value": "xl",     "label": "Standard (max-w-screen-xl)" },
+        { "value": "wide",   "label": "Wide (max-w-7xl)" }
+      ]
+    },
+
+    { "type": "range", "id": "col_gap", "min": 8, "max": 120, "step": 4, "unit": "px", "label": "Gap between columns", "default": 72 },
+    { "type": "range", "id": "inner_gap", "min": 8, "max": 80, "step": 4, "unit": "px", "label": "Gap inside right column", "default": 24 },
+    { "type": "range", "id": "text_gap", "min": 4, "max": 48, "step": 2, "unit": "px", "label": "Gap between title and text", "default": 12 },
+
+    { "type": "color", "id": "title_color", "label": "Title color", "default": "#1A1A1A" },
+    { "type": "color", "id": "text_color", "label": "Body text color", "default": "#5B5B5B" },
+    { "type": "range", "id": "title_size", "min": 18, "max": 64, "step": 1, "unit": "px", "label": "Title size", "default": 48 },
+    { "type": "range", "id": "text_size", "min": 12, "max": 22, "step": 1, "unit": "px", "label": "Body text size", "default": 14 },
+
+    { "type": "checkbox", "id": "enable_parallax", "label": "Enable parallax on images (uses data-parallax)", "default": true },
+
+    { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Image border radius", "default": 16 },
+    { "type": "range", "id": "left_opacity", "min": 10, "max": 100, "step": 5, "unit": "%", "label": "Left image opacity", "default": 100 },
+    { "type": "range", "id": "right_opacity", "min": 10, "max": 100, "step": 5, "unit": "%", "label": "Right image opacity", "default": 100 },
+
+    { "type": "text", "id": "title", "label": "Title", "default": "Visit us" },
+    { "type": "textarea", "id": "text", "label": "Body text", "default": "A boutique café is a place where you will be prepared and served a product in its original form, revealing the correct understanding of its taste." },
+
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "Our locations" },
+    { "type": "url",  "id": "btn_url",   "label": "Button link" },
+    { "type": "color","id": "button_bg_color",   "label": "Button background", "default": "#FFFFFF" },
+    { "type": "color","id": "button_text_color", "label": "Button text color", "default": "#1A1A1A" },
+
+    { "type": "image_picker", "id": "image_left",  "label": "Left image" },
+    { "type": "text", "id": "image_left_alt", "label": "Left image alt" },
+
+    { "type": "image_picker", "id": "image_right", "label": "Right bottom image" },
+    { "type": "text", "id": "image_right_alt", "label": "Right bottom image alt" }
+  ],
+  "presets": [
+    { "name": "Visit block", "category": "Sections" }
+  ]
+}
+{% endschema %}

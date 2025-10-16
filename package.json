@@ -30,7 +30,9 @@
   },
   "dependencies": {
     "@alpinejs/persist": "^3.14.3",
+    "@studio-freight/lenis": "^1.0.42",
     "alpinejs": "^3.14.3",
+    "gsap": "^3.13.0",
     "swiper": "^11.1.15"
   }
 }

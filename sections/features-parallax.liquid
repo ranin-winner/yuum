@@ -1,0 +1,111 @@
+{% comment %}
+  Section: Features (Tailwind + GSAP hooks)
+  - Використовує готові атрибути: [data-reveal], [data-parallax], [data-parallax-item]
+  - Налаштування: фон (колір/зображення), падінги T/B, колонки, gap, кольори тексту
+{% endcomment %}
+
+<section
+  id="features-{{ section.id }}"
+  class="w-full"
+  style="
+  {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
+  {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
+    padding-top: {{ section.settings.pad_top }}px;
+    padding-bottom: {{ section.settings.pad_bottom }}px;
+    "
+>
+  <div class="{% if section.settings.container == 'narrow' %}max-w-5xl{% elsif section.settings.container == 'wide' %}max-w-7xl{% else %}max-w-screen-xl{% endif %} mx-auto px-4">
+    <div
+      class="grid"
+      style="gap: {{ section.settings.grid_gap }}px; grid-template-columns: repeat({{ section.settings.columns }}, minmax(0,1fr));"
+    >
+      {% for block in section.blocks %}
+        {% assign img = block.settings.image %}
+        <article
+          class="flex items-center justify-center text-center md:text-left md:justify-start gap-10"
+          data-reveal
+          {{ block.shopify_attributes }}
+          style="color: {{ section.settings.text_color }};"
+        >
+          {% if img != blank %}
+            <div class="shrink-0" data-parallax>
+              <img
+                src="{{ img | image_url: width: 480 }}"
+                alt="{{ block.settings.title | escape }}"
+                class="block object-contain opacity-90"
+                style="width: {{ block.settings.icon_w }}px; height:auto;"
+                loading="lazy"
+                data-parallax-item
+              >
+            </div>
+          {% endif %}
+
+          <div class="flex flex-col items-center md:items-start justify-center text-center md:text-left" style="row-gap: {{ block.settings.v_gap }}px;">
+            {% if block.settings.title != blank %}
+              <h3 class="m-0 font-normal leading-tight"
+                  style="font-size: {{ block.settings.title_size }}px; color: {{ section.settings.title_color }};">
+                {{ block.settings.title }}
+              </h3>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <p class="m-0 opacity-90"
+                 style="font-size: {{ block.settings.text_size }}px;">
+                {{ block.settings.text }}
+              </p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Features — parallax",
+  "tag": "section",
+  "class": "section-features-reveal",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Bg color", "default": "#A8A8A8" },
+
+    { "type": "range", "id": "pad_top", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Верхній відступ (padding-top)", "default": 48 },
+    { "type": "range", "id": "pad_bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Нижній відступ (padding-bottom)", "default": 48 },
+
+    { "type": "range", "id": "columns", "min": 1, "max": 4, "step": 1, "label": "Кількість колонок (desktop)", "default": 3 },
+    { "type": "range", "id": "grid_gap", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Відступ між елементами (gap)", "default": 32 },
+
+    { "type": "select", "id": "container", "label": "Ширина контейнера", "default": "xl",
+      "options": [
+        { "value": "narrow", "label": "Вузький (max-w-5xl)" },
+        { "value": "xl",     "label": "Стандарт (max-w-screen-xl)" },
+        { "value": "wide",   "label": "Широкий (max-w-7xl)" }
+      ]
+    },
+
+    { "type": "color", "id": "title_color", "label": "Колір заголовків", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color",  "label": "Колір тексту",     "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Елемент",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Іконка/картинка" },
+        { "type": "range", "id": "icon_w", "min": 24, "max": 160, "step": 4, "unit": "px", "label": "Ширина іконки", "default": 64 },
+
+        { "type": "text", "id": "title", "label": "Заголовок", "default": "Unique products from all over the world" },
+        { "type": "textarea", "id": "text", "label": "Текст", "default": "Exclusive collections of products from different cultures around the world" },
+
+        { "type": "range", "id": "title_size", "min": 14, "max": 36, "step": 1, "unit": "px", "label": "Розмір заголовка", "default": 20 },
+        { "type": "range", "id": "text_size",  "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Розмір тексту",    "default": 14 },
+
+        { "type": "range", "id": "v_gap", "min": 4, "max": 32, "step": 2, "unit": "px", "label": "Відступ між заголовком і текстом", "default": 8 }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    { "name": "Features — parallax", "category": "Блоки" }
+  ]
+}
+{% endschema %}
