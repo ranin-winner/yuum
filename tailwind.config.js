@@ -16,7 +16,6 @@ export default {
       '5xl': ['6rem', '6rem'],
       '6xl': ['7.2rem', '7.2rem'],
       '7xl': ['9.6rem', '9.6rem'],
-      '6xl': ['12.8rem', '12.8rem'],
     },
     screens: {
       sm: '480px',
@@ -25,15 +24,15 @@ export default {
       xl: '1400px',
     },
     container: {
-        center: true,
-        padding: '40px',
-        screens: {
-          DEFAULT: '100%',
-          sm: '100%',
-          md: '100%',
-          lg: '100%',
-          xl: '1440px',
-        },
+      center: true,
+      padding: '40px',
+      screens: {
+        DEFAULT: '100%',
+        sm: '100%',
+        md: '100%',
+        lg: '100%',
+        xl: '1440px',
+      },
     },
     extend: {
       fontFamily: {
@@ -49,20 +48,20 @@ export default {
         34: '9rem',
       },
       boxShadow: {
-        'regular': '0 4px 4px rgba(0, 0, 0, 0.2)',
+        regular: '0 4px 4px rgba(0, 0, 0, 0.2)',
       },
       borderRadius: {
-        'regular': '8px',
+        regular: '8px',
       },
     },
     colors: {
-      body: { 
-        DEFAULT: '#E7E7E7', 
-        bg: '#E7E7E7' 
+      body: {
+        DEFAULT: '#E7E7E7',
+        bg: '#E7E7E7',
       },
       color_stroke: {
         DEFAULT: '#474747',
-        bg: '#474747'
+        bg: '#474747',
       },
       color_1: {
         DEFAULT: '#474747',
@@ -130,7 +129,6 @@ export default {
           '--color-body-content': theme('colors.color_1.content'),
           '--color-body-bg': '#E7E7E7',
 
-
           // Brand colors 1 (primary)
           '--color_1': theme('colors.color_1.DEFAULT'),
           '--color_1_secondary': theme('colors.color_1.secondary'),
@@ -141,12 +139,12 @@ export default {
           '--color_2_secondary': theme('colors.color_2.secondary'),
           '--color_2_tertiary': theme('colors.color_2.tertiary'),
 
-           // Brand colors 3 (tertiary)
+          // Brand colors 3 (tertiary)
           '--color_3': theme('colors.color_3.DEFAULT'),
           '--color_3_secondary': theme('colors.color_3.secondary'),
           '--color_3_tertiary': theme('colors.color_3.tertiary'),
 
-           // Brand colors 4 (quaternary)
+          // Brand colors 4 (quaternary)
           '--color_4': theme('colors.color_4.DEFAULT'),
           '--color_4_secondary': theme('colors.color_4.secondary'),
           '--color_4_tertiary': theme('colors.color_4.tertiary'),
@@ -180,6 +178,20 @@ export default {
           '--theme-button-label': theme('colors.white.DEFAULT'),
           '--theme-secondary-button-label': theme('colors.black.DEFAULT'),
           '--theme-shadow': theme('colors.black.DEFAULT'),
+        },
+      });
+    },
+
+    // Повноширинний контейнер з тими ж паддінгами, що й .container
+    function ({ addComponents, theme }) {
+      addComponents({
+        '.container-full': {
+          width: '100%',
+          maxWidth: '100%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          paddingLeft: '0',
+          paddingRight: '0',
         },
       });
     },

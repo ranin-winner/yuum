@@ -331,7 +331,8 @@
 }
 
 .m-page-about_products,
-.template-collection {
+.template-collection,
+.m-page-faq-tabs {
     .shopify-section {
         &:first-child {
             padding-bottom: 0;
@@ -395,4 +396,10 @@
       overflow: hidden;
     }
   }
+}
+
+
+// chips styles
+.chips-item {
+    @apply inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0] hover:bg-white hover:text-[#474747] transition;
 }

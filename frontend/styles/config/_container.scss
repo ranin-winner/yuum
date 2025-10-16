@@ -13,6 +13,16 @@
     }
 }
 
+.container-full {
+    @include media(max-t) {
+        padding: 0 0px!important;
+   }
+
+    @include media(max-m) {
+        padding: 0 0px!important;
+    }
+}
+
 .shopify-section {
     // &:not(:last-child) {
         padding-bottom: 120px;

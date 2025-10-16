@@ -1,0 +1,221 @@
+{% comment %}
+  SECTION: faq-tabs.liquid
+  Ідея:
+  - Блоки "Nav link" задають вкладки (мають власну назву та індекс).
+  - Блоки "Collapsible" — це пункти FAQ (питання/відповідь), яким призначаємо індекс вкладки.
+  - Рендеримо тільки ті "Collapsible", індекс яких == активній вкладці.
+{% endcomment %}
+
+{% render 'entry' with '@/styles/sections/faq-tabs.scss' %}
+
+<section id="faqTabs-{{ section.id }}" class="faq-tabs pt-[{{ section.settings.padding_top }}px]">
+  <div class="container">
+    
+    {%- assign nav_blocks = section.blocks | where: 'type', 'nav_link' -%}
+    {%- assign faq_blocks = section.blocks | where: 'type', 'collapsible' -%}
+
+    {%- assign default_tab = nav_blocks.first.settings.tab_index | default: 1 -%}
+
+    <div
+      x-data="faqTabs({ defaultTab: '{{ default_tab }}' })"
+      x-init="init()"
+      class="faq-tabs__inner"
+    >
+      <!-- NAV: зверху на мобайлі, зліва на десктопі -->
+      <nav
+        class="md:sticky md:top-6 md:self-start"
+        aria-label="FAQ categories"
+        role="tablist"
+      >
+        <!-- Mobile row -->
+        <div class="md:hidden flex gap-[8px] overflow-x-auto no-scrollbar -mx-4 px-4 flex-wrap">
+          {% for nb in nav_blocks %}
+            {% assign idx = nb.settings.tab_index | default: forloop.index %}
+            <button
+              type="button"
+              @click="setTab('{{ idx }}')"
+              :aria-selected="tab === '{{ idx }}'"
+              role="tab"
+              class="chips-item"
+              :class="tab === '{{ idx }}' ? 'bg-white text-[#474747]' : 'bg-transparent'"
+            >
+              {{ nb.settings.title | default: 'Tab ' }}
+            </button>
+          {% endfor %}
+        </div>
+
+        <!-- Desktop column -->
+        <ul class="hidden md:flex md:flex-col md:gap-[12px]">
+          {% for nb in nav_blocks %}
+            {% assign idx = nb.settings.tab_index | default: forloop.index %}
+            <li>
+              <button
+                type="button"
+                @click="setTab('{{ idx }}')"
+                :aria-selected="tab === '{{ idx }}'"
+                role="tab"
+                class="chips-item"
+                :class="tab === '{{ idx }}' ? 'bg-white text-[#474747]' : 'bg-transparent'"
+              >
+                {{ nb.settings.title | default: 'Tab ' }}
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      
+
+      <!-- CONTENT -->
+      <div class="faq-tabs__content-inner">
+        {% for nb in nav_blocks %}
+          {% assign idx = nb.settings.tab_index | default: forloop.index %}
+          <div
+            x-show="tab === '{{ idx }}'"
+            x-cloak
+            id="faqTab-{{ idx }}"
+            role="tabpanel"
+            class="faq-tabs__content"
+            :aria-labelledby="'tab-{{ idx }}'"
+            
+          >
+            {% if nb.settings.heading != blank %}
+              <p class="mb-[24px] tracking-[4px] uppercase font-normal text-[#474747]">
+                {{ nb.settings.heading }}
+              </p>
+            {% endif %}
+
+            {%- assign any_items = false -%}
+            {% for b in faq_blocks %}
+                {% assign b_idx = b.settings.tab_index | default: 1 %}
+                {% if b_idx == idx %}
+                  {%- assign any_items = true -%}
+              
+                  <div class="faq-acc" data-open-default="{{ b.settings.open_by_default | json }}">
+                    {%- render 'accordion-item',
+                        q: b.settings.question,
+                        a: b.settings.answer,
+                        open: b.settings.open_by_default,
+                        class: 'border-[#474747]'
+                    -%}
+                  </div>
+              
+                {% endif %}
+              {% endfor %}
+
+            {% if any_items == false %}
+              <div class="text-sm text-[#6B6B6B] italic">
+                There are currently no questions for this tab.
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('faqTabs', ({ defaultTab }) => ({
+        tab: String(defaultTab || '1'),
+    
+        init() {
+          const fromHash = this.getHashTab();
+          if (fromHash) this.tab = fromHash;
+    
+          this.$nextTick(() => this.openDefaults());
+    
+          window.addEventListener('hashchange', () => {
+            const h = this.getHashTab();
+            if (h) this.tab = h;
+            this.$nextTick(() => this.openDefaults());
+          }, { passive: true });
+        },
+    
+        setTab(value) {
+          this.tab = String(value);
+          const newHash = `tab-${this.tab}`;
+          if (location.hash !== `#${newHash}`) {
+            history.replaceState(null, '', `#${newHash}`);
+          }
+          this.$nextTick(() => this.openDefaults());
+        },
+    
+        openDefaults() {
+          const container = this.$root.querySelector(`#faqTab-${this.tab}`);
+          if (!container) return;
+    
+          container.querySelectorAll('.faq-acc[data-open-default="true"]').forEach(wrap => {
+            // 1) <details> варіант
+            const det = wrap.querySelector('details');
+            if (det && !det.hasAttribute('open')) {
+              det.setAttribute('open', 'open');
+            }
+    
+            // 2) aria-expanded (кнопка/триггер)
+            const expander = wrap.querySelector('[aria-expanded]');
+            if (expander && expander.getAttribute('aria-expanded') === 'false') {
+              expander.click();
+            }
+    
+            // 3) summary як триггер
+            const summary = wrap.querySelector('summary');
+            if (summary) {
+              const owner = summary.closest('details');
+              if (owner && !owner.hasAttribute('open')) summary.click();
+            }
+          });
+        },
+    
+        getHashTab() {
+          const m = (location.hash || '').match(/^#tab-(.+)$/);
+          return m ? String(m[1]) : null;
+        }
+      }))
+    })
+</script>
+    
+    
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Tabs",
+  "settings": [
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding top", "default": 40 },
+  ],
+  "blocks": [
+    {
+      "type": "nav_link",
+      "name": "Nav link",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Tab name" },
+        { "type": "text", "id": "heading", "label": "Tab heading" },
+        { "type": "text", "id": "tab_index", "label": "Індекс вкладки (напр. 1, 2, 3)" }
+      ]
+    },
+    {
+      "type": "collapsible",
+      "name": "Collapsible",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Заголовок (питання)" },
+        { "type": "richtext", "id": "answer", "label": "Вміст (відповідь)" },
+        { "type": "checkbox", "id": "open_by_default", "label": "Відкритий за замовчуванням", "default": false },
+        { "type": "text", "id": "tab_index", "label": "Індекс вкладки, до якої належить цей пункт (напр. 1)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Tabs",
+      "blocks": [
+        { "type": "nav_link", "settings": { "title": "Про продукт", "tab_index": "1" } },
+        { "type": "nav_link", "settings": { "title": "Оплата та доставка", "tab_index": "2" } },
+        { "type": "collapsible", "settings": { "question": "Що це таке?", "answer": "<p>Коротка відповідь…</p>", "tab_index": "1" } },
+        { "type": "collapsible", "settings": { "question": "Як оплатити?", "answer": "<p>Коротка відповідь…</p>", "tab_index": "2" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-D4ScA-zm.css",
+    "file": "main-CgxOq26U.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-BpEO1bAH.js",
+    "file": "main.theme-dYg-SeoO.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp-D5zO5ezW.css",
+    "file": "page-pdp-DQZewZ6j.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/advantages.scss": {
-    "file": "advantages-TZoMp_2z.css",
+    "file": "advantages-B5uHysNi.css",
     "src": "frontend/styles/sections/advantages.scss",
     "isEntry": true
   },
@@ -63,8 +63,13 @@
     "src": "frontend/styles/sections/collections-switcher.scss",
     "isEntry": true
   },
+  "frontend/styles/sections/faq-tabs.scss": {
+    "file": "faq-tabs-CGGmQTj1.css",
+    "src": "frontend/styles/sections/faq-tabs.scss",
+    "isEntry": true
+  },
   "frontend/styles/sections/feature-brick.scss": {
-    "file": "feature-brick-BbpKiH0k.css",
+    "file": "feature-brick-DhcdYBLt.css",
     "src": "frontend/styles/sections/feature-brick.scss",
     "isEntry": true
   },
@@ -117,6 +122,11 @@
   "frontend/styles/sections/trial-faq.scss": {
     "file": "trial-faq-DS1iBYem.css",
     "src": "frontend/styles/sections/trial-faq.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/visit-us.scss": {
+    "file": "visit-us-CoFdbMk0.css",
+    "src": "frontend/styles/sections/visit-us.scss",
     "isEntry": true
   }
 }
