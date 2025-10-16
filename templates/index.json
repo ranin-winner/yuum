@@ -17,6 +17,8 @@
         "subtitle": "Dive into the world of Yuum with our most popular products",
         "baner_button": "Shop Now",
         "baner_button_link": "shopify://collections",
+        "baner_button2": "Our locations",
+        "baner_button_link2": "shopify://pages/contact",
         "image_bg": "shopify://shop_images/Image_8bd6a1e1-8d75-495a-b8df-0ab0884fc8ed.png",
         "bg_color": "#ffffff",
         "bg_size": "cover",
@@ -31,34 +33,221 @@
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 14,
         "text_color": "#ffffff",
-        "padding_desktop": 40,
+        "padding_desktop": 0,
         "padding_mobile": 20,
         "banner_text_width": "1200",
-        "banner_height_desktop": "800",
+        "banner_height_desktop": "900",
         "banner_height_mobile": "400"
       }
     },
-    "product_custom_section_FMbR8E": {
-      "type": "product-custom-section",
-      "name": "Products Section",
+    "features_parallax_bMbYG7": {
+      "type": "features-parallax",
+      "blocks": {
+        "feature_YMW43f": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/Icon_advantages_1.png",
+            "icon_w": 120,
+            "title": "Unique products from all over the world",
+            "text": "Exclusive collections of products from different cultures around the world",
+            "title_size": 24,
+            "text_size": 16,
+            "v_gap": 16
+          }
+        },
+        "feature_EgrYfF": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/Icon_advantages_1_abf21488-84d5-4800-bab4-d0e96192576a.png",
+            "icon_w": 120,
+            "title": "14 conceptual boutique cafes",
+            "text": "Each location is filled with high-class design and service",
+            "title_size": 24,
+            "text_size": 16,
+            "v_gap": 16
+          }
+        },
+        "feature_6Wzz7V": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/Icon_advantages_3.png",
+            "icon_w": 120,
+            "title": "Delivering gastronomic pleasure",
+            "text": "As a gift or to create an atmosphere at home or in the office",
+            "title_size": 24,
+            "text_size": 16,
+            "v_gap": 16
+          }
+        }
+      },
+      "block_order": [
+        "feature_YMW43f",
+        "feature_EgrYfF",
+        "feature_6Wzz7V"
+      ],
+      "name": "Features — parallax",
+      "settings": {
+        "bg_color": "#adaead",
+        "pad_top": 48,
+        "pad_bottom": 48,
+        "columns": 3,
+        "grid_gap": 64,
+        "container": "xl",
+        "title_color": "#ffffff",
+        "text_color": "#ffffff"
+      }
+    },
+    "product_custom_section_bg_rtP7fQ": {
+      "type": "product-custom-section-bg",
+      "name": "Products Section Bg",
       "settings": {
         "products_list": [
-          "lunar-festival-bundle",
-          "lite-bundle-mochi",
-          "japanese-temptations-mochi-bundle",
-          "first-experience-mochi-bundle",
-          "mochi-box",
           "bestseller-flavours-mochi-bundle",
-          "all-flavours-discovery-mochi-bundle"
+          "all-flavours-discovery-mochi-bundle",
+          "first-experience-mochi-bundle",
+          "japanese-temptations-mochi-bundle",
+          "lite-bundle-mochi"
         ],
         "simple_hover": true,
-        "title": "<p>Seasonal bestsellers</p>",
-        "subtitle": "<p>Dive into the world of Yuum with our most popular products</p>",
+        "title": "",
+        "subtitle": "",
         "section_text_1": "",
         "section_badge_icon": "",
         "section_badge_text": "",
         "section_text_2": "",
-        "section_button_text": "",
+        "section_button_text": "Shop Now",
+        "section_button_link": "",
+        "flow_bg_enabled": true
+      }
+    },
+    "marquee_loop_piFPj6": {
+      "type": "marquee-loop",
+      "blocks": {
+        "item_nXNwRE": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Sauce-Black-406x80.png_1.png",
+            "alt": "",
+            "text": "“Yuum are the only Japanese-made mochi in the UK. And they have nailed the whole mochi thing.”",
+            "text_size": 16,
+            "text_opacity": 100,
+            "text_max_width": 0,
+            "image_width": 180,
+            "image_opacity": 80
+          }
+        },
+        "item_9Hrtdm": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/image_8.png",
+            "alt": "",
+            "text": "“Forget what you think you know about mochi, this is The Real Mochi by Yuum. These bestselling bites are only the start of what this brand offers.”",
+            "text_size": 16,
+            "text_opacity": 85,
+            "text_max_width": 0,
+            "image_width": 96,
+            "image_opacity": 80
+          }
+        },
+        "item_ghCBMx": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/image_10.png",
+            "alt": "",
+            "text": "“Yuum believes in the power of authentic flavours, and their mochi is a testament to this philosophy.”",
+            "text_size": 16,
+            "text_opacity": 100,
+            "text_max_width": 0,
+            "image_width": 120,
+            "image_opacity": 80
+          }
+        },
+        "item_ztReGY": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/Sauce-Black-406x80.png_1.png",
+            "alt": "",
+            "text": "“Yuum are the only Japanese-made mochi in the UK. And they have nailed the whole mochi thing.”",
+            "text_size": 16,
+            "text_opacity": 100,
+            "text_max_width": 0,
+            "image_width": 180,
+            "image_opacity": 80
+          }
+        }
+      },
+      "block_order": [
+        "item_nXNwRE",
+        "item_9Hrtdm",
+        "item_ghCBMx",
+        "item_ztReGY"
+      ],
+      "name": "Marquee — Loop Row",
+      "settings": {
+        "bg_color": "#e7e7e7",
+        "pad_top": 64,
+        "pad_bottom": 64,
+        "items_gap": 48,
+        "inner_gap": 24,
+        "text_color": "#474747",
+        "speed_px_s": 60,
+        "text_max_width": 340,
+        "direction": "ltr",
+        "show_fade": true
+      }
+    },
+    "c_hero_banner_JCVXQV": {
+      "type": "c-hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "title": "Yuum is a project that presents a selected unique collection of products that reveal new, interesting taste experiences",
+        "subtitle": "",
+        "baner_button": "ABOUT US",
+        "baner_button_link": "shopify://pages/about-us",
+        "baner_button2": "",
+        "baner_button_link2": "",
+        "image_bg": "shopify://shop_images/Image_1.png",
+        "bg_color": "#ffffff",
+        "bg_size": "cover",
+        "image_alignment_x": "center",
+        "image_alignment_y": "middle",
+        "text_position-x": "center",
+        "text_position-y": "center",
+        "text_alignment": "center",
+        "title_font_size": 75,
+        "title_font_size_mobile": 45,
+        "title_color": "#ffffff",
+        "subtitle_font_size": 20,
+        "subtitle_font_size_mobile": 16,
+        "text_color": "#000000",
+        "padding_desktop": 40,
+        "padding_mobile": 20,
+        "banner_text_width": "1000",
+        "banner_height_desktop": "900",
+        "banner_height_mobile": "300"
+      }
+    },
+    "product_custom_section_VKxaX9": {
+      "type": "product-custom-section",
+      "name": "Products Section",
+      "settings": {
+        "products_list": [
+          "all-flavours-discovery-mochi-bundle",
+          "bestseller-flavours-mochi-bundle",
+          "black-sesame-mochi",
+          "caramel-almond-mochi",
+          "chestnut-mochi",
+          "choco-banana-mochi",
+          "choco-mochi"
+        ],
+        "simple_hover": true,
+        "title": "<p>Pre-packed bundles</p>",
+        "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. </p>",
+        "section_text_1": "",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "Shop Now",
         "section_button_link": ""
       }
     },
@@ -91,28 +280,35 @@
         "btn_link": ""
       }
     },
-    "product_custom_section_VKxaX9": {
-      "type": "product-custom-section",
-      "name": "Products Section",
+    "visit_block_aNkWgG": {
+      "type": "visit-block",
+      "name": "Visit block",
       "settings": {
-        "products_list": [
-          "all-flavours-discovery-mochi-bundle",
-          "bestseller-flavours-mochi-bundle",
-          "black-sesame-mochi",
-          "caramel-almond-mochi",
-          "chestnut-mochi",
-          "choco-banana-mochi",
-          "choco-mochi"
-        ],
-        "simple_hover": true,
-        "title": "<p>Pre-packed bundles</p>",
-        "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. </p>",
-        "section_text_1": "",
-        "section_badge_icon": "",
-        "section_badge_text": "",
-        "section_text_2": "",
-        "section_button_text": "Shop Now",
-        "section_button_link": ""
+        "bg_color": "rgba(0,0,0,0)",
+        "pad_top": 120,
+        "pad_bottom": 120,
+        "container": "xl",
+        "col_gap": 72,
+        "inner_gap": 24,
+        "text_gap": 12,
+        "title_color": "#1a1a1a",
+        "text_color": "#5b5b5b",
+        "title_size": 48,
+        "text_size": 14,
+        "enable_parallax": true,
+        "radius": 16,
+        "left_opacity": 100,
+        "right_opacity": 100,
+        "title": "Visit us",
+        "text": "A boutique café is a place where you will be prepared and served a product in its original form, revealing the correct understanding of its taste.",
+        "btn_label": "Our locations",
+        "btn_url": "",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#1a1a1a",
+        "image_left": "shopify://shop_images/Image_1_1.png",
+        "image_left_alt": "",
+        "image_right": "shopify://shop_images/Image_2_1.png",
+        "image_right_alt": ""
       }
     },
     "1760450543b63ee4d1": {
@@ -121,9 +317,9 @@
         "instafeed_app_block_GxYyfp": {
           "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
           "settings": {
-            "title": "",
+            "title": "Follow us on Instagram",
             "title_color": "",
-            "title_size_v2": 0,
+            "title_size_v2": 56,
             "alignment": "center",
             "instafeed_margin_top": 0,
             "instafeed_margin_bottom": 0,
@@ -145,9 +341,13 @@
   },
   "order": [
     "c_hero_banner_bhLXqh",
-    "product_custom_section_FMbR8E",
-    "build_your_bundle_GgVk8X",
+    "features_parallax_bMbYG7",
+    "product_custom_section_bg_rtP7fQ",
+    "marquee_loop_piFPj6",
+    "c_hero_banner_JCVXQV",
     "product_custom_section_VKxaX9",
+    "build_your_bundle_GgVk8X",
+    "visit_block_aNkWgG",
     "1760450543b63ee4d1"
   ]
 }
