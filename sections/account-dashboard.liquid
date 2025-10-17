@@ -2,225 +2,332 @@
 
 <section id="account-{{ section.id }}" class="account-page palette">
   <div class="container">
-    <div class="account-grid" x-data="{ editOpen: false }">
-      <!-- Left nav -->
+    <div class="account-grid" x-data="accountTabs()">
       <aside class="account-nav">
         <nav aria-label="Account navigation">
           <ul class="account-nav__list">
             <li>
-                <a class="heading-5 account-nav__link{% if request.path == routes.account_url %} is-active{% endif %}" href="{{ routes.account_url }}">My Account</a>
+              <a
+                class="heading-5 account-nav__link"
+                :class="tab==='dashboard' ? 'is-active' : ''"
+                href="{{ routes.account_url }}#dashboard"
+                @click.prevent="go('dashboard')"
+              >My Account</a>
             </li>
 
             {% if section.settings.wishlist_url != blank %}
               <li>
-                <a class="heading-5 account-nav__link{% if request.path == section.settings.wishlist_url %} is-active{% endif %}" href="{{ section.settings.wishlist_url }}">Wishlist</a>
+                <a class="heading-5 account-nav__link" href="{{ section.settings.wishlist_url }}">Wishlist</a>
               </li>
             {% endif %}
 
             <li>
-                <a class="heading-5 account-nav__link{% if request.path contains '/orders' %} is-active{% endif %}" href="{{ routes.account_url }}">My Orders</a>
+              <a
+                class="heading-5 account-nav__link"
+                :class="tab==='orders' ? 'is-active' : ''"
+                href="{{ routes.account_url }}#orders"
+                @click.prevent="go('orders')"
+              >My Orders</a>
             </li>
 
             <li>
-                <a class="heading-5 account-nav__link" href="{{ routes.account_logout_url }}">Logout</a>
+              <a class="heading-5 account-nav__link" href="{{ routes.account_logout_url }}">Logout</a>
             </li>
           </ul>
         </nav>
       </aside>
 
-      <!-- Right content -->
       <div class="account-content">
         {% if customer %}
 
-          {% if section.settings.show_personal %}
-            <div class="border-t border-[#474747]"></div>
-            {% comment %} Personal information (edit via default address) {% endcomment %}
-            <section class="account-card" x-data>
+          <div x-show="tab==='dashboard'" x-cloak>
+            {% if section.settings.show_personal %}
+              <section class="account-card" x-data>
                 <h6 class="account-card__title heading-6">Personal information</h6>
 
                 {% assign pi_addr = customer.default_address | default: customer.addresses.first %}
-
                 {% liquid
-                    assign path = request.path
-                    if path == blank
-                        assign path = routes.account_url
-                    endif
-                    assign back = path | append: '#account-' | append: section.id
+                  assign path = request.path | default: routes.account_url
+                  assign back = path | append: '#account-' | append: section.id | append: '#dashboard'
                 %}
 
                 {% if pi_addr %}
-                    {% form 'customer_address', pi_addr %}
-                        <div class="pi-grid">
-                            <label class="pi-field">
-                                <span class="pi-label">First name*</span>
-                                <input class="pi-input" type="text" name="address[first_name]" value="{{ pi_addr.first_name | escape }}" required>
-                            </label>
-
-                            <label class="pi-field">
-                                <span class="pi-label">Last name*</span>
-                                <input class="pi-input" type="text" name="address[last_name]" value="{{ pi_addr.last_name | escape }}" required>
-                            </label>
-
-                            <label class="pi-field">
-                                <span class="pi-label">Phone*</span>
-                                <input
-                                    class="pi-input"
-                                    type="tel"
-                                    name="address[phone]"
-                                    value="{{ pi_addr.phone | escape }}"
-                                    inputmode="tel"
-                                    autocomplete="tel"
-                                    maxlength="16"
-                                    pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
-                                    title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
-                                />
-                            </label>
-                        </div>
-
-                        <input type="hidden" name="address[default]" value="true">
-                        <input type="hidden" name="return_to" value="{{ back }}">
-                        <button class="btn btn--primary  update-data w-full" type="submit">Save data</button>
-                    {% endform %}
-                {% else %}
-                    {% comment %}
-                    Якщо у клієнта ще немає адреси — створимо її тією ж формою
-                    {% endcomment %}
-                    {% form 'customer_address' %}
+                  {% form 'customer_address', pi_addr %}
                     <div class="pi-grid">
-                        <label class="pi-field">
-                            <span class="pi-label">First name*</span>
-                            <input class="pi-input" type="text" name="address[first_name]" value="{{ customer.first_name | escape }}" required>
-                        </label>
-
-                        <label class="pi-field">
-                            <span class="pi-label">Last name*</span>
-                            <input class="pi-input" type="text" name="address[last_name]" value="{{ customer.last_name | escape }}" required>
-                        </label>
-
-                        <label class="pi-field">
-                            <span class="pi-label">Phone*</span>
-                            <input
-                                class="pi-input"
-                                type="tel"
-                                name="address[phone]"
-                                value="{{ customer.phone | escape }}"
-                                inputmode="tel"
-                                autocomplete="tel"
-                                maxlength="16"
-                                pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
-                                title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
-                            />
-                        </label>
-
+                      <label class="pi-field">
+                        <span class="pi-label">First name*</span>
+                        <input class="pi-input" type="text" name="address[first_name]" value="{{ pi_addr.first_name | escape }}" required>
+                      </label>
+                      <label class="pi-field">
+                        <span class="pi-label">Last name*</span>
+                        <input class="pi-input" type="text" name="address[last_name]" value="{{ pi_addr.last_name | escape }}" required>
+                      </label>
+                      <label class="pi-field">
+                        <span class="pi-label">Phone*</span>
+                        <input
+                          class="pi-input"
+                          type="tel"
+                          name="address[phone]"
+                          value="{{ pi_addr.phone | escape }}"
+                          inputmode="tel"
+                          autocomplete="tel"
+                          maxlength="16"
+                          pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
+                          title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
+                        />
+                      </label>
                     </div>
-
-                        <input type="hidden" name="address[default]" value="true">
-                        <input type="hidden" name="return_to" value="{{ back }}">
-                        <button class="btn btn--primary" type="submit">Save data</button>
-                    {% endform %}
+                    <input type="hidden" name="address[default]" value="true">
+                    <input type="hidden" name="return_to" value="{{ back }}">
+                    <button class="btn btn--primary update-data w-full" type="submit">Save data</button>
+                  {% endform %}
+                {% else %}
+                  {% form 'customer_address' %}
+                    <div class="pi-grid">
+                      <label class="pi-field">
+                        <span class="pi-label">First name*</span>
+                        <input class="pi-input" type="text" name="address[first_name]" value="{{ customer.first_name | escape }}" required>
+                      </label>
+                      <label class="pi-field">
+                        <span class="pi-label">Last name*</span>
+                        <input class="pi-input" type="text" name="address[last_name]" value="{{ customer.last_name | escape }}" required>
+                      </label>
+                      <label class="pi-field">
+                        <span class="pi-label">Phone*</span>
+                        <input
+                          class="pi-input"
+                          type="tel"
+                          name="address[phone]"
+                          value="{{ customer.phone | escape }}"
+                          inputmode="tel"
+                          autocomplete="tel"
+                          maxlength="16"
+                          pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
+                          title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
+                        />
+                      </label>
+                    </div>
+                    <input type="hidden" name="address[default]" value="true">
+                    <input type="hidden" name="return_to" value="{{ back }}">
+                    <button class="btn btn--primary" type="submit">Save data</button>
+                  {% endform %}
                 {% endif %}
+              </section>
+            {% endif %}
 
-            </section>
-
-          {% endif %}
-
-          <div class="border-t border-[#474747]"></div>
-          <section class="account-card">
-            <h6 class="account-card__title heading-6">Delivery address</h6>
-            <p class="uppercase text-[#474747] text-[16px] tracking-[4px] mb-[16px]">Address:</p>
-            {% assign addr = customer.default_address | default: customer.addresses.first %}
-            {% if addr %}
-              <div class="address-view" x-show="!editOpen">
-                <div class="address-lines">
-                  <div class="address-line strong">{{ addr.first_name }} {{ addr.last_name }}</div>
-                  {% if addr.company != blank %}<div class="address-line">{{ addr.company }}</div>{% endif %}
-                  {% if addr.address1 != blank %}<div class="address-line">{{ addr.address1 }}</div>{% endif %}
-                  {% if addr.address2 != blank %}<div class="address-line">{{ addr.address2 }}</div>{% endif %}
-                  {% if addr.city != blank %}<div class="address-line">{{ addr.city }}</div>{% endif %}
-                  {% if addr.province_code != blank %}<div class="address-line">{{ addr.province_code }}</div>{% endif %}
-                  {% if addr.country != blank %}<div class="address-line">{{ addr.country }}</div>{% endif %}
-                  {% if addr.zip != blank %}<div class="address-line">{{ addr.zip }}</div>{% endif %}
-                  {% if addr.phone != blank %}<div class="address-line">{{ addr.phone }}</div>{% endif %}
+            <section class="account-card" x-data="{ editOpen: false }">
+              <h6 class="account-card__title heading-6">Delivery address</h6>
+              <p class="uppercase text-[#474747] text-[16px] tracking-[4px] mb-[16px]">Address:</p>
+              {% assign addr = customer.default_address | default: customer.addresses.first %}
+              {% if addr %}
+                <div class="address-view" x-show="!editOpen">
+                  <div class="address-lines">
+                    <div class="address-line strong">{{ addr.first_name }} {{ addr.last_name }}</div>
+                    {% if addr.company != blank %}<div class="address-line">{{ addr.company }}</div>{% endif %}
+                    {% if addr.address1 != blank %}<div class="address-line">{{ addr.address1 }}</div>{% endif %}
+                    {% if addr.address2 != blank %}<div class="address-line">{{ addr.address2 }}</div>{% endif %}
+                    {% if addr.city != blank %}<div class="address-line">{{ addr.city }}</div>{% endif %}
+                    {% if addr.province_code != blank %}<div class="address-line">{{ addr.province_code }}</div>{% endif %}
+                    {% if addr.country != blank %}<div class="address-line">{{ addr.country }}</div>{% endif %}
+                    {% if addr.zip != blank %}<div class="address-line">{{ addr.zip }}</div>{% endif %}
+                    {% if addr.phone != blank %}<div class="address-line">{{ addr.phone }}</div>{% endif %}
+                  </div>
+                  <div class="address-actions">
+                    <button type="button" class="edit-link" @click="editOpen = true">Edit</button>
+                    {% form 'customer_address', addr %}
+                      {% liquid
+                        assign path = request.path | default: routes.account_url
+                        assign back_del = path | append: '#account-' | append: section.id | append: '#dashboard'
+                      %}
+                      <input type="hidden" name="_method" value="delete">
+                      <input type="hidden" name="return_to" value="{{ back_del }}">
+                      <button type="submit" class="delete-link link--danger">Delete</button>
+                    {% endform %}
+                  </div>
                 </div>
 
-                <div class="address-actions">
-                  <button type="button" class="edit-link" @click="editOpen = true">Edit</button>
-
+                <div class="address-edit" x-show="editOpen" x-cloak>
                   {% form 'customer_address', addr %}
-                    <input type="hidden" name="_method" value="delete">
-                    <input type="hidden" name="return_to" value="{{ back }}">
-                    <button type="submit" class="delete-link link--danger">Delete</button>
+                    <div class="pi-grid">
+                      <label class="pi-field"><span class="pi-label">First name</span><input class="pi-input" type="text" name="address[first_name]" value="{{ addr.first_name | escape }}"></label>
+                      <label class="pi-field"><span class="pi-label">Last name</span><input class="pi-input" type="text" name="address[last_name]" value="{{ addr.last_name | escape }}"></label>
+                      <label class="pi-field pi-field--full"><span class="pi-label">Address line 1</span><input class="pi-input" type="text" name="address[address1]" value="{{ addr.address1 | escape }}"></label>
+                      <label class="pi-field pi-field--full"><span class="pi-label">Address line 2</span><input class="pi-input" type="text" name="address[address2]" value="{{ addr.address2 | escape }}"></label>
+                      <label class="pi-field"><span class="pi-label">City</span><input class="pi-input" type="text" name="address[city]" value="{{ addr.city | escape }}"></label>
+                      <label class="pi-field"><span class="pi-label">Country</span><select class="pi-input" name="address[country]" data-default="{{ addr.country | escape }}" autocomplete="country">{{ all_country_option_tags }}</select></label>
+                      <label class="pi-field"><span class="pi-label">Postcode</span><input class="pi-input" type="text" name="address[zip]" value="{{ addr.zip | escape }}"></label>
+                      <label class="pi-field"><span class="pi-label">Phone</span><input class="pi-input" type="tel" name="address[phone]" value="{{ addr.phone | escape }}" inputmode="tel" autocomplete="tel" maxlength="16" /></label>
+                    </div>
+                    <div class="address-buttons">
+                      <button class="btn btn--primary" type="submit">Update address</button>
+                      <button class="btn btn--ghost" type="button" @click="editOpen = false">Cancel</button>
+                    </div>
                   {% endform %}
                 </div>
-              </div>
+              {% else %}
+                <p>No addresses yet.</p>
+                <a class="link" href="{{ routes.account_addresses_url }}">Manage addresses</a>
+              {% endif %}
+            </section>
+          </div>
 
-              <div class="address-edit" x-show="editOpen" x-cloak>
-                {% form 'customer_address', addr %}
-                  <div class="pi-grid">
-                    <label class="pi-field">
-                      <span class="pi-label">First name</span>
-                      <input class="pi-input" type="text" name="address[first_name]" value="{{ addr.first_name | escape }}">
-                    </label>
+        <!-- TAB: ORDERS -->
+        <div x-show="tab==='orders'" x-cloak>
+        <section class="account-card" x-data>
+            <h6 class="account-card__title heading-6">My Orders</h6>
 
-                    <label class="pi-field">
-                      <span class="pi-label">Last name</span>
-                      <input class="pi-input" type="text" name="address[last_name]" value="{{ addr.last_name | escape }}">
-                    </label>
+            {% paginate customer.orders by 20 %}
+            {% if customer.orders_count > 0 %}
+                <ul class="orders space-y-3">
+                {% for order in customer.orders %}
+                    {% assign items_count = order.line_items.size %}
+                    <li class="order-acc rounded-[8px] border border-[#D9D9D9] bg-[#F5F5F5]" x-data="{ open: false }">
+                    <!-- Header row -->
+                    <button type="button"
+                            class="order-acc__head w-full flex items-center gap-3 p-3 text-left"
+                            @click="open = !open">
+                        <div class="shrink-0 w-[160px] text-sm text-[#474747]">
+                        <div class="font-medium">№ {{ order.order_number }}</div>
+                        <div class="opacity-70">{{ order.processed_at | date: "%d %b %Y, %H:%M" }}</div>
+                        </div>
 
-                    <label class="pi-field pi-field--full">
-                      <span class="pi-label">Address line 1</span>
-                      <input class="pi-input" type="text" name="address[address1]" value="{{ addr.address1 | escape }}">
-                    </label>
+                        <!-- Thumbs preview -->
+                        <div class="flex items-center gap-2 flex-wrap">
+                        {% assign preview = order.line_items | slice: 0, 5 %}
+                        {% for li in preview %}
+                            {% if forloop.index < 5 %}
+                            <span class="inline-flex w-8 h-8 rounded bg-white overflow-hidden border border-[#E3E3E3]">
+                                {% if li.image %}
+                                <img src="{{ li.image | image_url: width: 80, height: 80, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
+                                {% endif %}
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                        {% if items_count > 4 %}
+                            <span class="inline-flex items-center justify-center w-8 h-8 rounded bg-white border border-[#E3E3E3] text-xs">+{{ items_count | minus: 4 }}</span>
+                        {% endif %}
+                        </div>
 
-                    <label class="pi-field pi-field--full">
-                      <span class="pi-label">Address line 2</span>
-                      <input class="pi-input" type="text" name="address[address2]" value="{{ addr.address2 | escape }}">
-                    </label>
+                        <div class="ml-auto flex items-center gap-4">
+                        <span class="text-sm text-[#474747]">{{ order.total_price | money }}</span>
+                        <svg :class="open ? 'rotate-180' : ''" class="w-5 h-5 transition-transform" viewBox="0 0 24 24" fill="none">
+                            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        </div>
+                    </button>
 
-                    <label class="pi-field">
-                      <span class="pi-label">City</span>
-                      <input class="pi-input" type="text" name="address[city]" value="{{ addr.city | escape }}">
-                    </label>
+                    <!-- Body -->
+                    <div class="order-acc__body" x-show="open" x-collapse x-cloak>
+                        <div class="border-t border-[#E3E3E3]"></div>
 
-                    <label class="pi-field">
-                      <span class="pi-label">Country</span>
-                      <select class="pi-input" name="address[country]" data-default="{{ addr.country | escape }}" autocomplete="country">
-                        {{ all_country_option_tags }}
-                      </select>
-                    </label>
+                        <!-- Lines -->
+                        <ul class="divide-y divide-[#E3E3E3]">
+                        {% for li in order.line_items %}
+                            <li class="flex items-center gap-4 p-3">
+                            <div class="w-[64px] h-[64px] rounded overflow-hidden bg-white border border-[#E3E3E3]">
+                                {% if li.image %}
+                                <img src="{{ li.image | image_url: width: 160, height: 160, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
+                                {% endif %}
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="truncate font-medium">{{ li.product.title }}</div>
+                                {% if li.variant.title and li.variant.title != 'Default Title' %}
+                                <div class="text-sm opacity-70">{{ li.variant.title }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="text-sm text-[#474747] whitespace-nowrap">x {{ li.quantity }}</div>
+                            <div class="text-sm text-[#474747] whitespace-nowrap">{{ li.final_line_price | money }}</div>
+                            </li>
+                        {% endfor %}
+                        </ul>
 
-                    <label class="pi-field">
-                      <span class="pi-label">Postcode</span>
-                      <input class="pi-input" type="text" name="address[zip]" value="{{ addr.zip | escape }}">
-                    </label>
+                        <!-- Totals -->
+                        <div class="p-3">
+                        <div class="border-t border-[#E3E3E3] my-2"></div>
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span>Subtotal</span>
+                            <span>{{ order.subtotal_price | money }}</span>
+                        </div>
+                        {% assign shipping_amount = order.total_price | minus: order.subtotal_price %}
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span>Shipping</span>
+                            <span>{{ shipping_amount | money }}</span>
+                        </div>
+                        <div class="flex items-center justify-between font-semibold">
+                            <span>Total</span>
+                            <span>{{ order.total_price | money }}</span>
+                        </div>
+                        </div>
 
-                    <label class="pi-field">
-                      <span class="pi-label">Phone</span>
-                       <input
-                            class="pi-input"
-                            type="tel"
-                            name="address[phone]"
-                            value="{{ addr.phone | escape }}"
-                            inputmode="tel"
-                            autocomplete="tel"
-                            maxlength="16"
-                            pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
-                            title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
-                        />
-                    </label>
-                  </div>
+                        <!-- Footer: addresses + repeat -->
+                        <div class="px-3 pb-3 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="uppercase tracking-[2px] text-xs text-[#474747] mb-2">Personal Information:</div>
+                            {% assign ship_to = order.shipping_address | default: order.billing_address %}
+                            {% if ship_to %}
+                            <div class="text-sm">
+                                <div>{{ ship_to.first_name }} {{ ship_to.last_name }}</div>
+                                {% if ship_to.phone != blank %}<div>{{ ship_to.phone }}</div>{% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
 
-                  <div class="address-buttons">
-                    <button class="btn btn--primary" type="submit">Update address</button>
-                    <button class="btn btn--ghost" type="button" @click="editOpen = false">Cancel</button>
-                  </div>
-                {% endform %}
-              </div>
+                        <div>
+                            <div class="uppercase tracking-[2px] text-xs text-[#474747] mb-2">Delivery address:</div>
+                            {% if ship_to %}
+                            <div class="text-sm">
+                                <div>{{ ship_to.first_name }} {{ ship_to.last_name }}</div>
+                                {% if ship_to.address1 %}<div>{{ ship_to.address1 }}</div>{% endif %}
+                                {% if ship_to.address2 %}<div>{{ ship_to.address2 }}</div>{% endif %}
+                                {% if ship_to.city %}<div>{{ ship_to.city }}</div>{% endif %}
+                                {% if ship_to.province %}<div>{{ ship_to.province }}</div>{% endif %}
+                                {% if ship_to.country %}<div>{{ ship_to.country }}</div>{% endif %}
+                                {% if ship_to.zip %}<div>{{ ship_to.zip }}</div>{% endif %}
+                                {% if ship_to.phone %}<div>{{ ship_to.phone }}</div>{% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Repeat button -->
+                        <div class="md:col-span-2 flex justify-end">
+                            {% comment %}
+                            Підготуємо payload для Cart API: [{id: variant_id, quantity: qty}, ...]
+                            {% endcomment %}
+                            {% assign items_payload = '' %}
+                            {% for li in order.line_items %}
+                            {% assign one = '{"id":' | append: li.variant_id | append: ',"quantity":' | append: li.quantity | append: '}' %}
+                            {% if forloop.first %}
+                                {% assign items_payload = one %}
+                            {% else %}
+                                {% assign items_payload = items_payload | append: ',' | append: one %}
+                            {% endif %}
+                            {% endfor %}
+                            {% assign items_payload = '[' | append: items_payload | append: ']' %}
+
+                            <button
+                            type="button"
+                            class="btn btn--primary rounded-full px-5 py-2"
+                            data-order-items='{{ items_payload | escape }}'
+                            @click="repeatOrder($event)"
+                            >Repeat order</button>
+                        </div>
+                        </div>
+                    </div>
+                    </li>
+                {% endfor %}
+                </ul>
+
+                {% if paginate.pages > 1 %}
+                <div class="mt-4">{{ paginate | default_pagination }}</div>
+                {% endif %}
             {% else %}
-              <p>No addresses yet.</p>
-              <a class="link" href="{{ routes.account_addresses_url }}">Manage addresses</a>
+                <p>No orders yet.</p>
             {% endif %}
-          </section>
+            {% endpaginate %}
+        </section>
+        </div>
+
+
         {% else %}
           <p>You need to be logged in to view this page.</p>
         {% endif %}
@@ -230,33 +337,127 @@
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+(function () {
+  // Factory for Alpine component
+  function accountTabs() {
+    return {
+      tab: 'dashboard',
+
+      init() {
+        // Set initial tab from hash
+        const h = (location.hash || '').slice(1).toLowerCase();
+        if (h === 'orders' || h === 'dashboard') this.tab = h;
+
+        // React to external hash changes
+        window.addEventListener('hashchange', () => {
+          const nh = (location.hash || '').slice(1).toLowerCase();
+          if (nh === 'orders' || nh === 'dashboard') this.tab = nh;
+        });
+
+        // Custom event to switch to Orders
+        document.documentElement.addEventListener('account:show-orders', () => this.go('orders'));
+
+        // Phone input sanitization
+        this.setupPhoneSanitize();
+      },
+
+      go(name) {
+        this.tab = name;
+        const newHash = '#' + name;
+        if (location.hash !== newHash) history.replaceState(null, '', newHash);
+      },
+
+      setupPhoneSanitize() {
         const scope = document.querySelector('#account-{{ section.id }}');
         if (!scope) return;
 
         const inputs = scope.querySelectorAll('input[name="address[phone]"]');
-
         inputs.forEach((inp) => {
-            // Вирізаємо все зайве на кожен input
-            inp.addEventListener('input', () => {
+          inp.addEventListener('input', () => {
             let v = inp.value;
-
-            // зберігаємо лише провідний "+"
             const leadPlus = v.startsWith('+');
-            v = v.replace(/[^\d]/g, ''); // лише цифри
+            v = v.replace(/[^\d]/g, '');
             inp.value = (leadPlus ? '+' : '') + v;
-            });
+          });
 
-            // Блокуємо натискання нецифрових клавіш (для desktop)
-            inp.addEventListener('keypress', (e) => {
+          inp.addEventListener('keypress', (e) => {
             const ch = e.key;
             const isDigit = /[0-9]/.test(ch);
             const isPlusAtStart = ch === '+' && inp.selectionStart === 0 && !inp.value.startsWith('+');
             if (!isDigit && !isPlusAtStart) e.preventDefault();
-            });
+          });
         });
-    });
+      }
+    };
+  }
+
+  // Expose for x-data="accountTabs()"
+  window.accountTabs = accountTabs;
+
+  // Also register as Alpine data (works whether Alpine is loaded now or later)
+  const register = () => {
+    if (window.Alpine && typeof window.Alpine.data === 'function') {
+      window.Alpine.data('accountTabs', accountTabs);
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('alpine:init', register, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      // If URL already has #orders, trigger opening after DOM is ready
+      if ((location.hash || '').toLowerCase() === '#orders') {
+        document.documentElement.dispatchEvent(new CustomEvent('account:show-orders'));
+      }
+    }, { once: true });
+  } else {
+    register();
+    if ((location.hash || '').toLowerCase() === '#orders') {
+      document.documentElement.dispatchEvent(new CustomEvent('account:show-orders'));
+    }
+  }
+})();
 </script>
+
+
+<script>
+/**
+ * Repeat order:
+ * 1) /cart/clear.js
+ * 2) /cart/add.js  (batch items)
+ * 3) redirect to /checkout
+ */
+async function repeatOrder(evt) {
+  const btn = evt.currentTarget;
+  let items;
+  try {
+    items = JSON.parse(btn.getAttribute('data-order-items') || '[]');
+  } catch (e) { items = []; }
+
+  if (!Array.isArray(items) || items.length === 0) return;
+
+  btn.disabled = true;
+
+  try {
+    // Clear cart
+    await fetch('/cart/clear.js', { method: 'POST', headers: { 'Accept': 'application/json' } });
+
+    // Add all items in one request
+    await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ items })
+    });
+
+    // Go to checkout
+    window.location.href = '/checkout';
+  } catch (err) {
+    console.error('Repeat order failed:', err);
+    btn.disabled = false;
+    alert('Sorry, something went wrong while repeating the order.');
+  }
+}
+</script>
+
+
 
 
 {% schema %}
