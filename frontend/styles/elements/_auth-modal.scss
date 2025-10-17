@@ -43,10 +43,10 @@
 /* ===== Close button ===== */
 .auth-modal__close {
     position: absolute;
-    top: 12px;
+    top: 16px;
     right: 12px;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border: 0;
     background: transparent;
     cursor: pointer;
@@ -128,3 +128,52 @@
         border-radius: 14px;
     }
 }
+
+
+/* dialog already has fade-in */
+.auth-modal__top {
+    height: 28px; /* резерв під стрілку */
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .auth-modal__back {
+    display: grid;
+    place-items: center;
+    width: 28px; height: 28px;
+    border: 0; background: transparent; cursor: pointer; color: #474747;
+    border-radius: 50%;
+    &:hover { background: rgba(0,0,0,.06); }
+    &:focus-visible { outline: 2px solid #adaeb0; outline-offset: 2px; }
+  }
+  
+  /* stage that animates height */
+  .auth-modal__stage {
+    position: relative;
+    overflow: hidden;
+    transition: height .28s ease; /* мʼяка зміна висоти */
+  }
+  
+  /* stack panels one над одним для слайду */
+  .auth-panel {
+    position: absolute;
+    inset: 0;
+    padding-bottom: 2px; /* щоб не обрізало тінь сабміт-кнопки */
+  }
+  
+  /* базові ключі для x-transition (використовуємо класи) */
+  .panel-enter { transition: opacity .28s ease, transform .28s ease; }
+  .panel-leave { transition: opacity .24s ease, transform .24s ease; }
+  
+  .dir-forward.panel-enter-start { opacity: 0; transform: translateX(24px); }
+  .dir-forward.panel-leave        { opacity: 0; transform: translateX(-24px); }
+  
+  .dir-back.panel-enter-start { opacity: 0; transform: translateX(-24px); }
+  .dir-back.panel-leave       { opacity: 0; transform: translateX(24px); }
+  
+  .panel-leave-end { opacity: 0; }
+  
+  /* дрібні правки */
+  .auth-panel__links { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+  

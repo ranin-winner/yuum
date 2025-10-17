@@ -1,0 +1,282 @@
+{% render 'entry' with '@/styles/sections/account.scss' %}
+
+<section id="account-{{ section.id }}" class="account-page palette">
+  <div class="container">
+    <div class="account-grid" x-data="{ editOpen: false }">
+      <!-- Left nav -->
+      <aside class="account-nav">
+        <nav aria-label="Account navigation">
+          <ul class="account-nav__list">
+            <li>
+                <a class="heading-5 account-nav__link{% if request.path == routes.account_url %} is-active{% endif %}" href="{{ routes.account_url }}">My Account</a>
+            </li>
+
+            {% if section.settings.wishlist_url != blank %}
+              <li>
+                <a class="heading-5 account-nav__link{% if request.path == section.settings.wishlist_url %} is-active{% endif %}" href="{{ section.settings.wishlist_url }}">Wishlist</a>
+              </li>
+            {% endif %}
+
+            <li>
+                <a class="heading-5 account-nav__link{% if request.path contains '/orders' %} is-active{% endif %}" href="{{ routes.account_url }}">My Orders</a>
+            </li>
+
+            <li>
+                <a class="heading-5 account-nav__link" href="{{ routes.account_logout_url }}">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Right content -->
+      <div class="account-content">
+        {% if customer %}
+
+          {% if section.settings.show_personal %}
+            <div class="border-t border-[#474747]"></div>
+            {% comment %} Personal information (edit via default address) {% endcomment %}
+            <section class="account-card" x-data>
+                <h6 class="account-card__title heading-6">Personal information</h6>
+
+                {% assign pi_addr = customer.default_address | default: customer.addresses.first %}
+
+                {% liquid
+                    assign path = request.path
+                    if path == blank
+                        assign path = routes.account_url
+                    endif
+                    assign back = path | append: '#account-' | append: section.id
+                %}
+
+                {% if pi_addr %}
+                    {% form 'customer_address', pi_addr %}
+                        <div class="pi-grid">
+                            <label class="pi-field">
+                                <span class="pi-label">First name*</span>
+                                <input class="pi-input" type="text" name="address[first_name]" value="{{ pi_addr.first_name | escape }}" required>
+                            </label>
+
+                            <label class="pi-field">
+                                <span class="pi-label">Last name*</span>
+                                <input class="pi-input" type="text" name="address[last_name]" value="{{ pi_addr.last_name | escape }}" required>
+                            </label>
+
+                            <label class="pi-field">
+                                <span class="pi-label">Phone*</span>
+                                <input
+                                    class="pi-input"
+                                    type="tel"
+                                    name="address[phone]"
+                                    value="{{ pi_addr.phone | escape }}"
+                                    inputmode="tel"
+                                    autocomplete="tel"
+                                    maxlength="16"
+                                    pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
+                                    title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
+                                />
+                            </label>
+                        </div>
+
+                        <input type="hidden" name="address[default]" value="true">
+                        <input type="hidden" name="return_to" value="{{ back }}">
+                        <button class="btn btn--primary  update-data w-full" type="submit">Save data</button>
+                    {% endform %}
+                {% else %}
+                    {% comment %}
+                    Якщо у клієнта ще немає адреси — створимо її тією ж формою
+                    {% endcomment %}
+                    {% form 'customer_address' %}
+                    <div class="pi-grid">
+                        <label class="pi-field">
+                            <span class="pi-label">First name*</span>
+                            <input class="pi-input" type="text" name="address[first_name]" value="{{ customer.first_name | escape }}" required>
+                        </label>
+
+                        <label class="pi-field">
+                            <span class="pi-label">Last name*</span>
+                            <input class="pi-input" type="text" name="address[last_name]" value="{{ customer.last_name | escape }}" required>
+                        </label>
+
+                        <label class="pi-field">
+                            <span class="pi-label">Phone*</span>
+                            <input
+                                class="pi-input"
+                                type="tel"
+                                name="address[phone]"
+                                value="{{ customer.phone | escape }}"
+                                inputmode="tel"
+                                autocomplete="tel"
+                                maxlength="16"
+                                pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
+                                title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
+                            />
+                        </label>
+
+                    </div>
+
+                        <input type="hidden" name="address[default]" value="true">
+                        <input type="hidden" name="return_to" value="{{ back }}">
+                        <button class="btn btn--primary" type="submit">Save data</button>
+                    {% endform %}
+                {% endif %}
+
+            </section>
+
+          {% endif %}
+
+          <div class="border-t border-[#474747]"></div>
+          <section class="account-card">
+            <h6 class="account-card__title heading-6">Delivery address</h6>
+            <p class="uppercase text-[#474747] text-[16px] tracking-[4px] mb-[16px]">Address:</p>
+            {% assign addr = customer.default_address | default: customer.addresses.first %}
+            {% if addr %}
+              <div class="address-view" x-show="!editOpen">
+                <div class="address-lines">
+                  <div class="address-line strong">{{ addr.first_name }} {{ addr.last_name }}</div>
+                  {% if addr.company != blank %}<div class="address-line">{{ addr.company }}</div>{% endif %}
+                  {% if addr.address1 != blank %}<div class="address-line">{{ addr.address1 }}</div>{% endif %}
+                  {% if addr.address2 != blank %}<div class="address-line">{{ addr.address2 }}</div>{% endif %}
+                  {% if addr.city != blank %}<div class="address-line">{{ addr.city }}</div>{% endif %}
+                  {% if addr.province_code != blank %}<div class="address-line">{{ addr.province_code }}</div>{% endif %}
+                  {% if addr.country != blank %}<div class="address-line">{{ addr.country }}</div>{% endif %}
+                  {% if addr.zip != blank %}<div class="address-line">{{ addr.zip }}</div>{% endif %}
+                  {% if addr.phone != blank %}<div class="address-line">{{ addr.phone }}</div>{% endif %}
+                </div>
+
+                <div class="address-actions">
+                  <button type="button" class="edit-link" @click="editOpen = true">Edit</button>
+
+                  {% form 'customer_address', addr %}
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="return_to" value="{{ back }}">
+                    <button type="submit" class="delete-link link--danger">Delete</button>
+                  {% endform %}
+                </div>
+              </div>
+
+              <div class="address-edit" x-show="editOpen" x-cloak>
+                {% form 'customer_address', addr %}
+                  <div class="pi-grid">
+                    <label class="pi-field">
+                      <span class="pi-label">First name</span>
+                      <input class="pi-input" type="text" name="address[first_name]" value="{{ addr.first_name | escape }}">
+                    </label>
+
+                    <label class="pi-field">
+                      <span class="pi-label">Last name</span>
+                      <input class="pi-input" type="text" name="address[last_name]" value="{{ addr.last_name | escape }}">
+                    </label>
+
+                    <label class="pi-field pi-field--full">
+                      <span class="pi-label">Address line 1</span>
+                      <input class="pi-input" type="text" name="address[address1]" value="{{ addr.address1 | escape }}">
+                    </label>
+
+                    <label class="pi-field pi-field--full">
+                      <span class="pi-label">Address line 2</span>
+                      <input class="pi-input" type="text" name="address[address2]" value="{{ addr.address2 | escape }}">
+                    </label>
+
+                    <label class="pi-field">
+                      <span class="pi-label">City</span>
+                      <input class="pi-input" type="text" name="address[city]" value="{{ addr.city | escape }}">
+                    </label>
+
+                    <label class="pi-field">
+                      <span class="pi-label">Country</span>
+                      <select class="pi-input" name="address[country]" data-default="{{ addr.country | escape }}" autocomplete="country">
+                        {{ all_country_option_tags }}
+                      </select>
+                    </label>
+
+                    <label class="pi-field">
+                      <span class="pi-label">Postcode</span>
+                      <input class="pi-input" type="text" name="address[zip]" value="{{ addr.zip | escape }}">
+                    </label>
+
+                    <label class="pi-field">
+                      <span class="pi-label">Phone</span>
+                       <input
+                            class="pi-input"
+                            type="tel"
+                            name="address[phone]"
+                            value="{{ addr.phone | escape }}"
+                            inputmode="tel"
+                            autocomplete="tel"
+                            maxlength="16"
+                            pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
+                            title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
+                        />
+                    </label>
+                  </div>
+
+                  <div class="address-buttons">
+                    <button class="btn btn--primary" type="submit">Update address</button>
+                    <button class="btn btn--ghost" type="button" @click="editOpen = false">Cancel</button>
+                  </div>
+                {% endform %}
+              </div>
+            {% else %}
+              <p>No addresses yet.</p>
+              <a class="link" href="{{ routes.account_addresses_url }}">Manage addresses</a>
+            {% endif %}
+          </section>
+        {% else %}
+          <p>You need to be logged in to view this page.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const scope = document.querySelector('#account-{{ section.id }}');
+        if (!scope) return;
+
+        const inputs = scope.querySelectorAll('input[name="address[phone]"]');
+
+        inputs.forEach((inp) => {
+            // Вирізаємо все зайве на кожен input
+            inp.addEventListener('input', () => {
+            let v = inp.value;
+
+            // зберігаємо лише провідний "+"
+            const leadPlus = v.startsWith('+');
+            v = v.replace(/[^\d]/g, ''); // лише цифри
+            inp.value = (leadPlus ? '+' : '') + v;
+            });
+
+            // Блокуємо натискання нецифрових клавіш (для desktop)
+            inp.addEventListener('keypress', (e) => {
+            const ch = e.key;
+            const isDigit = /[0-9]/.test(ch);
+            const isPlusAtStart = ch === '+' && inp.selectionStart === 0 && !inp.value.startsWith('+');
+            if (!isDigit && !isPlusAtStart) e.preventDefault();
+            });
+        });
+    });
+</script>
+
+
+{% schema %}
+{
+  "name": "Account: Dashboard",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_personal",
+      "label": "Show personal information block",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "wishlist_url",
+      "label": "Wishlist URL (optional)"
+    }
+  ],
+  "presets": [
+    { "name": "Account: Dashboard" }
+  ]
+}
+{% endschema %}
