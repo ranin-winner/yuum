@@ -1,0 +1,59 @@
+{%- comment -%} snippets/customer-auth-modal.liquid {%- endcomment -%}
+{% render 'entry' with '@/styles/elements/_auth-modal.scss' %}
+<section
+  id="authModal"
+  class="auth-modal"
+  x-data
+  x-cloak
+  :class="$store.auth.isOpen ? 'is-open' : 'is-closed'"
+  @keydown.escape.window="$store.auth.close()"
+  @click.self="$store.auth.close()"   
+  aria-hidden="true"
+>
+  <div class="auth-modal__dialog" @click.stop>
+    <button type="button" class="auth-modal__close" @click="$store.auth.close()">✕</button>
+
+    <!-- LOGIN -->
+    <div class="auth-panel" x-show="$store.auth.panel === 'login'">
+      <h3 class="heading-5 mb-[10px]">Login or Sign up</h3>
+      {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
+        <input type="password" name="customer[password]" placeholder="Password" required>
+        <input type="hidden" name="return_to" value="{{ request.path }}">
+        <button type="submit">Sign in</button>
+      {% endform %}
+      <button class="link-like" @click="$store.auth.switch('recover')">Forgot password?</button>
+      <button class="link-like" @click="$store.auth.switch('register')">Create account</button>
+    </div>
+
+    <!-- RECOVER -->
+    <div class="auth-panel" x-show="$store.auth.panel === 'recover'">
+      <h3 class="heading-5 mb-[10px]">Reset password</h3>
+      {% form 'recover_customer_password' %}
+        {% if form.posted_successfully? %}
+          <p>We’ve emailed you a reset link.</p>
+        {% else %}
+          {{ form.errors | default_errors }}
+          <input type="email" name="email" placeholder="Email" value="{{ form.email }}" required>
+          <button type="submit">Send link</button>
+        {% endif %}
+      {% endform %}
+      <button class="link-like" @click="$store.auth.switch('login')">Back to login</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="auth-panel" x-show="$store.auth.panel === 'register'">
+      <h3>Create account</h3>
+      {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+        <input name="customer[first_name]" placeholder="First name" value="{{ form.first_name }}">
+        <input name="customer[last_name]"  placeholder="Last name"  value="{{ form.last_name }}">
+        <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
+        <input type="password" name="customer[password]" placeholder="Password" required>
+        <button type="submit">Sign up</button>
+      {% endform %}
+      <button class="link-like" @click="$store.auth.switch('login')">I have an account</button>
+    </div>
+  </div>
+</section>

@@ -70,8 +70,10 @@
 
       {%- endif -%}
       <a
-        href="/apps/retextion#/login"
-        class="text-color_1 b-header__account flex hover:scale-110"
+        href="{{ routes.account_login_url }}"
+        class="b-header__account flex hover:scale-110"
+        x-data
+        @click.prevent.stop="$store.auth.open('login')"
       >
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_7791_25650)">
@@ -105,3 +107,14 @@
     </div>
   </div>
 </div>
+
+
+<script>
+    // document.addEventListener('click', (e) => {
+    //     const a = e.target.closest('.js-auth-trigger');
+    //     if (!a) return;
+        
+    //     e.preventDefault();
+    //     openAuthModal(a.dataset.auth || 'login'); 
+    // });
+</script>

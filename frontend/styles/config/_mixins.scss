@@ -272,4 +272,28 @@
      @media (min-width: $tablet)  { font-size: 12px; line-height: 16px; letter-spacing: 0.5px; }
      @media (min-width: $desktop) { font-size: 12px; line-height: 16px; letter-spacing: 0.5px; }
    }
+
+
+// form mixin
+@mixin autofill-fix($bg: #EEEEEE, $text: #1a1a1a, $border: #474747) {
+    // WebKit (Chrome/Safari/Edge)
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:active {
+      -webkit-text-fill-color: $text !important; // колір тексту
+      caret-color: $text;
+      // фарбуємо фон через inset box-shadow
+      box-shadow: 0 0 0 1000px $bg inset !important;
+      -webkit-box-shadow: 0 0 0 1000px $bg inset !important;
+      // щоб не мерехтіло жовтим під час анімацій
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  
+    // Firefox
+    &:-moz-autofill {
+      box-shadow: 0 0 0 1000px $bg inset !important;
+      -moz-text-fill-color: $text !important;
+      caret-color: $text;
+    }
+}
    

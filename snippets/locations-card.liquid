@@ -8,8 +8,8 @@
 
 {%- assign href = link_page.url | default: link_url | default: '#' -%}
 <a href="{{ href }}"
-   class="locations-card group block rounded-[16px] overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-  <div class="relative aspect-[4/3] bg-neutral-100 overflow-hidden">
+   class="locations-card group block overflow-hidden transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+  <div class="locations-card__photo-inner relative rounded-[20px] bg-neutral-100 overflow-hidden">
     {%- if image != blank -%}
       {%- assign img = image -%}
       <img
@@ -29,43 +29,45 @@
     {%- endif -%}
 
     {%- if badge != blank -%}
-      <span class="absolute left-3 top-3 inline-flex items-center rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow">
-        {{ badge }}
-      </span>
+        {%- assign badges = badge | split: ',' -%}
+        <div class="absolute left-[16px] top-[16px] flex flex-wrap gap-[8px]">
+          {%- for b in badges -%}
+            {%- assign b_clean = b | strip -%}
+            {%- if b_clean != blank -%}
+              <span class="inline-flex items-center leading-[16px] rounded-full bg-[#474747] text-white font-normal px-[12px] py-[8px] text-[12px]">
+                {{ b_clean }}
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
     {%- endif -%}
   </div>
 
   <div class="p-4 md:p-5">
     {%- if title != blank -%}
-      <h3 class="text-baseBig md:text-xl leading-tight mb-1">{{ title }}</h3>
+      <h6 class="heading-6 mb-[16px] pt-[16px] border-t-[1px] border-[#474747]">{{ title }}</h6>
     {%- endif -%}
     {%- if subtitle != blank -%}
-      <div class="text-sm text-neutral-600 mb-3">{{ subtitle }}</div>
+      <div class="text-[14px] tracking-[4px] uppercase mb-[24px]">{{ subtitle }}</div>
     {%- endif -%}
 
-    <div class="space-y-1 text-sm">
-      {%- if address != blank -%}
-        <div class="flex items-start gap-2">
-          <span class="shrink-0">📍</span>
-          <span>{{ address }}{% if city %}, {{ city }}{% endif %}</span>
-        </div>
-      {%- endif -%}
+    <div class="flex flex-wrap flex-col md:flex-row md:gap-[40px] gap-[8px] border-t-[1px] border-[#ADAEB0] pt-[17px] mb-[24px]">
       {%- if hours != blank -%}
         <div class="flex items-start gap-2">
-          <span class="shrink-0">🕒</span>
+          <span class="shrink-0 mr-[5px] text-[#ADAEB0]">Hours |</span>
           <span>{{ hours }}</span>
         </div>
       {%- endif -%}
       {%- if phone != blank -%}
         <div class="flex items-start gap-2">
-          <span class="shrink-0">📞</span>
-          <span>{{ phone }}</span>
+          <span class="shrink-0 mr-[5px] text-[#ADAEB0]">Contact |</span>
+          <a href="{{ phone }}">{{ phone }}</a>
         </div>
       {%- endif -%}
     </div>
 
     {%- if href != '#' and link_label != blank -%}
-      <div class="mt-4 text-sm font-medium underline underline-offset-2 group-hover:no-underline">
+      <div class="text-[14px] tracking-[4px] uppercase underline underline-offset-2 group-hover:no-underline">
         {{ link_label }}
       </div>
     {%- endif -%}

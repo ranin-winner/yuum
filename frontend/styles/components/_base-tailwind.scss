@@ -34,13 +34,13 @@
       // padding-right: var(--body-scrollbar-width, 20px);
       // padding-right: 20px;
       @screen md {
-        padding-right: 20px;
+        // padding-right: 20px;
       }
     }
   }
 
   .l-overlay {
-    background: rgba(0,0,0, 0.3);
+    background: rgba(0,0,0, 0.4);
     position: fixed;
     top: 0;
     left: 0;
@@ -81,7 +81,8 @@
   .heading-2,
   .heading-3,
   .heading-4,
-  .heading-5 {
+  .heading-5,
+  .heading-6 {
     @apply font-heading;
     font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
     font-weight: 400;
@@ -107,6 +108,28 @@
   .heading-5 {
     @include cfg.h5;
   }
+
+  .heading-6 {
+    @include cfg.h6;
+  }
+
+
+ //common form styles
+  input {
+    border-bottom: 1px solid #474747;
+    padding: 0;
+    font-size: 16px;
+    background: #EEEEEE;
+    height: 40px;
+    position: relative;
+
+    &::placeholder { color: #C2C2C2; }
+    &:focus { outline: none; border-bottom: 1px solid #78B956; }
+
+    @include cfg.autofill-fix(#EEEEEE, #1a1a1a, #474747);
+  } 
+  
+  
 
 
 

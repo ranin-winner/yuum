@@ -1,0 +1,90 @@
+// @use '../config/all-config' as cfg;
+
+.location-section {
+    position: relative;
+
+    .locations-card {
+        &__photo-inner {
+            max-height: 620px;
+            aspect-ratio: 1/1;
+            @media (max-width: 1300px) {
+                max-height: 500px;
+            }
+
+            @media (max-width: 768px) {
+                max-height: 366px;
+            }
+        }
+    }
+
+    &__header {
+        &--title {
+            color: #474747;
+            margin-bottom: 12px;
+        }
+
+        &--text-and-btn {
+            .text:not(:has(~ .text)) { 
+                margin-bottom: 10px; 
+            }
+        }
+
+        .text,
+        .badge {
+            line-height: 22px;
+            color: #474747;
+        }
+
+        .badge {
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+    }
+  
+    .swiper-button-next,
+    .swiper-button-prev {
+        border: none;
+        background-color: #fff;
+        // transform: translateY(100%);
+
+        
+
+        &:hover {
+            background-color: #474747;
+            color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            display: none;
+        }
+   
+    }
+
+    .swiper-pagination {
+        bottom: -60px;
+        @media (max-width: 1024px) {
+            bottom: -40px;
+        }
+
+    }
+
+    .swiper-box .swiper-button-next {
+        right: 40px;
+    }
+
+    .swiper-box .swiper-button-prev {
+        left: 40px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .products-section .products-section__container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  
+
+ 

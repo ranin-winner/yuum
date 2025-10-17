@@ -14,6 +14,8 @@ import '../components/alp-main-store';
 import '../components/alp-cart';
 import '../components/alp-build-box'; // FE TODO Must be included only for the build box section
 import '../components/main-product-replaced';
+import { mountAuthStore } from '../components/auth-modal';
+
 
 window.Alpine = Alpine;
 window.Swiper = Swiper;
@@ -22,6 +24,7 @@ Swiper.use([Navigation, Pagination]);
 Alpine.plugin(persist);
 
 initSmoothScroll();
+mountAuthStore();
 
 Alpine.start();
 
@@ -33,9 +36,11 @@ headerSticky();
 variantSelect();
 productCarousel();
 
+
 initScrollAnimations(document);
 
 document.addEventListener('DOMContentLoaded', initLazySections);
+
 
 document.addEventListener('lazy:section:loaded', (e) => {
   initScrollAnimations(e.target); // тільки в нововставленій секції
@@ -46,3 +51,5 @@ smoothRefresh();
 
 document.addEventListener('product:variant:changed', smoothRefresh);
 document.addEventListener('carousel:init', smoothRefresh);
+
+
