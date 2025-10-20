@@ -11,10 +11,25 @@
   "sections": {
     "main": {
       "type": "main-404",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    },
+    "account_dashboard_R3tBpg": {
+      "type": "account-dashboard",
+      "name": "Account: Dashboard",
+      "settings": {
+        "show_personal": true,
+        "order_preview_limit": 5,
+        "wishlist_url": "shopify://collections/all"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "account_dashboard_R3tBpg"
   ]
 }
