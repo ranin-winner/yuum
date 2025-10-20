@@ -171,111 +171,241 @@
             </section>
           </div>
 
-        <!-- TAB: ORDERS -->
-        <div x-show="tab==='orders'" x-cloak>
-        <section class="account-card" x-data>
-            <h6 class="account-card__title heading-6">My Orders</h6>
+          <!-- TAB: ORDERS -->
+          <div x-show="tab==='orders'" x-cloak>
+            <section
+              class="account-card"
+              x-data="{ maxVisibleProducts: {{ section.settings.order_preview_limit | default: 5 }} }"
+            >
+              <h6 class="account-card__title heading-6">My Orders</h6>
 
-            {% paginate customer.orders by 20 %}
-            {% if customer.orders_count > 0 %}
+              {% paginate customer.orders by 20 %}
+              {% if customer.orders_count > 0 %}
                 <ul class="orders space-y-3">
-                {% for order in customer.orders %}
+                  {% for order in customer.orders %}
                     {% assign items_count = order.line_items.size %}
-                    <li class="order-acc rounded-[8px] border border-[#D9D9D9] bg-[#F5F5F5]" x-data="{ open: false }">
-                    <!-- Header row -->
-                    <button type="button"
-                            class="order-acc__head w-full flex items-center gap-3 p-3 text-left"
-                            @click="open = !open">
-                        <div class="shrink-0 w-[160px] text-sm text-[#474747]">
-                        <div class="font-medium">№ {{ order.order_number }}</div>
-                        <div class="opacity-70">{{ order.processed_at | date: "%d %b %Y, %H:%M" }}</div>
+
+                    {%- comment -%} Підготуємо payload для обох кнопок {%- endcomment -%}
+                    {% assign items_payload = '' %}
+                    {% for li in order.line_items %}
+                      {% assign one = '{"id":' | append: li.variant_id | append: ',"quantity":' | append: li.quantity | append: '}' %}
+                      {% if forloop.first %}
+                        {% assign items_payload = one %}
+                      {% else %}
+                        {% assign items_payload = items_payload | append: ',' | append: one %}
+                      {% endif %}
+                    {% endfor %}
+                    {% assign items_payload = '[' | append: items_payload | append: ']' %}
+
+                    <li class="order-acc"
+                        x-data="{ open: false }"
+                        :class="open ? 'is-open' : ''">
+
+                      <!-- Header row -->
+                      <button type="button"
+                              class="order-acc__head relative w-full flex flex-col md:flex-row md:items-center gap-3 p-3 text-left"
+                              @click="open = !open">
+
+                        <!-- Desktop layout -->
+                        <div class="hidden md:flex md:items-center md:gap-3 md:w-full">
+                          <div class="shrink-0 w-[160px] order-row__item">
+                            <div class="order-row__item--label">Order №</div>
+                            <div class="text-[14px] text-[#474747]">№ {{ order.order_number }}</div>
+                          </div>
+                          <div class="shrink-0 w-[180px] order-row__item">
+                            <div class="order-row__item--label">Date and Time</div>
+                            <div class="text-[14px] text-[#474747]">{{ order.created_at | date: "%d %b %Y, %H:%M" }}</div>
+                          </div>
+
+                          <!-- Products preview -->
+                          <div class="flex-1 order-row__item porducts-preview">
+                            <div class="order-row__item--label">Products</div>
+                            <div class="flex items-center gap-[4px] flex-wrap">
+                              {% assign limit_preview = section.settings.order_preview_limit | default: 5 %}
+                              {% for li in order.line_items limit: limit_preview %}
+                                <span class="inline-flex w-[48px] h-[48px] rounded-[8px] bg-white overflow-hidden border border-[#E3E3E3]">
+                                  {% if li.image %}
+                                    <img src="{{ li.image | image_url: width: 80, height: 80, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
+                                  {% endif %}
+                                </span>
+                              {% endfor %}
+                              {% if items_count > limit_preview %}
+                                <span class="inline-flex items-center justify-center w-[48px] h-[48px] rounded-[8px] bg-white border border-[#E3E3E3] text-xs text-[#474747]">
+                                  +{{ items_count | minus: limit_preview }}
+                                </span>
+                              {% endif %}
+                            </div>
+                          </div>
+
+                          <div class="ml-auto flex items-center gap-[16px] order-row__item price-preview">
+                            <div class="price">
+                              <div class="text-[10px] uppercase tracking-[3px] text-[#474747] mb-1 text-right order-row__item--label">Total</div>
+                              <div class="text-[14px] text-[#474747]">{{ order.total_price | money }}</div>
+                            </div>
+
+                            <svg :class="open ? 'rotate-180' : ''" class="w-5 h-5 transition-transform shrink-0" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 9.05322L0 1.06069L1.06069 0L8 6.94678L14.9393 0L16 1.06069L8 9.05322Z" fill="#474747"/>
+                            </svg>
+                          </div>
                         </div>
 
-                        <!-- Thumbs preview -->
-                        <div class="flex items-center gap-2 flex-wrap">
-                        {% assign preview = order.line_items | slice: 0, 5 %}
-                        {% for li in preview %}
-                            {% if forloop.index < 5 %}
-                            <span class="inline-flex w-8 h-8 rounded bg-white overflow-hidden border border-[#E3E3E3]">
-                                {% if li.image %}
-                                <img src="{{ li.image | image_url: width: 80, height: 80, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
-                                {% endif %}
-                            </span>
-                            {% endif %}
-                        {% endfor %}
-                        {% if items_count > 4 %}
-                            <span class="inline-flex items-center justify-center w-8 h-8 rounded bg-white border border-[#E3E3E3] text-xs">+{{ items_count | minus: 4 }}</span>
-                        {% endif %}
-                        </div>
+                        <!-- Mobile layout -->
+                        <div class="md:hidden space-y-3 w-full order-acc__mobile">
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="flex-1 flex justify-between">
+                              <div class="text-[12px] uppercase tracking-[3px] text-[#474747] mb-1">Order №</div>
+                              <div class="text-[14px] text-[#474747]">№ {{ order.order_number }}</div>
+                            </div>
+                          </div>
 
-                        <div class="ml-auto flex items-center gap-4">
-                        <span class="text-sm text-[#474747]">{{ order.total_price | money }}</span>
-                        <svg :class="open ? 'rotate-180' : ''" class="w-5 h-5 transition-transform" viewBox="0 0 24 24" fill="none">
-                            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        </div>
-                    </button>
+                          <div class="flex-1 flex justify-between">
+                            <div class="text-[12px] uppercase tracking-[3px] text-[#474747] mb-1">Date and Time</div>
+                            <div class="text-[14px] text-[#474747]">{{ order.created_at | date: "%d %b %Y, %H:%M" }}</div>
+                          </div>
 
-                    <!-- Body -->
-                    <div class="order-acc__body" x-show="open" x-collapse x-cloak>
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="flex-1 flex justify-between">
+                              <div class="text-[12px] uppercase tracking-[3px] text-[#474747] mb-1">Total</div>
+                              <div class="text-[14px] text-[#474747]">{{ order.total_price | money }}</div>
+                            </div>
+                          </div>
+
+                          <div class="flex-1 flex justify-between products-tumbs__mobile">
+                            <div class="text-[12px] uppercase tracking-[3px] text-[#474747] mb-2">Products</div>
+                            <div class="flex items-center gap-[4px] flex-wrap">
+                              {% assign limit_preview = section.settings.order_preview_limit | default: 5 %}
+                              {% for li in order.line_items limit: limit_preview %}
+                                <span class="inline-flex w-[48px] h-[48px] rounded-[8px] bg-white overflow-hidden border border-[#E3E3E3]">
+                                  {% if li.image %}
+                                    <img src="{{ li.image | image_url: width: 80, height: 80, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
+                                  {% endif %}
+                                </span>
+                              {% endfor %}
+                              {% if items_count > limit_preview %}
+                                <span class="inline-flex items-center justify-center w-[48px] h-[48px] rounded-[8px] bg-white border border-[#E3E3E3] text-xs text-[#474747]">
+                                  +{{ items_count | minus: limit_preview }}
+                                </span>
+                              {% endif %}
+                            </div>
+                          </div>
+
+                          <div class="flex justify-center w-full mobile-icon_switcher">
+                            <svg :class="open ? 'rotate-180' : ''" class="w-5 h-5 transition-transform shrink-0 mt-1" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 9.05322L0 1.06069L1.06069 0L8 6.94678L14.9393 0L16 1.06069L8 9.05322Z" fill="#474747"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </button>
+
+                      <!-- Mobile-only Repeat order button placed right after the header, outside of it -->
+                      <div class="md:hidden px-3 pb-3 repeat-btn-mobile">
+                        <button
+                          type="button"
+                          class="btn btn--primary w-full rounded-full px-5 py-2"
+                          data-order-items='{{ items_payload | escape }}'
+                          @click.stop="repeatOrder($event)"
+                        >Repeat order</button>
+                      </div>
+
+                      <!-- Body -->
+                        <div
+                            class="order-acc__body"
+                            id="order-{{ order.id }}-body"
+                            x-show="open"
+                            x-collapse.duration.300ms
+                            x-cloak
+                        >
                         <div class="border-t border-[#E3E3E3]"></div>
 
                         <!-- Lines -->
-                        <ul class="divide-y divide-[#E3E3E3]">
-                        {% for li in order.line_items %}
-                            <li class="flex items-center gap-4 p-3">
-                            <div class="w-[64px] h-[64px] rounded overflow-hidden bg-white border border-[#E3E3E3]">
+                        <ul class="order-product-list divide-y divide-[#474747] w-full md:max-w-[660px] px-[16px] md:px-[32px]">
+                          {% for li in order.line_items %}
+                            <li class="flex items-center gap-4 py-[16px]">
+                              <div class="md:w-[116px] md:h-[116px] w-[90px] h-[90px] rounded-[12px] overflow-hidden bg-white border border-[#E0E0E0] shrink-0">
                                 {% if li.image %}
-                                <img src="{{ li.image | image_url: width: 160, height: 160, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
+                                  <img src="{{ li.image | image_url: width: 160, height: 160, crop: 'center' }}" alt="{{ li.title | escape }}" class="w-full h-full object-cover">
                                 {% endif %}
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <div class="truncate font-medium">{{ li.product.title }}</div>
+                              </div>
+                              <div class="min-w-0 flex-1">
+                                <h5 class="truncate text-[16px] md:text-[18px] text-[#474747] mb-[6px]">
+                                  {{ li.product.title }}
+                                </h5>
                                 {% if li.variant.title and li.variant.title != 'Default Title' %}
-                                <div class="text-sm opacity-70">{{ li.variant.title }}</div>
+                                  <div class="text-sm opacity-70">{{ li.variant.title }}</div>
                                 {% endif %}
-                            </div>
-                            <div class="text-sm text-[#474747] whitespace-nowrap">x {{ li.quantity }}</div>
-                            <div class="text-sm text-[#474747] whitespace-nowrap">{{ li.final_line_price | money }}</div>
+                                <div class="item-weight text-sm text-[#474747]">
+                                  {% if li.variant and li.variant.requires_shipping %}
+                                    {% if li.variant.weight_in_unit > 0 %}
+                                      <span>
+                                        {{ li.variant.weight_in_unit }} {{ li.variant.weight_unit }}
+                                        {% if li.quantity > 1 %}
+                                          × {{ li.quantity }} =
+                                          {{ li.variant.weight_in_unit | times: li.quantity | round: 2 }} {{ li.variant.weight_unit }}
+                                        {% endif %}
+                                      </span>
+                                    {% elsif li.grams > 0 %}
+                                      <span>
+                                        {{ li.grams | weight_with_unit }}
+                                        {% if li.quantity > 1 %}
+                                          × {{ li.quantity }} =
+                                          {{ li.grams | times: li.quantity | weight_with_unit }}
+                                        {% endif %}
+                                      </span>
+                                    {% endif %}
+                                  {% elsif li.grams > 0 %}
+                                    <span>
+                                      {{ li.grams | weight_with_unit }}
+                                      {% if li.quantity > 1 %}
+                                        × {{ li.quantity }} =
+                                        {{ li.grams | times: li.quantity | weight_with_unit }}
+                                      {% endif %}
+                                    </span>
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class="flex flex-col justify-between md:h_[116px] h-[90px]">
+                                <div class="text-sm text-[#474747] whitespace-nowrap">{{ li.final_line_price | money }}</div>
+                                <div class="text-sm text-[#474747] whitespace-nowrap">x {{ li.quantity }}</div>
+                              </div>
                             </li>
-                        {% endfor %}
+                          {% endfor %}
                         </ul>
 
                         <!-- Totals -->
-                        <div class="p-3">
-                        <div class="border-t border-[#E3E3E3] my-2"></div>
-                        <div class="flex items-center justify-between text-sm mb-1">
+                        <div class="totals__inner w-full md:max-w-[660px] px-[16px]">
+                          <div class="flex items-center justify-between text-sm mb-1">
                             <span>Subtotal</span>
                             <span>{{ order.subtotal_price | money }}</span>
-                        </div>
-                        {% assign shipping_amount = order.total_price | minus: order.subtotal_price %}
-                        <div class="flex items-center justify-between text-sm mb-1">
+                          </div>
+                          {% assign shipping_amount = order.total_price | minus: order.subtotal_price %}
+                          <div class="flex items-center justify-between text-sm mb-1">
                             <span>Shipping</span>
                             <span>{{ shipping_amount | money }}</span>
-                        </div>
-                        <div class="flex items-center justify-between font-semibold">
+                          </div>
+                          <div class="w-full border-b-[1px] border-[#C2C2C2]"></div>
+                          <div class="flex items-center justify-between font-semibold mt-[16px]">
                             <span>Total</span>
                             <span>{{ order.total_price | money }}</span>
-                        </div>
+                          </div>
                         </div>
 
                         <!-- Footer: addresses + repeat -->
-                        <div class="px-3 pb-3 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="uppercase tracking-[2px] text-xs text-[#474747] mb-2">Personal Information:</div>
+                        <div class="border-t-[1px] px-3 grid md:grid-cols-2 gap-6 w-full max-w-[938px] mx-auto mt-[32px] md:mt-[40px] py-[20px]">
+                          <div>
+                            <div class="uppercase tracking-[4px] text-xs text-[#474747] mb-[16px]">Personal Information:</div>
                             {% assign ship_to = order.shipping_address | default: order.billing_address %}
                             {% if ship_to %}
-                            <div class="text-sm">
+                              <div class="text-[14px] text-[#474747] space-y-[8px]">
                                 <div>{{ ship_to.first_name }} {{ ship_to.last_name }}</div>
                                 {% if ship_to.phone != blank %}<div>{{ ship_to.phone }}</div>{% endif %}
-                            </div>
+                              </div>
                             {% endif %}
-                        </div>
+                          </div>
 
-                        <div>
-                            <div class="uppercase tracking-[2px] text-xs text-[#474747] mb-2">Delivery address:</div>
+                          <div>
+                            <div class="uppercase tracking-[4px] text-xs text-[#474747] mb-[16px]">Delivery address:</div>
                             {% if ship_to %}
-                            <div class="text-sm">
+                              <div class="text-[14px] text-[#474747] space-y-[8px]">
                                 <div>{{ ship_to.first_name }} {{ ship_to.last_name }}</div>
                                 {% if ship_to.address1 %}<div>{{ ship_to.address1 }}</div>{% endif %}
                                 {% if ship_to.address2 %}<div>{{ ship_to.address2 }}</div>{% endif %}
@@ -284,49 +414,48 @@
                                 {% if ship_to.country %}<div>{{ ship_to.country }}</div>{% endif %}
                                 {% if ship_to.zip %}<div>{{ ship_to.zip }}</div>{% endif %}
                                 {% if ship_to.phone %}<div>{{ ship_to.phone }}</div>{% endif %}
-                            </div>
+                              </div>
                             {% endif %}
-                        </div>
+                          </div>
 
-                        <!-- Repeat button -->
-                        <div class="md:col-span-2 flex justify-end">
-                            {% comment %}
-                            Підготуємо payload для Cart API: [{id: variant_id, quantity: qty}, ...]
-                            {% endcomment %}
-                            {% assign items_payload = '' %}
-                            {% for li in order.line_items %}
-                            {% assign one = '{"id":' | append: li.variant_id | append: ',"quantity":' | append: li.quantity | append: '}' %}
-                            {% if forloop.first %}
-                                {% assign items_payload = one %}
-                            {% else %}
-                                {% assign items_payload = items_payload | append: ',' | append: one %}
-                            {% endif %}
-                            {% endfor %}
-                            {% assign items_payload = '[' | append: items_payload | append: ']' %}
-
-                            <button
+                          <button
                             type="button"
-                            class="btn btn--primary rounded-full px-5 py-2"
-                            data-order-items='{{ items_payload | escape }}'
-                            @click="repeatOrder($event)"
+                            class="flex justify-center w-full mobile-icon_switcher-botom md:hidden cursor-pointer"
+                            @click="open = false"
+                            @keydown.enter.prevent="open = false"
+                            @keydown.space.prevent="open = false"
+                            :aria-expanded="open.toString()"
+                            aria-controls="order-{{ order.id }}-body"
+                            >
+                                <svg :class="open ? 'rotate-180' : ''" class="w-5 h-5 transition-transform shrink-0 mt-1" width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 9.05322L0 1.06069L1.06069 0L8 6.94678L14.9393 0L16 1.06069L8 9.05322Z" fill="#474747"/>
+                                </svg>
+                            </button>
+
+                          <!-- Desktop-only Repeat order button -->
+                          <div class="md:col-span-2 hidden md:flex justify-end repeat-btn-desktop">
+                            <button
+                              type="button"
+                              class="btn btn--primary rounded-full px-5 py-2"
+                              data-order-items='{{ items_payload | escape }}'
+                              @click="repeatOrder($event)"
                             >Repeat order</button>
+                          </div>
                         </div>
-                        </div>
-                    </div>
+                      </div>
                     </li>
-                {% endfor %}
+                  {% endfor %}
                 </ul>
 
                 {% if paginate.pages > 1 %}
-                <div class="mt-4">{{ paginate | default_pagination }}</div>
+                  <div class="mt-4">{{ paginate | default_pagination }}</div>
                 {% endif %}
-            {% else %}
+              {% else %}
                 <p>No orders yet.</p>
-            {% endif %}
-            {% endpaginate %}
-        </section>
-        </div>
-
+              {% endif %}
+              {% endpaginate %}
+            </section>
+          </div>
 
         {% else %}
           <p>You need to be logged in to view this page.</p>
@@ -338,39 +467,29 @@
 
 <script>
 (function () {
-  // Factory for Alpine component
   function accountTabs() {
     return {
       tab: 'dashboard',
-
       init() {
-        // Set initial tab from hash
         const h = (location.hash || '').slice(1).toLowerCase();
         if (h === 'orders' || h === 'dashboard') this.tab = h;
 
-        // React to external hash changes
         window.addEventListener('hashchange', () => {
           const nh = (location.hash || '').slice(1).toLowerCase();
           if (nh === 'orders' || nh === 'dashboard') this.tab = nh;
         });
 
-        // Custom event to switch to Orders
         document.documentElement.addEventListener('account:show-orders', () => this.go('orders'));
-
-        // Phone input sanitization
         this.setupPhoneSanitize();
       },
-
       go(name) {
         this.tab = name;
         const newHash = '#' + name;
         if (location.hash !== newHash) history.replaceState(null, '', newHash);
       },
-
       setupPhoneSanitize() {
         const scope = document.querySelector('#account-{{ section.id }}');
         if (!scope) return;
-
         const inputs = scope.querySelectorAll('input[name="address[phone]"]');
         inputs.forEach((inp) => {
           inp.addEventListener('input', () => {
@@ -379,7 +498,6 @@
             v = v.replace(/[^\d]/g, '');
             inp.value = (leadPlus ? '+' : '') + v;
           });
-
           inp.addEventListener('keypress', (e) => {
             const ch = e.key;
             const isDigit = /[0-9]/.test(ch);
@@ -391,10 +509,8 @@
     };
   }
 
-  // Expose for x-data="accountTabs()"
   window.accountTabs = accountTabs;
 
-  // Also register as Alpine data (works whether Alpine is loaded now or later)
   const register = () => {
     if (window.Alpine && typeof window.Alpine.data === 'function') {
       window.Alpine.data('accountTabs', accountTabs);
@@ -403,7 +519,6 @@
   if (document.readyState === 'loading') {
     document.addEventListener('alpine:init', register, { once: true });
     document.addEventListener('DOMContentLoaded', () => {
-      // If URL already has #orders, trigger opening after DOM is ready
       if ((location.hash || '').toLowerCase() === '#orders') {
         document.documentElement.dispatchEvent(new CustomEvent('account:show-orders'));
       }
@@ -416,7 +531,6 @@
   }
 })();
 </script>
-
 
 <script>
 /**
@@ -431,23 +545,17 @@ async function repeatOrder(evt) {
   try {
     items = JSON.parse(btn.getAttribute('data-order-items') || '[]');
   } catch (e) { items = []; }
-
   if (!Array.isArray(items) || items.length === 0) return;
 
   btn.disabled = true;
 
   try {
-    // Clear cart
     await fetch('/cart/clear.js', { method: 'POST', headers: { 'Accept': 'application/json' } });
-
-    // Add all items in one request
     await fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ items })
     });
-
-    // Go to checkout
     window.location.href = '/checkout';
   } catch (err) {
     console.error('Repeat order failed:', err);
@@ -456,9 +564,6 @@ async function repeatOrder(evt) {
   }
 }
 </script>
-
-
-
 
 {% schema %}
 {
@@ -469,6 +574,15 @@ async function repeatOrder(evt) {
       "id": "show_personal",
       "label": "Show personal information block",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "order_preview_limit",
+      "label": "Max product thumbnails in order preview",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5
     },
     {
       "type": "url",

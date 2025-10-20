@@ -52,4 +52,3 @@ smoothRefresh();
 document.addEventListener('product:variant:changed', smoothRefresh);
 document.addEventListener('carousel:init', smoothRefresh);
 
-
