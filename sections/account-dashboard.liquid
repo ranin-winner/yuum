@@ -52,35 +52,37 @@
                 %}
 
                 {% if pi_addr %}
-                  {% form 'customer_address', pi_addr %}
-                    <div class="pi-grid">
-                      <label class="pi-field">
-                        <span class="pi-label">First name*</span>
-                        <input class="pi-input" type="text" name="address[first_name]" value="{{ pi_addr.first_name | escape }}" required>
-                      </label>
-                      <label class="pi-field">
-                        <span class="pi-label">Last name*</span>
-                        <input class="pi-input" type="text" name="address[last_name]" value="{{ pi_addr.last_name | escape }}" required>
-                      </label>
-                      <label class="pi-field">
-                        <span class="pi-label">Phone*</span>
-                        <input
-                          class="pi-input"
-                          type="tel"
-                          name="address[phone]"
-                          value="{{ pi_addr.phone | escape }}"
-                          inputmode="tel"
-                          autocomplete="tel"
-                          maxlength="16"
-                          pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
-                          title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
-                        />
-                      </label>
+                    <div class="address-form__inner max-w-[620px]">
+                        {% form 'customer_address', pi_addr %}
+                            <div class="pi-grid">
+                            <label class="pi-field">
+                                <span class="pi-label">First name*</span>
+                                <input class="pi-input" type="text" name="address[first_name]" value="{{ pi_addr.first_name | escape }}" required>
+                            </label>
+                            <label class="pi-field">
+                                <span class="pi-label">Last name*</span>
+                                <input class="pi-input" type="text" name="address[last_name]" value="{{ pi_addr.last_name | escape }}" required>
+                            </label>
+                            <label class="pi-field">
+                                <span class="pi-label">Phone*</span>
+                                <input
+                                class="pi-input"
+                                type="tel"
+                                name="address[phone]"
+                                value="{{ pi_addr.phone | escape }}"
+                                inputmode="tel"
+                                autocomplete="tel"
+                                maxlength="16"
+                                pattern="^(?!.*(\d)\1{6,})(?:\+44[\s-]?7\d{2}[\s-]?\d{3}[\s-]?\d{3}|07\d{2}[\s-]?\d{3}[\s-]?\d{3})$"
+                                title="UK mobile: 07XXXXXXXXX or +44 7XXXXXXXXX"
+                                />
+                            </label>
+                            </div>
+                            <input type="hidden" name="address[default]" value="true">
+                            <input type="hidden" name="return_to" value="{{ back }}">
+                            <button class="btn btn--primary update-data w-full" type="submit">Save data</button>
+                        {% endform %}
                     </div>
-                    <input type="hidden" name="address[default]" value="true">
-                    <input type="hidden" name="return_to" value="{{ back }}">
-                    <button class="btn btn--primary update-data w-full" type="submit">Save data</button>
-                  {% endform %}
                 {% else %}
                   {% form 'customer_address' %}
                     <div class="pi-grid">
@@ -148,7 +150,7 @@
 
                 <div class="address-edit" x-show="editOpen" x-cloak>
                   {% form 'customer_address', addr %}
-                    <div class="pi-grid">
+                    <div class="pi-grid !max-w-[620px]">
                       <label class="pi-field"><span class="pi-label">First name</span><input class="pi-input" type="text" name="address[first_name]" value="{{ addr.first_name | escape }}"></label>
                       <label class="pi-field"><span class="pi-label">Last name</span><input class="pi-input" type="text" name="address[last_name]" value="{{ addr.last_name | escape }}"></label>
                       <label class="pi-field pi-field--full"><span class="pi-label">Address line 1</span><input class="pi-input" type="text" name="address[address1]" value="{{ addr.address1 | escape }}"></label>

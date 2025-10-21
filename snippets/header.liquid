@@ -81,17 +81,21 @@
     {%- endif -%}
     <div class="b-header__cartlogin">
       {%- if shop.customer_accounts_enabled -%}
-
+        <a
+            href="{{ routes.account_login_url }}"
+            class="b-header__account flex hover:scale-110"
+            x-data
+            @click.prevent.stop="$store.auth.open('login')"
+        >
+        
+            {{ accountIcon }}
+        </a>
       {%- endif -%}
-      <a
-        href="{{ routes.account_login_url }}"
-        class="b-header__account flex hover:scale-110"
-        x-data
-        @click.prevent.stop="$store.auth.open('login')"
-      >
-       
-        {{ accountIcon }}
-      </a>
+
+      <div class="b-header_wishlist text-[#474747]">
+        {% render 'wishlisthero-header-icon.liquid' %}
+      </div>
+      
       <div class="b-header_cart" x-data>
         <span
           id="i-mini-cart"
