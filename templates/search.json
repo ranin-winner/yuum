@@ -11,10 +11,24 @@
   "sections": {
     "main": {
       "type": "main-404",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    },
+    "main_search_xAkxcD": {
+      "type": "main-search",
+      "name": "Search Results",
+      "settings": {
+        "results_per_page": 48,
+        "simple_hover": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "main_search_xAkxcD"
   ]
 }

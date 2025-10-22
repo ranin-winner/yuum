@@ -28,22 +28,6 @@
           "type": "title",
           "settings": {}
         },
-        "wishlist_hero_custom_product_button_FRDPbJ": {
-          "type": "shopify://apps/wishlist-hero/blocks/custom-product-button/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
-          "settings": {
-            "displayButtonMode": "icon_only",
-            "contentAlignment": "center",
-            "buttonAlignment": "center",
-            "overrideFont": false,
-            "customFont": "sans_serif_n4",
-            "buttonFullwidth": true,
-            "removeBoxShadowAndBorder": false,
-            "horizontalPadding": 20,
-            "iconTopOffset": 0,
-            "addedCssClassNames": "",
-            "addedContainerStyles": ""
-          }
-        },
         "short_description_kFAmgt": {
           "type": "short_description",
           "settings": {}
@@ -139,7 +123,6 @@
       "block_order": [
         "badge_6prFYK",
         "title_hijtjK",
-        "wishlist_hero_custom_product_button_FRDPbJ",
         "short_description_kFAmgt",
         "yotpo_product_reviews_star_rating_Tgcakf",
         "product_detais_WDcgtB",

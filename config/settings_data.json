@@ -34,6 +34,8 @@
     "mm4_categories_heading": "",
     "mm4_show_collection_images": false,
     "mm4_product_heading": "",
+    "popular_searches": "<p><a href=\"/collections/build-your-bundle\" title=\"Build your bundle\">Mochi</a>,<a href=\"/collections/gift-cards\" title=\"Gift Cards\">Matcha</a>,<a href=\"/collections/all\" title=\"All products\">Sets</a>,<a href=\"/collections/the-real-mochi-collection\" title=\"The Real Mochi Collection\">Mango</a>,<a href=\"/collections/whole-fruit-mochi-collection\" title=\"Whole Fruit Collection\">Vegan</a></p>",
+    "popular_products_collection": "search",
     "footer_logo": "shopify://shop_images/Default.svg",
     "footer_logo_width": 160,
     "footer_tagline_image": "shopify://shop_images/food_culture.svg",
@@ -55,6 +57,12 @@
     "copyright_text": "Copyright © 2025 Yuum. All rights reserved.",
     "cart_type": "drawer",
     "cart_products": [],
+    "popular_products": [
+      "all-flavours-discovery-mochi-bundle",
+      "bestseller-flavours-mochi-bundle",
+      "black-sesame-mochi",
+      "caramel-almond-mochi"
+    ],
     "content_for_index": [],
     "blocks": {
       "1366455014531238847": {
