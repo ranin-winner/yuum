@@ -15,6 +15,8 @@ import '../components/alp-cart';
 import '../components/alp-build-box'; // FE TODO Must be included only for the build box section
 import '../components/main-product-replaced';
 import { mountAuthStore } from '../components/auth-modal';
+import { search } from '../components/search';
+
 
 
 window.Alpine = Alpine;
@@ -25,6 +27,7 @@ Alpine.plugin(persist);
 
 initSmoothScroll();
 mountAuthStore();
+search();
 
 Alpine.start();
 
@@ -35,6 +38,7 @@ import { productCarousel } from '../components/product-carousel';
 headerSticky();
 variantSelect();
 productCarousel();
+
 
 
 initScrollAnimations(document);

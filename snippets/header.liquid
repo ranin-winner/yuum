@@ -14,6 +14,13 @@
     </svg>
 {% endcapture %}
 
+{% capture searchIcon %}
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.9399 18.1543L14.5995 13.8139C15.9316 12.2948 16.6667 10.3726 16.6667 8.33333C16.6667 6.10731 15.7997 4.01476 14.2258 2.44086C12.6519 0.866971 10.5594 0 8.33333 0C6.10731 0 4.01476 0.866971 2.44086 2.44086C0.866971 4.01476 0 6.10731 0 8.33333C0 10.5594 0.866971 12.6519 2.44086 14.2258C4.01476 15.7997 6.10731 16.6667 8.33333 16.6667C10.3726 16.6667 12.2948 15.9316 13.8139 14.5995L18.1543 18.9399C18.2628 19.0484 18.4049 19.1026 18.5471 19.1026C18.6892 19.1026 18.8314 19.0484 18.9399 18.9399C19.1569 18.7229 19.1569 18.3713 18.9399 18.1543ZM3.22645 13.4402C1.86252 12.076 1.11111 10.2623 1.11111 8.33333C1.11111 6.40435 1.86252 4.59066 3.22645 3.22645C4.59066 1.86252 6.40435 1.11111 8.33333 1.11111C10.2623 1.11111 12.076 1.86252 13.4402 3.22645C14.8041 4.59066 15.5556 6.40435 15.5556 8.33333C15.5556 10.2623 14.8041 12.076 13.4402 13.4402C12.076 14.8041 10.2623 15.5556 8.33333 15.5556C6.40435 15.5556 4.59066 14.8041 3.22645 13.4402Z" fill="#474747"/>
+    </svg>
+
+{% endcapture %}
+
 {% if settings.show_promo %}
   <div class="b-header__promo w-full py-6 px-12 text-center tracking-wid text-white-content tracking-[0.1rem]">
     {% if settings.show_promo_link != blank %}<a href="{{ settings.show_promo_link }}" target="_blank">{% endif %}
@@ -80,6 +87,12 @@
       </nav>
     {%- endif -%}
     <div class="b-header__cartlogin">
+        <div class="b-header_search" x-data>
+            <button type="button" aria-label="Open search" @click="$store.search.open()" class="cursor-pointer">
+              {{ searchIcon }}
+            </button>
+        </div>
+
       {%- if shop.customer_accounts_enabled -%}
         <a
             href="{{ routes.account_login_url }}"
@@ -117,12 +130,3 @@
 </div>
 
 
-<script>
-    // document.addEventListener('click', (e) => {
-    //     const a = e.target.closest('.js-auth-trigger');
-    //     if (!a) return;
-        
-    //     e.preventDefault();
-    //     openAuthModal(a.dataset.auth || 'login'); 
-    // });
-</script>

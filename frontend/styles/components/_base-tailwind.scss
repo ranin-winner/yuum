@@ -46,7 +46,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 999;
+    z-index: 998;
     display: none;
 
     body.no-scroll & {
@@ -211,6 +211,8 @@
         &-item {
             display: inline-flex;
             font-size: 14px;
+            color: #474747;
+
         }
 
         &-link {
@@ -383,7 +385,7 @@
   .b-header {
     border-color: #fff;
     position: relative;
-    z-index: 9;
+    z-index: 999;
 
     .b-header__list-link, .group button, .b-header__list-link.m-active{
       color: #fff !important;
