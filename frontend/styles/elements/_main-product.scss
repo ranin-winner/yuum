@@ -1,6 +1,5 @@
 .l-product {
     &__info {
-
         @media (max-width: 1439px) {
             max-width: 480px;
         }
@@ -8,6 +7,19 @@
 
         @media (max-width: 1000px) {
             max-width: 100%;
+        }
+
+        .product__short-description {
+
+            ul {
+                list-style: disc;
+                li {
+                    margin-left: 25px;
+                    &:not(:last-child) {
+                        margin-bottom: 15px;
+                    }
+                }
+            }
         }
 
 
@@ -29,6 +41,41 @@
             font-size: 14px;
             text-transform: uppercase;
             margin: 0 5px;
-        }    
+        }   
+        
+        .gift-card__form {
+
+            .field {
+                &:not(:last-child) {
+                    margin-bottom: 16px;
+                }
+            }
+
+            
+
+           #gift-form-fields {
+                margin-bottom: 40px;
+                label {
+                    font-size: 12px;
+                    letter-spacing: 3px;
+                    line-height: 16px;
+                    text-transform: uppercase;
+                    color: #474747;
+                }
+           }
+
+            input, 
+            textarea {
+                background-color: #E7E7E7;
+                &:not(#gift-checkbox) {
+                    width: 100%;
+                }
+                
+
+                &::placeholder {
+                    color: #949597;
+                }
+            }
+        }
     }
 }

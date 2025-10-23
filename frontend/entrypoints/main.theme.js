@@ -13,7 +13,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import '../components/alp-main-store';
 import '../components/alp-cart';
 import '../components/alp-build-box'; // FE TODO Must be included only for the build box section
-import '../components/main-product-replaced';
+import '../components/main-product-replaced.js';
 import { mountAuthStore } from '../components/auth-modal';
 import { search } from '../components/search';
 

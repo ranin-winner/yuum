@@ -427,4 +427,63 @@
 // chips styles
 .chips-item {
     @apply inline-flex items-center rounded-full px-[14px] py-[8px] md:px-[24px] md:py-[12px] md:text-[18px] text-[13px] border border-[#ADAEB0] hover:bg-white hover:text-[#474747] transition;
+
+    &.is-active {
+        @apply bg-white text-[#474747] transition
+    }
 }
+
+// checkbox 
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    cursor: pointer;
+    
+    input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      
+      &:checked + .checkbox-box {
+        background-color: #474747;
+        border-color: #474747;
+        
+        &::after {
+          display: block;
+        }
+      }
+      
+      &:focus + .checkbox-box {
+        box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.3);
+      }
+    }
+    
+    .checkbox-box {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #9ca3af;
+      border-radius: 6px;
+      flex-shrink: 0;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        display: none;
+        left: 7px;
+        top: 3px;
+        width: 6px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+    
+    .checkbox-label {
+      color: #374151;
+      user-select: none;
+    }
+  }

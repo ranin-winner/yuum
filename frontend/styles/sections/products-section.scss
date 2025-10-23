@@ -10,6 +10,9 @@
         }
 
         &--text-and-btn {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
             .text:not(:has(~ .text)) { 
                 margin-bottom: 10px; 
             }
@@ -46,20 +49,20 @@
    
     }
 
-    .swiper-pagination {
-        bottom: -60px;
-        @media (max-width: 1024px) {
-            bottom: -40px;
-        }
-
-    }
-
     .swiper-box .swiper-button-next {
         right: 40px;
     }
 
     .swiper-box .swiper-button-prev {
         left: 40px;
+    }
+
+    .swiper-pagination {
+        bottom: -60px;
+        @media (max-width: 1024px) {
+            bottom: -40px;
+        }
+
     }
   }
   

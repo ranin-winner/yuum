@@ -1,0 +1,165 @@
+{% comment %} sections/bundle-product-slider.liquid {% endcomment %}
+{% render 'entry' with '@/styles/sections/bundle-product-slider.scss' %}
+
+<section id="bundle-slider-{{ section.id }}" class="bundle-slider">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="bundle-slider__title heading-3">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {%- assign slides = section.settings.slides -%}
+
+    {% if slides != blank %}
+      <!-- Thumbs -->
+      <div class="bundle-slider__thumbs swiper" id="bundle-thumbs-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for mo in slides %}
+            {% assign thumb = mo.slide_image %}
+            <div class="swiper-slide" data-index="{{ forloop.index0 }}">
+              {% if thumb %}
+                <img src="{{ thumb | image_url: width: 120 }}" loading="lazy" alt="{{ mo.slide_title }}" class="thumb-img">
+              {% else %}
+                <div class="thumb-placeholder">{{ forloop.index }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Main block with your wrapper around the swiper -->
+      <div class="swiper-box relative">
+
+        <div class="bundle-slider__main swiper" id="bundle-main-{{ section.id }}">
+          <!-- ВАЖЛИВО: .swiper-wrapper одразу під .swiper -->
+          <div class="swiper-wrapper">
+            {% for mo in slides %}
+              {% assign desk_img   = mo.slide_image %}
+              {% assign mobile_img = mo.mobile_slide_image | default: mo.slide_image %}
+              <div class="swiper-slide">
+                <article class="bundle-slide">
+                  <div class="bundle-slide__media">
+                    <picture>
+                      {% if mobile_img %}
+                        <source media="(max-width: 767px)" srcset="{{ mobile_img | image_url: width: 680 }}">
+                      {% endif %}
+                      {% if desk_img %}
+                        <img src="{{ desk_img | image_url: width: 1200 }}" class="bundle-slide__image" alt="{{ mo.slide_title }}" loading="lazy">
+                      {% else %}
+                        <div class="media-placeholder">No image</div>
+                      {% endif %}
+                    </picture>
+                  </div>
+                  <div class="bundle-slide__content">
+                    {% if mo.slide_title != blank %}
+                      <h3 class="bundle-slide__title heading-4">{{ mo.slide_title }}</h3>
+                    {% endif %}
+                    {% if mo.slide_description != blank %}
+                      <div class="bundle-slide__text rte">
+                        {{ mo.slide_description | metafield_tag }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </article>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Навігація (поза .swiper-wrapper) -->
+        <button class="swiper-button-prev md:block" type="button" aria-label="Previous slide">
+            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
+            </svg>
+        </button>
+        <button class="swiper-button-next md:block" type="button" aria-label="Next slide">
+            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
+            </svg>
+        </button>
+      </div>
+    {% else %}
+      <p class="text-center text-gray-600 py-8">No slides selected.</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const rootSel = '#bundle-slider-{{ section.id }}';
+  const thumbsSel = '#bundle-thumbs-{{ section.id }}';
+  const mainSel = '#bundle-main-{{ section.id }}';
+
+  const thumbs = new Swiper(thumbsSel, {
+    slidesPerView: 'auto',
+    spaceBetween: 16,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
+    slideToClickedSlide: true,
+    observer: true,
+    observeParents: true,
+    breakpoints: { 0:{spaceBetween:8}, 768:{spaceBetween:12}, 1024:{spaceBetween:16} }
+  });
+
+  const main = new Swiper(mainSel, {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    autoHeight: true,
+    allowTouchMove: true,
+    observer: true,
+    observeParents: true,
+    navigation: {
+      nextEl: rootSel + ' .swiper-button-next',
+      prevEl: rootSel + ' .swiper-button-prev'
+    },
+    thumbs: { swiper: thumbs },
+    on: {
+      init(sw){ syncThumb(sw.realIndex); },
+      slideChange(sw){ syncThumb(sw.realIndex); }
+    }
+  });
+
+  document.querySelectorAll(thumbsSel + ' .swiper-slide').forEach((s) => {
+    s.addEventListener('click', () => {
+      const i = Number(s.dataset.index || 0);
+      main.slideTo(i, 300);
+    });
+  });
+
+  function syncThumb(index) {
+    const slides = document.querySelectorAll(thumbsSel + ' .swiper-slide');
+    slides.forEach(el => el.classList.remove('is-active'));
+    const current = document.querySelector(thumbsSel + ` .swiper-slide[data-index="${index}"]`);
+    if (current) {
+      current.classList.add('is-active');
+      const slideIndex = Array.from(slides).indexOf(current);
+      if (slideIndex > -1) thumbs.slideTo(slideIndex);
+    }
+  }
+});
+</script>
+
+
+
+
+{% schema %}
+{
+  "name": "Bundle product slider",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Section title",
+      "default": "<p>Our flavours</p>"
+    },
+    {
+      "type": "metaobject_list",
+      "id": "slides",
+      "label": "Slides (bundle_product)",
+      "metaobject_type": "bundle_product"
+    }
+  ],
+  "presets": [
+    { "name": "Bundle product slider" }
+  ]
+}
+{% endschema %}

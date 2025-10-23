@@ -1,6 +1,5 @@
 // product-carousel.js
 
-// 1) Підстрахуємо Alpine.store
 (function ensureAlpineStore() {
     const setStore = () => {
       if (!window.Alpine) return
