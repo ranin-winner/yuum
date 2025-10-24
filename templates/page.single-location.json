@@ -25,6 +25,7 @@
         "image_alignment_x": "center",
         "image_alignment_y": "middle",
         "text_position-x": "left",
+        "text_position-x-mob": "left",
         "text_position-y": "center",
         "text_alignment": "left",
         "title_font_size": 100,
@@ -57,6 +58,30 @@
             "image": "shopify://shop_images/5fa4e95a6b70631a3c827ac7825723998af5b3e8_1.png"
           }
         },
+        "image_wnDRde": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2025-04-26_20.50.00_1.png"
+          }
+        },
+        "image_URyEAp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1615_506f0688-c333-489b-b7d6-ba0f09df4229.png"
+          }
+        },
+        "image_FLdBG7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Frame_6949.png"
+          }
+        },
+        "image_fbRbT4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1612_114050f8-82e8-4655-b236-eb83837033ef.png"
+          }
+        },
         "image_GXYkW6": {
           "type": "image",
           "settings": {
@@ -67,17 +92,21 @@
       "block_order": [
         "image_X664LL",
         "image_LJmEk8",
+        "image_wnDRde",
+        "image_URyEAp",
+        "image_FLdBG7",
+        "image_fbRbT4",
         "image_GXYkW6"
       ],
       "name": "Location Info",
       "settings": {
-        "color_scheme": "default",
         "title": "YUUM Café",
+        "badge": "London",
         "description": "<p>YUUM Café – a combination of modern design and technology with high viscosity and original taste of natural authentic products of different cultures with luscious service. A boutique cafe is a place where you can prepare and serve the product in its original form.</p>",
         "location_title": "Location",
         "location_address": "48 Berwick Street, London W1F 8SJ",
         "location_link_text": "GET DIRECTIONS",
-        "location_link_url": "",
+        "location_link_url": "shopify://products/all-flavours-discovery-mochi-bundle",
         "hours_title": "Hours",
         "hours_text": "<p>Mon - Fri 10:00am - 6:00pm<br/>Sat - Sun 8:00am - 6:00pm</p>",
         "contact_title": "Contact",
