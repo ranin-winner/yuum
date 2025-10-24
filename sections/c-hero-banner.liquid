@@ -35,6 +35,7 @@
     width: 100%;
     display: flex;
     padding: 0 {{ section.settings.padding_desktop }}px;
+    /* margin-top керується нижче в @media для моб/десктоп */
   }
 
   /* Image Position */
@@ -105,6 +106,7 @@
     #hero-{{ section.id }}.b-hero-banner {
       height: {{ section.settings.banner_height_mobile }}px;
       padding: {{ section.settings.padding_mobile }}px;
+      margin-top: {{ section.settings.margin_top_mobile }}px; /* може бути від’ємним */
     }
     #hero-{{ section.id }} .b-hero-banner__title { font-size: {{ section.settings.title_font_size_mobile }}px; }
     #hero-{{ section.id }} .b-hero-banner__text  { font-size: {{ section.settings.subtitle_font_size_mobile }}px; }
@@ -115,9 +117,11 @@
   @media (min-width: 768px) {
     #hero-{{ section.id }}.b-hero-banner {
       height: {{ section.settings.banner_height_desktop }}px;
+      margin-top: {{ section.settings.margin_top_desktop }}px; /* може бути від’ємним */
     }
   }
 </style>
+
 
 {% schema %}
 {
@@ -295,6 +299,18 @@
       "min": 12,
       "max": 100,
       "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "margin_top_desktop",
+      "label": "Desktop margin-top",
+      "default": "-140"
+    },
+    {
+      "type": "text",
+      "id": "margin_top_mobile",
+      "label": "Mobile margin-top",
+      "default": "-100"
     },
     {
       "type": "text",

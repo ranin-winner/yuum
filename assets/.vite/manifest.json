@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-DRTF8VcM.css",
+    "file": "main-BKrJCgXk.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-BphrViZ1.js",
+    "file": "main.theme-CjHt1brG.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp-D93d1Fie.css",
+    "file": "page-pdp-B_9MXJqC.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -27,8 +27,13 @@
     "src": "frontend/scripts/sections/main-product.js",
     "isEntry": true
   },
+  "frontend/styles/sections/account.scss": {
+    "file": "account-71czH9sH.css",
+    "src": "frontend/styles/sections/account.scss",
+    "isEntry": true
+  },
   "frontend/styles/sections/advantages.scss": {
-    "file": "advantages-C2qABq_L.css",
+    "file": "advantages-BH9atSW0.css",
     "src": "frontend/styles/sections/advantages.scss",
     "isEntry": true
   },
@@ -53,6 +58,11 @@
     "src": "frontend/styles/sections/build-your-bundle.scss",
     "isEntry": true
   },
+  "frontend/styles/sections/bundle-product-slider.scss": {
+    "file": "bundle-product-slider-DEH44Koo.css",
+    "src": "frontend/styles/sections/bundle-product-slider.scss",
+    "isEntry": true
+  },
   "frontend/styles/sections/collection-grid.scss": {
     "file": "collection-grid-DbTvZDNP.css",
     "src": "frontend/styles/sections/collection-grid.scss",
@@ -69,7 +79,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/feature-brick.scss": {
-    "file": "feature-brick-BRzgEHy9.css",
+    "file": "feature-brick-DgXXagQM.css",
     "src": "frontend/styles/sections/feature-brick.scss",
     "isEntry": true
   },
@@ -93,6 +103,11 @@
     "src": "frontend/styles/sections/image-tips-card.scss",
     "isEntry": true
   },
+  "frontend/styles/sections/location-section.scss": {
+    "file": "location-section-D4RBvwfi.css",
+    "src": "frontend/styles/sections/location-section.scss",
+    "isEntry": true
+  },
   "frontend/styles/sections/non-profit.scss": {
     "file": "non-profit-Brx1pw4E.css",
     "src": "frontend/styles/sections/non-profit.scss",
@@ -105,13 +120,18 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-BZAZnkPw.css",
+    "file": "products-section-DbC3kriX.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
   "frontend/styles/sections/review-section.scss": {
     "file": "review-section-BdDn4zGL.css",
     "src": "frontend/styles/sections/review-section.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/search.scss": {
+    "file": "search-BkBjq9n6.css",
+    "src": "frontend/styles/sections/search.scss",
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
