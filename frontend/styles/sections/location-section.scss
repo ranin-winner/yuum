@@ -1,7 +1,21 @@
 // @use '../config/all-config' as cfg;
 
-.products-section {
+.location-section {
     position: relative;
+
+    .locations-card {
+        &__photo-inner {
+            max-height: 620px;
+            aspect-ratio: 1/1;
+            @media (max-width: 1300px) {
+                max-height: 500px;
+            }
+
+            @media (max-width: 768px) {
+                max-height: 366px;
+            }
+        }
+    }
 
     &__header {
         &--title {
@@ -10,9 +24,6 @@
         }
 
         &--text-and-btn {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
             .text:not(:has(~ .text)) { 
                 margin-bottom: 10px; 
             }
@@ -38,6 +49,8 @@
         background-color: #fff;
         // transform: translateY(100%);
 
+        
+
         &:hover {
             background-color: #474747;
             color: #fff;
@@ -49,20 +62,20 @@
    
     }
 
-    .swiper-box .swiper-button-next {
-        right: 40px;
-    }
-
-    .swiper-box .swiper-button-prev {
-        left: 40px;
-    }
-
     .swiper-pagination {
         bottom: -60px;
         @media (max-width: 1024px) {
             bottom: -40px;
         }
 
+    }
+
+    .swiper-box .swiper-button-next {
+        right: 40px;
+    }
+
+    .swiper-box .swiper-button-prev {
+        left: 40px;
     }
   }
   

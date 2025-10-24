@@ -1,0 +1,65 @@
+{%- comment -%}
+  Lightweight product card for predictive search / slim contexts.
+  Params:
+    - product (required)
+    - show_quick_add: boolean = true
+    - image_width: number = 400
+{%- endcomment -%}
+
+{%- assign p = product -%}
+{%- if p == blank -%}{% break %}{%- endif -%}
+{%- assign show_quick_add = show_quick_add | default: true -%}
+{%- assign image_width = image_width | default: 400 -%}
+
+<article class="product-card product-card--lite" data-context="predictive">
+  <a class="product-card__link" href="{{ p.url }}" aria-label="{{ p.title | escape }}"></a>
+
+  <div class="product-card__media" style="border:1px solid #eee;border-radius:12px;">
+    <div class="product-card__badge-and-btn absolute top-0 left-0 w-full flex justify-between p-[16px]">
+      <div class="badges">
+        {% render 'product-badges', product: product, location: 'pdp' %}
+      </div>
+      <div>
+        <button type="button" class="md:hidden" aria-label="Add to wishlist" data-action="wish">
+          <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border-radius:8px;overflow:hidden;">
+      {%- if p.featured_media -%}
+        <img
+          src="{{ p.featured_media | image_url: width: image_width }}"
+          alt="{{ p.title | escape }}"
+          loading="lazy"
+          style="max-width:100%;max-height:100%;object-fit:contain;">
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="product-card__content" style="margin-top:8px">
+    <h3 class="product-card__title md:text-[18px] text-[16px] font-normal">
+      <a href="{{ p.url }}">{{ p.title }}</a>
+    </h3>
+
+    <p class="product-card__price">
+      {%- if p.available -%}
+        {{ p.price | money }}
+      {%- else -%}
+        <span>Sold out</span>
+      {%- endif -%}
+    </p>
+  </div>
+
+  {%- if show_quick_add and p.first_available_variant and p.available -%}
+    <div class="product-card__cta text-center" style="margin-top:8px">
+      <form method="post" action="{{ routes.cart_add_url }}">
+        <input type="hidden" name="id" value="{{ p.first_available_variant.id }}">
+        <button class="product-card__btn btn" type="submit">
+          <span>ADD TO CART</span>
+        </button>
+      </form>
+    </div>
+  {%- endif -%}
+</article>

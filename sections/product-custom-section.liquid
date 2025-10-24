@@ -12,7 +12,6 @@
   id="productSection-{{ section.id }}"
   class="products-section products-section mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }}"
 >
-  {% comment %} <div class="container m-responsive px-10"> {% endcomment %}
     <div class="container">
         <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
             {% if section.settings.title != blank %}
@@ -82,7 +81,6 @@
             {% endif %}
         </div>
       </div>
-  {% comment %} </div> {% endcomment %}
 </section>
 
 <script>

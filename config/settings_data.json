@@ -34,6 +34,8 @@
     "mm4_categories_heading": "",
     "mm4_show_collection_images": false,
     "mm4_product_heading": "",
+    "popular_searches": "<p><a href=\"/collections/build-your-bundle\" title=\"Build your bundle\">Mochi</a>,<a href=\"/collections/gift-cards\" title=\"Gift Cards\">Matcha</a>,<a href=\"/collections/all\" title=\"All products\">Sets</a>,<a href=\"/collections/the-real-mochi-collection\" title=\"The Real Mochi Collection\">Mango</a>,<a href=\"/collections/whole-fruit-mochi-collection\" title=\"Whole Fruit Collection\">Vegan</a></p>",
+    "popular_products_collection": "search",
     "footer_logo": "shopify://shop_images/Default.svg",
     "footer_logo_width": 160,
     "footer_tagline_image": "shopify://shop_images/food_culture.svg",
@@ -56,7 +58,64 @@
     "copyright_text": "Copyright © 2025 Yuum. All rights reserved.",
     "cart_type": "drawer",
     "cart_products": [],
+    "popular_products": [
+      "all-flavours-discovery-mochi-bundle",
+      "bestseller-flavours-mochi-bundle",
+      "black-sesame-mochi",
+      "caramel-almond-mochi"
+    ],
     "content_for_index": [],
+    "blocks": {
+      "1366455014531238847": {
+        "type": "shopify://apps/wishlist-hero/blocks/customize-style-block/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+        "disabled": false,
+        "settings": {
+          "Btn_color": "rgba(0,0,0,0)",
+          "WishlistButtonTextColor": "",
+          "Ico_color": "rgba(0,0,0,0)",
+          "HeaderFontSize": 30,
+          "HeaderColor": "",
+          "ProductNameFontSize": 18,
+          "PriceFontSize": 16,
+          "PriceColor": ""
+        }
+      },
+      "7870687481494312845": {
+        "type": "shopify://apps/wishlist-hero/blocks/app-embed/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+        "disabled": false,
+        "settings": {
+          "customThemeName": "~",
+          "additionalWLButtonCssClasses": "",
+          "additionalWLCartBubbleCssClasses": "",
+          "extraHTMLToAppend": "",
+          "disableAutomaticButtonAddition": true
+        }
+      },
+      "10486658301671024706": {
+        "type": "shopify://apps/wishlist-hero/blocks/collection-embed/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+        "disabled": false,
+        "settings": {
+          "customThemeName": "~",
+          "wlIconPlacementInCard": "auto",
+          "iconHorizontalOffset": 0,
+          "iconVerticalOffset": 0,
+          "iconBackgroundSize": 40,
+          "iconFontSize": 0,
+          "enableCustomColors": true,
+          "wishlistIconColor": "",
+          "wishlistIconBgColor": "",
+          "wishlistIconBgColorAlpha": 100,
+          "addedWishlistIconColor": "",
+          "addedWishlistIconBgColor": "",
+          "addedWishlistIconBgColorAlpha": 100,
+          "wlCollectionCardSelectorClass": "",
+          "wlIconPlacementInCardSelector": "",
+          "wlIconPlacementInCardMode": "I",
+          "wlProductHandleExtractor": "",
+          "searchAndFilterApp": "none"
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {

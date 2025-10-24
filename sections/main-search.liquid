@@ -1,0 +1,128 @@
+{%- comment -%} sections/main-search.liquid (fixed again) {%- endcomment -%}
+
+{%- assign q = search.terms -%}
+{%- assign active_types = search.types -%}
+
+{%- assign type_is_product = false -%}
+{%- if active_types contains 'product' -%}
+  {%- assign type_is_product = true -%}
+{%- endif -%}
+
+{%- assign type_is_collection = false -%}
+{%- if active_types contains 'collection' -%}
+  {%- assign type_is_collection = true -%}
+{%- endif -%}
+
+{%- assign show_all = true -%}
+{%- if active_types.size > 0 -%}
+  {%- assign show_all = false -%}
+{%- endif -%}
+
+{%- assign only_products = false -%}
+{%- if type_is_product and type_is_collection == false -%}
+  {%- assign only_products = true -%}
+{%- endif -%}
+
+{%- assign only_collections = false -%}
+{%- if type_is_collection and type_is_product == false -%}
+  {%- assign only_collections = true -%}
+{%- endif -%}
+
+{%- assign per_page = section.settings.results_per_page | default: 24 -%}
+
+<div class="container" style="padding:24px 0 48px;">
+  {% render 'breadcrumbs' %}
+  <h1 class="heading-2" style="margin:8px 0 16px;">Results for ‘{{ q }}’</h1>
+
+  {%- if q != blank -%}
+    {%- paginate search.results by per_page -%}
+
+      {%- assign product_results = search.results | where: 'object_type', 'product' -%}
+      {%- assign collection_results = search.results | where: 'object_type', 'collection' -%}
+
+      {%- assign show_products = false -%}
+      {%- assign show_collections = false -%}
+
+      {%- if show_all or type_is_product -%}
+        {%- assign show_products = true -%}
+      {%- endif -%}
+      {%- if show_all or type_is_collection -%}
+        {%- assign show_collections = true -%}
+      {%- endif -%}
+     
+
+      {%- if show_collections and collection_results.size > 0 -%}
+        {%- if show_all -%}
+          <h2 class="heading-4" style="margin:8px 0 12px;">Collections</h2>
+        {%- endif -%}
+        <div class="results-grid" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-bottom:24px;">
+          {%- for c in collection_results -%}
+            {% render 'collection-card-lite', collection: c %}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if show_products and product_results.size > 0 -%}
+        {%- if show_all -%}
+          <h2 class="heading-4" style="margin:8px 0 12px;">Products</h2>
+        {%- endif -%}
+        <div class="results-grid" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;">
+          {%- for p in product_results -%}
+            {% render 'product-card', product: p, show_quick_add: true %}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if show_products and product_results.size == 0 and show_collections and collection_results.size == 0 -%}
+        <div style="padding:24px 0;color:#777;">Nothing found for “{{ q }}”. Try another query.</div>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <div class="pagination" style="margin-top:24px;text-align:center;">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+
+    {%- endpaginate -%}
+  {%- else -%}
+    <p style="margin:8px 0 24px;color:#777;">Type something to search our store.</p>
+  {%- endif -%}
+</div>
+
+<style>
+  @media (max-width: 1024px){
+    .results-grid{ grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+  }
+  @media (max-width: 720px){
+    .results-grid{ grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    { 
+        "type": "range", 
+        "id": "results_per_page", 
+        "label": "Results per page", 
+        "min": 8, 
+        "max": 48, 
+        "step": 4, 
+        "default": 24 
+    },
+    {
+      "type": "checkbox",
+      "id": "simple_hover",
+      "label": "Hover effect for product card simplified",
+      "default": false
+    }
+  ],
+  "presets": [
+        {
+            "name": "Search Results",
+            "category": "Search"
+        }
+    ]
+}
+{% endschema %}

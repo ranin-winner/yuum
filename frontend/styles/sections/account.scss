@@ -1,0 +1,230 @@
+.account-grid { 
+    display: grid; 
+    grid-template-columns: 240px 1fr; gap: 40px; 
+}
+.account-nav__list { 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+}
+.account-nav__link { display: block; padding: 8px 0; color: #555; text-decoration: none; }
+.account-nav__link.is-active { color: #000; }
+.account-card { padding: 24px 0; border-top: 1px solid #E5E5E5; }
+.account-card__title { margin: 0 0 16px; color: #474747; }
+.pi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; }
+.pi-field { display: flex; flex-direction: column; gap: 0px; }
+.pi-field--full { grid-column: 1 / -1; }
+.pi-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #474747; }
+.pi-input { height: 40px; border: 0; border-bottom: 1px solid #474747; background: transparent;  font-size: 16px; }
+.pi-input::placeholder { color: #C2C2C2; }
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid #222; }
+.btn--primary { background: #222; color: #fff; }
+.btn--ghost { background: transparent; color: #222; }
+
+.address-lines { 
+    font-size: 14px; 
+    line-height: 1.5; 
+    color: #474747; 
+    margin-bottom: 40px;
+
+    .address-line {
+        &:not(:last-child) {
+            margin-bottom: 8px;
+        }
+    }
+}
+
+.address-actions { 
+    display: flex; 
+    gap: 16px; 
+}
+
+.edit-link, 
+.delete-link {
+    @apply  uppercase text-[14px] text-[#ADAEB0] tracking-[4px] underline;
+    transition: all 0.5s;
+    text-underline-offset: 2px;
+    &:hover {
+        color: #474747;
+    }
+}
+
+.delete-link {
+    color: #474747;
+    &:hover {
+        color: #ADAEB0;
+    }
+}
+
+.account-grid {
+    padding-top: 60px;
+}
+
+.account-content {
+    max-width: 1020px;
+}
+
+.update-data {
+    margin-top: 40px;
+    background-color: #474747;
+    margin-bottom: 56px;
+
+    
+    &:hover {
+        border: 1px solid #fff;
+        color: #474747;
+        background-color: #fff;
+    }
+}
+
+.address-buttons {
+    margin-top: 40px;
+    display: flex;
+    gap: 12px;
+
+    .btn {
+        &--primary {
+            background-color: #474747;
+            &:hover {
+                border: 1px solid #fff;
+                color: #474747;
+                background-color: #fff;
+            }
+        }
+
+        &--ghost {
+            background-color: #F5F5F5;
+            &:hover {
+                border: 1px solid #474747;
+                color: #fff;
+                background-color: #474747;
+            }
+        }
+    }
+}
+
+.pi-grid, .account-card {
+    // max-width: 620px;
+    max-width: 1018px;
+}
+
+/* Mobile */
+@media (max-width: 903px) {
+  .account-grid { 
+    grid-template-columns: 1fr; 
+    gap: 24px; 
+    padding-top: 24px;
+
+    .update-data {
+        margin-bottom: 26px;
+    }
+}
+  .pi-grid { grid-template-columns: 1fr; gap: 12px; }
+}
+
+.orders {
+    margin-top: 70px;
+
+    .order-row {
+        &__item {
+            position: relative;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+    
+            &--label {
+                text-transform: uppercase;
+                font-size: 14px;
+                color: #474747;
+                letter-spacing: 4px;
+                position: absolute;
+                top: -20px;
+                left: 0;
+                transform: translateY(-100%);
+            }
+        }
+    }
+}
+
+.order-acc {  
+    background-color: #F5F5F5;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    border-color:#ADAEB0; 
+    transition: box-shadow .25s ease, 
+    background-color .25s ease, 
+    border-color .25s ease; 
+}
+
+
+.repeat-btn-mobile {
+    display: none;
+}
+
+.order-acc.is-open {
+    background-color: transparent;
+    .porducts-preview,
+    .price-preview .price {
+        display: none;
+    }
+
+    @media (max-width: 1280px) {
+        .order-acc__mobile {
+            margin-top: 52px;
+        }
+
+        .products-tumbs__mobile {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .repeat-btn-mobile {
+            display: block;
+        }
+    }   
+
+    
+
+    .mobile-icon_switcher {
+        @media (max-width: 1280px) {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    
+}
+
+.order-acc__body {
+    background-color: #E7E7E7;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    overflow: hidden;
+    @media (min-width: 1280px) {
+        margin-top: -45px;
+    }
+   
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+    width: 100%;
+
+    .totals__inner {
+        div:not(:last-child) {
+            margin-bottom: 8px;
+        }
+    }
+
+
+    .order-product-list {
+        li:first-child {
+            border-top: 1px solid #474747;
+        }
+    }
+}
+
+

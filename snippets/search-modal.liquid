@@ -1,0 +1,116 @@
+{% render 'entry' with '@/styles/sections/search.scss' %}
+
+<div
+  x-data
+  x-init="$watch('$store.search.isOpen', v => { if (!v) $store.search.query = '' })"
+  @keydown.escape.window="$store.search.close()">
+
+  
+  <!-- Modal -->
+  <div
+    class="c-search-modal"
+    x-show="$store.search.isOpen"
+    x-cloak
+    x-transition:enter="transition ease-out duration-250"
+    x-transition:enter-start="opacity-0 -translate-y-3"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-3"
+    @click.self="$store.search.close()"
+    style="position: absolute; inset: 0 0 auto 0; top:100%; z-index: 999; min-height:600px;">
+
+    <div class="c-search-modal__panel"
+         @click.stop
+         style="background:#E7E7E7; border-bottom:1px solid #E7E7E7; box-shadow:0 12px 32px rgba(0,0,0,.08);">
+      <div class="c-search-modal__inner mx-auto max-w-[1018px] py-[20px] md:py-[30px] px-[16px]">
+        <div class="c-search-modal__top relative" style="display:flex; align-items:flex-end;">
+          <form @submit.prevent="$store.search.submitForm()" style="flex:1; display:flex; align-items:center; gap:8px;">
+            <input
+              id="predictive-search-input"
+              type="search"
+              name="q"
+              autocomplete="off"
+              placeholder="Search our store…"
+              x-model="$store.search.query"
+              @input="$store.search.onInput()"
+              style="flex:1; height:40px; border:0; border-bottom:1px solid #CFCFCF; background:transparent; outline:none;">
+            
+          </form>
+          <div class="flex justify-between w-full md:w-auto items-end">
+            <p class="md:hidden text-[14px] uppercase text-[#474747] leading-[16px] tracking-[5px]">Search</p>
+            <button type="button" class="c-search-modal__close leading-[16px] text-[#0B0B0B] text-[14px] uppercase tracking-[4px] underline underline-offset-[3px]" @click="$store.search.close()" aria-label="Close">Close</button>
+          </div>
+        </div>
+
+        <!-- Loading / Error -->
+        <template x-if="$store.search.isLoading">
+          <div class="c-search-modal__loading" style="padding:24px 0;">Loading…</div>
+        </template>
+        <template x-if="$store.search.error">
+          <div class="c-search-modal__error" style="padding:24px 0; color:#c00;" x-text="$store.search.error"></div>
+        </template>
+
+        <!-- Predictive results HTML from section -->
+        <div class="c-search-modal__results">
+
+            {%- comment -%} POPULAR: видно лише коли запит порожній {%- endcomment -%}
+            <div x-show="!$store.search.query">
+                <div class="ps-sections container--inner mt-[24px]">
+
+                    {%- comment -%} Popular searches (richtext, коми -> нові рядки) {%- endcomment -%}
+                    {%- assign ps_html = settings.popular_searches | default: '' -%}
+                    {%- assign ps_list = ps_html
+                        | replace: '</a>,', '</a></li><li>'
+                        | replace: '<p>', ''
+                        | replace: '</p>', ''
+                    -%}
+
+                    <div class="ps-col">
+                        <p class="ps-heading">Popular searches</p>
+                        {%- if ps_list != blank -%}
+                            <ul class="ps-links">
+                                <li>{{ ps_list }}</li>
+                            </ul>
+                        {%- else -%}
+                            <p class="ps-empty">No popular searches set.</p>
+                        {%- endif -%}
+                    </div>
+
+                    {%- comment -%} Popular products (product_list) {%- endcomment -%}
+                    <div class="ps-col">
+                        <p class="ps-heading">Popular products</p>
+                      
+                        {%- assign col_handle = settings.popular_products_collection -%}
+                        {%- assign pop_limit  = settings.popular_products_limit | default: 6 -%}
+                        {%- assign pop_col    = collections[col_handle] -%}
+                      
+                        {%- if pop_col and pop_col.products_count > 0 -%}
+                          <div class="predictive-grid">
+                            {%- for product in pop_col.products limit: pop_limit -%}
+                              {% render 'product-card-lite', product: product, show_quick_add: true, image_width: 360 %}
+                            {%- endfor -%}
+                          </div>
+                        {%- else -%}
+                          <p class="ps-empty">No popular products set.</p>
+                        {%- endif -%}
+                    </div>
+
+                </div>
+            </div>
+
+            {%- comment -%} RESULTS: видно коли є хоч один символ у полі {%- endcomment -%}
+            <div x-show="$store.search.query" x-html="$store.search.html"></div>
+        </div>
+
+        <!-- View all button -->
+        <template x-if="$store.search.query && !$store.search.isLoading">
+          <div style="padding:20px 0; text-align:center;">
+            <a class="underline underline-offset-[4px] text-[14px] text-[#474747] uppercase leading-[16px] tracking-[4px]" :href="`/search?q=${encodeURIComponent($store.search.query)}&type=product`">View all results</a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</div>
+

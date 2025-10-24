@@ -44,15 +44,15 @@
       }
     </style>
     <script>
-      // window.shopUrl = '{{ request.origin }}';
-      // window.routes = {
-      //   cart_add_url: '{{ routes.cart_add_url }}',
-      //   cart_change_url: '{{ routes.cart_change_url }}',
-      //   cart_update_url: '{{ routes.cart_update_url }}',
-      //   cart_url: '{{ routes.cart_url }}',
-      //   predictive_search_url: '{{ routes.predictive_search_url }}',
-      //   product_recommendations_url: '{{ routes.product_recommendations_url }}',
-      // };
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+        product_recommendations_url: '{{ routes.product_recommendations_url }}',
+      };
 
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     </script>
@@ -95,6 +95,7 @@
           b-header
         ">
         {% include 'header' %}
+        {% render 'search-modal' %}
       </header>
       <main
         id="MainContent"
@@ -108,6 +109,10 @@
       </footer>
       <div class="l-overlay"></div>
       {% render 'mini-cart' %}
+
+      {% render 'customer-auth-modal' %}
     </div>
   </body>
 </html>
+
+

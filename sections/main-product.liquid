@@ -27,15 +27,16 @@
 {% endcapture %}
 
 <div
-  x-data="productCard($el)"
+  x-data="productPDP($el)"
   data-section-id="{{ section.id }}"
-  data-first-variant="{{ product.first_available_variant.id }}"
+  @pdp:add.window="addToCartPDP($event.detail.qty)"
+  data-first-variant="{{ currentVariant.id }}"
 >
   <section
     id="MainProduct-{{ section.id }}"
     data-section="{{ section.id }}"
     x-ref="productCardRef"
-    class="l-product pt-4 md:pt-24"
+    class="l-product"
   >
 
     {%- assign productColors = product.metafields.custom.color_palette.value -%}
@@ -60,19 +61,6 @@
           {%- assign all_images = product.images | map: 'src' -%}
           {%- render 'product-media-gallery', product_images: all_images -%}
 
-            {% comment %} <div class="main-product__benefits">
-                {% assign productBenefits = product.metafields.custom.benefits.value %}
-                <ul class="main-product__benefits-list">
-                {% for benefit in productBenefits %}
-                    <li class="main-product__benefits-item">
-                    <figure class="main-product__benefits-icon">
-                        <img src="{{ benefit.icon | img_url: '64x' }}" alt="{{ benefit.name }}" class="main-product__benefits-image" />
-                    </figure>
-                    <span class="main-product__benefits-text">{{ benefit.name }}</span>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div> {% endcomment %}
         </article>
 
         <article class="l-product__info md:w-1/2 md:pl-[100px]">
@@ -96,10 +84,90 @@
                     </h1>
 
                   {% when 'short_description' %}
-                    {% assign shortDescription = product.metafields.custom.short_description %}
-                    <p class="text-[16px] leading-[22px] tracking-normal text-[#474747] mb-[16px]">
+                    {% assign shortDescription = product.metafields.custom.short_description | metafield_tag %}
+                    <div class="product__short-description text-[16px] leading-[22px] tracking-normal text-[#474747] mb-[16px]">
                       {{ shortDescription }}
-                    </p>
+                    </div>
+
+                    {% when 'gift_variants' %}
+                        <div class="gift-card__values flex gap-[8px] flex-wrap mb-[32px]">
+                            <p class="mb-[8px] basis-full uppercase text-[14px] tracking-[4px] text-[#474747]">
+                                Gift Card Value
+                            </p>
+                            {% for variant in product.variants %}
+                                <button
+                                type="button"
+                                class="chips-item"
+                                :class="{ 'is-active': Number(currentVariantId) === {{ variant.id }} }"
+                                @click="selectVariant({ id: {{ variant.id }}, priceCents: {{ variant.price }} })"
+                                >
+                                {{ variant.price | money }}
+                                </button>
+                            {% endfor %}
+                        </div>
+
+                        {% comment %} Шопіфай не дозволяє користувачу на фронті змінювати ціну товару, треба шукати апку {% endcomment %}
+                        {% comment %} <div class="gift-card__custom-value">
+                            <label>Or enter amount for gift card</label>
+                            <input
+                                class="bg-[#E7E7E7]"
+                                type="number"
+                                min="1"
+                                step="1"
+                                placeholder="£0.00"
+                                x-model.lazy="gift.customAmount"
+                                @change="applyCustomAmount()"
+                            >
+                            <p x-show="gift.customError" class="text-[#D42B2B] text-[12px] mt-1" x-text="gift.customError"></p>
+                        </div> {% endcomment %}
+
+                        {% when 'gift_form' %}
+                            <div class="gift-card__form">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" id="gift-checkbox" name="send_as_gift">
+                                    <span class="checkbox-box"></span>
+                                    <span class="checkbox-label">I want to send this as a gift</span>
+                                </label>
+                          
+                              <div id="gift-form-fields" style="display:none;">
+                                <p class="text-[#474747] text-[18px] mb-[20px]">Your Details</p>
+                                <div class="field">
+                                  <label>Your name*</label>
+                                  <input type="text" name="sender[name]" placeholder="Enter your name" required>
+                                </div>
+                                <div class="field">
+                                  <label>Your email*</label>
+                                  <input type="email" name="sender[email]" placeholder="Enter your email" required>
+                                </div>
+                          
+                                <p class="text-[18px] text-[#474747] mb-[20px] mt-[32px]">Recipient Details</p>
+                                <div class="field">
+                                  <label>Recipient name*</label>
+                                  <input type="text" name="recipient[name]" placeholder="Enter recipint name" required>
+                                </div>
+                                <div class="field">
+                                  <label>Recipient email*</label>
+                                  <input type="email" name="recipient[email]" placeholder="Enter recipient Email Address" required>
+                                </div>
+                          
+                                <div class="field">
+                                  <label>Message</label>
+                                  <textarea name="message" maxlength="100" placeholder="Add personal message here"></textarea>
+                                </div>
+                          
+                                <div class="field">
+                                  <label>Send on (optional)</label>
+                                    <input type="date" name="send_on" placeholder="dd/mm/yyyy">
+                                </div>
+                              </div>
+                            </div>
+                          
+                            <script>
+                              document.querySelector('#gift-checkbox').addEventListener('change', e => {
+                                document.querySelector('#gift-form-fields').style.display = e.target.checked ? 'block' : 'none';
+                              });
+                            </script>
+
 
                     {% when 'product_detais' %}
                         {% assign html = product.metafields.custom.product_detais | metafield_tag %}
@@ -215,7 +283,7 @@
                               <!-- Add to cart -->
                               <button
                                 type="button"
-                                @click.prevent="addToCartPDP(quantity)"
+                                @click.prevent="$dispatch('pdp:add', { qty: quantity })"
                                 class="w-full inline-flex items-center justify-center
                                        md:px-[32px] px-[24px] md:py-[16px] py-[12px] rounded-full
                                        bg-[#474747] text-white
@@ -240,8 +308,9 @@
                                     stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                                 </svg>
-                                </button>
-
+                                </button>  
+                                <!-- Wishlist Hero Button -->
+                                {% comment %} <div class="add-to-wishlist-btn" id="wishlist-hero-product-page-button"></div> {% endcomment %}
                             </div>
                           </div>
                         </form>
@@ -577,6 +646,16 @@ document.addEventListener('alpine:init', () => {
     {
       "type": "variant_picker",
       "name": "Variants Picker",
+      "limit": 1
+    },
+    {
+      "type": "gift_variants",
+      "name": "Gift card price variants",
+      "limit": 1
+    },
+    {
+      "type": "gift_form",
+      "name": "Gift card recipient form",
       "limit": 1
     },
     {

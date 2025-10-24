@@ -1,4 +1,15 @@
-.b-product__gallery {
-   
-  }
+.m-product-gift-card {
+    .b-product__gallery {
+        picture {
+            img {
+                height: auto;
+            }
+        }
+
+        .swiper-slide {
+            padding-bottom: 70%;
+        }
+    }
+}
+
   

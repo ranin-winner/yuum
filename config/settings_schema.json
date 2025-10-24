@@ -102,6 +102,30 @@
     ]
   },
   {
+    "name": "Search",
+    "settings":[
+        {
+            "label": "Popular searches",
+            "id": "popular_searches",
+            "type": "richtext"
+        },
+        {
+            "label": "Popular products collection",
+            "id": "popular_products_collection",
+            "type": "collection"
+        },
+        {
+            "type": "range",
+            "id": "popular_products_limit",
+            "label": "Popular products limit",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 6
+        }
+    ]
+  },
+  {
     "name": "Colors",
     "settings": [
       {
@@ -143,7 +167,7 @@
             "id": "color_tertiary",
             "label": "Tertiary Color",
             "default": "#FFFFFF"
-          },
+          }
         ],
         "role": {
           "text": "text",
@@ -536,7 +560,7 @@
       {
         "type": "product_list",
         "id": "cart_products",
-        "label": "Cart Products Carousel",
+        "label": "Cart Products Carousel"
       }
     ]
   },

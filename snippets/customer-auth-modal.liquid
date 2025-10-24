@@ -1,0 +1,130 @@
+{%- comment -%} snippets/customer-auth-modal.liquid {%- endcomment -%}
+{% render 'entry' with '@/styles/elements/_auth-modal.scss' %}
+<section
+  id="authModal"
+  class="auth-modal"
+  x-data
+  x-cloak
+  :class="$store.auth.isOpen ? 'is-open' : 'is-closed'"
+  @keydown.escape.window="$store.auth.close()"
+  @click.self="$store.auth.close()"
+  aria-hidden="true"
+>
+  <div class="auth-modal__dialog" @click.stop>
+    <button type="button" class="auth-modal__close" @click="$store.auth.close()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 1.57135L18.4286 0L10 8.42897L1.57135 0L0 1.57135L8.42865 10L0 18.4286L1.57135 20L10 11.5714L18.4286 20L20 18.4286L11.5714 10L20 1.57135Z" fill="#474747"/>
+        </svg>
+    </button>
+
+    <!-- top bar with back arrow -->
+    <div class="auth-modal__top mb-[11px]">
+      <button
+        type="button"
+        class="auth-modal__back"
+        x-show="$store.auth.canGoBack"
+        x-transition.opacity
+        @click="$store.auth.back()"
+        aria-label="Back"
+      >
+        <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.31733 0.703251L9.97392 1.35984C10.1388 1.52472 10.1388 1.79205 9.97391 1.95693L3.81749 8.11315H22.9762C23.2094 8.11315 23.3984 8.30218 23.3984 8.53536V9.4641C23.3984 9.69728 23.2094 9.88631 22.9762 9.88631H3.81749L9.97392 16.0427C10.1388 16.2076 10.1388 16.475 9.97392 16.6398L9.31733 17.2964C9.15245 17.4613 8.88512 17.4613 8.72024 17.2964L0.722099 9.29828C0.557215 9.1334 0.557217 8.86607 0.722103 8.70119L8.72024 0.703247C8.88513 0.538369 9.15245 0.538371 9.31733 0.703251Z" fill="#474747"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- stage with sliding panels -->
+    <div
+      class="auth-modal__stage"
+      x-ref="stage"
+      x-init="$store.auth.setStageEl($refs.stage)"
+    >
+      <!-- LOGIN -->
+      <div
+        class="auth-panel"
+        data-panel="login"
+        x-show="$store.auth.panel === 'login'"
+        x-transition:enter="panel-enter"
+        x-transition:enter-start="panel-enter-start"
+        x-transition:leave="panel-leave"
+        x-transition:leave-end="panel-leave-end"
+        :class="$store.auth.dir === 'back' ? 'dir-back' : 'dir-forward'"
+        @transitionend.window="$store.auth.afterTransition()"
+      >
+        <h3 class="heading-5 mb-[10px]">Login or Sign up</h3>
+        {% form 'customer_login' %}
+            {{ form.errors | default_errors }}
+            <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
+            <input type="password" name="customer[password]" placeholder="Password" required>
+            <input type="hidden" name="return_to" value="{{ request.path }}">
+            <button type="submit">Sign in</button>
+          
+            {%- if form.errors -%}
+              <input type="hidden" data-auth-flag="login-has-errors" value="1">
+            {%- endif -%}
+          {% endform %}
+        <div class="auth-panel__links">
+          <button class="link-like" @click="$store.auth.switch('recover','forward')">Forgot password?</button>
+          <button class="link-like" @click="$store.auth.switch('register','forward')">Create account</button>
+        </div>
+      </div>
+
+      <!-- RECOVER -->
+      <div
+        class="auth-panel"
+        data-panel="recover"
+        x-show="$store.auth.panel === 'recover'"
+        x-transition:enter="panel-enter"
+        x-transition:enter-start="panel-enter-start"
+        x-transition:leave="panel-leave"
+        x-transition:leave-end="panel-leave-end"
+        :class="$store.auth.dir === 'back' ? 'dir-back' : 'dir-forward'"
+        @transitionend.window="$store.auth.afterTransition()"
+      >
+        <h3 class="heading-5 mb-[10px]">Reset password</h3>
+        {% form 'recover_customer_password' %}
+            {% if form.posted_successfully? %}
+              <p>We’ve emailed you a reset link.</p>
+              <input type="hidden" data-auth-flag="recover-success" value="1">
+            {% else %}
+              {{ form.errors | default_errors }}
+              <input type="email" name="email" placeholder="Email" value="{{ form.email }}" required>
+              <button type="submit">Send link</button>
+              {%- if form.errors -%}
+                <input type="hidden" data-auth-flag="recover-has-errors" value="1">
+              {%- endif -%}
+            {% endif %}
+        {% endform %}
+        <button class="link-like" @click="$store.auth.switch('login','back')">Back to login</button>
+      </div>
+
+      <!-- REGISTER -->
+      <div
+        class="auth-panel"
+        data-panel="register"
+        x-show="$store.auth.panel === 'register'"
+        x-transition:enter="panel-enter"
+        x-transition:enter-start="panel-enter-start"
+        x-transition:leave="panel-leave"
+        x-transition:leave-end="panel-leave-end"
+        :class="$store.auth.dir === 'back' ? 'dir-back' : 'dir-forward'"
+        @transitionend.window="$store.auth.afterTransition()"
+      >
+        <h3 class="heading-5 mb-[10px]">Create account</h3>
+        {% form 'create_customer' %}
+            {{ form.errors | default_errors }}
+            <input name="customer[first_name]" placeholder="First name" value="{{ form.first_name }}">
+            <input name="customer[last_name]"  placeholder="Last name"  value="{{ form.last_name }}">
+            <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
+            <input type="password" name="customer[password]" placeholder="Password" required>
+            <button type="submit">Sign up</button>
+          
+            {%- if form.errors -%}
+              <input type="hidden" data-auth-flag="register-has-errors" value="1">
+            {%- endif -%}
+        {% endform %}
+        <button class="link-like" @click="$store.auth.switch('login','back')">I have an account</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -5,7 +5,7 @@
   - Картки беруться з blocks і рендеряться через snippets/locations-card.liquid
 {% endcomment %}
 
-{% render 'entry' with '@/styles/sections/products-section.scss' %}
+{% render 'entry' with '@/styles/sections/location-section.scss' %}
 
 {% assign sectionText1 = section.settings.section_text_1 %}
 {% assign sectionText2 = section.settings.section_text_2 %}
@@ -15,22 +15,22 @@
 
 <section
   id="locationsSection-{{ section.id }}"
-  class="products-section mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }}"
+  class="location-section mx-auto palette-{{ section.settings.color_scheme }}"
 >
   <div class="container">
-    <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
+    <div class="location-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
       {% if section.settings.title != blank %}
-        <div class="products-section__header--title">
-          <h2 class="products-section__title heading-3">
+        <div class="location-section__header--title">
+          <h2 class="location-section__title heading-3">
             {{ section.settings.title | default: "Our locations" }}
           </h2>
           {% if sectionSubtitle != blank %}
-            <p class="products-section__subtitle">{{ sectionSubtitle }}</p>
+            <p class="location-section__subtitle">{{ sectionSubtitle }}</p>
           {% endif %}
         </div>
       {% endif %}
 
-      <div class="products-section__header--text-and-btn">
+      <div class="location-section__header--text-and-btn">
         {% if sectionText1 != blank %}
           <div class="text">{{ sectionText1 }}</div>
         {% endif %}
@@ -53,40 +53,38 @@
   </div>
 
   <div class="slider-wrapper relative">
-    <div class="swiper-button-next md:block">
-      <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
-      </svg>
-    </div>
-    <div class="swiper-button-prev md:block">
-      <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
-      </svg>
-    </div>
-
-    <div class="container">
-      <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0">
-        <div class="swiper-wrapper">
-          {% for block in section.blocks %}
-            <div class="swiper-slide" {{ block.shopify_attributes }}>
-              {% render 'locations-card',
-                image: block.settings.image,
-                title: block.settings.title,
-                subtitle: block.settings.subtitle,
-                address: block.settings.address,
-                city: block.settings.city,
-                hours: block.settings.hours,
-                phone: block.settings.phone,
-                badge: block.settings.badge,
-                link_page: block.settings.link_page,
-                link_url: block.settings.link_url,
-                link_label: block.settings.link_label
-              %}
-            </div>
-          {% endfor %}
+    <div class="swiper-box">
+        <div class="swiper-button-next md:block">
+        {% render 'next-arrow' %}
         </div>
-      </div>
-      <div class="swiper-pagination h-[2px] bg-black/10 w-full"></div>
+        <div class="swiper-button-prev md:block">
+        {% render 'prev-arrow' %}
+        </div>
+
+        <div class=" md:ml-[40px]">
+        <div id="swiper-container-{{ section.id }}" class="swiper-container pb-0 ">
+            <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                {% render 'locations-card',
+                    image: block.settings.image,
+                    title: block.settings.title,
+                    subtitle: block.settings.subtitle,
+                    address: block.settings.address,
+                    city: block.settings.city,
+                    hours: block.settings.hours,
+                    phone: block.settings.phone,
+                    badge: block.settings.badge,
+                    link_page: block.settings.link_page,
+                    link_url: block.settings.link_url,
+                    link_label: block.settings.link_label
+                %}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% comment %} <div class="swiper-pagination h-[2px] bg-black/10 w-full"></div> {% endcomment %}
+        </div>
     </div>
   </div>
 </section>
@@ -102,24 +100,24 @@
 
     const swiper = new Swiper(containerSel, {
       loop: originalSlideCount > 1,
-      slidesPerView: 4,
-      spaceBetween: 12,
+      slidesPerView: 3.2,
+      spaceBetween: 40,
       navigation: {
         nextEl: `${sectionSel} .swiper-button-next`,
         prevEl: `${sectionSel} .swiper-button-prev`,
         enabled: true
       },
-      pagination: {
-        el: `${sectionSel} .swiper-pagination`,
-        type: 'progressbar',
-        enabled: true
-      },
+    //   pagination: {
+    //     el: `${sectionSel} .swiper-pagination`,
+    //     type: 'progressbar',
+    //     enabled: true
+    //   },
       breakpoints: {
-        0:   { slidesPerView: 1.1, centeredSlides: true, autoHeight: true, navigation: { enabled: false } },
+        0:   { slidesPerView: 1.2, spaceBetween: 16, centeredSlides: true, autoHeight: true, navigation: { enabled: false } },
         640: { slidesPerView: 1.8, autoHeight: true },
         768: { slidesPerView: 2.5 },
         1024:{ slidesPerView: 3.5 },
-        1280:{ slidesPerView: 4 }
+        1280:{ slidesPerView: 3.3 }
       }
     })
 
@@ -176,14 +174,12 @@
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "title", "label": "Title", "default": "Kyiv, Downtown" },
         { "type": "text", "id": "subtitle", "label": "Subtitle (optional)" },
-        { "type": "text", "id": "address", "label": "Address" },
-        { "type": "text", "id": "city", "label": "City / Region (optional)" },
         { "type": "text", "id": "hours", "label": "Working hours (optional)" },
         { "type": "text", "id": "phone", "label": "Phone (optional)" },
         { "type": "text", "id": "badge", "label": "Badge (optional)", "info": "Напр. New, Flagship" },
         { "type": "page", "id": "link_page", "label": "Location page (recommended)" },
         { "type": "url", "id": "link_url", "label": "Custom URL (fallback)" },
-        { "type": "text", "id": "link_label", "label": "CTA label (optional)", "default": "View details" }
+        { "type": "text", "id": "link_label", "label": "CTA label (optional)", "default": "More info" }
       ]
     }
   ],
