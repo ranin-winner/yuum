@@ -113,6 +113,10 @@
     @include cfg.h6;
   }
 
+  .heading-7 {
+    @include cfg.h7;
+  }
+
 
  //common form styles
   input {
@@ -497,3 +501,14 @@
       user-select: none;
     }
   }
+
+
+// badge
+.badge {
+    @apply inline-flex items-center leading-[16px] rounded-full bg-[#474747] text-white font-normal px-[12px] py-[8px] text-[12px] uppercase;
+
+    &--light {
+        width: fit-content;
+        @apply inline-flex items-center leading-[16px] rounded-full bg-[#ADAEB0] text-white font-normal px-[12px] py-[8px] text-[12px];
+    }
+}

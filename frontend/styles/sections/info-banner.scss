@@ -1,0 +1,131 @@
+/* assets/styles/sections/info-banner.scss */
+.info-banner {
+    position: relative;
+    margin-top: var(--mt-mobile, 0);
+    color: #fff;
+  
+    @media (min-width: 768px) {
+      margin-top: var(--mt-desktop, 0);
+    }
+  }
+  
+  /* media */
+  .info-banner__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+  
+  .info-banner__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  
+  .info-banner__img--mobile { display: block; }
+  .info-banner__img--desktop { display: none; }
+  
+  @media (min-width: 768px) {
+    .info-banner__img--mobile { display: none; }
+    .info-banner__img--desktop { display: block; }
+  }
+  
+  
+  /* layout */
+  .info-banner__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 200px 0 56px;
+  
+    @media (min-width: 1024px) {
+      grid-template-columns: 1.1fr 0.9fr;
+      padding: 230px 0 96px;
+    }
+  }
+  
+  .info-banner__left {
+    max-width: 449px;
+    @media (min-width: 1024px) {
+        margin-top: 150px;
+    }
+  }
+  
+  .info-banner__title {
+    color: #fff;
+    margin: 0 0 12px;
+  }
+  
+  .info-banner__text {
+    margin-bottom: 32px;
+  }
+  
+  /* socials */
+  .info-banner__socials {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 16px;
+  }
+  
+  .info-banner__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+        color: red;
+    }
+    svg { width: 18px; height: 18px; fill: currentColor; color: #fff; display: block; }
+  }
+  .info-banner__social-label { font-size: 12px; color: #fff; }
+  
+  /* right card */
+  .info-banner__right { display: flex; justify-content: flex-end; }
+  
+  .info-card {
+    width: 100%;
+    // max-width: 560px;
+    background: #E7E7E7;
+    color: #111;
+    border-radius: 20px;
+    padding: 16px;
+  
+    @media (min-width: 1024px) {
+      padding: 20px;
+      max-width: 560px;
+    }
+  }
+  
+  .info-card__item {
+    padding: 16px 0px;
+    border-top: 1px solid #ADAEB0;
+  
+    &:first-child { border-bottom: 0; }
+  }
+  
+
+  
+  .info-card__item-body {
+    font-size: 14px;
+    line-height: 1.5;
+  
+    a { 
+        color: inherit; 
+        text-decoration: underline; 
+        font-size: 18px;
+    }
+    p { 
+        font-size: 16px;
+        margin: 0 0 6px; 
+    }
+  }
+  

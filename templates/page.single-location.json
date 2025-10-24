@@ -1,0 +1,227 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "c_hero_banner_Vgy4mU": {
+      "type": "c-hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "title": "YUUM Café",
+        "subtitle": "Text. A boutique cafe is a place where you can prepare and serve a product in an original form that reveals the correct flavor of your taste.",
+        "baner_button": "",
+        "baner_button_link": "",
+        "baner_button2": "",
+        "baner_button_link2": "",
+        "image_bg": "shopify://shop_images/Image_e6a98698-16d6-48cb-a6a7-a0c77b586b73.png",
+        "bg_color": "#ffffff",
+        "bg_size": "cover",
+        "image_alignment_x": "center",
+        "image_alignment_y": "middle",
+        "text_position-x": "left",
+        "text_position-x-mob": "left",
+        "text_position-y": "center",
+        "text_alignment": "left",
+        "title_font_size": 100,
+        "title_font_size_mobile": 52,
+        "title_color": "#ffffff",
+        "subtitle_font_size": 16,
+        "subtitle_font_size_mobile": 16,
+        "text_color": "#ffffff",
+        "padding_desktop": 40,
+        "padding_mobile": 20,
+        "margin_top_desktop": "-140",
+        "margin_top_mobile": "-100",
+        "banner_text_width": "600",
+        "banner_height_desktop": "800",
+        "banner_height_mobile": "600"
+      }
+    },
+    "locations_section_QfnznA": {
+      "type": "locations-section",
+      "blocks": {
+        "image_X664LL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Image_98a770af-8a5d-44a4-b2c9-3d00728fa4dd.png"
+          }
+        },
+        "image_LJmEk8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5fa4e95a6b70631a3c827ac7825723998af5b3e8_1.png"
+          }
+        },
+        "image_wnDRde": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2025-04-26_20.50.00_1.png"
+          }
+        },
+        "image_URyEAp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1615_506f0688-c333-489b-b7d6-ba0f09df4229.png"
+          }
+        },
+        "image_FLdBG7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Frame_6949.png"
+          }
+        },
+        "image_fbRbT4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1612_114050f8-82e8-4655-b236-eb83837033ef.png"
+          }
+        },
+        "image_GXYkW6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Image_0e24311d-b903-4d62-9a4f-e025b0ec366e.png"
+          }
+        }
+      },
+      "block_order": [
+        "image_X664LL",
+        "image_LJmEk8",
+        "image_wnDRde",
+        "image_URyEAp",
+        "image_FLdBG7",
+        "image_fbRbT4",
+        "image_GXYkW6"
+      ],
+      "name": "Location Info",
+      "settings": {
+        "title": "YUUM Café",
+        "badge": "London",
+        "description": "<p>YUUM Café – a combination of modern design and technology with high viscosity and original taste of natural authentic products of different cultures with luscious service. A boutique cafe is a place where you can prepare and serve the product in its original form.</p>",
+        "location_title": "Location",
+        "location_address": "48 Berwick Street, London W1F 8SJ",
+        "location_link_text": "GET DIRECTIONS",
+        "location_link_url": "shopify://products/all-flavours-discovery-mochi-bundle",
+        "hours_title": "Hours",
+        "hours_text": "<p>Mon - Fri 10:00am - 6:00pm<br/>Sat - Sun 8:00am - 6:00pm</p>",
+        "contact_title": "Contact",
+        "contact_email": "contact @yuum.co.uk",
+        "contact_phone": "+44 7900 000000"
+      }
+    },
+    "locations_slider_bmnrEP": {
+      "type": "locations-slider",
+      "blocks": {
+        "location_gDUJqL": {
+          "type": "location",
+          "settings": {
+            "image": "shopify://shop_images/Image_1_1.png",
+            "title": "Kyiv, Downtown",
+            "subtitle": "",
+            "hours": "",
+            "phone": "",
+            "badge": "London",
+            "link_page": "",
+            "link_url": "",
+            "link_label": "More info"
+          }
+        },
+        "location_ehGX99": {
+          "type": "location",
+          "settings": {
+            "image": "shopify://shop_images/Image_0e24311d-b903-4d62-9a4f-e025b0ec366e.png",
+            "title": "Kyiv, Downtown",
+            "subtitle": "",
+            "hours": "",
+            "phone": "",
+            "badge": "",
+            "link_page": "",
+            "link_url": "",
+            "link_label": "More info"
+          }
+        },
+        "location_ApnQyP": {
+          "type": "location",
+          "settings": {
+            "image": "shopify://shop_images/Image_98a770af-8a5d-44a4-b2c9-3d00728fa4dd.png",
+            "title": "Kyiv, Downtown",
+            "subtitle": "",
+            "hours": "",
+            "phone": "",
+            "badge": "",
+            "link_page": "",
+            "link_url": "",
+            "link_label": "More info"
+          }
+        },
+        "location_CKMMTQ": {
+          "type": "location",
+          "settings": {
+            "image": "shopify://shop_images/5fa4e95a6b70631a3c827ac7825723998af5b3e8_1.png",
+            "title": "Kyiv, Downtown",
+            "subtitle": "",
+            "hours": "",
+            "phone": "",
+            "badge": "",
+            "link_page": "",
+            "link_url": "",
+            "link_label": "More info"
+          }
+        },
+        "location_7PpQEQ": {
+          "type": "location",
+          "settings": {
+            "image": "shopify://shop_images/2025-04-26_20.50.00_1.png",
+            "title": "Kyiv, Downtown",
+            "subtitle": "",
+            "hours": "",
+            "phone": "",
+            "badge": "",
+            "link_page": "",
+            "link_url": "",
+            "link_label": "More info"
+          }
+        }
+      },
+      "block_order": [
+        "location_gDUJqL",
+        "location_ehGX99",
+        "location_ApnQyP",
+        "location_CKMMTQ",
+        "location_7PpQEQ"
+      ],
+      "name": "Locations slider",
+      "settings": {
+        "title": "<p>Locations</p>",
+        "subtitle": "",
+        "section_text_1": "<p>In the cafe you can try both the main collection of authentic products and unusual seasonal novelties, turning every day of life into a holiday. A specially selected music collection, purity of style and high-quality service make each new visit desirable... With benefit for yourself!</p>",
+        "section_badge_icon": "",
+        "section_badge_text": "",
+        "section_text_2": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "color_scheme": "default"
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    }
+  },
+  "order": [
+    "c_hero_banner_Vgy4mU",
+    "locations_section_QfnznA",
+    "locations_slider_bmnrEP",
+    "main"
+  ]
+}
