@@ -1,0 +1,213 @@
+{% render 'entry' with '@/styles/sections/info-banner.scss' %}
+
+<section
+  id="info-banner-{{ section.id }}"
+  class="info-banner"
+  style="--mt-desktop: {{ section.settings.mt_desktop | default: '0px' }}; --mt-mobile: {{ section.settings.mt_mobile | default: '0px' }};"
+>
+  <div class="info-banner__media" aria-hidden="true">
+    {% if section.settings.bg_image != blank %}
+      {{ section.settings.bg_image
+        | image_url: width: 2800
+        | image_tag:
+          class: 'info-banner__img info-banner__img--desktop',
+          loading: 'lazy',
+          alt: section.settings.bg_alt | escape }}
+    {% endif %}
+    {% if section.settings.bg_image_mobile != blank %}
+      {{ section.settings.bg_image_mobile
+        | image_url: width: 1400
+        | image_tag:
+          class: 'info-banner__img info-banner__img--mobile',
+          loading: 'lazy',
+          alt: section.settings.bg_alt | escape }}
+    {% endif %}
+    <span class="info-banner__overlay" aria-hidden="true"></span>
+  </div>
+
+  <div class="container">
+    <div class="info-banner__grid">
+      <!-- left: title + text + socials -->
+      <div class="info-banner__left">
+        {% if section.settings.title != blank %}
+          <h1 class="info-banner__title heading-1">{{ section.settings.title }}</h1>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <div class="info-banner__text rte">{{ section.settings.text }}</div>
+        {% endif %}
+
+        {% assign has_social = false %}
+        {% for b in section.blocks %}
+          {% if b.type == 'social' %}{% assign has_social = true %}{% break %}{% endif %}
+        {% endfor %}
+
+        {% if has_social %}
+          <ul class="info-banner__socials">
+            {% for block in section.blocks %}
+              {% if block.type == 'social' %}
+                <li class="info-banner__social" {{ block.shopify_attributes }}>
+                  <a
+                    class="info-banner__social-link"
+                    href="{{ block.settings.url | default: '#' }}"
+                    target="_blank" rel="noopener"
+                    aria-label="{{ block.settings.label | escape }}"
+                  >
+                    {% if block.settings.icon_html != blank %}
+                      {{ block.settings.icon_html }}
+                    {% else %}
+                      <span class="info-banner__social-label">{{ block.settings.label }}</span>
+                    {% endif %}
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <!-- right: info card with arbitrary text blocks -->
+      <div class="info-banner__right">
+        <div class="info-card">
+          {% for block in section.blocks %}
+            {% if block.type == 'info_item' %}
+              <div class="info-card__item flex justify-between gap-[12px]" {{ block.shopify_attributes }}>
+                {% if block.settings.item_title != blank %}
+                  <h6 class="info-card__item-title heading-6 flex-1">{{ block.settings.item_title }}</h6>
+                {% endif %}
+                <div class="flex flex-1 flex-col gap-[12px]">
+                    {% if block.settings.item_body != blank %}
+                    <div class="info-card__item-body rte">
+                        {{ block.settings.item_body }}
+                    </div>
+                    {% endif %}
+                    {% if block.settings.item_mail != blank %}
+                        <a href="mailto:{{ block.settings.item_mail }}"> {{ block.settings.item_mail }}</a>
+                    {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Info banner",
+  "tag": "section",
+  "class": "section-info-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background image (mobile)"
+    },
+    {
+      "type": "text",
+      "id": "bg_alt",
+      "label": "Alt text",
+      "default": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Talk to us"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Subtitle",
+      "default": "<p>Have a question? Our team is here to guide you — whether you’re curious about flavour, craft, or the experience.</p>"
+    },
+    {
+      "type": "text",
+      "id": "mt_desktop",
+      "label": "Margin-top (desktop)",
+      "default": "0px",
+      "info": "Support any CSS-values: px, rem, %, clamp(), calc()..."
+    },
+    {
+      "type": "text",
+      "id": "mt_mobile",
+      "label": "Margin-top (mobile)",
+      "default": "0px",
+      "info": "For example: -80px or clamp(-120px, -10vw, 0)."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social",
+      "name": "Social link",
+      "limit": 6,
+      "settings": [
+        { 
+            "type": "text", 
+            "id": "label", 
+            "label": "Name (for aria)", 
+            "default": "Instagram" 
+        
+        },
+        { 
+            "type": "url", 
+            "id": "url", 
+            "label": "Link" 
+        },
+        {   
+            "type": "html", 
+            "id": "icon_html", 
+            "label": "SVG/icon (optional.)", 
+            "info": "Paste svg code" 
+        }
+      ]
+    },
+    {
+      "type": "info_item",
+      "name": "Info block",
+      "settings": [
+        { 
+            "type": "text", 
+            "id": "item_title", 
+            "label": "Block title", 
+            "default": "Address" 
+        },
+        { 
+            "type": "richtext", 
+            "id": "item_body", 
+            "label": "Text", 
+            "default": "<p>48 Berwick Street, London W1F 8SJ</p>" 
+        },
+        {
+            "type": "text", 
+            "id": "item_mail", 
+            "label": "Item mail"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Info banner",
+      "blocks": [
+        { "type": "social", "settings": { "label": "Facebook" } },
+        { "type": "social", "settings": { "label": "Instagram" } },
+        { "type": "social", "settings": { "label": "TikTok" } },
+        { "type": "info_item", "settings": { "item_title": "Address" } },
+        { "type": "info_item", "settings": { "item_title": "Online Orders" } },
+        { "type": "info_item", "settings": { "item_title": "Support Office" } },
+        { "type": "info_item", "settings": { "item_title": "Marketing" } },
+        { "type": "info_item", "settings": { "item_title": "Investors and Franchising" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

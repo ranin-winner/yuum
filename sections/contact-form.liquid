@@ -1,0 +1,196 @@
+{% render 'entry' with '@/styles/sections/contact-form.scss' %}
+
+<section id="contact-{{ section.id }}"
+  class="contact-section palette"
+  style="--mt-desktop: {{ section.settings.mt_desktop }}; --mt-mobile: {{ section.settings.mt_mobile }};"
+>
+  <div class="container">
+    {% if section.settings.bg_image != blank %}
+      <div class="contact-section__bg">
+        {{ section.settings.bg_image | image_url: width: 2400 | image_tag: loading: 'lazy', decoding: 'async', alt: section.settings.title | escape }}
+      </div>
+    {% endif %}
+
+    <header class="contact-section__head text-center">
+      {% if section.settings.title != blank %}
+        <h1 class="heading-1 !mb-3">{{ section.settings.title }}</h1>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <div class="contact-section__subtitle">{{ section.settings.subtitle }}</div>
+      {% endif %}
+    </header>
+
+    <div class="contact-card">
+      {% form 'contact', id: 'ContactForm', class: 'contact-form', novalidate: 'novalidate' %}
+        {% if form.posted_successfully? %}
+          <p class="contact-form__success" role="status">{{ section.settings.success_text }}</p>
+        {% endif %}
+
+        {% if form.errors %}
+          <ul class="contact-form__errors" role="alert">
+            {% for field in form.errors %}
+              <li>{{ form.errors.messages[field] }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="contact-form__grid grid md:grid-cols-2 gap-6">
+          <div class="contact-form__field">
+            <label for="ContactForm-name" class="label">{{ section.settings.label_name }}</label>
+            <input id="ContactForm-name" type="text" name="contact[name]" autocomplete="name" required>
+          </div>
+
+          <div class="contact-form__field">
+            <label for="ContactForm-email" class="label">{{ section.settings.label_email }}</label>
+            <input id="ContactForm-email" type="email" name="contact[email]" autocomplete="email" required>
+          </div>
+
+          {% if section.settings.show_phone %}
+          <div class="contact-form__field md:col-span-2">
+            <label for="ContactForm-phone" class="label">{{ section.settings.label_phone }}</label>
+            <input id="ContactForm-phone" type="tel" name="contact[phone]" inputmode="tel" pattern="[\d\s()+\-]{6,}">
+          </div>
+          {% endif %}
+
+          <div class="contact-form__field md:col-span-2">
+            <label for="ContactForm-reason" class="label">{{ section.settings.label_reason }}</label>
+            <select id="ContactForm-reason">
+              <option value="" selected disabled>{{ section.settings.reason_placeholder }}</option>
+              {% for block in section.blocks %}
+                {% if block.type == 'reason' and block.settings.text != blank %}
+                  <option value="{{ block.settings.text | escape }}">{{ block.settings.text }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="contact-form__field md:col-span-2">
+            <label for="ContactForm-message" class="label">{{ section.settings.label_message }}</label>
+            <textarea id="ContactForm-message" rows="4" maxlength=""></textarea>
+            <div class="contact-form__counter">
+              <span id="ContactForm-count">0</span>/<span id="ContactForm-max"></span>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%}
+          Власне поле, яке піде в лист — тільки contact[body].
+          Перед сабмітом JS збере Reason + Message у це поле.
+        {%- endcomment -%}
+        <textarea name="contact[body]" id="ContactForm-body" hidden></textarea>
+
+        <div class="contact-form__actions">
+          <button class="btn" type="submit">{{ section.settings.btn_label }}</button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+
+  <script type="module">
+    (() => {
+      const root = document.getElementById('contact-{{ section.id }}');
+      const form = root?.querySelector('#ContactForm');
+      if (!form) return;
+
+      const nameEl = form.querySelector('#ContactForm-name');
+      const emailEl = form.querySelector('#ContactForm-email');
+      const phoneEl = form.querySelector('#ContactForm-phone');
+      const reasonEl = form.querySelector('#ContactForm-reason');
+      const msgEl = form.querySelector('#ContactForm-message');
+      const bodyEl = form.querySelector('#ContactForm-body');
+      const counter = form.querySelector('#ContactForm-count');
+      const max = Number(form.querySelector('#ContactForm-max')?.textContent || 100);
+
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+      const setCounter = () => { if (counter && msgEl) counter.textContent = String(msgEl.value.length); };
+      msgEl?.addEventListener('input', setCounter);
+      setCounter();
+
+      form.addEventListener('submit', (e) => {
+        // basic validation
+        const errors = [];
+
+        if (!nameEl.value.trim() || nameEl.value.trim().length < 2) {
+          errors.push('Please enter your name.');
+        }
+        if (!emailRe.test(emailEl.value.trim())) {
+          errors.push('Please enter a valid email.');
+        }
+        if (phoneEl && phoneEl.value && !/^[\d\s()+\-]{6,}$/.test(phoneEl.value)) {
+          errors.push('Please enter a valid phone number.');
+        }
+        if (!reasonEl.value) {
+          errors.push('Please choose a reason for contacting.');
+        }
+        if (msgEl.value.length > max) {
+          errors.push('Your message is too long.');
+        }
+
+        // show inline error list (without server roundtrip)
+        let list = form.querySelector('.js-inline-errors');
+        if (!list) {
+          list = document.createElement('ul');
+          list.className = 'contact-form__errors js-inline-errors';
+          form.prepend(list);
+        }
+        list.innerHTML = '';
+        if (errors.length) {
+          e.preventDefault();
+          errors.forEach(t => {
+            const li = document.createElement('li');
+            li.textContent = t;
+            list.appendChild(li);
+          });
+          return;
+        }
+
+        // compose body (native contact[body])
+        const parts = [];
+        if (reasonEl.value) parts.push(`Reason: ${reasonEl.value}`);
+        if (msgEl.value.trim()) parts.push(`Message:\n${msgEl.value.trim()}`);
+        bodyEl.value = parts.join('\n\n');
+      });
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form (native)",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Send us a message" },
+    { "type": "richtext", "id": "subtitle", "label": "Subtitle", "default": "<p>We are always here to help. Please fill out the contact form below and we will get back to you as soon as possible. We normally respond within 1 to 2 working days.</p>" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
+
+    { "type": "text", "id": "mt_desktop", "label": "Margin-top (desktop)", "default": "80px" },
+    { "type": "text", "id": "mt_mobile", "label": "Margin-top (mobile)", "default": "40px" },
+
+    { "type": "checkbox", "id": "show_phone", "label": "Show phone field", "default": false },
+
+    { "type": "text", "id": "label_name", "label": "Label: Name", "default": "Your Name*" },
+    { "type": "text", "id": "label_email", "label": "Label: Email", "default": "Email*" },
+    { "type": "text", "id": "label_phone", "label": "Label: Phone", "default": "Phone (optional)" },
+    { "type": "text", "id": "label_reason", "label": "Label: Reason", "default": "Reason for contacting*" },
+    { "type": "text", "id": "reason_placeholder", "label": "Reason placeholder", "default": "Choose a reason" },
+    { "type": "text", "id": "label_message", "label": "Label: Message", "default": "Message (optional)" },
+    
+
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "Send enquiry" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "Thanks! Your message has been sent." }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason option",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Option text", "default": "General inquiry" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    { "name": "Contact form (native)" }
+  ]
+}
+{% endschema %}

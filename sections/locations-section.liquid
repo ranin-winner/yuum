@@ -16,9 +16,13 @@
       {%- comment -%} Текстова частина {%- endcomment -%}
       <div class="location-info__content">
         {% if section.settings.title != blank %}
-          <h2 class="location-info__title heading-4 mb-[24px]">
+          <h2 class="location-info__title heading-7 mb-[12px]">
             {{ section.settings.title }}
           </h2>
+        {% endif %}
+
+        {% if section.settings.badge != blank %}
+            <span class="badge badge--light !text-[10px] !py-[4px] !px-[10px] mb-[20px]">{{ section.settings.badge }}</span>
         {% endif %}
 
         {% if section.settings.description != blank %}
@@ -31,16 +35,18 @@
         {% if section.settings.location_title != blank or section.settings.location_address != blank %}
           <div class="location-info__item mb-[24px]">
             {% if section.settings.location_title != blank %}
-              <h3 class="location-info__item-title">{{ section.settings.location_title }}</h3>
+              <p class="location-info__item-title">{{ section.settings.location_title }}</p>
             {% endif %}
-            {% if section.settings.location_address != blank %}
-              <p class="location-info__item-text">{{ section.settings.location_address }}</p>
-            {% endif %}
-            {% if section.settings.location_link_text != blank and section.settings.location_link_url != blank %}
-              <a href="{{ section.settings.location_link_url }}" class="location-info__link" target="_blank" rel="noopener">
-                {{ section.settings.location_link_text }}
-              </a>
-            {% endif %}
+            <div>
+                {% if section.settings.location_address != blank %}
+                <p class="location-info__item-text">{{ section.settings.location_address }}</p>
+                {% endif %}
+                {% if section.settings.location_link_text != blank and section.settings.location_link_url != blank %}
+                <a href="{{ section.settings.location_link_url }}" class="location-info__link !font-normal !tracking-[4px] !text-[#030303]" target="_blank" rel="noopener">
+                    {{ section.settings.location_link_text }}
+                </a>
+                {% endif %}
+            </div>
           </div>
         {% endif %}
 
@@ -48,7 +54,7 @@
         {% if section.settings.hours_title != blank or section.settings.hours_text != blank %}
           <div class="location-info__item mb-[24px]">
             {% if section.settings.hours_title != blank %}
-              <h3 class="location-info__item-title">{{ section.settings.hours_title }}</h3>
+              <p class="location-info__item-title">{{ section.settings.hours_title }}</p>
             {% endif %}
             {% if section.settings.hours_text != blank %}
               <div class="location-info__item-text">{{ section.settings.hours_text }}</div>
@@ -59,24 +65,28 @@
         {%- comment -%} Contact {%- endcomment -%}
         {% if section.settings.contact_title != blank %}
           <div class="location-info__item">
-            <h3 class="location-info__item-title">{{ section.settings.contact_title }}</h3>
-            {% if section.settings.contact_email != blank %}
-              <a href="mailto:{{ section.settings.contact_email }}" class="location-info__contact-link flex items-center gap-[8px]">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.66667 2.66669H13.3333C14.0667 2.66669 14.6667 3.26669 14.6667 4.00002V12C14.6667 12.7334 14.0667 13.3334 13.3333 13.3334H2.66667C1.93333 13.3334 1.33333 12.7334 1.33333 12V4.00002C1.33333 3.26669 1.93333 2.66669 2.66667 2.66669Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M14.6667 4L8 8.66667L1.33333 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                {{ section.settings.contact_email }}
-              </a>
-            {% endif %}
-            {% if section.settings.contact_phone != blank %}
-              <a href="tel:{{ section.settings.contact_phone | replace: ' ', '' | replace: '-', '' }}" class="location-info__contact-link flex items-center gap-[8px]">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14.6667 11.28V13.28C14.6674 13.4657 14.6294 13.6494 14.555 13.8195C14.4807 13.9897 14.3715 14.1424 14.2347 14.2679C14.0979 14.3934 13.9364 14.489 13.7605 14.5485C13.5847 14.6079 13.3983 14.63 13.2133 14.6133C11.1619 14.3904 9.19137 13.6894 7.46 12.5667C5.84926 11.5431 4.48359 10.1774 3.46 8.56666C2.33334 6.82745 1.6322 4.84731 1.41333 2.78666C1.39667 2.60229 1.41862 2.41649 1.4777 2.24107C1.53679 2.06564 1.63175 1.90444 1.75655 1.76773C1.88134 1.63102 2.03324 1.52168 2.20256 1.44705C2.37189 1.37241 2.55493 1.33414 2.74 1.33399H4.74C5.06355 1.33067 5.37723 1.4489 5.62248 1.66528C5.86773 1.88167 6.02806 2.18144 6.07333 2.50666C6.15774 3.15692 6.31427 3.79601 6.54 4.41333C6.62974 4.66186 6.64908 4.93 6.59591 5.18889C6.54274 5.44778 6.41928 5.68625 6.24 5.87999L5.39333 6.72666C6.34238 8.40562 7.72771 9.79094 9.40667 10.74L10.2533 9.89333C10.4471 9.71404 10.6855 9.59058 10.9444 9.53741C11.2033 9.48424 11.4715 9.50359 11.72 9.59333C12.3373 9.81905 12.9764 9.97558 13.6267 10.06C13.9553 10.1057 14.2578 10.2688 14.4748 10.5178C14.6918 10.7668 14.8082 11.0847 14.8 11.4133" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                {{ section.settings.contact_phone }}
-              </a>
-            {% endif %}
+            <p class="location-info__item-title">
+                {{ section.settings.contact_title }}
+            </p>
+            <div>
+                {% if section.settings.contact_email != blank %}
+                <a href="mailto:{{ section.settings.contact_email }}" class="location-info__contact-link flex items-center gap-[8px]">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.66667 2.66669H13.3333C14.0667 2.66669 14.6667 3.26669 14.6667 4.00002V12C14.6667 12.7334 14.0667 13.3334 13.3333 13.3334H2.66667C1.93333 13.3334 1.33333 12.7334 1.33333 12V4.00002C1.33333 3.26669 1.93333 2.66669 2.66667 2.66669Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.6667 4L8 8.66667L1.33333 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {{ section.settings.contact_email }}
+                </a>
+                {% endif %}
+                {% if section.settings.contact_phone != blank %}
+                <a href="tel:{{ section.settings.contact_phone | replace: ' ', '' | replace: '-', '' }}" class="location-info__contact-link flex items-center gap-[8px]">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.6667 11.28V13.28C14.6674 13.4657 14.6294 13.6494 14.555 13.8195C14.4807 13.9897 14.3715 14.1424 14.2347 14.2679C14.0979 14.3934 13.9364 14.489 13.7605 14.5485C13.5847 14.6079 13.3983 14.63 13.2133 14.6133C11.1619 14.3904 9.19137 13.6894 7.46 12.5667C5.84926 11.5431 4.48359 10.1774 3.46 8.56666C2.33334 6.82745 1.6322 4.84731 1.41333 2.78666C1.39667 2.60229 1.41862 2.41649 1.4777 2.24107C1.53679 2.06564 1.63175 1.90444 1.75655 1.76773C1.88134 1.63102 2.03324 1.52168 2.20256 1.44705C2.37189 1.37241 2.55493 1.33414 2.74 1.33399H4.74C5.06355 1.33067 5.37723 1.4489 5.62248 1.66528C5.86773 1.88167 6.02806 2.18144 6.07333 2.50666C6.15774 3.15692 6.31427 3.79601 6.54 4.41333C6.62974 4.66186 6.64908 4.93 6.59591 5.18889C6.54274 5.44778 6.41928 5.68625 6.24 5.87999L5.39333 6.72666C6.34238 8.40562 7.72771 9.79094 9.40667 10.74L10.2533 9.89333C10.4471 9.71404 10.6855 9.59058 10.9444 9.53741C11.2033 9.48424 11.4715 9.50359 11.72 9.59333C12.3373 9.81905 12.9764 9.97558 13.6267 10.06C13.9553 10.1057 14.2578 10.2688 14.4748 10.5178C14.6918 10.7668 14.8082 11.0847 14.8 11.4133" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {{ section.settings.contact_phone }}
+                </a>
+                {% endif %}
+            </div>
           </div>
         {% endif %}
       </div>
@@ -93,7 +103,7 @@
                 {% render 'prev-arrow' %}
               </div>
 
-              <div id="swiper-container-{{ section.id }}" class="swiper-container">
+              <div id="swiper-container-{{ section.id }}" class="swiper-container" data-slides-count="{{ section.blocks.size }}">
                 <div class="swiper-wrapper">
                   {% for block in section.blocks %}
                     <div class="swiper-slide" {{ block.shopify_attributes }}>
@@ -103,7 +113,7 @@
                             block.settings.image
                             | image_url: width: 800
                             | image_tag:
-                              loading: 'lazy',
+                              loading: 'eager',
                               class: 'location-info__image'
                           }}
                         {% else %}
@@ -117,7 +127,7 @@
                 </div>
               </div>
 
-              <div class="swiper-pagination"></div>
+              <div class="swiper-pagination md:hidden"></div>
             </div>
           </div>
         {% endif %}
@@ -128,20 +138,25 @@
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('load', () => {
     const sectionSel   = '#locationInfo-{{ section.id }}'
     const containerSel = '#swiper-container-{{ section.id }}'
+    const containerEl  = document.querySelector(containerSel)
+    if (!containerEl) return
 
-    const originalSlideCount = document.querySelectorAll(
-      `${containerSel} .swiper-wrapper > .swiper-slide`
-    ).length
-
+    // кількість реальних слайдів (без дублікейтів)
+    const originalSlideCount = Number(containerEl.dataset.slidesCount || 0)
     if (originalSlideCount === 0) return
 
     const swiper = new Swiper(containerSel, {
       loop: originalSlideCount > 1,
       slidesPerView: 1,
-      spaceBetween: 0,
+      spaceBetween: 10,
+      autoHeight: true,
+      preloadImages: true,
+      lazy: false,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
       navigation: {
         nextEl: `${sectionSel} .swiper-button-next`,
         prevEl: `${sectionSel} .swiper-button-prev`,
@@ -151,19 +166,14 @@
         el: `${sectionSel} .swiper-pagination`,
         type: 'progressbar',
         enabled: true
-      },
-      effect: 'fade',
-      fadeEffect: {
-        crossFade: true
       }
     })
 
-    //Ховаємо навігацію якщо слайд один
-    const nextBtn = document.querySelector(`${sectionSel} .swiper-button-next`)
-    const prevBtn = document.querySelector(`${sectionSel} .swiper-button-prev`)
-    const pagination = document.querySelector(`${sectionSel} .swiper-pagination`)
-    
+    // ховаємо навігацію якщо лише один слайд
     if (originalSlideCount <= 1) {
+      const nextBtn = document.querySelector(`${sectionSel} .swiper-button-next`)
+      const prevBtn = document.querySelector(`${sectionSel} .swiper-button-prev`)
+      const pagination = document.querySelector(`${sectionSel} .swiper-pagination`)
       if (nextBtn) nextBtn.style.display = 'none'
       if (prevBtn) prevBtn.style.display = 'none'
       if (pagination) pagination.style.display = 'none'
@@ -171,30 +181,11 @@
   })
 </script>
 
+
 {% schema %}
 {
   "name": "Location Info",
   "settings": [
-    {
-      "type": "select",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "options": [
-        {
-          "value": "default",
-          "label": "Default"
-        },
-        {
-          "value": "light",
-          "label": "Light"
-        },
-        {
-          "value": "dark",
-          "label": "Dark"
-        }
-      ],
-      "default": "default"
-    },
     {
       "type": "header",
       "content": "Content"
@@ -203,7 +194,13 @@
       "type": "text",
       "id": "title",
       "label": "Title",
-      "default": "YUUKI Café"
+      "default": "YUUM Café"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "City",
+      "default": "London"
     },
     {
       "type": "richtext",

@@ -110,7 +110,7 @@
     }
     #hero-{{ section.id }} .b-hero-banner__title { font-size: {{ section.settings.title_font_size_mobile }}px; }
     #hero-{{ section.id }} .b-hero-banner__text  { font-size: {{ section.settings.subtitle_font_size_mobile }}px; }
-    #hero-{{ section.id }} .b-hero-banner__content { max-width: 100%; width: 100%; text-align: center; }
+    #hero-{{ section.id }} .b-hero-banner__content { max-width: 100%; width: 100%; text-align: {{ section.settings.text_position-x-mob }}; }
   }
 
   /* Desktop */
@@ -208,6 +208,17 @@
       "type": "select",
       "label": "Text Position X",
       "id": "text_position-x",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "label": "Text Position X (mobile)",
+      "id": "text_position-x-mob",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
