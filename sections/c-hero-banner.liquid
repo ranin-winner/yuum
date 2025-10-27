@@ -6,7 +6,16 @@
 
     <div class="b-hero-banner__content">
         {% if section.settings.title != blank %}
-            <h1 class="b-hero-banner__title heading-1 mb-[12px]">{{ section.settings.title }}</h1>
+          <h1
+            class="b-hero-banner__title heading-1 mb-[12px]"
+            {% if section.settings.enable_title_fill %}
+              data-fill-title
+              data-fill-text="{{ section.settings.title | escape }}"
+            {% endif %}
+            style="--title-color: {{ section.settings.title_color }};"
+          >
+            {{ section.settings.title }}
+          </h1>
         {% endif %}
         {% if section.settings.subtitle != blank %}
             <p class="b-hero-banner__text body-2">{{ section.settings.subtitle }}</p>
@@ -136,6 +145,12 @@
       "label": "Title",
       "id": "title",
       "default": "Welcome!"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_title_fill",
+      "label": "Enable title fill-on-scroll animation",
+      "default": false
     },
     {
       "type": "text",
