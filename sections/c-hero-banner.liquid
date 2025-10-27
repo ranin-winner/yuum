@@ -54,7 +54,10 @@
 
   #hero-{{ section.id }}.text-pos-y-center { align-items: center; }
   #hero-{{ section.id }}.text-pos-y-top    { align-items: flex-start; }
-  #hero-{{ section.id }}.text-pos-y-bottom { align-items: flex-end; }
+  #hero-{{ section.id }}.text-pos-y-flex-end { align-items: flex-end; padding-bottom: 120px;}
+  @media (max-width: 767px) {
+    #hero-{{ section.id }}.text-pos-y-flex-end { padding-bottom: 40px;}
+  }
 
   /* Main Styles */
   #hero-{{ section.id }} .b-hero-banner__content {
@@ -90,6 +93,7 @@
     font-weight: 400;
     transition: all 0.3s;
     border: 1px solid rgba(255, 255, 255, 1);
+    letter-spacing: 4px;
   }
   #hero-{{ section.id }} .b-hero-banner_btn.btn-outline {
     background: transparent; border-color: #fff; color: #fff;

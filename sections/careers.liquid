@@ -1,0 +1,242 @@
+{% render 'entry' with '@/styles/sections/careers.scss' %}
+
+<div class="careers-section">
+  <div class="container">
+    <div class="grid gap-[32px] md:gap-[178px] md:grid-cols-[280px_1fr] grid-cols-1">
+
+        {%- if section.settings.small_heading != blank -%}
+            <div class="">
+                <p class="careers-small-heading">{{ section.settings.small_heading }}</p>
+            </div>
+        {%- endif -%}
+
+        <div class="careers-section__content-inner">
+            {%- if section.settings.heading != blank -%}
+                <h2 class="careers-heading heading-3">{{ section.settings.heading }}</h2>
+            {%- endif -%}
+            {%- if section.settings.description != blank -%}
+                <div class="careers-description">
+                    {{ section.settings.description }}
+                </div>
+            {%- endif -%}
+
+            {%- if section.settings.additional_text != blank -%}
+            <div class="careers-additional-text">
+                {{ section.settings.additional_text }}
+            </div>
+            {%- endif -%}
+
+            <div class="careers-content">
+            <!-- Team Image -->
+            <div class="careers-team-block">
+                {%- if section.settings.team_image != blank -%}
+                <div class="careers-image-wrapper">
+                    <img
+                    src="{{ section.settings.team_image | img_url: '600x' }}"
+                    alt="{{ section.settings.team_image.alt | escape }}"
+                    loading="lazy"
+                    class="careers-image"
+                    >
+                </div>
+                {%- endif -%}
+
+                <!-- What we offer list -->
+                <div class="careers-offer-section">
+                {%- if section.settings.offer_heading != blank -%}
+                    <h3 class="careers-offer-heading">{{ section.settings.offer_heading }}</h3>
+                {%- endif -%}
+
+                {%- if section.blocks.size > 0 -%}
+                    <ul class="careers-offer-list">
+                    {%- for block in section.blocks -%}
+                        {%- if block.type == 'offer_item' -%}
+                        <li class="careers-offer-item" {{ block.shopify_attributes }}>
+                            <span class="careers-offer-number">{{ block.settings.number }}</span>
+                            <span class="careers-offer-text">{{ block.settings.text }}</span>
+                        </li>
+                        {%- endif -%}
+                    {%- endfor -%}
+                    </ul>
+                {%- endif -%}
+                </div>
+            </div>
+
+            <!-- Right Side: Single Person Image and CTA -->
+            <div class="careers-cta-block">
+                {%- if section.settings.person_image != blank -%}
+                <div class="careers-person-wrapper">
+                    <img
+                    src="{{ section.settings.person_image | img_url: '500x' }}"
+                    alt="{{ section.settings.person_image.alt | escape }}"
+                    loading="lazy"
+                    class="careers-person-image"
+                    >
+                </div>
+                {%- endif -%}
+
+                <div class="careers-cta-content">
+                {%- if section.settings.cta_heading != blank -%}
+                    <h3 class="careers-cta-heading">{{ section.settings.cta_heading }}</h3>
+                {%- endif -%}
+
+                {%- if section.settings.cta_text != blank -%}
+                    <p class="careers-cta-text">{{ section.settings.cta_text }}</p>
+                {%- endif -%}
+
+                {%- if section.settings.button_text != blank -%}
+                    <a href="{{ section.settings.button_link }}" class="careers-button btn btn-light">
+                    {{ section.settings.button_text }}
+                    </a>
+                {%- endif -%}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .careers-section {
+    background-color: {{ section.settings.background_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Careers Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "small_heading",
+      "label": "Small Heading",
+      "default": "CAREERS AT YUUM"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "As we grow, we're seeking curious, thoughtful, and driven individuals — from baristas to creatives, and operations to hospitality. People who care about their work and value authenticity."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our mission is building exceptional Japanese-inspired flavors to people through a modern, refined experience that feels both warm and bold.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "additional_text",
+      "label": "Additional Text",
+      "default": "<p>We're not just building a café. We're creating a new flavor culture — one that's inclusive, expressive, and deliberate. At YUUM, your ideas matter. Your attention to detail matters. And your passion for doing things right (and beautifully) is what moves us forward.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "image_picker",
+      "id": "team_image",
+      "label": "Team Image"
+    },
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "What We Offer Heading",
+      "default": "What we offer:"
+    },
+    {
+      "type": "image_picker",
+      "id": "person_image",
+      "label": "Person Image"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA Heading",
+      "default": "Is this you?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "If this sounds like you and you're ready to create something truly special, check out our open roles. You care about flavour and function. You care — about people, about craft, and about building something with intention."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "VIEW VACANCIES"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer_item",
+      "name": "Offer Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "A supportive, purpose-driven team"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Careers Section",
+      "blocks": [
+        {
+          "type": "offer_item",
+          "settings": {
+            "number": "01",
+            "text": "A supportive, purpose-driven team"
+          }
+        },
+        {
+          "type": "offer_item",
+          "settings": {
+            "number": "02",
+            "text": "Opportunities for growth and learning"
+          }
+        },
+        {
+          "type": "offer_item",
+          "settings": {
+            "number": "03",
+            "text": "Creative freedom and responsibility"
+          }
+        },
+        {
+          "type": "offer_item",
+          "settings": {
+            "number": "04",
+            "text": "Competitive pay and employee perks"
+          }
+        },
+        {
+          "type": "offer_item",
+          "settings": {
+            "number": "05",
+            "text": "Beautifully designed spaces to work and create"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
