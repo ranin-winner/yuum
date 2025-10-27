@@ -34,7 +34,7 @@
       <template x-for="(item, index) in $store.cart.items" :key="`${item.id}-${index}`">
         <div class="b-mini_cart-item">
           <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
-            <img :src="item.image" class="absolute left-0 top-0 h-full w-full object-cover" width="40" height="40">
+            <img :src="item.image" class="bg-white absolute left-0 top-0 h-full w-full object-cover" width="40" height="40">
           </figure>
 
           <div class="b-mini_cart-item__desc">
@@ -107,7 +107,7 @@
                   <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
                     <img
                       src="{{ product_item.featured_image | img_url: '100x100' }}"
-                      class="absolute left-0 top-0 h-full w-full object-cover"
+                      class="bg-white absolute left-0 top-0 h-full w-full object-cover"
                       width="40"
                       height="40">
                   </figure>
