@@ -1,0 +1,133 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "c_hero_banner_tNxCKX": {
+      "type": "c-hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "title": "Career at YUUM",
+        "subtitle": "Work where culture, flavour and purpose meet. At YUUM, we believe that dessert is more than a treat — it’s a moment of connection, creativity, and culture.",
+        "baner_button": "VIEW VACANCIES",
+        "baner_button_link": "",
+        "baner_button2": "",
+        "baner_button_link2": "",
+        "image_bg": "shopify://shop_images/Image_3.png",
+        "bg_color": "#ffffff",
+        "bg_size": "cover",
+        "image_alignment_x": "center",
+        "image_alignment_y": "middle",
+        "text_position-x": "center",
+        "text_position-x-mob": "center",
+        "text_position-y": "flex-end",
+        "text_alignment": "center",
+        "title_font_size": 100,
+        "title_font_size_mobile": 40,
+        "title_color": "#ffffff",
+        "subtitle_font_size": 16,
+        "subtitle_font_size_mobile": 16,
+        "text_color": "#ffffff",
+        "padding_desktop": 40,
+        "padding_mobile": 20,
+        "margin_top_desktop": "-140",
+        "margin_top_mobile": "-100",
+        "banner_text_width": "800",
+        "banner_height_desktop": "800",
+        "banner_height_mobile": "520"
+      }
+    },
+    "careers_Laaktr": {
+      "type": "careers",
+      "blocks": {
+        "offer_item_TEgxmK": {
+          "type": "offer_item",
+          "settings": {
+            "number": "01",
+            "text": "A supportive, purpose-driven team"
+          }
+        },
+        "offer_item_eBTYJE": {
+          "type": "offer_item",
+          "settings": {
+            "number": "02",
+            "text": "Opportunities for growth and learning"
+          }
+        },
+        "offer_item_m4bEcW": {
+          "type": "offer_item",
+          "settings": {
+            "number": "03",
+            "text": "Creative freedom and responsibility"
+          }
+        },
+        "offer_item_V46C8p": {
+          "type": "offer_item",
+          "settings": {
+            "number": "04",
+            "text": "Competitive pay and employee perks"
+          }
+        },
+        "offer_item_pXrVJT": {
+          "type": "offer_item",
+          "settings": {
+            "number": "05",
+            "text": "Beautifully designed spaces to work and create"
+          }
+        }
+      },
+      "block_order": [
+        "offer_item_TEgxmK",
+        "offer_item_eBTYJE",
+        "offer_item_m4bEcW",
+        "offer_item_V46C8p",
+        "offer_item_pXrVJT"
+      ],
+      "name": "Careers Section",
+      "settings": {
+        "small_heading": "CAREERS AT YUUM",
+        "heading": "As we grow, we're seeking curious, thoughtful, and driven individuals — from baristas to creatives, and operations to hospitality. People who care about their work and value authenticity.",
+        "description": "<p>Our mission is building exceptional Japanese-inspired flavors to people through a modern, refined experience that feels both warm and bold.</p>",
+        "additional_text": "<p>We're not just building a café. We're creating a new flavor culture — one that's inclusive, expressive, and deliberate. At YUUM, your ideas matter. Your attention to detail matters. And your passion for doing things right (and beautifully) is what moves us forward.</p>",
+        "background_color": "#e7e7e7",
+        "team_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones.png",
+        "offer_heading": "What we offer:",
+        "person_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1.png",
+        "cta_heading": "Is this you?",
+        "cta_text": "If this sounds like you and you're ready to create something truly special, check out our open roles. You care about flavour and function. You care — about people, about craft, and about building something with intention.",
+        "button_text": "VIEW VACANCIES",
+        "button_link": ""
+      }
+    },
+    "join_us_wy8ryR": {
+      "type": "join-us",
+      "name": "Join Us",
+      "settings": {
+        "heading": "Join us",
+        "text_line_1": "<p>Open roles coming soon. To express your interest, email us at <a href=\"mailto:careers@yuum.co.uk\" title=\"mailto:careers@yuum.co.uk\">careers@yuum.co.uk</a></p>",
+        "image": "shopify://shop_images/Image_4.png"
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    }
+  },
+  "order": [
+    "c_hero_banner_tNxCKX",
+    "careers_Laaktr",
+    "join_us_wy8ryR",
+    "main"
+  ]
+}
