@@ -119,26 +119,29 @@
 
 
  //common form styles
+  .form-control,
   input,
   textarea {
-    border-bottom: 1px solid #474747;
-    padding: 0;
-    font-size: 16px;
-    // background: #EEEEEE;
-    background: transparent;
-    width: 100%;
-    height: 40px;
-    position: relative;
+    border-bottom: 1px solid #474747!important;
+    padding: 0!important;
+    font-size: 16px!important;
+    background: transparent!important;
+    width: 100%!important;
+    height: 40px!important;
+    position: relative!important;
+    border-top: none!important;
+    border-left: none!important;
+    border-right: none!important;
 
-    &::placeholder { color: #C2C2C2; }
-    &:focus { outline: none; border-bottom: 1px solid #78B956; }
+    &::placeholder { color: #C2C2C2!important; }
+    &:focus { 
+        outline: none!important; 
+        border-bottom: 1px solid #78B956!important; 
+        box-shadow: none!important;
+    }
 
     @include cfg.autofill-fix(#EEEEEE, #1a1a1a, #474747);
   } 
-  
-  
-
-
 
   .body-2 {
     @include cfg.body-2;
@@ -515,3 +518,4 @@
         @apply inline-flex items-center leading-[16px] rounded-full bg-[#ADAEB0] text-white font-normal px-[12px] py-[8px] text-[12px];
     }
 }
+

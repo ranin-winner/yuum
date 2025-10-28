@@ -1,66 +1,103 @@
 {% render 'entry' with '@/styles/sections/join-us.scss' %}
 
 <div class="join-us-section">
-    <div class="container">
-        <div class="join-us-card border-t-[1px] border-[#ADAEB0] pt-[40px]"> 
-            <!-- Text Content -->
-            <div class="join-us-content">
-                {% if section.settings.heading != blank %}
-                    <h2 class="join-us-heading heading-2 mb-[12px]">{{ section.settings.heading }}</h2>
-                {% endif %}
-                
-                {% if section.settings.text_line_1 != blank %}
-                    <div class="join-us-text">
-                        {{ section.settings.text_line_1 }}
-                    </div>
-                {% endif %}
-                
-            </div>
+  <div class="container">
+    <div class="join-us-card border-t-[1px] border-[#ADAEB0] pt-[40px] grid gap-[40px] md:grid-cols-2 {% unless section.settings.reverse %}join-us-card--reverse{% endunless %}">
 
-            <!-- Image -->
-            <div class="join-us-image-wrapper">
-                {% if section.settings.image != blank %}
-                {{ section.settings.image | image_url: width: 800 | image_tag: 
-                    loading: 'lazy',
-                    class: 'join-us-image',
-                    alt: section.settings.image.alt | default: section.settings.heading }}
-                {% else %}
+      <!-- Left text -->
+      <div class="join-us-content">
+        {% if section.settings.heading != blank %}
+          <h2 class="join-us-heading heading-2 mb-[12px]">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.text_line_1 != blank %}
+          <div class="join-us-text">
+            {{ section.settings.text_line_1 }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Right dynamic blocks -->
+      <div class="join-us-right">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'image_block' %}
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 800 | image_tag:
+                  loading: 'lazy',
+                  class: 'join-us-image',
+                  alt: block.settings.image.alt | default: section.settings.heading }}
+              {% else %}
                 <div style="width: 100%; height: 100%; background-color: #d1d5db; display: flex; align-items: center; justify-content: center; color: #6b7280;">
-                    <p>{{ 'general.image_placeholder' | t }}</p>
+                  <p>{{ 'general.image_placeholder' | t }}</p>
                 </div>
-                {% endif %}
-                <div class="join-us-overlay"></div>
-            </div> 
-        </div>
+              {% endif %}
+            
+            {% when 'custom_code_block' %}
+              {% if block.settings.custom_code != blank %}
+                <div class="join-us-custom-code">
+                  {{ block.settings.custom_code }}
+                </div>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+
     </div>
+  </div>
 </div>
 
 {% schema %}
+{
+  "name": "Join Us",
+  "settings": [
     {
-        "name": "Join Us",
-        "settings": [
-            {
-                "type": "text",
-                "id": "heading",
-                "label": "Heading",
-                "default": "Join us"
-            },
-            {
-                "type": "richtext",
-                "id": "text_line_1",
-                "label": "Text Line 1",
-                "default": "<p>Open roles coming soon.</p>"
-            },
-            {
-                "type": "image_picker",
-                "id": "image",
-                "label": "Image"
-            }
-        ],
-        "presets": [
-        {
-            "name": "Join Us"
-        }
-        ]
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join us"
+    },
+    {
+        "type": "checkbox",
+        "id": "reverse",
+        "label": "Reverse blocks on mobile",
+        "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "text_line_1",
+      "label": "Text",
+      "default": "<p>Open roles coming soon.</p>"
     }
-    {% endschema %}
+  ],
+  "blocks": [
+    {
+      "type": "image_block",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "custom_code_block",
+      "name": "Custom Code Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "custom_code",
+          "label": "Custom code",
+          "default": "<div style='margin:0 auto;' class='pxFormGenerator' id='Ntlfp4ij6M6R5VFqr8rTMQ'></div>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Join Us"
+    }
+  ]
+}
+{% endschema %}

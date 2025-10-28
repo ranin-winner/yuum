@@ -20,13 +20,19 @@
                 </div>
             {%- endif -%}
 
+            {%- if section.settings.button_text_1 != blank -%}
+                <a href="{{ section.settings.button_link_1 }}" class="careers-button mt-[32px] btn btn-light">
+                {{ section.settings.button_text_1 }}
+                </a>
+            {%- endif -%}
+
             {%- if section.settings.additional_text != blank -%}
             <div class="careers-additional-text">
                 {{ section.settings.additional_text }}
             </div>
             {%- endif -%}
-
-            <div class="careers-content">
+            {% comment %} careers-content--equal {% endcomment %}
+            <div class="careers-content {% if section.settings.equal_columns %} careers-content--equal{% endif %}">
             <!-- Team Image -->
             <div class="careers-team-block">
                 {%- if section.settings.team_image != blank -%}
@@ -125,6 +131,17 @@
       "default": "<p>Our mission is building exceptional Japanese-inspired flavors to people through a modern, refined experience that feels both warm and bold.</p>"
     },
     {
+      "type": "text",
+      "id": "button_text_1",
+      "label": "Button Text",
+      "default": "VIEW VACANCIES"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button Link"
+    },
+    {
       "type": "richtext",
       "id": "additional_text",
       "label": "Additional Text",
@@ -135,6 +152,12 @@
       "id": "background_color",
       "label": "Background Color",
       "default": "#e5e5e5"
+    },
+    {
+        "type": "checkbox",
+        "id": "equal_columns",
+        "label": "Make columns equal in width",
+        "default": false
     },
     {
       "type": "image_picker",
