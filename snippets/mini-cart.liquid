@@ -97,19 +97,21 @@
 
     {% if settings.show_cart_products_carousel %}
       <div class="b-mini_cart-carousel">
-        <!-- Header with title and arrows -->
-        <div class="b-mini_cart-carousel__header flex justify-between items-center mb-4">
-          <h4 class="text-xl">WE RECOMMEND</h4>
-          <div class="b-mini_cart-carousel__controls flex items-center gap-4">
-            <div id="prev-swiper" class="swiper-button-prev !static !mt-0 !-translate-y-0"></div>
-            <div id="next-swiper" class="swiper-button-next !static !mt-0 !-translate-y-0"></div>
+        <!-- Заголовок з назвою та стрілками -->
+        <div class="b-mini_cart-carousel__header">
+          <h4>WE RECOMMEND</h4>
+          <div class="b-mini_cart-carousel__controls">
+            <!-- Кнопка "попередній" -->
+            <div id="prev-swiper" class="swiper-button-prev"></div>
+            <!-- Кнопка "наступний" -->
+            <div id="next-swiper" class="swiper-button-next"></div>
           </div>
         </div>
 
-        <!-- Progress bar -->
+        <!-- Прогрес бар -->
         <div class="swiper-pagination !relative !w-auto !h-1 mb-4"></div>
 
-        <!-- Carousel content -->
+        <!-- Контейнер каруселі -->
         <div class="swiper-container">
           <div class="swiper-wrapper">
             {% for product_item in settings.cart_products %}
@@ -142,6 +144,9 @@
               </div>
             {% endfor %}
           </div>
+
+          <!-- Прогрес бар внизу під слайдами -->
+          <div class="b-mini_cart-carousel__progress swiper-pagination"></div>
         </div>
       </div>
       <script>
@@ -157,7 +162,7 @@
             },
             pagination: {
               el: ".b-mini_cart-carousel .swiper-pagination",
-              type: "progressbar",
+              type: "progressbar", // Змінено на прогрес бар
             },
           });
         });
