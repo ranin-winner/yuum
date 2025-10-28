@@ -97,7 +97,19 @@
 
     {% if settings.show_cart_products_carousel %}
       <div class="b-mini_cart-carousel">
-        <h4 class="font-Gazpacho text-xl mt-6 mb-4">You may also like</h4>
+        <!-- Header with title and arrows -->
+        <div class="b-mini_cart-carousel__header flex justify-between items-center mb-4">
+          <h4 class="text-xl">WE RECOMMEND</h4>
+          <div class="b-mini_cart-carousel__controls flex items-center gap-4">
+            <div id="prev-swiper" class="swiper-button-prev !static !mt-0 !-translate-y-0"></div>
+            <div id="next-swiper" class="swiper-button-next !static !mt-0 !-translate-y-0"></div>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="swiper-pagination !relative !w-auto !h-1 mb-4"></div>
+
+        <!-- Carousel content -->
         <div class="swiper-container">
           <div class="swiper-wrapper">
             {% for product_item in settings.cart_products %}
@@ -123,17 +135,12 @@
                         aria-label="Add to cart"
                         data-product-id="{{ product_item.first_available_variant.id }}"
                         @click="$store.cart.addToCart({ variantId: $el.dataset.productId, quantity: 1 }, false)"
-                      >Add +</span>
+                      >Add</span>
                     </div>
                   </div>
                 </div>
               </div>
             {% endfor %}
-          </div>
-          <div class="b-mini_cart-carousel__footer">
-            <div id="prev-swiper" class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-            <div id="next-swiper" class="swiper-button-next"></div>
           </div>
         </div>
       </div>
@@ -150,7 +157,7 @@
             },
             pagination: {
               el: ".b-mini_cart-carousel .swiper-pagination",
-              type: "fraction",
+              type: "progressbar",
             },
           });
         });
