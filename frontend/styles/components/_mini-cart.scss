@@ -1,4 +1,5 @@
 @use '../config/all-config' as cfg;
+@use '../config/fonts' as fonts;
 
 .b-mini_cart {
   position: fixed;
@@ -6,164 +7,286 @@
   right: 0;
   width: 500px;
   height: 100vh;
-  background-color: var(--color-body-bg);
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  // border: 1px solid var(--color_1);
   border-top-left-radius: 32px;
   border-bottom-left-radius: 32px;
-  transition: all 0.3s;
+  transition: transform 0.3s ease;
 
   @include cfg.media(max-m) {
-    height: calc(100% - 10px);
-    width: calc(100% - 10px);
-    top: 50%;
-    left: 50%;
-    right: auto;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
   }
 
   &.is-open {
-    opacity: 1;
-    visibility: visible;
-
-    @include cfg.media(min-m) {
-      transform: translateX(0);
-    }
-
-    // .b-mini_cart-list {
-    //   content-visibility: visible;
-    // }
+    transform: translateX(0);
   }
 
   &.is-closed {
-    opacity: 0;
-    visibility: hidden;
     transform: translateX(100%);
   }
 
-  &-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    // background-color: #f5f5f5;
-    border-radius: 50%;
+  &__inner {
+    padding: 24px;
+    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    flex-direction: column;
+
+    @include cfg.media(max-m) {
+      padding: 20px 16px;
+    }
   }
 
+  // Close button
+  &-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    z-index: 10;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Header - Shopping cart (1)
+  &-header {
+    margin-bottom: 16px;
+  }
+
+  &-title {
+    @include fonts.font(heading-400, 32px, 38px);
+    color: #474747;
+    margin: 0;
+  }
+
+  &-count {
+    opacity: 0.5;
+  }
+
+  // Shipping
   &-shipping {
     background: #f8f8f8;
     border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    border: 1px solid #e5e5e5;
 
-    p {
+    &__text {
+      @include fonts.font(body-400, 14px, 1.4);
+      color: #474747;
       margin: 0;
-      color: #666;
+      text-align: center;
+    }
+
+    &__amount {
+      font-weight: 600;
     }
   }
 
-  &-progress-bar {
-    position: relative;
-    height: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    background-color: rgba(18, 18, 18, 0.1);
-    overflow: hidden;
+  // Empty cart
+  &-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 0;
 
-    &-fill {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      bottom: 0;
-      background-color: rgb(229, 106, 84);
-      transition: all 0.3s;
+    &__title {
+      @include fonts.font(body-500, 18px, 1.4);
+      color: #474747;
+      margin: 0 0 24px 0;
     }
   }
 
-  &-list {
-    // content-visibility: hidden;
-    scrollbar-color: rgba(18, 18, 18, 0.2) transparent;
+  // Continue shopping button
+  &-continue {
+    @include fonts.font(body-500, 14px, 1);
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #333;
+    }
+  }
+
+  // Cart content
+  &-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Columns
+  &-columns {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 16px;
+
+    &__product,
+    &__total {
+      @include fonts.font(body-500, 12px, 1);
+      color: #474747;
+      opacity: 0.5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  // Items list
+  &-items {
+    flex: 1;
+    overflow-y: auto;
     scrollbar-width: thin;
+    scrollbar-color: rgba(71, 71, 71, 0.2) transparent;
 
-    &.m-loading {
-      &::after {
-        position: absolute;
-        content: '';
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(255, 255, 255, 0.8);
-        z-index: 10;
-        pointer-events: none;
-      }
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
 
-      &::before {
-        position: absolute;
-        content: '';
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 48px;
-        height: 48px;
-        border: 5px solid #D8452B;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-      }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-      @keyframes rotation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(71, 71, 71, 0.2);
+      border-radius: 2px;
     }
   }
 
+  // Item
   &-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 10px;
-    padding: 10px 0;
-    position: relative;
-    border-bottom: 1px solid #C2C2C2;
-  }
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e5e5;
 
-  &-item__desc {
-
-  }
-
-  &-total {
-    border-top: 1px solid #181818;
-  }
-
-  &-carousel {
-    background: #F5F5F5;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    margin-left: -12.5px;
-    margin-right: -12.5px;
-    width: calc(100% + 25px);
-    padding: 16px 12.5px 12.5px;
-    margin-top: 1.5rem;
-
-    & h4 {
-      font-family: var(--font-body, "Neue Haas Grotesk Display Pro"), system-ui, -apple-system, Arial, sans-serif;
-      font-size: 16px;
-      margin: 0;
+    &:last-child {
+      border-bottom: none;
     }
 
-    // Стилі для заголовку з стрілками
+    &__image {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    &__info {
+      .b-mini_cart-item__name {
+        @include fonts.font(heading-400, 18px, 24px);
+        color: #474747;
+        margin: 0 0 4px 0;
+      }
+
+      .b-mini_cart-item__variant {
+        @include fonts.font(body-500, 14px, 20px);
+        color: #474747;
+        margin: 0 0 8px 0;
+      }
+
+      .b-mini_cart-item__price {
+        @include fonts.font(body-400, 14px, 1.4);
+        color: #474747;
+        margin: 0;
+
+        .b-mini_cart-item__compare-price {
+          text-decoration: line-through;
+          opacity: 0.5;
+          margin-right: 8px;
+        }
+      }
+    }
+
+    &__controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    &__left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    &__remove {
+      @include fonts.font(body-400, 12px, 1);
+      color: #666;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &__total {
+      text-align: right;
+
+      .b-mini_cart-item__total-compare {
+        @include fonts.font(body-400, 12px, 1);
+        display: block;
+        text-decoration: line-through;
+        opacity: 0.5;
+        margin-bottom: 2px;
+        color: #474747;
+      }
+
+      .b-mini_cart-item__total-price {
+        @include fonts.font(body-600, 16px, 1.4);
+        color: #474747;
+      }
+    }
+  }
+
+  // Recommendations
+  &-recommendations {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: auto;
+
+    @include cfg.media(max-m) {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      padding: 16px;
+    }
+
     &__header {
       display: flex;
       justify-content: space-between;
@@ -171,193 +294,349 @@
       margin-bottom: 16px;
     }
 
-    &__controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    &__title {
+      @include fonts.font(body-500, 16px, 22px);
+      color: #474747;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin: 0;
     }
 
-    // Стилі для прогрес бару внизу
-    &__progress {
-      position: relative;
-      width: 100%;
-      height: 3px;
-      background: rgba(18, 18, 18, 0.1);
-      border-radius: 2px;
-      margin-top: 16px;
-      overflow: hidden;
+    &__controls {
+      display: flex;
+      gap: 8px;
+    }
 
-      .swiper-pagination-progressbar-fill {
-        background: var(--color_1);
-        border-radius: 2px;
+    &__arrow {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #474747;
+      transition: all 0.2s ease;
+      padding: 0;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &:hover {
+        background: #f5f5f5;
+        border-color: #474747;
+      }
+
+      &.swiper-button-disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+
+        &:hover {
+          background: #fff;
+          border-color: #ddd;
+        }
+      }
+
+      &--prev,
+      &--next {
+        // Specific styles for each arrow if needed
       }
     }
 
-    // Стилі для контейнера Swiper
-    .swiper-container {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .swiper-wrapper {
-      display: flex;
-    }
-
-    .swiper-slide {
-      flex-shrink: 0;
+    &__slider {
       width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+  }
+
+  // Swiper styles
+  .swiper-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .swiper-slide {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  // Progress bar
+  &-carousel__progress {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: rgba(71, 71, 71, 0.1);
+    border-radius: 2px;
+    margin-top: 12px;
+    overflow: hidden;
+
+    .swiper-pagination-progressbar-fill {
+      background: #474747;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+  }
+
+  // Total
+  &-total {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 20px;
+    margin-top: 20px;
+
+    &__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    &__label {
+      @include fonts.font(body-600, 18px, 1.4);
+      color: #474747;
+    }
+
+    &__value {
+      @include fonts.font(heading-400, 24px, 1.2);
+      color: #474747;
+      font-weight: 600;
+    }
+
+    .b-mini_cart-checkout {
+      @include fonts.font(body-500, 16px, 1);
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 16px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background-color 0.2s;
+      text-transform: uppercase;
+
+      &:hover {
+        background: #333;
+      }
+    }
+
+    .b-mini_cart-tax {
+      @include fonts.font(body-400, 12px, 1.4);
+      color: #666;
+      text-align: center;
+      margin: 0;
     }
   }
 }
 
-// Стилі для стрілок Swiper - кастомні SVG
-.b-mini_cart-carousel {
-  .swiper-button-prev,
-  .swiper-button-next {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin-top: 0;
+// Quantity controls
+.b-quantity {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+
+  &__btn {
     width: 32px;
     height: 32px;
-    color: var(--color_1);
-    background: #ffffff;
-    border-radius: 12px;
+    border: none;
+    background: #fff;
+    @include fonts.font(body-400, 16px, 1);
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    // Прибираємо дефолтні стрілки Swiper
-    &::after {
-      content: none;
-    }
-
-    svg {
-      width: 16px;
-      height: 16px;
-    }
+    transition: background-color 0.2s;
+    color: #474747;
 
     &:hover {
       background: #f5f5f5;
     }
+
+    &--minus,
+    &--plus {
+      color: #333;
+    }
   }
 
-  .swiper-button-disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-
-    &:hover {
-      background: #ffffff;
-    }
+  &__value {
+    width: 40px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include fonts.font(body-500, 14px, 1);
+    background: #fff;
+    color: #474747;
+    border-left: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
   }
 }
 
-// Стилі для кнопки додавання в каруселі
-.b-cart_item {
-  &__add-btn {
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 20px;
-    transition: all 0.3s ease;
+// Recommended items
+.b-recommendation-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
 
-    &:hover {
-      transform: scale(1.05);
-    }
+  &__image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0;
 
-    &:active {
-      transform: scale(0.95);
-    }
-
-    svg {
+    img {
       width: 100%;
       height: 100%;
-      display: block;
+      object-fit: cover;
     }
+  }
 
-    // Стилі для десктопної кнопки Add
+  &__content {
+    flex: 1;
+  }
+
+  &__name {
+    @include fonts.font(heading-400, 18px, 24px);
+    color: #474747;
+    margin: 0 0 4px 0;
+  }
+
+  &__variant {
+    @include fonts.font(body-500, 14px, 20px);
+    color: #474747;
+    margin: 0 0 8px 0;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__price {
+    @include fonts.font(body-600, 14px, 1.4);
+    color: #474747;
+  }
+
+  &__add {
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    @include fonts.font(body-500, 12px, 1);
+
     &.desktop-add {
-      width: auto;
-      height: auto;
-      background: black;
-      color: white;
+      background: #000;
+      color: #fff;
       padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 12px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      @include cfg.media(max-m) {
+        display: none;
+      }
 
       &:hover {
         background: #333;
-        transform: none;
       }
     }
-  }
-}
 
-// Мобільна версія для стрілок навігації
-@include cfg.media(max-m) {
-  .b-mini_cart-carousel {
-    .swiper-button-prev,
-    .swiper-button-next {
-      width: 40px;
-      height: 40px;
-      background: #474747;
-      border-radius: 20px;
-
-      .desktop-arrow {
-        display: none;
-      }
-    }
-  }
-}
-
-// Десктопна версія для стрілок навігації
-@include cfg.media(min-m) {
-  .b-mini_cart-carousel {
-    .swiper-button-prev,
-    .swiper-button-next {
-      .desktop-arrow {
-        display: block;
-      }
-    }
-  }
-}
-
-// Ховаємо мобільну версію на десктопі
-.b-mini_cart-carousel {
-  .mobile-plus {
-    display: none;
-  }
-
-  .desktop-add {
-    display: block;
-  }
-}
-
-// На мобільній версії показуємо плюс і ховаємо стрілки
-@include cfg.media(max-m) {
-  .b-mini_cart-carousel {
-    .mobile-plus {
-      display: block;
-    }
-
-    .desktop-add {
+    &.mobile-add {
       display: none;
+      width: 32px;
+      height: 32px;
+      background: #474747;
+      color: #fff;
+      border-radius: 50%;
+      @include fonts.font(body-500, 16px, 1);
+
+      @include cfg.media(max-m) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:hover {
+        background: #333;
+      }
     }
+  }
+}
 
-    .swiper-button-prev,
-    .swiper-button-next {
-      .mobile-plus {
-        display: block;
-        width: 16px;
-        height: 16px;
+// Mobile responsiveness
+@include cfg.media(max-m) {
+  .b-mini_cart {
+    &-recommendations {
+      &__controls {
+        .b-mini_cart-recommendations__arrow {
+          background: #474747;
+          border-color: #474747;
+          color: #fff;
 
-        path {
-          fill: #E0E0E0;
+          &:hover {
+            background: #333;
+          }
+
+          &.swiper-button-disabled {
+            background: #ddd;
+            border-color: #ddd;
+            color: #999;
+          }
         }
       }
     }
   }
+}
+
+// Loading state
+.b-mini_cart-list.m-loading {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 10;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #474747;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 11;
+  }
+
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+}
+
+// Utility classes for Alpine.js states
+[x-cloak] {
+  display: none !important;
 }
