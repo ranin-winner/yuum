@@ -11,7 +11,15 @@
     </span>
 
     <div class="b-mini_cart-header py-5">
-      <h3 class="b-mini_cart-title text-xl font-Gazpacho">Shopping cart</h3>
+      <h3 class="b-mini_cart-title text-xl font-Gazpacho">
+        Shopping cart <span x-text="'(' + $store.cart.itemsCount + ')'" class="opacity-50"></span>
+      </h3>
+    </div>
+
+    <div class="b-mini_cart-shipping mb-4 p-3 bg-gray-50 rounded-lg" x-show="$store.cart.items.length > 0">
+      <p class="text-sm text-center">
+        Spend <span class="font-semibold" x-text="'{{ cart.currency.symbol }}' + $store.cart.remainingForFreeShipping"></span> more to get free mainland UK delivery
+      </p>
     </div>
 
     <div class="drawer__header-row progress-bar-row" x-show="$store.cart.items.length > 0">
@@ -23,72 +31,61 @@
     </div>
 
     <div
-      class="b-mini_cart-list flex flex-col gap-6 grow max-h-[70vh] overflow-y-auto"
+      class="b-mini_cart-list flex flex-col gap-4 grow max-h-[60vh] overflow-y-auto"
       x-show="$store.cart.items.length > 0"
       :class="$store.cart.isLoading ? 'm-loading' : ''">
-      <div class="flex justify-between uppercase opacity-50 border-b pb-4 text-xs font-Aksen font-normal tracking-wide">
+      <div class="flex justify-between uppercase opacity-50 border-b pb-3 text-xs font-Aksen font-normal tracking-wide">
         <span>Product</span>
         <span>Total</span>
       </div>
 
       <template x-for="(item, index) in $store.cart.items" :key="`${item.id}-${index}`">
-        <div class="b-mini_cart-item">
-          <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
+        <div class="b-mini_cart-item py-3 border-b border-gray-200">
+          <figure class="w-[80px] h-[80px] shrink-0 relative rounded-xl overflow-hidden">
             <img :src="item.image" class="bg-white absolute left-0 top-0 h-full w-full object-cover" width="40" height="40">
           </figure>
 
-          <div class="b-mini_cart-item__desc">
-            <div class="mb-4">
-              <h4 x-html="item.title" class="w-full mb-4 pr-24 font-Gazpacho"></h4>
+          <div class="b-mini_cart-item__desc pl-3">
+            <div class="mb-3">
+              <h4 x-html="item.title" class="w-full mb-2 text-sm font-Gazpacho"></h4>
 
-              <p class="mt-2 text-sm font-Aksen font-normal">
-                <!-- Перекреслена (порівняльна) ціна для звичайних товарів -->
+              <p class="text-xs font-Aksen font-normal">
                 <span
                   class="line-through opacity-50"
                   x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
                   x-text="'{{ cart.currency.symbol }}' + (((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100).toFixed(2))">
                 </span>
 
-                <!-- Поточна ціна -->
                 <span
                   x-text="'{{ cart.currency.symbol }}' + (((item.final_price ?? item.price ?? 0) / 100).toFixed(2))">
                 </span>
               </p>
             </div>
 
-            <div class="absolute right-4 top-4 flex flex-col font-Aksen font-normal">
-              <!-- Загальна перекреслена сума (qty) -->
-              <span
-                x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
-                class="line-through opacity-50"
-                x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
-              </span>
-
-              <!-- Загальна сума (qty) -->
-              <span
-                x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
-              </span>
-            </div>
-
-            <div class="flex">
-              <div class="b-quantity !border-black mr-4">
+            <div class="flex justify-between items-center">
+              <div class="b-quantity !border-gray-300">
                 <span
                   @click="$store.cart.decrementQuantity(item.id, item.quantity)"
-                  class="b-quantity-sign m-minus !text-black-content">-</span>
+                  class="b-quantity-sign m-minus !text-gray-700">-</span>
 
-                <div x-text="item.quantity" class="b-quantity-input !text-black-content"></div>
+                <div x-text="item.quantity" class="b-quantity-input !text-gray-700"></div>
 
                 <span
                   @click="$store.cart.updateCart(item.id, (item.quantity || 1) + 1)"
-                  class="b-quantity-sign m-plus !text-black-content">+</span>
+                  class="b-quantity-sign m-plus !text-gray-700">+</span>
               </div>
 
-              <button @click="$store.cart.removeFromCart(item.key)" class="text-color_4">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" class="icon m-small icon-remove">
-                  <path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="currentColor"></path>
-                  <path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="currentColor"></path>
-                </svg>
-              </button>
+              <div class="flex flex-col items-end">
+                <span
+                  x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
+                  class="line-through opacity-50 text-xs"
+                  x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
+                </span>
+
+                <span class="font-semibold text-sm"
+                      x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -96,18 +93,15 @@
     </div>
 
     {% if settings.show_cart_products_carousel %}
-      <div class="b-mini_cart-carousel">
-        <!-- Заголовок з назвою та стрілками -->
+      <div class="b-mini_cart-carousel mt-4">
         <div class="b-mini_cart-carousel__header">
-          <h4>WE RECOMMEND</h4>
+          <h4 class="text-lg">WE RECOMMEND</h4>
           <div class="b-mini_cart-carousel__controls">
-            <!-- Ліва стрілка -->
             <div id="prev-swiper" class="swiper-button-prev">
               <svg class="desktop-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M6.21416 2.46892L6.65188 2.90664C6.7618 3.01656 6.7618 3.19478 6.65188 3.3047L2.5476 7.40885H15.3201C15.4755 7.40885 15.6016 7.53487 15.6016 7.69032V8.30948C15.6016 8.46494 15.4755 8.59096 15.3201 8.59096H2.5476L6.65189 12.6952C6.76181 12.8052 6.76181 12.9834 6.65189 13.0933L6.21416 13.531C6.10424 13.641 5.92602 13.641 5.8161 13.531L0.484004 8.19893C0.374082 8.08901 0.374083 7.91079 0.484007 7.80087L5.8161 2.46891C5.92602 2.35899 6.10424 2.359 6.21416 2.46892Z" fill="currentColor"/>
               </svg>
             </div>
-            <!-- Права стрілка -->
             <div id="next-swiper" class="swiper-button-next">
               <svg class="desktop-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M9.78584 2.46892L9.34812 2.90664C9.2382 3.01656 9.2382 3.19478 9.34812 3.3047L13.4524 7.40885H0.679885C0.52443 7.40885 0.398407 7.53487 0.398407 7.69032V8.30948C0.398407 8.46494 0.52443 8.59096 0.679885 8.59096H13.4524L9.34811 12.6952C9.23819 12.8052 9.23819 12.9834 9.34811 13.0933L9.78584 13.531C9.89576 13.641 10.074 13.641 10.1839 13.531L15.516 8.19893C15.6259 8.08901 15.6259 7.91079 15.516 7.80087L10.1839 2.46891C10.074 2.35899 9.89576 2.359 9.78584 2.46892Z" fill="currentColor"/>
@@ -116,34 +110,41 @@
           </div>
         </div>
 
-        <!-- Контейнер каруселі -->
         <div class="swiper-container">
           <div class="swiper-wrapper">
             {% for product_item in settings.cart_products %}
               {% assign productMeta = product_item.metafields.custom %}
               <div class="swiper-slide">
                 <div class="b-cart_item flex w-full">
-                  <figure class="w-[100px] h-[100px] shrink-0 relative rounded-xl overflow-hidden">
+                  <figure class="w-[80px] h-[80px] shrink-0 relative rounded-xl overflow-hidden">
                     <img
-                      src="{{ product_item.featured_image | img_url: '100x100' }}"
+                      src="{{ product_item.featured_image | img_url: '80x80' }}"
                       class="bg-white absolute left-0 top-0 h-full w-full object-cover"
                       width="40"
                       height="40">
                   </figure>
-                  <div class="b-cart_item__desc grow pl-4 pt-2">
-                    <h4 class="w-full mb-2 font-Gazpacho">{{ product_item.title }}</h4>
+                  <div class="b-cart_item__desc grow pl-3 pt-1">
+                    <h4 class="w-full mb-1 text-sm font-Gazpacho">{{ product_item.title }}</h4>
                     {% if productMeta.subtitle %}
-                      <h5 class="mb-4">{{ productMeta.subtitle }}</h5>
+                      <h5 class="mb-2 text-xs">{{ productMeta.subtitle }}</h5>
                     {% endif %}
                     <div class="flex justify-between items-center">
-                      <span class="text-base grow">{{ product_item.price | money }}</span>
-                      <!-- ЗМІНА: Кнопка "+" замість "Add" -->
+                      <span class="text-sm grow">{{ product_item.price | money }}</span>
+                      <!-- Десктопна версія - Add -->
                       <button
-                        class="b-cart_item__add-btn cursor-pointer"
+                        class="b-cart_item__add-btn desktop-add cursor-pointer bg-black text-white px-3 py-1 rounded text-xs hover:bg-gray-800 transition-colors"
                         aria-label="Add to cart"
                         data-product-id="{{ product_item.first_available_variant.id }}"
                         @click="$store.cart.addToCart({ variantId: $el.dataset.productId, quantity: 1 }, false)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        Add
+                      </button>
+                      <!-- Мобільна версія - + -->
+                      <button
+                        class="b-cart_item__add-btn mobile-plus cursor-pointer"
+                        aria-label="Add to cart"
+                        data-product-id="{{ product_item.first_available_variant.id }}"
+                        @click="$store.cart.addToCart({ variantId: $el.dataset.productId, quantity: 1 }, false)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40" fill="none">
                           <rect width="40" height="40" rx="20" fill="#474747"/>
                           <path d="M20.7487 19.2513V14H19.2513V19.2513H14V20.7487H19.2513V26H20.7487V20.7487H26V19.2513H20.7487Z" fill="#E0E0E0"/>
                         </svg>
@@ -155,15 +156,14 @@
             {% endfor %}
           </div>
 
-          <!-- Прогрес бар внизу під слайдами -->
-          <div class="b-mini_cart-carousel__progress swiper-pagination"></div>
+          <div class="b-mini_cart-carousel__progress swiper-pagination mt-3"></div>
         </div>
       </div>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
           var swiper = new Swiper('.b-mini_cart-carousel .swiper-container', {
             slidesPerView: 1,
-            spaceBetween: 10,
+            spaceBetween: 8,
             loop: true,
             autoplay: { delay: 5000 },
             navigation: {
@@ -179,15 +179,14 @@
       </script>
     {% endif %}
 
-    <div class="b-mini_cart-total flex flex-wrap justify-between">
-      <p class="font-Gazpacho hidden">Total items: <span x-text="$store.cart.itemsCount"></span></p>
-      <p class="flex items-center justify-between w-full pt-4 pb-2">
+    <div class="b-mini_cart-total flex flex-wrap justify-between mt-4">
+      <p class="flex items-center justify-between w-full pt-4 pb-2 border-t border-gray-300">
         <span class="font-Gazpacho">Total price:</span>
         <span class="font-cenzo font-bold text-xl text-color_1">
           <span x-text="'{{ cart.currency.symbol }}' + $store.cart.totalPrice"></span>
         </span>
       </p>
-      <button @click="window.location.href='/checkout'" class="btn btn-primary min-w-full w-full mt-5">
+      <button @click="window.location.href='/checkout'" class="btn btn-primary min-w-full w-full mt-3 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
         Proceed to Checkout
       </button>
     </div>
