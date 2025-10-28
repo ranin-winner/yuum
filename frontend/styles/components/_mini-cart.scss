@@ -78,10 +78,10 @@
 
       @keyframes rotation {
         0% {
-            transform: rotate(0deg);
+          transform: rotate(0deg);
         }
         100% {
-            transform: rotate(360deg);
+          transform: rotate(360deg);
         }
       }
     }
@@ -134,24 +134,24 @@
   }
 
   &-total {
-      border-top: 1px solid #181818;
+    border-top: 1px solid #181818;
   }
 
   &-carousel {
-      background: #F5F5F5;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      margin-left: -12.5px;
-      margin-right: -12.5px;
-      width: calc(100% + 25px);
-      padding: 16px 12.5px 12.5px;
-      margin-top: 1.5rem;
+    background: #F5F5F5;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    margin-left: -12.5px;
+    margin-right: -12.5px;
+    width: calc(100% + 25px);
+    padding: 16px 12.5px 12.5px;
+    margin-top: 1.5rem;
 
-      & h4 {
-        font-family: var(--font-body, "Neue Haas Grotesk Display Pro"), system-ui, -apple-system, Arial, sans-serif;
-        font-size: 16px;
-        margin: 0;
-      }
+    & h4 {
+      font-family: var(--font-body, "Neue Haas Grotesk Display Pro"), system-ui, -apple-system, Arial, sans-serif;
+      font-size: 16px;
+      margin: 0;
+    }
 
     // Стилі для заголовку з стрілками
     &__header {
@@ -183,25 +183,6 @@
       }
     }
 
-    &__footer {
-      position: relative;
-      height: 40px;
-      width: 140px;
-      margin: 0 auto;
-
-      .swiper-button-prev,
-      .swiper-button-next {
-        width: 20px;
-        height: 20px;
-        color: var(--color_1);
-        margin-top: -10px;
-
-        &::after {
-          font-size: 20px;
-        }
-      }
-    }
-
     // Стилі для контейнера Swiper
     .swiper-container {
       overflow: hidden;
@@ -219,59 +200,45 @@
   }
 }
 
-// ФІКСИ ДЛЯ КНОПОК НАВІГАЦІЇ - ВАЖЛИВО!
+// Стилі для стрілок Swiper - кастомні SVG
 .b-mini_cart-carousel {
   .swiper-button-prev,
   .swiper-button-next {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    margin-top: 0 !important;
-    transform: none !important;
-    width: 24px !important;
-    height: 24px !important;
-    color: var(--color_1) !important;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-top: 0;
+    width: 32px;
+    height: 32px;
+    color: var(--color_1);
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    // Прибираємо дефолтні стрілки Swiper
     &::after {
-      font-size: 16px !important;
-      font-weight: bold;
+      content: none;
     }
-  }
 
-  .swiper-button-prev {
-    &::after {
-      content: '‹'; // Ліва стрілка
+    svg {
+      width: 16px;
+      height: 16px;
     }
-  }
 
-  .swiper-button-next {
-    &::after {
-      content: '›'; // Права стрілка
+    &:hover {
+      background: #ffffff;
     }
   }
 
   .swiper-button-disabled {
-    opacity: 0.3 !important;
-    cursor: not-allowed !important;
-  }
+    opacity: 0.3;
+    cursor: not-allowed;
 
-  &-carousel__footer {
-    position: relative;
-    height: 40px;
-    width: 140px;
-    margin: 0 auto;
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      width: 20px;
-      height: 20px;
-      color: var(--color_1);
-      margin-top: -10px;
-
-      &::after {
-        font-size: 20px;
-      }
+    &:hover {
+      background: #ffffff;
     }
   }
 }

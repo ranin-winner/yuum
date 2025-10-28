@@ -101,15 +101,20 @@
         <div class="b-mini_cart-carousel__header">
           <h4>WE RECOMMEND</h4>
           <div class="b-mini_cart-carousel__controls">
-            <!-- Кнопка "попередній" -->
-            <div id="prev-swiper" class="swiper-button-prev"></div>
-            <!-- Кнопка "наступний" -->
-            <div id="next-swiper" class="swiper-button-next"></div>
+            <!-- Ліва стрілка з дизайну -->
+            <div id="prev-swiper" class="swiper-button-prev">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6.21416 2.46892L6.65188 2.90664C6.7618 3.01656 6.7618 3.19478 6.65188 3.3047L2.5476 7.40885H15.3201C15.4755 7.40885 15.6016 7.53487 15.6016 7.69032V8.30948C15.6016 8.46494 15.4755 8.59096 15.3201 8.59096H2.5476L6.65189 12.6952C6.76181 12.8052 6.76181 12.9834 6.65189 13.0933L6.21416 13.531C6.10424 13.641 5.92602 13.641 5.8161 13.531L0.484004 8.19893C0.374082 8.08901 0.374083 7.91079 0.484007 7.80087L5.8161 2.46891C5.92602 2.35899 6.10424 2.359 6.21416 2.46892Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <!-- Права стрілка (дзеркальна) -->
+            <div id="next-swiper" class="swiper-button-next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M9.78584 2.46892L9.34812 2.90664C9.2382 3.01656 9.2382 3.19478 9.34812 3.3047L13.4524 7.40885H0.679885C0.52443 7.40885 0.398407 7.53487 0.398407 7.69032V8.30948C0.398407 8.46494 0.52443 8.59096 0.679885 8.59096H13.4524L9.34811 12.6952C9.23819 12.8052 9.23819 12.9834 9.34811 13.0933L9.78584 13.531C9.89576 13.641 10.074 13.641 10.1839 13.531L15.516 8.19893C15.6259 8.08901 15.6259 7.91079 15.516 7.80087L10.1839 2.46891C10.074 2.35899 9.89576 2.359 9.78584 2.46892Z" fill="currentColor"/>
+              </svg>
+            </div>
           </div>
         </div>
-
-        <!-- Прогрес бар -->
-        <div class="swiper-pagination !relative !w-auto !h-1 mb-4"></div>
 
         <!-- Контейнер каруселі -->
         <div class="swiper-container">
@@ -162,7 +167,7 @@
             },
             pagination: {
               el: ".b-mini_cart-carousel .swiper-pagination",
-              type: "progressbar", // Змінено на прогрес бар
+              type: "progressbar",
             },
           });
         });
