@@ -1,13 +1,4 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "sections": {
     "c_blog_post_list_XPrixg": {
       "type": "c-blog-post-list",
@@ -16,7 +7,7 @@
         "color_scheme": "scheme-1",
         "title": "ALL IN Blog",
         "subtitle": "Lorem ipsum dolor",
-        "heading-img": "shopify://shop_images/bg-testi.jpg"
+        "heading-img": "shopify:\/\/shop_images\/bg-testi.jpg"
       }
     },
     "footer_image_carousel_TcQV6g": {

@@ -4,8 +4,8 @@
     "theme_name": "Theme Contara",
     "theme_version": "0.1.0",
     "theme_author": "Contara",
-    "theme_documentation_url": "https://www.contara.com/",
-    "theme_support_url": "https://www.contara.com/"
+    "theme_documentation_url": "https:\/\/www.contara.com\/",
+    "theme_support_url": "https:\/\/www.contara.com\/"
   },
   {
     "name": "Header",
@@ -43,7 +43,7 @@
       {
         "type": "checkbox",
         "id": "show_promo",
-        "label": "Promo banner show/hide",
+        "label": "Promo banner show\/hide",
         "default": true
       },
       {
@@ -66,63 +66,186 @@
         "id": "header_menu_2",
         "label": "Header Menu 2"
       },
-      { "type": "header", "content": "Mega slots (collections only, by dropdown order)" },
-
-      { "type": "header", "content": "Slot #1" },
-      { "type": "checkbox", "id": "mm1_enable", "label": "Enable slot #1", "default": false },
-      { "type": "text", "id": "mm1_categories_heading", "label": "Categories small heading", "default": "Categories" },
-      { "type": "collection_list", "id": "mm1_collections", "label": "Collections (select multiple)" },
-      { "type": "checkbox", "id": "mm1_show_collection_images", "label": "Show collection images", "default": true },
-      { "type": "text", "id": "mm1_product_heading", "label": "Product small heading", "default": "Featured" },
-      { "type": "product", "id": "mm1_product", "label": "Product (optional)" },
-
-      { "type": "header", "content": "Slot #2" },
-      { "type": "checkbox", "id": "mm2_enable", "label": "Enable slot #2", "default": false },
-      { "type": "text", "id": "mm2_categories_heading", "label": "Categories small heading", "default": "Categories" },
-      { "type": "collection_list", "id": "mm2_collections", "label": "Collections (select multiple)" },
-      { "type": "checkbox", "id": "mm2_show_collection_images", "label": "Show collection images", "default": true },
-      { "type": "text", "id": "mm2_product_heading", "label": "Product small heading", "default": "Featured" },
-      { "type": "product", "id": "mm2_product", "label": "Product (optional)" },
-
-      { "type": "header", "content": "Slot #3" },
-      { "type": "checkbox", "id": "mm3_enable", "label": "Enable slot #3", "default": false },
-      { "type": "text", "id": "mm3_categories_heading", "label": "Categories small heading", "default": "Categories" },
-      { "type": "collection_list", "id": "mm3_collections", "label": "Collections (select multiple)" },
-      { "type": "checkbox", "id": "mm3_show_collection_images", "label": "Show collection images", "default": true },
-      { "type": "text", "id": "mm3_product_heading", "label": "Product small heading", "default": "Featured" },
-      { "type": "product", "id": "mm3_product", "label": "Product (optional)" },
-
-      { "type": "header", "content": "Slot #4" },
-      { "type": "checkbox", "id": "mm4_enable", "label": "Enable slot #4", "default": false },
-      { "type": "text", "id": "mm4_categories_heading", "label": "Categories small heading", "default": "Categories" },
-      { "type": "collection_list", "id": "mm4_collections", "label": "Collections (select multiple)" },
-      { "type": "checkbox", "id": "mm4_show_collection_images", "label": "Show collection images", "default": true },
-      { "type": "text", "id": "mm4_product_heading", "label": "Product small heading", "default": "Featured" },
-      { "type": "product", "id": "mm4_product", "label": "Product (optional)" }
+      {
+        "type": "header",
+        "content": "Mega slots (collections only, by dropdown order)"
+      },
+      {
+        "type": "header",
+        "content": "Slot #1"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm1_enable",
+        "label": "Enable slot #1",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "mm1_categories_heading",
+        "label": "Categories small heading",
+        "default": "Categories"
+      },
+      {
+        "type": "collection_list",
+        "id": "mm1_collections",
+        "label": "Collections (select multiple)"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm1_show_collection_images",
+        "label": "Show collection images",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mm1_product_heading",
+        "label": "Product small heading",
+        "default": "Featured"
+      },
+      {
+        "type": "product",
+        "id": "mm1_product",
+        "label": "Product (optional)"
+      },
+      {
+        "type": "header",
+        "content": "Slot #2"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm2_enable",
+        "label": "Enable slot #2",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "mm2_categories_heading",
+        "label": "Categories small heading",
+        "default": "Categories"
+      },
+      {
+        "type": "collection_list",
+        "id": "mm2_collections",
+        "label": "Collections (select multiple)"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm2_show_collection_images",
+        "label": "Show collection images",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mm2_product_heading",
+        "label": "Product small heading",
+        "default": "Featured"
+      },
+      {
+        "type": "product",
+        "id": "mm2_product",
+        "label": "Product (optional)"
+      },
+      {
+        "type": "header",
+        "content": "Slot #3"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm3_enable",
+        "label": "Enable slot #3",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "mm3_categories_heading",
+        "label": "Categories small heading",
+        "default": "Categories"
+      },
+      {
+        "type": "collection_list",
+        "id": "mm3_collections",
+        "label": "Collections (select multiple)"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm3_show_collection_images",
+        "label": "Show collection images",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mm3_product_heading",
+        "label": "Product small heading",
+        "default": "Featured"
+      },
+      {
+        "type": "product",
+        "id": "mm3_product",
+        "label": "Product (optional)"
+      },
+      {
+        "type": "header",
+        "content": "Slot #4"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm4_enable",
+        "label": "Enable slot #4",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "mm4_categories_heading",
+        "label": "Categories small heading",
+        "default": "Categories"
+      },
+      {
+        "type": "collection_list",
+        "id": "mm4_collections",
+        "label": "Collections (select multiple)"
+      },
+      {
+        "type": "checkbox",
+        "id": "mm4_show_collection_images",
+        "label": "Show collection images",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mm4_product_heading",
+        "label": "Product small heading",
+        "default": "Featured"
+      },
+      {
+        "type": "product",
+        "id": "mm4_product",
+        "label": "Product (optional)"
+      }
     ]
   },
   {
     "name": "Search",
-    "settings":[
-        {
-            "label": "Popular searches",
-            "id": "popular_searches",
-            "type": "richtext"
-        },
-        {
-            "label": "Popular products collection",
-            "id": "popular_products_collection",
-            "type": "collection"
-        },
-        {
-            "type": "range",
-            "id": "popular_products_limit",
-            "label": "Popular products limit",
-            "min": 1,
-            "max": 10,
-            "step": 1,
-            "default": 6
-        }
+    "settings": [
+      {
+        "label": "Popular searches",
+        "id": "popular_searches",
+        "type": "richtext"
+      },
+      {
+        "label": "Popular products collection",
+        "id": "popular_products_collection",
+        "type": "collection"
+      },
+      {
+        "type": "range",
+        "id": "popular_products_limit",
+        "label": "Popular products limit",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 6
+      }
     ]
   },
   {
@@ -484,7 +607,7 @@
         "id": "font_heading",
         "default": "inter_n7",
         "label": "Font",
-        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https:\/\/help.shopify.com\/en\/manual\/online-store\/os\/store-speed\/improving-speed#fonts)"
       },
       {
         "type": "header",
@@ -495,7 +618,7 @@
         "id": "font_body",
         "default": "inter_n5",
         "label": "Font",
-        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https:\/\/help.shopify.com\/en\/manual\/online-store\/os\/store-speed\/improving-speed#fonts)"
       }
     ]
   },
