@@ -524,8 +524,8 @@ $padding-xxl: 35px;
   }
 
   &__variant {
-    @include fonts.font(body-500, 12px, 1.2);
-    color: $additional-color-4;
+    @include fonts.font(body-400, 12px, 1.2);
+    color: $dark-grey;
     margin: 0;
   }
 
@@ -804,7 +804,7 @@ $padding-xxl: 35px;
       }
 
       &__variant {
-        @include fonts.font(body-500, 11px, 1.2);
+        @include fonts.font(body-400, 11px, 1.2);
       }
 
       &__bottom {
