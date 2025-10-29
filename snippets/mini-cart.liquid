@@ -36,13 +36,9 @@
       <button class="b-mini_cart-continue">CONTINUE SHOPPING</button>
     </div>
 
-    <!-- Cart items -->
     <div class="b-mini_cart-content" x-show="$store.cart.items.length > 0">
-      <!-- Column headers -->
-      <div class="b-mini_cart-columns">
-        <span class="b-mini_cart-columns__product">PRODUCT</span>
-        <span class="b-mini_cart-columns__total">TOTAL</span>
-      </div>
+
+      <div class="b-mini_cart-columns"></div>
 
       <div class="b-mini_cart-items">
         <template x-for="(item, index) in $store.cart.items" :key="`${item.id}-${index}`">
@@ -76,19 +72,20 @@
                   </p>
                 </div>
 
-                <div class="b-mini_cart-item__total-section">
-                  <div class="b-mini_cart-item__total">
-              <span
-                class="b-mini_cart-item__total-compare"
-                x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
-                x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
-              </span>
-                    <span class="b-mini_cart-item__total-price"
-                          x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))"></span>
-                  </div>
-                  <button class="b-mini_cart-item__remove"
-                          @click="$store.cart.removeFromCart(item.key)">Remove</button>
+                <div class="b-mini_cart-item__total">
+            <span
+              class="b-mini_cart-item__total-compare"
+              x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
+              x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
+            </span>
+                  <span class="b-mini_cart-item__total-price"
+                        x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))"></span>
                 </div>
+              </div>
+
+              <div class="b-mini_cart-item__bottom-controls">
+                <button class="b-mini_cart-item__remove"
+                        @click="$store.cart.removeFromCart(item.key)">Remove</button>
               </div>
             </div>
           </div>
