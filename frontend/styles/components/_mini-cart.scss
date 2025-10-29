@@ -149,6 +149,7 @@ $padding-xl: 24px;
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0;
   }
 
   &-columns {
@@ -195,9 +196,10 @@ $padding-xl: 24px;
     gap: $padding-md;
     padding: $padding-md 0;
     position: relative;
+    border-bottom: 1px solid $light-grey-1;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid $light-grey-1;
+    &:last-child {
+      border-bottom: none;
     }
 
     &__left-section {
@@ -375,16 +377,10 @@ $padding-xl: 24px;
       cursor: pointer;
       padding: 0;
       margin: 0;
-      border-radius: 4px;
       transition: all 0.2s ease;
 
       &:hover {
-        background: $lightest-grey-3;
         color: $additional-color-5;
-      }
-
-      &:active {
-        background: $light-grey-1;
       }
     }
 
@@ -601,6 +597,7 @@ $padding-xl: 24px;
     border-top: 1px solid $light-grey-1;
     padding-top: $padding-lg;
     margin-top: $padding-lg;
+    flex-shrink: 0;
 
     &__row {
       display: flex;

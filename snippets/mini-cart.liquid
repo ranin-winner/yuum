@@ -179,7 +179,7 @@
     {% endif %}
 
     <!-- Total -->
-    <div class="b-mini_cart-total">
+    <div class="b-mini_cart-total" x-show="$store.cart.items.length > 0">
       <div class="b-mini_cart-total__row">
         <span class="b-mini_cart-total__label">Total price:</span>
         <span class="b-mini_cart-total__value" x-text="'{{ cart.currency.symbol }}' + $store.cart.totalPrice"></span>
