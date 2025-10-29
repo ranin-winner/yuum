@@ -1,7 +1,6 @@
 @use '../config/all-config' as cfg;
 @use '../config/fonts' as fonts;
 
-// ===== Додаємо твої кольори прямо тут =====
 $white: #FFFFFF;
 $lightest-grey-3: #F5F5F5;
 $lighter-grey-2: #EEEEEE;
@@ -15,7 +14,6 @@ $additional-color-4: #6C6D6E;
 $additional-color-5: #3B3B3B;
 $black: #000000;
 
-// ===== Spacing & Radius =====
 $border-radius-sm: 8px;
 $border-radius-md: 12px;
 $border-radius-lg: 32px;
@@ -128,13 +126,14 @@ $padding-xl: 24px;
 
   &-continue {
     @include fonts.font(body-500, 14px, 1);
+    letter-spacing: 4px;
+    text-transform: uppercase;
     background: $black;
     color: $white;
     border: none;
     padding: $padding-sm $padding-xl;
     border-radius: $border-radius-sm;
     cursor: pointer;
-    text-transform: uppercase;
     transition: background-color 0.2s;
 
     &:hover {
@@ -405,6 +404,8 @@ $padding-xl: 24px;
 
     .b-mini_cart-checkout {
       @include fonts.font(body-500, 16px, 1);
+      letter-spacing: 4px;
+      text-transform: uppercase;
       width: 100%;
       background: $black;
       color: $white;
@@ -414,7 +415,6 @@ $padding-xl: 24px;
       cursor: pointer;
       margin-bottom: $padding-sm;
       transition: background-color 0.2s;
-      text-transform: uppercase;
 
       &:hover {
         background: $additional-color-5;
