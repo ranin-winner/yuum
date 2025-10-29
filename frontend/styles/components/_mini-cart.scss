@@ -63,10 +63,16 @@ $padding-xl: 24px;
     position: absolute;
     top: $padding-lg;
     right: $padding-lg;
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     z-index: 10;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+    }
 
     svg {
       width: 100%;
@@ -115,7 +121,7 @@ $padding-xl: 24px;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px 0;
+    padding: $padding-xl * 2 0;
 
     &__title {
       @include fonts.font(body-500, 18px, 1.4);
@@ -169,8 +175,8 @@ $padding-xl: 24px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba($dark-grey, 0.2) transparent;
-    margin-right: -8px;
-    padding-right: 8px;
+    margin-right: -$padding-sm;
+    padding-right: $padding-sm;
 
     &::-webkit-scrollbar {
       width: 4px;
@@ -190,19 +196,28 @@ $padding-xl: 24px;
     display: flex;
     gap: $padding-md;
     padding: $padding-md 0;
-    border-bottom: 1px solid $light-grey-1;
+    position: relative;
 
-    &:last-child {
-      border-bottom: none;
+    &:not(:last-child) {
+      border-bottom: 1px solid $light-grey-1;
+    }
+
+    &__left-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $padding-sm;
+      min-width: 80px;
     }
 
     &__image {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       flex-shrink: 0;
-      border-radius: $border-radius-md;
+      border-radius: $border-radius-sm;
       overflow: hidden;
       margin: 0;
+      background: $white;
 
       img {
         width: 100%;
@@ -211,63 +226,54 @@ $padding-xl: 24px;
       }
     }
 
-    &__content {
+    &__right-section {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: $padding-sm;
     }
 
-    &__info {
-      .b-mini_cart-item__name {
-        @include fonts.font(heading-400, 18px, 24px);
-        color: $dark-grey;
-        margin: 0 0 4px 0;
-      }
-
-      .b-mini_cart-item__variant {
-        @include fonts.font(body-500, 14px, 20px);
-        color: $dark-grey;
-        margin: 0 0 8px 0;
-      }
-
-      .b-mini_cart-item__price {
-        @include fonts.font(body-400, 14px, 1.4);
-        color: $dark-grey;
-        margin: 0;
-
-        .b-mini_cart-item__compare-price {
-          text-decoration: line-through;
-          opacity: 0.5;
-          margin-right: 8px;
-        }
-      }
-    }
-
-    &__controls {
+    &__main-info {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: flex-start;
+      width: 100%;
+      gap: $padding-md;
     }
 
-    &__left {
-      display: flex;
-      align-items: center;
-      gap: $padding-sm;
+    &__text-content {
+      flex: 1;
     }
 
-    &__remove {
-      @include fonts.font(body-400, 12px, 1);
+    &__name {
+      @include fonts.font(heading-400, 16px, 20px);
+      color: $dark-grey;
+      margin: 0 0 4px 0;
+    }
+
+    &__variant {
+      @include fonts.font(body-500, 14px, 18px);
       color: $additional-color-4;
-      background: none;
-      border: none;
-      text-decoration: underline;
-      cursor: pointer;
-      padding: 0;
+      margin: 0 0 8px 0;
+    }
 
-      &:hover {
-        text-decoration: none;
+    &__price {
+      @include fonts.font(body-400, 14px, 1.4);
+      color: $dark-grey;
+      margin: 0;
+
+      .b-mini_cart-item__compare-price {
+        text-decoration: line-through;
+        opacity: 0.5;
+        margin-right: $padding-sm;
       }
+    }
+
+    &__total-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $padding-sm;
+      min-width: 80px;
     }
 
     &__total {
@@ -287,6 +293,99 @@ $padding-xl: 24px;
         color: $dark-grey;
       }
     }
+
+    &__remove {
+      @include fonts.font(body-400, 12px, 1);
+      color: $additional-color-4;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+      text-transform: uppercase;
+
+      &:hover {
+        text-decoration: none;
+        color: $dark-grey;
+      }
+    }
+  }
+
+  // Quantity controls
+  .b-quantity {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    &__btn {
+      background: transparent;
+      border: none;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: $dark-grey;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $additional-color-5;
+      }
+    }
+
+    &__value {
+      margin: 0 $padding-md;
+      font-weight: 500;
+      min-width: 20px;
+      text-align: center;
+      @include fonts.font(body-500, 14px, 1);
+      color: $dark-grey;
+    }
+  }
+
+  // Quantity controls - прозорий фон без бордерів
+  .b-quantity {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    &__btn {
+      background: transparent;
+      border: none;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: $dark-grey;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $additional-color-5;
+      }
+    }
+
+    &__value {
+      margin: 0 $padding-md;
+      font-weight: 500;
+      min-width: 20px;
+      text-align: center;
+      @include fonts.font(body-500, 14px, 1);
+      color: $dark-grey;
+    }
   }
 
   &-recommendations {
@@ -294,10 +393,9 @@ $padding-xl: 24px;
     border-radius: $border-radius-md;
     padding: $padding-lg;
     margin-top: $padding-xl;
+    border: 1px solid $light-grey-1;
 
     @include cfg.media(max-m) {
-      background: $white;
-      border: 1px solid $light-grey-1;
       padding: $padding-md;
     }
 
@@ -309,16 +407,20 @@ $padding-xl: 24px;
     }
 
     &__title {
-      @include fonts.font(body-500, 16px, 22px);
+      font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: $dark-grey;
       margin: 0;
+      opacity: 0.8;
     }
 
     &__controls {
       display: flex;
-      gap: 8px;
+      gap: $padding-sm;
     }
 
     &__arrow {
@@ -365,7 +467,7 @@ $padding-xl: 24px;
 
   &-carousel__progress {
     position: relative;
-    width: 60px;
+    width: 200px;
     height: 3px;
     background: rgba($dark-grey, 0.1);
     border-radius: 2px;
@@ -378,6 +480,116 @@ $padding-xl: 24px;
       transition: width 0.3s ease;
     }
   }
+
+  .b-recommendation-item {
+    display: flex;
+    gap: $padding-sm;
+    align-items: center;
+    padding: $padding-md;
+    background: $white;
+    border-radius: $border-radius-md;
+    margin-bottom: $padding-sm;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+  &__image {
+    width: 116px;
+    height: 116px;
+    flex-shrink: 0;
+    border-radius: $border-radius-sm;
+    overflow: hidden;
+    margin: 0;
+    background: $white;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__name {
+    @include fonts.font(heading-400, 16px, 1.2);
+    color: $dark-grey;
+    margin: 0;
+  }
+
+  &__variant {
+    @include fonts.font(body-500, 12px, 1.2);
+    color: $additional-color-4;
+    margin: 0;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  &__price {
+    @include fonts.font(body-600, 14px, 1.4);
+    color: $dark-grey;
+  }
+
+  &__add {
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.desktop-add {
+      background: $black;
+      color: $white;
+      padding: $padding-md $padding-lg;
+      border-radius: $border-radius-lg;
+      @include fonts.font(body-500, 14px, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include cfg.media(max-m) {
+        display: none;
+      }
+
+      &:hover {
+        background: $additional-color-5;
+      }
+    }
+
+    &.mobile-add {
+      display: none;
+      width: 44px;
+      height: 44px;
+      background: $black;
+      color: $white;
+      border-radius: 50%;
+      @include fonts.font(body-500, 20px, 1);
+      font-weight: bold;
+
+      @include cfg.media(max-m) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:hover {
+        background: $additional-color-5;
+      }
+    }
+  }
+}
 
   &-total {
     border-top: 1px solid $light-grey-1;
@@ -426,141 +638,6 @@ $padding-xl: 24px;
       color: $additional-color-4;
       text-align: center;
       margin: 0;
-    }
-  }
-}
-
-.b-quantity {
-  display: flex;
-  align-items: center;
-  border: 1px solid $additional-color-1;
-  border-radius: $border-radius-sm;
-  overflow: hidden;
-  background: $white;
-
-  &__btn {
-    width: 32px;
-    height: 32px;
-    border: none;
-    background: $white;
-    @include fonts.font(body-400, 16px, 1);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-    color: $dark-grey;
-
-    &:hover {
-      background: $lightest-grey-3;
-    }
-  }
-
-  &__value {
-    width: 40px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @include fonts.font(body-500, 14px, 1);
-    background: $white;
-    color: $dark-grey;
-    border-left: 1px solid $lighter-grey-2;
-    border-right: 1px solid $lighter-grey-2;
-  }
-}
-
-.b-recommendation-item {
-  display: flex;
-  gap: $padding-sm;
-  align-items: center;
-  padding: 8px 0;
-
-  &__image {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    border-radius: $border-radius-md;
-    overflow: hidden;
-    margin: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__content {
-    flex: 1;
-  }
-
-  &__name {
-    @include fonts.font(heading-400, 18px, 24px);
-    color: $dark-grey;
-    margin: 0 0 4px 0;
-  }
-
-  &__variant {
-    @include fonts.font(body-500, 14px, 20px);
-    color: $dark-grey;
-    margin: 0 0 8px 0;
-  }
-
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__price {
-    @include fonts.font(body-600, 14px, 1.4);
-    color: $dark-grey;
-  }
-
-  &__add {
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    @include fonts.font(body-500, 12px, 1);
-
-    &.desktop-add {
-      background: $black;
-      color: $white;
-      padding: 8px $padding-md;
-      border-radius: $border-radius-sm;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-
-      @include cfg.media(max-m) {
-        display: none;
-      }
-
-      &:hover {
-        background: $additional-color-5;
-      }
-    }
-
-    &.mobile-add {
-      display: none;
-      width: 32px;
-      height: 32px;
-      background: $dark-grey;
-      color: $white;
-      border-radius: 50%;
-      @include fonts.font(body-500, 16px, 1);
-
-      @include cfg.media(max-m) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      &:hover {
-        background: $additional-color-5;
-      }
     }
   }
 }

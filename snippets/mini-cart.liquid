@@ -44,50 +44,50 @@
         <span class="b-mini_cart-columns__total">TOTAL</span>
       </div>
 
-      <!-- Items -->
       <div class="b-mini_cart-items">
         <template x-for="(item, index) in $store.cart.items" :key="`${item.id}-${index}`">
           <div class="b-mini_cart-item">
-            <figure class="b-mini_cart-item__image">
-              <img :src="item.image" :alt="item.title">
-            </figure>
+            <div class="b-mini_cart-item__left-section">
+              <figure class="b-mini_cart-item__image">
+                <img :src="item.image" :alt="item.title">
+              </figure>
 
-            <div class="b-mini_cart-item__content">
-              <div class="b-mini_cart-item__info">
-                <h4 class="b-mini_cart-item__name" x-html="item.product_title || item.title"></h4>
-                <!-- Product variant (40g) -->
-                <p class="b-mini_cart-item__variant" x-text="item.variant_title || '40g'"></p>
-                <p class="b-mini_cart-item__price">
-                  <span
-                    class="b-mini_cart-item__compare-price"
-                    x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
-                    x-text="'{{ cart.currency.symbol }}' + (((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100).toFixed(2))">
-                  </span>
-                  <span x-text="'{{ cart.currency.symbol }}' + (((item.final_price ?? item.price ?? 0) / 100).toFixed(2))"></span>
-                </p>
+              <div class="b-quantity">
+                <button class="b-quantity__btn b-quantity__btn--minus"
+                        @click="$store.cart.decrementQuantity(item.id, item.quantity)">-</button>
+                <div class="b-quantity__value" x-text="item.quantity"></div>
+                <button class="b-quantity__btn b-quantity__btn--plus"
+                        @click="$store.cart.updateCart(item.id, (item.quantity || 1) + 1)">+</button>
               </div>
+            </div>
 
-              <div class="b-mini_cart-item__controls">
-                <div class="b-mini_cart-item__left">
-                  <div class="b-quantity">
-                    <button class="b-quantity__btn b-quantity__btn--minus"
-                            @click="$store.cart.decrementQuantity(item.id, item.quantity)">-</button>
-                    <div class="b-quantity__value" x-text="item.quantity"></div>
-                    <button class="b-quantity__btn b-quantity__btn--plus"
-                            @click="$store.cart.updateCart(item.id, (item.quantity || 1) + 1)">+</button>
+            <div class="b-mini_cart-item__right-section">
+              <div class="b-mini_cart-item__main-info">
+                <div class="b-mini_cart-item__text-content">
+                  <h4 class="b-mini_cart-item__name" x-html="item.product_title || item.title"></h4>
+                  <p class="b-mini_cart-item__variant" x-text="item.variant_title || '40g'"></p>
+                  <p class="b-mini_cart-item__price">
+              <span
+                class="b-mini_cart-item__compare-price"
+                x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
+                x-text="'{{ cart.currency.symbol }}' + (((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100).toFixed(2))">
+              </span>
+                    <span x-text="'{{ cart.currency.symbol }}' + (((item.final_price ?? item.price ?? 0) / 100).toFixed(2))"></span>
+                  </p>
+                </div>
+
+                <div class="b-mini_cart-item__total-section">
+                  <div class="b-mini_cart-item__total">
+              <span
+                class="b-mini_cart-item__total-compare"
+                x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
+                x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
+              </span>
+                    <span class="b-mini_cart-item__total-price"
+                          x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))"></span>
                   </div>
                   <button class="b-mini_cart-item__remove"
                           @click="$store.cart.removeFromCart(item.key)">Remove</button>
-                </div>
-
-                <div class="b-mini_cart-item__total">
-                  <span
-                    class="b-mini_cart-item__total-compare"
-                    x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
-                    x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
-                  </span>
-                  <span class="b-mini_cart-item__total-price"
-                        x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))"></span>
                 </div>
               </div>
             </div>
