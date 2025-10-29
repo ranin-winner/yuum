@@ -16,6 +16,7 @@ $black: #000000;
 
 $border-radius-sm: 8px;
 $border-radius-md: 12px;
+$border-radius-mid: 20px;
 $border-radius-lg: 32px;
 
 $padding-sm: 12px;
@@ -177,6 +178,10 @@ $padding-xl: 24px;
     margin-right: -$padding-sm;
     padding-right: $padding-sm;
 
+    &-border {
+      border-bottom: 1px solid $additional-color-2;
+    }
+
     &::-webkit-scrollbar {
       width: 4px;
     }
@@ -255,7 +260,7 @@ $padding-xl: 24px;
 
     &__variant {
       @include fonts.font(body-400, 14px, 18px);
-      color: $additional-color-4;
+      color: $dark-grey;
       margin: 0 0 8px 0;
     }
 
@@ -303,7 +308,6 @@ $padding-xl: 24px;
       color: $additional-color-4;
       background: none;
       border: none;
-      text-decoration: underline;
       cursor: pointer;
       padding: 0;
       text-transform: uppercase;
@@ -395,13 +399,17 @@ $padding-xl: 24px;
 
   &-recommendations {
     background: $lightest-grey-3;
-    border-radius: $border-radius-md;
+    border-radius: $border-radius-mid;
     padding: $padding-lg;
     margin-top: $padding-xl;
+    margin-left: -24px;
+    margin-right: -24px;
     border: 1px solid $light-grey-1;
 
     @include cfg.media(max-m) {
       padding: $padding-md;
+      margin-left: -16px;
+      margin-right: -16px;
     }
 
     &__header {
@@ -488,7 +496,7 @@ $padding-xl: 24px;
     gap: $padding-sm;
     align-items: center;
     padding: $padding-md;
-    background: $white;
+    background: $lightest-grey-3;
     border-radius: $border-radius-md;
     margin-bottom: $padding-sm;
 
@@ -497,18 +505,19 @@ $padding-xl: 24px;
     }
 
   &__image {
-    width: 116px;
-    height: 116px;
+    width: 80px;
+    height: 80px;
     flex-shrink: 0;
     border-radius: $border-radius-sm;
     overflow: hidden;
     margin: 0;
-    background: $white;
+    background: $light-grey-1;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background: $additional-color-1;
     }
   }
 
@@ -553,7 +562,7 @@ $padding-xl: 24px;
       color: $white;
       padding: $padding-md $padding-lg;
       border-radius: $border-radius-lg;
-      @include fonts.font(body-500, 14px, 1);
+      @include fonts.font(body-400, 14px, 1);
       text-transform: uppercase;
       letter-spacing: 1px;
       min-width: 100px;
@@ -607,7 +616,8 @@ $padding-xl: 24px;
     }
 
     &__label {
-      @include fonts.font(body-600, 18px, 1.4);
+      @include fonts.font(body-400, 18px, 1.4);
+      text-transform: uppercase;
       color: $dark-grey;
     }
 
@@ -617,7 +627,7 @@ $padding-xl: 24px;
     }
 
     .b-mini_cart-checkout {
-      @include fonts.font(body-500, 16px, 1);
+      @include fonts.font(body-400, 16px, 1);
       letter-spacing: 4px;
       text-transform: uppercase;
       width: 100%;
