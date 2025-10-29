@@ -1,23 +1,49 @@
 @use '../config/all-config' as cfg;
 @use '../config/fonts' as fonts;
 
+// ===== Додаємо твої кольори прямо тут =====
+$white: #FFFFFF;
+$lightest-grey-3: #F5F5F5;
+$lighter-grey-2: #EEEEEE;
+$light-grey-1: #E7E7E7;
+$grey: #ADAEB0;
+$dark-grey: #474747;
+$additional-color-1: #E0E0E0;
+$additional-color-2: #C2C2C2;
+$additional-color-3: #949597;
+$additional-color-4: #6C6D6E;
+$additional-color-5: #3B3B3B;
+$black: #000000;
+
+// ===== Spacing & Radius =====
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 32px;
+
+$padding-sm: 12px;
+$padding-md: 16px;
+$padding-lg: 20px;
+$padding-xl: 24px;
+
 .b-mini_cart {
   position: fixed;
   top: 0;
   right: 0;
   width: 500px;
   height: 100vh;
-  background: #fff;
+  background: $white;
   box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  border-top-left-radius: 32px;
-  border-bottom-left-radius: 32px;
+  border-top-left-radius: $border-radius-lg;
+  border-bottom-left-radius: $border-radius-lg;
   transition: transform 0.3s ease;
+  padding: 0 $padding-xl $padding-xl $padding-xl;
 
   @include cfg.media(max-m) {
     width: 100%;
     height: 100%;
     border-radius: 0;
+    padding: 0 $padding-md $padding-md $padding-md;
   }
 
   &.is-open {
@@ -29,21 +55,16 @@
   }
 
   &__inner {
-    padding: 24px;
     height: 100%;
     display: flex;
     flex-direction: column;
-
-    @include cfg.media(max-m) {
-      padding: 20px 16px;
-    }
+    padding-top: $padding-xl;
   }
 
-  // Close button
   &-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: $padding-lg;
+    right: $padding-lg;
     width: 32px;
     height: 32px;
     cursor: pointer;
@@ -55,14 +76,14 @@
     }
   }
 
-  // Header - Shopping cart (1)
   &-header {
-    margin-bottom: 16px;
+    margin-bottom: $padding-md;
+    padding-right: 40px;
   }
 
   &-title {
     @include fonts.font(heading-400, 32px, 38px);
-    color: #474747;
+    color: $dark-grey;
     margin: 0;
   }
 
@@ -70,17 +91,16 @@
     opacity: 0.5;
   }
 
-  // Shipping
   &-shipping {
-    background: #f8f8f8;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 24px;
-    border: 1px solid #e5e5e5;
+    background: $lightest-grey-3;
+    border-radius: $border-radius-sm;
+    padding: $padding-sm $padding-md;
+    margin-bottom: $padding-xl;
+    border: 1px solid $light-grey-1;
 
     &__text {
       @include fonts.font(body-400, 14px, 1.4);
-      color: #474747;
+      color: $dark-grey;
       margin: 0;
       text-align: center;
     }
@@ -90,7 +110,6 @@
     }
   }
 
-  // Empty cart
   &-empty {
     flex: 1;
     display: flex;
@@ -102,59 +121,57 @@
 
     &__title {
       @include fonts.font(body-500, 18px, 1.4);
-      color: #474747;
-      margin: 0 0 24px 0;
+      color: $dark-grey;
+      margin: 0 0 $padding-xl 0;
     }
   }
 
-  // Continue shopping button
   &-continue {
     @include fonts.font(body-500, 14px, 1);
-    background: #000;
-    color: #fff;
+    background: $black;
+    color: $white;
     border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
+    padding: $padding-sm $padding-xl;
+    border-radius: $border-radius-sm;
     cursor: pointer;
     text-transform: uppercase;
     transition: background-color 0.2s;
 
     &:hover {
-      background: #333;
+      background: $additional-color-5;
     }
   }
 
-  // Cart content
   &-content {
     flex: 1;
     display: flex;
     flex-direction: column;
   }
 
-  // Columns
   &-columns {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 16px;
+    padding-bottom: $padding-sm;
+    border-bottom: 1px solid $light-grey-1;
+    margin-bottom: $padding-md;
 
     &__product,
     &__total {
       @include fonts.font(body-500, 12px, 1);
-      color: #474747;
+      color: $dark-grey;
       opacity: 0.5;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
   }
 
-  // Items list
   &-items {
     flex: 1;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(71, 71, 71, 0.2) transparent;
+    scrollbar-color: rgba($dark-grey, 0.2) transparent;
+    margin-right: -8px;
+    padding-right: 8px;
 
     &::-webkit-scrollbar {
       width: 4px;
@@ -165,17 +182,16 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(71, 71, 71, 0.2);
+      background-color: rgba($dark-grey, 0.2);
       border-radius: 2px;
     }
   }
 
-  // Item
   &-item {
     display: flex;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid #e5e5e5;
+    gap: $padding-md;
+    padding: $padding-md 0;
+    border-bottom: 1px solid $light-grey-1;
 
     &:last-child {
       border-bottom: none;
@@ -185,7 +201,7 @@
       width: 80px;
       height: 80px;
       flex-shrink: 0;
-      border-radius: 12px;
+      border-radius: $border-radius-md;
       overflow: hidden;
       margin: 0;
 
@@ -200,25 +216,25 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: $padding-sm;
     }
 
     &__info {
       .b-mini_cart-item__name {
         @include fonts.font(heading-400, 18px, 24px);
-        color: #474747;
+        color: $dark-grey;
         margin: 0 0 4px 0;
       }
 
       .b-mini_cart-item__variant {
         @include fonts.font(body-500, 14px, 20px);
-        color: #474747;
+        color: $dark-grey;
         margin: 0 0 8px 0;
       }
 
       .b-mini_cart-item__price {
         @include fonts.font(body-400, 14px, 1.4);
-        color: #474747;
+        color: $dark-grey;
         margin: 0;
 
         .b-mini_cart-item__compare-price {
@@ -238,12 +254,12 @@
     &__left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: $padding-sm;
     }
 
     &__remove {
       @include fonts.font(body-400, 12px, 1);
-      color: #666;
+      color: $additional-color-4;
       background: none;
       border: none;
       text-decoration: underline;
@@ -264,41 +280,40 @@
         text-decoration: line-through;
         opacity: 0.5;
         margin-bottom: 2px;
-        color: #474747;
+        color: $dark-grey;
       }
 
       .b-mini_cart-item__total-price {
         @include fonts.font(body-600, 16px, 1.4);
-        color: #474747;
+        color: $dark-grey;
       }
     }
   }
 
-  // Recommendations
   &-recommendations {
-    background: #f5f5f5;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: auto;
+    background: $lightest-grey-3;
+    border-radius: $border-radius-md;
+    padding: $padding-lg;
+    margin-top: $padding-xl;
 
     @include cfg.media(max-m) {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      padding: 16px;
+      background: $white;
+      border: 1px solid $light-grey-1;
+      padding: $padding-md;
     }
 
     &__header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: $padding-md;
     }
 
     &__title {
       @include fonts.font(body-500, 16px, 22px);
-      color: #474747;
       letter-spacing: 4px;
       text-transform: uppercase;
+      color: $dark-grey;
       margin: 0;
     }
 
@@ -310,14 +325,14 @@
     &__arrow {
       width: 32px;
       height: 32px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #fff;
+      border: 1px solid $additional-color-1;
+      border-radius: $border-radius-sm;
+      background: $white;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #474747;
+      color: $dark-grey;
       transition: all 0.2s ease;
       padding: 0;
 
@@ -327,8 +342,8 @@
       }
 
       &:hover {
-        background: #f5f5f5;
-        border-color: #474747;
+        background: $lightest-grey-3;
+        border-color: $dark-grey;
       }
 
       &.swiper-button-disabled {
@@ -336,14 +351,9 @@
         cursor: not-allowed;
 
         &:hover {
-          background: #fff;
-          border-color: #ddd;
+          background: $white;
+          border-color: $additional-color-1;
         }
-      }
-
-      &--prev,
-      &--next {
-        // Specific styles for each arrow if needed
       }
     }
 
@@ -354,114 +364,95 @@
     }
   }
 
-  // Swiper styles
-  .swiper-wrapper {
-    display: flex;
-    transition: transform 0.3s ease;
-  }
-
-  .swiper-slide {
-    width: 100%;
-    flex-shrink: 0;
-  }
-
-  // Progress bar
   &-carousel__progress {
     position: relative;
-    width: 100%;
+    width: 60px;
     height: 3px;
-    background: rgba(71, 71, 71, 0.1);
+    background: rgba($dark-grey, 0.1);
     border-radius: 2px;
-    margin-top: 12px;
+    margin: $padding-sm auto 0 auto;
     overflow: hidden;
 
     .swiper-pagination-progressbar-fill {
-      background: #474747;
+      background: $dark-grey;
       border-radius: 2px;
       transition: width 0.3s ease;
     }
   }
 
-  // Total
   &-total {
-    border-top: 1px solid #e5e5e5;
-    padding-top: 20px;
-    margin-top: 20px;
+    border-top: 1px solid $light-grey-1;
+    padding-top: $padding-lg;
+    margin-top: $padding-lg;
 
     &__row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: $padding-lg;
     }
 
     &__label {
       @include fonts.font(body-600, 18px, 1.4);
-      color: #474747;
+      color: $dark-grey;
     }
 
     &__value {
       @include fonts.font(heading-400, 24px, 1.2);
-      color: #474747;
+      color: $dark-grey;
       font-weight: 600;
     }
 
     .b-mini_cart-checkout {
       @include fonts.font(body-500, 16px, 1);
       width: 100%;
-      background: #000;
-      color: #fff;
+      background: $black;
+      color: $white;
       border: none;
-      padding: 16px 24px;
-      border-radius: 32px;
+      padding: $padding-md $padding-xl;
+      border-radius: $border-radius-lg;
       cursor: pointer;
-      margin-bottom: 12px;
+      margin-bottom: $padding-sm;
       transition: background-color 0.2s;
       text-transform: uppercase;
 
       &:hover {
-        background: #333;
+        background: $additional-color-5;
       }
     }
 
     .b-mini_cart-tax {
       @include fonts.font(body-400, 12px, 1.4);
-      color: #666;
+      color: $additional-color-4;
       text-align: center;
       margin: 0;
     }
   }
 }
 
-// Quantity controls
 .b-quantity {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid $additional-color-1;
+  border-radius: $border-radius-sm;
   overflow: hidden;
-  background: #fff;
+  background: $white;
 
   &__btn {
     width: 32px;
     height: 32px;
     border: none;
-    background: #fff;
+    background: $white;
     @include fonts.font(body-400, 16px, 1);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
-    color: #474747;
+    color: $dark-grey;
 
     &:hover {
-      background: #f5f5f5;
-    }
-
-    &--minus,
-    &--plus {
-      color: #333;
+      background: $lightest-grey-3;
     }
   }
 
@@ -472,17 +463,16 @@
     align-items: center;
     justify-content: center;
     @include fonts.font(body-500, 14px, 1);
-    background: #fff;
-    color: #474747;
-    border-left: 1px solid #f0f0f0;
-    border-right: 1px solid #f0f0f0;
+    background: $white;
+    color: $dark-grey;
+    border-left: 1px solid $lighter-grey-2;
+    border-right: 1px solid $lighter-grey-2;
   }
 }
 
-// Recommended items
 .b-recommendation-item {
   display: flex;
-  gap: 12px;
+  gap: $padding-sm;
   align-items: center;
   padding: 8px 0;
 
@@ -490,7 +480,7 @@
     width: 80px;
     height: 80px;
     flex-shrink: 0;
-    border-radius: 12px;
+    border-radius: $border-radius-md;
     overflow: hidden;
     margin: 0;
 
@@ -507,13 +497,13 @@
 
   &__name {
     @include fonts.font(heading-400, 18px, 24px);
-    color: #474747;
+    color: $dark-grey;
     margin: 0 0 4px 0;
   }
 
   &__variant {
     @include fonts.font(body-500, 14px, 20px);
-    color: #474747;
+    color: $dark-grey;
     margin: 0 0 8px 0;
   }
 
@@ -525,7 +515,7 @@
 
   &__price {
     @include fonts.font(body-600, 14px, 1.4);
-    color: #474747;
+    color: $dark-grey;
   }
 
   &__add {
@@ -535,10 +525,10 @@
     @include fonts.font(body-500, 12px, 1);
 
     &.desktop-add {
-      background: #000;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 8px;
+      background: $black;
+      color: $white;
+      padding: 8px $padding-md;
+      border-radius: $border-radius-sm;
       text-transform: uppercase;
       display: flex;
       align-items: center;
@@ -549,7 +539,7 @@
       }
 
       &:hover {
-        background: #333;
+        background: $additional-color-5;
       }
     }
 
@@ -557,8 +547,8 @@
       display: none;
       width: 32px;
       height: 32px;
-      background: #474747;
-      color: #fff;
+      background: $dark-grey;
+      color: $white;
       border-radius: 50%;
       @include fonts.font(body-500, 16px, 1);
 
@@ -569,74 +559,8 @@
       }
 
       &:hover {
-        background: #333;
+        background: $additional-color-5;
       }
     }
   }
-}
-
-// Mobile responsiveness
-@include cfg.media(max-m) {
-  .b-mini_cart {
-    &-recommendations {
-      &__controls {
-        .b-mini_cart-recommendations__arrow {
-          background: #474747;
-          border-color: #474747;
-          color: #fff;
-
-          &:hover {
-            background: #333;
-          }
-
-          &.swiper-button-disabled {
-            background: #ddd;
-            border-color: #ddd;
-            color: #999;
-          }
-        }
-      }
-    }
-  }
-}
-
-// Loading state
-.b-mini_cart-list.m-loading {
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 10;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 48px;
-    height: 48px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #474747;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    z-index: 11;
-  }
-
-  @keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-}
-
-// Utility classes for Alpine.js states
-[x-cloak] {
-  display: none !important;
 }
