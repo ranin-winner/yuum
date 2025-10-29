@@ -23,6 +23,7 @@ $padding-sm: 12px;
 $padding-md: 16px;
 $padding-lg: 20px;
 $padding-xl: 24px;
+$padding-xxl: 35px;
 
 .b-mini_cart {
   position: fixed;
@@ -62,7 +63,7 @@ $padding-xl: 24px;
 
   &-close {
     position: absolute;
-    top: $padding-lg;
+    top: $padding-xxl;
     right: $padding-lg;
     width: 20px;
     height: 20px;
@@ -300,18 +301,22 @@ $padding-xl: 24px;
       justify-content: flex-end;
       width: 100%;
       margin-top: auto;
-      padding-top: $padding-sm;
+      padding-bottom: $padding-sm;
     }
 
     &__remove {
       @include fonts.font(body-400, 12px, 1);
-      color: $additional-color-4;
+      color: $dark-grey;
       background: none;
       border: none;
       cursor: pointer;
       padding: 0;
       text-transform: uppercase;
       letter-spacing: 4px;
+
+      @include cfg.media(max-m) {
+        color: $additional-color-4;
+      }
 
       &:hover {
         text-decoration: none;
@@ -472,6 +477,7 @@ $padding-xl: 24px;
       width: 100%;
       position: relative;
       overflow: hidden;
+      border-top: 1px solid $dark-grey;
     }
   }
 
