@@ -40,13 +40,6 @@ $padding-xxl: 35px;
   transition: transform 0.3s ease;
   padding: 0 $padding-xl $padding-xl $padding-xl;
 
-  @include cfg.media(max-m) {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    padding: 0 $padding-md $padding-md $padding-md;
-  }
-
   &.is-open {
     transform: translateX(0);
   }
@@ -315,10 +308,6 @@ $padding-xxl: 35px;
       text-transform: uppercase;
       letter-spacing: 4px;
 
-      @include cfg.media(max-m) {
-        color: $additional-color-4;
-      }
-
       &:hover {
         text-decoration: none;
         color: $dark-grey;
@@ -326,7 +315,6 @@ $padding-xxl: 35px;
     }
   }
 
-  // Quantity controls
   .b-quantity {
     display: flex;
     align-items: center;
@@ -411,12 +399,6 @@ $padding-xxl: 35px;
     margin-left: -24px;
     margin-right: -24px;
     border: 1px solid $light-grey-1;
-
-    @include cfg.media(max-m) {
-      padding: $padding-md;
-      margin-left: -16px;
-      margin-right: -16px;
-    }
 
     &__header {
       display: flex;
@@ -596,18 +578,12 @@ $padding-xxl: 35px;
       @include fonts.font(body-500, 20px, 1);
       font-weight: bold;
 
-      @include cfg.media(max-m) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      &:hover {
-        background: $additional-color-5;
+        &:hover {
+          background: $additional-color-5;
+        }
       }
     }
   }
-}
 
   &-total {
     border-top: 1px solid $light-grey-1;
@@ -657,6 +633,227 @@ $padding-xxl: 35px;
       color: $additional-color-4;
       text-align: center;
       margin: 0;
+    }
+  }
+}
+
+// Мобільні стилі окремо (без вкладеності)
+@include cfg.media(max-m) {
+  .b-mini_cart {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 0 $padding-sm $padding-sm $padding-sm;
+
+    &__inner {
+      padding-top: $padding-lg;
+    }
+
+    &-close {
+      top: $padding-md;
+      right: $padding-sm;
+      width: 24px;
+      height: 24px;
+    }
+
+    &-header {
+      margin-bottom: $padding-sm;
+      padding-right: 50px;
+    }
+
+    &-title {
+      @include fonts.font(heading-400, 24px, 28px);
+    }
+
+    &-shipping {
+      margin-bottom: $padding-md;
+      padding: $padding-sm 0;
+      border-bottom-width: 1px;
+
+      &__text {
+        @include fonts.font(body-400, 13px, 1.4);
+        text-align: center;
+      }
+    }
+
+    &-empty {
+      padding: $padding-xl 0;
+
+      &__title {
+        @include fonts.font(body-500, 16px, 1.4);
+        margin: 0 0 $padding-lg 0;
+      }
+    }
+
+    &-columns {
+      display: none;
+    }
+
+    &-item {
+      gap: $padding-sm;
+      padding: $padding-sm 0;
+
+      &__left-section {
+        min-width: 60px;
+        gap: 8px;
+      }
+
+      &__image {
+        width: 60px;
+        height: 60px;
+      }
+
+      &__name {
+        @include fonts.font(heading-400, 14px, 18px);
+        margin: 0 0 2px 0;
+      }
+
+      &__variant {
+        @include fonts.font(body-400, 12px, 16px);
+        margin: 0 0 4px 0;
+      }
+
+      &__price {
+        @include fonts.font(body-400, 13px, 1.4);
+      }
+
+      &__total {
+        min-width: 60px;
+
+        .b-mini_cart-item__total-price {
+          @include fonts.font(body-400, 14px, 1.4);
+        }
+      }
+
+      &__bottom-controls {
+        padding-bottom: 0;
+      }
+
+      &__remove {
+        @include fonts.font(body-400, 11px, 1);
+        letter-spacing: 2px;
+        color: $additional-color-4;
+      }
+    }
+
+    .b-quantity {
+      padding: 2px;
+
+      &__btn {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+      }
+
+      &__value {
+        margin: 0 10px;
+        @include fonts.font(body-400, 13px, 1);
+      }
+    }
+
+    &-recommendations {
+      padding: $padding-sm;
+      margin-top: $padding-md;
+      margin-left: -$padding-sm;
+      margin-right: -$padding-sm;
+      border-radius: $border-radius-md;
+
+      &__header {
+        margin-bottom: $padding-sm;
+      }
+
+      &__title {
+        @include fonts.font(body-400, 12px, 16px);
+        letter-spacing: 2px;
+      }
+
+      &__controls {
+        gap: 8px;
+      }
+
+      &__arrow {
+        width: 28px;
+        height: 28px;
+      }
+
+      &__slider {
+        border-top-width: 1px;
+      }
+    }
+
+    &-carousel__progress {
+      width: 150px;
+    }
+
+    .b-recommendation-item {
+      padding: $padding-sm;
+      margin-bottom: 8px;
+      gap: 10px;
+
+      &__image {
+        width: 50px;
+        height: 50px;
+      }
+
+      &__content {
+        gap: 2px;
+      }
+
+      &__name {
+        @include fonts.font(heading-400, 13px, 1.2);
+      }
+
+      &__variant {
+        @include fonts.font(body-500, 11px, 1.2);
+      }
+
+      &__bottom {
+        margin-top: 2px;
+      }
+
+      &__price {
+        @include fonts.font(body-400, 13px, 1.4);
+      }
+
+      &__add.mobile-add {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        @include fonts.font(body-500, 18px, 1);
+      }
+
+      &__add.desktop-add {
+        display: none;
+      }
+    }
+
+    &-total {
+      padding-top: $padding-md;
+      margin-top: $padding-md;
+
+      &__row {
+        margin-bottom: $padding-md;
+      }
+
+      &__label {
+        @include fonts.font(body-400, 16px, 1.4);
+      }
+
+      &__value {
+        @include fonts.font(heading-400, 20px, 1.2);
+      }
+
+      .b-mini_cart-checkout {
+        @include fonts.font(body-400, 14px, 1);
+        padding: $padding-sm $padding-lg;
+        letter-spacing: 3px;
+      }
+
+      .b-mini_cart-tax {
+        @include fonts.font(body-400, 11px, 1.4);
+      }
     }
   }
 }
