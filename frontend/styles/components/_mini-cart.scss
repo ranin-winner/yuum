@@ -12,6 +12,7 @@ $additional-color-2: #C2C2C2;
 $additional-color-3: #949597;
 $additional-color-4: #6C6D6E;
 $additional-color-5: #3B3B3B;
+$additional-color-6: #030303;
 $black: #000000;
 
 $border-radius-sm: 8px;
@@ -306,7 +307,7 @@ $padding-xxl: 35px;
 
     &__remove {
       @include fonts.font(body-400, 12px, 1);
-      color: $dark-grey;
+      color: $additional-color-6;
       background: none;
       border: none;
       cursor: pointer;
