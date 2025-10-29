@@ -62,7 +62,9 @@
                   <div class="b-mini_cart-item__main-info">
                     <div class="b-mini_cart-item__text-content">
                       <h4 class="b-mini_cart-item__name" x-html="item.product_title || item.title"></h4>
-                      <p class="b-mini_cart-item__variant" x-text="item.variant_title || '40g'"></p>
+                      <p class="b-mini_cart-item__variant"
+                         x-text="item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title : (item.grams ? item.grams + 'g' : '')">
+                      </p>
                       <p class="b-mini_cart-item__price">
                   <span
                     class="b-mini_cart-item__compare-price"
