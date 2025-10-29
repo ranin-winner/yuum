@@ -519,3 +519,108 @@
     }
 }
 
+
+// bundle styles 
+.cOnQpd {
+    border-top-right-radius: 32px;
+    border-top-left-radius: 32px;
+}
+
+.dtWOIU .ush-product-quantity {
+    border: none!important;
+}
+
+.ush-quantity-plus,
+.ush-quantity-minus {
+    width: 40px!important;
+    height: 40px!important;
+    border: 1px solid #474747;
+    border-radius: 50%;
+}
+
+.dtWOIU .ush-product-item {
+    gap: 16px;
+    flex-direction: row!important;
+    border-radius: 12px!important;
+    border: 1px solid #E0E0E0;
+}
+
+.dtWOIU .ush-product-img {
+    max-width: 162px;
+    max-height: 162px;
+}
+
+.dtWOIU {
+    border-radius: 12px!important;
+}
+
+.ush-product-img-shadow {
+    border-radius: 12px!important;
+}
+
+// styles for modal (porduct description)
+.ush-info-title {
+    @apply heading-4;
+    font-size: 48px!important;
+    font-weight: 400!important;
+}
+
+.fWaXZd .ush-info-quantity .ush-qty-cont {
+    border: none!important;
+    height: 40px!important;
+}
+
+// styles for modal content
+.fWaXZd .ushopaid-variant-selector-content {
+    background-color: #E7E7E7!important;
+    border-radius: 32px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: auto!important;
+    max-width: 660px!important;
+    padding: 60px 40px !important;
+}
+
+.fWaXZd .ush-vs-right {
+    width: 100%!important;
+    padding: 16px 0px 0px 0px!important;
+}
+
+.fWaXZd .ush-info-desc {
+    max-width: 100%!important;
+    font-size: 16px!important;
+}
+
+
+.fWaXZd .ush-vs-left {
+    display: none!important;
+}
+
+.fWaXZd .ush-scroll-area {
+    max-height: 100% !important;
+}
+
+// modal close btn 
+.fWaXZd .ush-vs-close {
+    background-color: transparent !important;
+}
+
+// mobile styles for modal
+.ush-main-image {
+    display: none!important;
+}
+
+.ush-vs-content-center {
+    background-color: #E7E7E7!important;
+}
+
+.hWnQcO .ush-info-quantity .ush-qty-cont {
+    border: none!important;
+}
+
+.hWnQcO .ush-vs-close-button {
+    top: 0;
+    left: 100%;
+    transform: translateX(-100%) !important;
+    background: transparent!important;
+}
