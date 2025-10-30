@@ -49,9 +49,41 @@
         "copyright_text": "© 2023 Shop Name | All Rights Reserved",
         "footer_menu_3": "footer"
       }
+    },
+    "visit_block_pwidgn": {
+      "type": "visit-block",
+      "name": "Visit block",
+      "settings": {
+        "bg_color": "rgba(0,0,0,0)",
+        "pad_top": 120,
+        "pad_bottom": 120,
+        "container": "xl",
+        "col_gap": 72,
+        "inner_gap": 24,
+        "text_gap": 12,
+        "title_color": "#474747",
+        "text_color": "#5b5b5b",
+        "title_size": 76,
+        "text_size": 16,
+        "enable_parallax": false,
+        "radius": 20,
+        "left_opacity": 100,
+        "right_opacity": 100,
+        "title": "Visit us",
+        "text": "A boutique café is a place where you will be prepared and served a product in its original form, revealing the correct understanding of its taste.",
+        "btn_label": "Our locations",
+        "btn_url": "shopify:\/\/pages\/locations",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#1a1a1a",
+        "image_left": "shopify:\/\/shop_images\/Image_1_1.png",
+        "image_left_alt": "",
+        "image_right": "shopify:\/\/shop_images\/Image_2_1.png",
+        "image_right_alt": ""
+      }
     }
   },
   "order": [
-    "footer_custom_9dhpdA"
+    "footer_custom_9dhpdA",
+    "visit_block_pwidgn"
   ]
 }
