@@ -119,6 +119,18 @@
         "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
         "disabled": false,
         "settings": {}
+      },
+      "12278196506123073350": {
+        "type": "shopify://apps/ushopaid-easy-bundle-builder/blocks/ushopaid-embed-block/aab9c55c-57e0-4cff-a2ac-2a862f4e359e",
+        "disabled": false,
+        "settings": {
+          "custom_css": ""
+        }
+      },
+      "2445997730106165781": {
+        "type": "shopify://apps/aaa-custom-form-builder-app/blocks/aaa-formbuilder/a9d83d51-eeab-4f84-a43c-3a25e8368401",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

@@ -9,56 +9,31 @@
  */
 {
   "sections": {
-    "c_hero_banner_QWKRpP": {
-      "type": "c-hero-banner",
-      "name": "Hero Banner",
+    "text_kicker_description_F3HtMF": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
       "settings": {
-        "title": "Wholesale",
-        "enable_title_fill": false,
-        "subtitle": "Discover the most authentic Japanese mochi in the UK, crafted for exceptional taste and unique experiences your customers and guests will love.",
-        "baner_button": "Shop Now",
-        "baner_button_link": "",
-        "baner_button2": "",
-        "baner_button_link2": "",
-        "image_bg": "shopify://shop_images/Image_3.png",
-        "bg_color": "#ffffff",
-        "bg_size": "cover",
-        "image_alignment_x": "center",
-        "image_alignment_y": "middle",
-        "text_position-x": "center",
-        "text_position-x-mob": "center",
-        "text_position-y": "flex-end",
-        "text_alignment": "center",
-        "title_font_size": 100,
-        "title_font_size_mobile": 52,
-        "title_color": "#ffffff",
-        "subtitle_font_size": 16,
-        "subtitle_font_size_mobile": 16,
-        "text_color": "#ffffff",
-        "padding_desktop": 40,
-        "padding_mobile": 20,
-        "margin_top_desktop": "-140",
-        "margin_top_mobile": "-100",
-        "banner_text_width": "800",
-        "banner_height_desktop": "800",
-        "banner_height_mobile": "520"
+        "kicker": "",
+        "align_left": true,
+        "title": "Events",
+        "richtext": "<p>YUUM is a combination of modern design and technology with high quality and original taste of natural authentic products from different cultures with quality service.</p>"
       }
     },
     "careers_xrQipC": {
       "type": "careers",
       "name": "Careers Section",
       "settings": {
-        "small_heading": "wholesale",
-        "heading": "Elevate Your Dessert Offering with Authentic Mochi from Japan",
+        "small_heading": "Events",
+        "heading": "Host Your Event at YUUM",
         "description": "<p>Delight your customers with the most authentic mochi in the UK — handcrafted in Japan for exceptional taste, delicate texture, and unforgettable experiences.<br/><br/>Whether you're curating a dessert menu, hosting an event, or looking for a unique retail product, The Real Mochi adds a refined and memorable touch. With a variety of flavors and beautiful presentation, it's more than a dessert — it’s a moment of joy your guests will remember.</p>",
         "button_text_1": "Contact us",
         "button_link_1": "shopify://pages/contact",
         "additional_text": "",
         "background_color": "#e7e7e7",
-        "equal_columns": true,
-        "team_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_2.png",
+        "equal_columns": false,
+        "team_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_3.png",
         "offer_heading": "",
-        "person_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones_1.png",
+        "person_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones_3.png",
         "cta_heading": "",
         "cta_text": "",
         "button_text": "",
@@ -96,7 +71,7 @@
     }
   },
   "order": [
-    "c_hero_banner_QWKRpP",
+    "text_kicker_description_F3HtMF",
     "careers_xrQipC",
     "main",
     "join_us_8Qn8bk"
