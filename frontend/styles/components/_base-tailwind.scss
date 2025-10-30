@@ -16,6 +16,14 @@
     scroll-behavior: auto !important;
   }
 
+  :root { --sticky-offset: 200px; }
+
+  #useful-properties,
+  #benefits,
+  #faq {
+    scroll-margin-top: 200px;
+  }
+
   [data-reveal] { will-change: transform, opacity; }
   [data-parallax] img, [data-parallax] [data-parallax-item] { will-change: transform; display:block; }
 
@@ -519,6 +527,24 @@
     }
 }
 
+// whosale
+// .careers-section 
+// .careers-content 
+// .careers-image-wrapper, 
+// .careers-section 
+// .careers-content 
+// .careers-person-wrapper {
+//     @media (max-width: 1439px) {
+
+//     }
+//     border-bottom: 1px solid #ADAEB0;
+// }
+
+
+// bundle layout styles
+.m-product-ushopaid-mix-match-2 .shopify-section:first-child + .shopify-section {
+    padding-bottom: 20px;
+  }
 
 // bundle styles 
 .cOnQpd {
@@ -620,7 +646,43 @@
 
 .hWnQcO .ush-vs-close-button {
     top: 0;
-    left: 100%;
+    left: 100%!important;
     transform: translateX(-100%) !important;
     background: transparent!important;
+}
+
+@media screen and (max-width: 1024px) {
+    .iahsQT .ush-bundle-product-item-wrapper {
+        width: 50%!important;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .iahsQT .ush-bundle-product-item-wrapper {
+        width: 100%!important;
+    }
+}
+
+@media screen and (max-width: 2360px) {
+    #ushopaid-mix-and-match-bundle-wrapper, .ush-rich-text {
+        max-width: 1380px!important;
+    }
+}
+
+@media screen and (max-width: 2360px) {
+    html body .ush-bundle-product-item-wrapper {
+        padding: 12px !important;
+    }
+}
+
+.hWnQcO .ush-info-title {
+    margin-top: 40px!important;
+}
+
+.ProductRating__Wrapper-sc-1l4gexz-0.iwgPnw.ush-bundle-rating-wrapper {
+    display: none!important;
+}
+
+.ush-info-title + .ProductRating__Wrapper-sc-1l4gexz-0.iwgPnw.ush-bundle-rating-wrapper {
+    display: block!important;
 }

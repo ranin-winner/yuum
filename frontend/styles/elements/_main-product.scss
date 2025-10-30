@@ -77,5 +77,54 @@
                 }
             }
         }
+
+        .bundle_details {
+            ul {
+                margin-top: 40px;
+                color: #474747;
+                font-size: 18px;
+                margin-left: 42px;
+                li {
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0; 
+                        top: 0.6em; 
+                        transform: translate(-130%, -50%);
+                        width: 32px; 
+                        height: 32px;
+                        background: no-repeat center / contain
+                        url('data:image/svg+xml,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="16" fill="%23ADAEB0"/><path d="M14.943 21.3456C14.9411 21.3456 14.9389 21.3456 14.937 21.3456C14.8595 21.344 14.7864 21.3109 14.7339 21.254L9.37579 15.4278C9.28392 15.3278 9.27548 15.1771 9.35579 15.0675C9.4361 14.9581 9.58235 14.9206 9.70548 14.9781L14.6095 17.2743C14.6508 17.2937 14.6995 17.2843 14.7311 17.2515L22.2117 9.43309C22.313 9.32715 22.4786 9.31559 22.5936 9.40684C22.7086 9.49809 22.7352 9.66184 22.6549 9.78465L15.2136 21.184C15.203 21.2006 15.1905 21.2156 15.1767 21.2296L15.1439 21.2625C15.0905 21.3156 15.018 21.3456 14.943 21.3456Z" fill="white"/></svg>');
+                    }
+                    &:not(:last-child) {
+                        margin-bottom: 19px;
+                    }
+                }
+            }
+        }
+
+        .bundle_nav {
+            ul {
+                display: flex;
+                @apply md:gap-[40px] gap-[24px];
+
+                li {
+                    text-transform: uppercase;
+                    text-decoration: underline;
+                    text-underline-offset: 3px;
+                    color: #474747;
+                    font-size: 12px;
+                    letter-spacing: 3px;
+                    transition: all 0.5s ease;
+
+
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+            }
+        }
     }
 }

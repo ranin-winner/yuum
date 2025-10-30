@@ -1,9 +1,9 @@
 {% render 'entry' with '@/styles/sections/image-tips-card.scss' %}
 
-<section class="image-tips-card">
+<section id="benefits" class="image-tips-card">
   <div class="container">
     <div class="image-tips-card__wrap">
-      <div class="image-tips-card__img bg-white rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+      <div class="image-tips-card__img max-h-[680px] bg-white rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 1500 | image_tag:
             loading: 'lazy',

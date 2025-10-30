@@ -89,6 +89,19 @@
                       {{ shortDescription }}
                     </div>
 
+                    {% when 'bundle_details' %}
+                        {% assign bundle_details = product.metafields.custom.bundle_details | metafield_tag %}
+                        <div class="bundle_details">
+                            {{ bundle_details }}
+                        </div>
+
+                    {% when 'bundle_nav' %}
+                        {% assign bundle_nav = product.metafields.custom.bundle_nav | metafield_tag %}
+
+                        <div class="bundle_nav md:mt-[68px] mt-[40px]">
+                            {{ bundle_nav }}
+                        </div>
+
                     {% when 'gift_variants' %}
                         <div class="gift-card__values flex gap-[8px] flex-wrap mb-[32px]">
                             <p class="mb-[8px] basis-full uppercase text-[14px] tracking-[4px] text-[#474747]">
@@ -512,6 +525,32 @@ document.addEventListener('alpine:init', () => {
 })
 </script>
 
+<script>
+// smooth-anchors.js
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.bundle_nav a[href^="#"]');
+  if (!link) return;
+
+  const hash = link.getAttribute('href');
+  const id = decodeURIComponent(hash.slice(1));
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  e.preventDefault();
+
+  // висота стікі-хедера, якщо задаєш десь раніше: :root { --sticky-offset: 140px; }
+  const root = document.documentElement;
+  const varVal = getComputedStyle(root).getPropertyValue('--sticky-offset').trim();
+  const offset = parseInt(varVal, 10) || 0;
+
+  const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
+  window.scrollTo({ top, behavior: 'smooth' });
+  // оновлюємо хеш без миттєвого стрибка
+  history.replaceState(null, '', `#${id}`);
+});
+</script>
+
 
 
 
@@ -532,6 +571,16 @@ document.addEventListener('alpine:init', () => {
     {
       "type": "title",
       "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "bundle_details",
+      "name": "Bundle details",
+      "limit": 1
+    },
+    {
+      "type": "bundle_nav",
+      "name": "Bundle page navigation",
       "limit": 1
     },
     {

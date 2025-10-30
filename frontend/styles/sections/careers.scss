@@ -3,6 +3,12 @@
         margin-bottom: 24px;
     }
 
+    .careers-small-heading {
+        color: #474747;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+
     &__content-inner {
         color: #474747;
         line-height: 1.5;
@@ -20,21 +26,21 @@
         }
 
         &--equal {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;         
 
             img {
                 height: 500px;
             }
 
-            @media (max-width: 1410px) {
-                grid-template-columns: 1fr;
-
-                .careers-image-wrapper {
+            .careers-image-wrapper,
+                .careers-person-wrapper {
                     border-bottom: none!important;
                     padding-bottom: 0!important;
                     margin-bottom: 0!important;
                 }
-               
+
+            @media (max-width: 1410px) {
+                grid-template-columns: 1fr;               
             }
 
             @media (max-width: 768px) {
