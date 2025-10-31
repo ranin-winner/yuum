@@ -1,0 +1,88 @@
+{% render 'entry' with '@/styles/sections/proposals-grid.scss' %}
+
+<section class="proposals-grid palette" data-section-id="{{ section.id }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="sr-only">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    <div class="proposals-grid__list">
+      {%- for block in section.blocks -%}
+        <article
+          class="proposals-card {% if block.settings.variant == 'primary' %}proposals-card--primary{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="proposals-card__head">
+            {% if block.settings.number != blank %}
+              <span class="proposals-card__num">{{ block.settings.number }}</span>
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <h3 class="proposals-card__title">{{ block.settings.title | escape }}</h3>
+            {% endif %}
+          </div>
+
+          {% if block.settings.text != blank %}
+            <div class="proposals-card__text rte">{{ block.settings.text }}</div>
+          {% endif %}
+
+          {% if block.settings.btn_label != blank and block.settings.btn_link != blank %}
+            <a
+              href="{{ block.settings.btn_link }}"
+              class="proposals-card__btn"
+              {% if block.settings.btn_newtab %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+              {{ block.settings.btn_label | escape }}
+            </a>
+          {% endif %}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Proposals grid",
+  "tag": "section",
+  "class": "section-proposals-grid",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading (for SEO/ARIA)", "default": "Opportunities" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number (e.g., 01)", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Open a YUUM Café" },
+        { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Short supporting copy goes here.</p>" },
+        {
+          "type": "select",
+          "id": "variant",
+          "label": "Style",
+          "default": "default",
+          "options": [
+            { "value": "default", "label": "Default" },
+            { "value": "primary", "label": "Highlighted (like first card)" }
+          ]
+        },
+        { "type": "text", "id": "btn_label", "label": "Button label", "default": "Send a proposal" },
+        { "type": "url", "id": "btn_link", "label": "Button link" },
+        { "type": "checkbox", "id": "btn_newtab", "label": "Open in new tab", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Proposals grid",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
