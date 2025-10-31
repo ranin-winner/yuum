@@ -292,17 +292,12 @@ $accent-hover: #333333;
 
 .m-sweet-words {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(6, auto); // 6 колонок для першого ряду
   gap: 12px;
   justify-content: center;
   justify-items: center;
-  max-width: 600px;
+  max-width: 800px; // Збільшено для 6 елементів
   margin: 0 auto;
-
-  &:after {
-    content: '';
-    grid-column: 1 / -1;
-  }
 
   .m-sweet-word {
     padding: 8px 15px;
@@ -315,16 +310,28 @@ $accent-hover: #333333;
     @include fonts.font-smoothing;
     text-align: center;
     white-space: nowrap;
+    background: $background-white; // Додано білий фон
 
-    &:nth-child(n+6):nth-child(-n+8) {
-      grid-column: span 1;
+    // Другий ряд - 3 елементи по центру
+    &:nth-child(n+7) {
+      grid-column: span 2; // Кожен елемент займає 2 колонки
     }
+
+    &:nth-child(7) { grid-column: 2 / span 2; } // caramel - колонки 2-3
+    &:nth-child(8) { grid-column: 4 / span 2; } // chocolate - колонки 4-5
+    &:nth-child(9) { grid-column: 6 / span 2; } // vanilla - колонки 6-7
   }
 
   @include cfg.media(max-m) {
     grid-template-columns: repeat(3, auto);
 
-    .m-sweet-word:nth-child(n+6):nth-child(-n+8) {
+    .m-sweet-word:nth-child(n+7) {
+      grid-column: span 1;
+    }
+
+    .m-sweet-word:nth-child(7),
+    .m-sweet-word:nth-child(8),
+    .m-sweet-word:nth-child(9) {
       grid-column: span 1;
     }
   }
