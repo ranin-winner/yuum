@@ -69,7 +69,7 @@
               {% assign sweet_name_key = 'sweet_name_' | append: i %}
               {% if section.settings[sweet_image_key] != blank %}
                 <div class="m-sweet-image-item {% if forloop.first %}active{% endif %}" data-sweet="{{ section.settings[sweet_name_key] | handleize }}">
-                  {% render 'image', image: section.settings[sweet_image_key], class: 'm-sweet-img' %}
+                  {% render 'image', image: section.settings[sweet_image_key], src_size: 'master', class: 'm-sweet-img' %}
                 </div>
               {% endif %}
             {% endfor %}
@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="m-sweet-explore">
-        <p>{{ section.settings.sweet_explore_text }}</p>
+        <p class="m-sweet-explore-title">{{ section.settings.sweet_explore_text }}</p>
       </div>
       {% if section.settings.sweet_cta_text != blank %}
         <a href="{{ section.settings.sweet_cta_link | default: '#' }}" class="m-sweet-cta">
@@ -99,7 +99,6 @@
             <p>{{ section.settings.seasonal_intro }}</p>
           </div>
           <div class="m-seasonal-text">
-            <h3 class="m-seasonal-name">{{ section.settings.seasonal_name }}</h3>
             <div class="m-seasonal-seasons">
               {% for i in (1..4) %}
                 {% assign season_key = 'season_' | append: i %}
@@ -108,6 +107,7 @@
                 {% endif %}
               {% endfor %}
             </div>
+            <h3 class="m-seasonal-name">{{ section.settings.seasonal_name }}</h3>
           </div>
         </div>
       </div>

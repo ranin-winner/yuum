@@ -215,7 +215,6 @@ $accent-hover: #333333;
 .m-sweet-section {
   margin: 0 auto 80px;
   padding: 40px;
-  background: $background-gray;
   text-align: center;
   max-width: 1200px;
 
@@ -315,7 +314,7 @@ $accent-hover: #333333;
 .m-sweet-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .m-sweet-words {
@@ -344,31 +343,41 @@ $accent-hover: #333333;
 .m-sweet-explore {
   margin: 32px 0;
 
-  p {
-    @include fonts.font(body-400, 16px, 1.5);
+  &-title {
+    @include fonts.font(heading-400, 56px, 1.5);
     color: $text-primary;
     margin: 0;
     @include fonts.font-smoothing;
+    @include cfg.media(max-m) {
+      @include fonts.font(heading-400, 32px, 1.5);
+    }
   }
 }
 
 .m-sweet-cta {
-  display: inline-block;
-  padding: 16px 32px;
-  background: $accent-primary;
-  color: $text-white;
-  text-decoration: none;
-  border-radius: 12px;
-  @include fonts.font(body-500, 14px, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 166px;
+  height: 48px;
+  border-radius: 100px;
+  border: 1px solid $accent-primary;
+  @include fonts.font(body-400, 14px, 16px);
   letter-spacing: 4px;
+  text-align: center;
   text-transform: uppercase;
-  transition: background-color 0.3s ease;
+  background: $background-gray;
+  color: $text-primary;
+  text-decoration: none;
+  transition: all 0.3s ease;
   @include fonts.font-smoothing;
 
   &:hover {
-    background: $accent-hover;
+    background: transparent;
+    border-color: $accent-hover;
   }
 }
+
 // ===== Seasonal Section =====
 .m-seasonal {
   margin: 0 auto;
@@ -514,10 +523,17 @@ $accent-hover: #333333;
 }
 
 .m-universal-text {
-  text-align: center;
+  @include fonts.font(heading-400, 56px, 1.1);
   color: $text-white;
-  max-width: 600px;
+  @include fonts.font-smoothing;
+  max-width: 1000px;
+  margin: auto;
   padding: 0 20px;
+  text-align: center;
+
+  @include cfg.media(max-m) {
+    font-size: 42px;
+  }
 }
 
 .m-universal-description {
