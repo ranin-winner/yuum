@@ -1,0 +1,1 @@
+.visit-us__inner{display:grid;grid-template-columns:1fr 1fr;gap:100px}@media (max-width: 1250px){.visit-us__inner{grid-template-columns:1fr;gap:60px}}.visit-us__map-inner{height:720px;width:100%}@media (max-width: 1250px){.visit-us__map-inner{height:500px}}.visit-us__text-inner{padding:60px 0 0 280px}@media (max-width: 1250px){.visit-us__text-inner{padding:40px 16px 0}}
