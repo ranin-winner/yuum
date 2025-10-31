@@ -80,6 +80,44 @@
     {%- comment -%} GSAP + ScrollTrigger {%- endcomment -%}
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        setInterval(function() {
+          const cartIsOpen = document.querySelector('.b-mini_cart.is-open');
+
+          if (cartIsOpen) {
+            document.addEventListener('wheel', blockAllScroll, { passive: false });
+            document.addEventListener('touchmove', blockAllScroll, { passive: false });
+
+            const cartItems = document.querySelector('.b-mini_cart-items');
+            if (cartItems) {
+              cartItems.addEventListener('wheel', allowCartItemsScroll, { passive: false });
+              cartItems.addEventListener('touchmove', allowCartItemsScroll, { passive: false });
+            }
+
+          } else {
+            document.removeEventListener('wheel', blockAllScroll);
+            document.removeEventListener('touchmove', blockAllScroll);
+
+            const cartItems = document.querySelector('.b-mini_cart-items');
+            if (cartItems) {
+              cartItems.removeEventListener('wheel', allowCartItemsScroll);
+              cartItems.removeEventListener('touchmove', allowCartItemsScroll);
+            }
+          }
+        }, 100);
+
+        function blockAllScroll(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+
+        function allowCartItemsScroll(e) {
+          e.stopPropagation(); // Не даємо події дійти до document
+        }
+      });
+    </script>
   </head>
   <body
     x-data

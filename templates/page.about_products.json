@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "feature_brick_eCb3PA": {
@@ -16,14 +7,14 @@
           "type": "tile",
           "settings": {
             "title": "Mochi",
-            "text": "<p>Daifuku mochi is a popular dessert that has historically been a traditional holiday food in Japan. The desserts are made from flour made from Japanese glutinous rice grains.</p>",
-            "image_desktop": "shopify://shop_images/Image_43a72e1d-85e5-401a-b931-70929ab1d4a3.png",
-            "image_mobile": "shopify://shop_images/Rectangle_1615.png",
+            "text": "<p>Daifuku mochi is a popular dessert that has historically been a traditional holiday food in Japan. The desserts are made from flour made from Japanese glutinous rice grains.<\/p>",
+            "image_desktop": "shopify:\/\/shop_images\/Image_43a72e1d-85e5-401a-b931-70929ab1d4a3.png",
+            "image_mobile": "shopify:\/\/shop_images\/Rectangle_1615.png",
             "image_alt": "img",
             "primary_label": "Read more",
-            "primary_url": "shopify://blogs/articles",
+            "primary_url": "shopify:\/\/blogs\/articles",
             "secondary_label": "To catalogue",
-            "secondary_url": "shopify://collections"
+            "secondary_url": "shopify:\/\/collections"
           }
         }
       },
@@ -43,27 +34,27 @@
           "type": "tile",
           "settings": {
             "title": "Matcha",
-            "text": "<p>Matcha is a green tea traditionally used for Japanese tea ceremonies. Young leaves of high quality green tea are grown in the shade, harvested in spring and ground into powder.</p>",
-            "image_desktop": "shopify://shop_images/Rectangle_1616.png",
-            "image_mobile": "shopify://shop_images/Rectangle_1615_f7ed33d8-e784-435a-9692-d0adcd767de5.png",
+            "text": "<p>Matcha is a green tea traditionally used for Japanese tea ceremonies. Young leaves of high quality green tea are grown in the shade, harvested in spring and ground into powder.<\/p>",
+            "image_desktop": "shopify:\/\/shop_images\/Rectangle_1616.png",
+            "image_mobile": "shopify:\/\/shop_images\/Rectangle_1615_f7ed33d8-e784-435a-9692-d0adcd767de5.png",
             "image_alt": "",
             "primary_label": "Read more",
-            "primary_url": "shopify://pages/faqs",
+            "primary_url": "shopify:\/\/pages\/faqs",
             "secondary_label": "To catalogue",
-            "secondary_url": "shopify://collections"
+            "secondary_url": "shopify:\/\/collections"
           }
         },
         "tile_GatFyW": {
           "type": "tile",
           "settings": {
             "title": "Acai",
-            "text": "<p>Açaí is a drink made from Amazonian berries, rich in antioxidants and nutrients. It has a rich berry flavor with slight bitterness and is popular in smoothies for energy and health.</p>",
-            "image_desktop": "shopify://shop_images/Rectangle_1617.png",
+            "text": "<p>Açaí is a drink made from Amazonian berries, rich in antioxidants and nutrients. It has a rich berry flavor with slight bitterness and is popular in smoothies for energy and health.<\/p>",
+            "image_desktop": "shopify:\/\/shop_images\/Rectangle_1617.png",
             "image_alt": "",
             "primary_label": "Read more",
-            "primary_url": "shopify://products/choco-mochi",
+            "primary_url": "shopify:\/\/products\/choco-mochi",
             "secondary_label": "To catalogue",
-            "secondary_url": "shopify://collections"
+            "secondary_url": "shopify:\/\/collections"
           }
         }
       },
@@ -84,14 +75,14 @@
           "type": "tile",
           "settings": {
             "title": "Yuzu",
-            "text": "<p>Yuzu is a refreshing drink made from Japanese citrus, known for its bright sweet-and-sour taste like lemon, lime, and mandarin. Often served with water or tea, it's aromatic and energizing.</p>",
-            "image_desktop": "shopify://shop_images/Rectangle_1618.png",
-            "image_mobile": "shopify://shop_images/Rectangle_1615_506f0688-c333-489b-b7d6-ba0f09df4229.png",
+            "text": "<p>Yuzu is a refreshing drink made from Japanese citrus, known for its bright sweet-and-sour taste like lemon, lime, and mandarin. Often served with water or tea, it's aromatic and energizing.<\/p>",
+            "image_desktop": "shopify:\/\/shop_images\/Rectangle_1618.png",
+            "image_mobile": "shopify:\/\/shop_images\/Rectangle_1615_506f0688-c333-489b-b7d6-ba0f09df4229.png",
             "image_alt": "",
             "primary_label": "Read more",
-            "primary_url": "shopify://collections",
+            "primary_url": "shopify:\/\/collections",
             "secondary_label": "To catalogue",
-            "secondary_url": "shopify://collections"
+            "secondary_url": "shopify:\/\/collections"
           }
         }
       },
