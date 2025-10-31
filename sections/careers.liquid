@@ -2,6 +2,9 @@
 
 <div class="careers-section">
   <div class="container">
+    {% if section.settings.add_top_border %}
+        <p class="border-t border-[#ADAEB0] pb-[40px]"></p>
+    {% endif %}
     <div class="grid gap-[32px] md:gap-[178px] md:grid-cols-[280px_1fr] grid-cols-1">
 
         {%- if section.settings.small_heading != blank -%}
@@ -125,6 +128,12 @@
 {
   "name": "Careers Section",
   "settings": [
+    {
+        "type": "checkbox",
+        "id": "add_top_border",
+        "label": "Add botder top",
+        "default": false
+    },
     {
       "type": "text",
       "id": "small_heading",
