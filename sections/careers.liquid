@@ -2,6 +2,9 @@
 
 <div class="careers-section">
   <div class="container">
+    {% if section.settings.add_top_border %}
+        <p class="border-t border-[#ADAEB0] pb-[40px]"></p>
+    {% endif %}
     <div class="grid gap-[32px] md:gap-[178px] md:grid-cols-[280px_1fr] grid-cols-1">
 
         {%- if section.settings.small_heading != blank -%}
@@ -32,18 +35,26 @@
             </div>
             {%- endif -%}
             {% comment %} careers-content--equal {% endcomment %}
-            <div class="careers-content {% if section.settings.equal_columns %} careers-content--equal{% endif %}">
+            <div class="careers-content 
+                {% if section.settings.equal_columns %} careers-content--equal{% endif %}
+                {% if section.settings.reverse_image_size %} careers-content--img-reverse {% endif %}%}
+                "
+            >
             <!-- Team Image -->
             <div class="careers-team-block">
                 {%- if section.settings.team_image != blank -%}
-                <div class="careers-image-wrapper">
-                    <img
-                    src="{{ section.settings.team_image | img_url: '600x' }}"
-                    alt="{{ section.settings.team_image.alt | escape }}"
-                    loading="lazy"
-                    class="careers-image"
-                    >
-                </div>
+                    <div class="careers-image-wrapper">
+                        <img
+                        src="{{ section.settings.team_image | img_url: '600x' }}"
+                        alt="{{ section.settings.team_image.alt | escape }}"
+                        loading="lazy"
+                        class="careers-image"
+                        >
+
+                        {% if section.settings.add_bottom_border %}
+                            <p class="border-b border-[#ADAEB0] pt-[24px] mb-[40px]"></p>
+                        {% endif %}
+                    </div>
                 {%- endif -%}
 
                 <!-- What we offer list -->
@@ -70,14 +81,19 @@
             <!-- Right Side: Single Person Image and CTA -->
             <div class="careers-cta-block">
                 {%- if section.settings.person_image != blank -%}
-                <div class="careers-person-wrapper">
-                    <img
-                    src="{{ section.settings.person_image | img_url: '500x' }}"
-                    alt="{{ section.settings.person_image.alt | escape }}"
-                    loading="lazy"
-                    class="careers-person-image"
-                    >
-                </div>
+                    <div class="careers-person-wrapper">
+                        <img
+                        src="{{ section.settings.person_image | img_url: '500x' }}"
+                        alt="{{ section.settings.person_image.alt | escape }}"
+                        loading="lazy"
+                        class="careers-person-image"
+                        >
+
+                        {% if section.settings.add_bottom_border_person %}
+                            <p class="border-b border-[#ADAEB0] pt-[24px] mb-[40px]"></p>
+                        {% endif %}
+                    </div>
+                    
                 {%- endif -%}
 
                 <div class="careers-cta-content">
@@ -112,6 +128,12 @@
 {
   "name": "Careers Section",
   "settings": [
+    {
+        "type": "checkbox",
+        "id": "add_top_border",
+        "label": "Add botder top",
+        "default": false
+    },
     {
       "type": "text",
       "id": "small_heading",
@@ -160,9 +182,21 @@
         "default": false
     },
     {
+        "type": "checkbox",
+        "id": "reverse_image_size",
+        "label": "Reverse images size",
+        "default": false
+    },
+    {
       "type": "image_picker",
       "id": "team_image",
       "label": "Team Image"
+    },
+    {
+        "type": "checkbox",
+        "id": "add_bottom_border",
+        "label": "Add botder bottom",
+        "default": false
     },
     {
       "type": "text",
@@ -174,6 +208,12 @@
       "type": "image_picker",
       "id": "person_image",
       "label": "Person Image"
+    },
+    {
+        "type": "checkbox",
+        "id": "add_bottom_border_person",
+        "label": "Add botder bottom",
+        "default": false
     },
     {
       "type": "text",

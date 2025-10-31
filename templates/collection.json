@@ -107,9 +107,7 @@
       ],
       "name": "Collection Filters",
       "settings": {
-        "tags_source": "sweet, sour, bitter, salt, umami, chilled, frozen, vegetarian, gluten free, japan, brazil",
-        "show_hint": false,
-        "note": ""
+        "tags_source": "sweet, sour, bitter, salt, umami"
       }
     },
     "collection_grid_with_promo_kLMfHV": {

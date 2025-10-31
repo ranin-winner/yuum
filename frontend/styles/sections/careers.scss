@@ -22,6 +22,10 @@
         gap: 24px;
         padding-top: 80px;
 
+        &--img-reverse {
+            grid-template-columns: 334px 542px;
+        }
+
         img {
             object-fit: cover;
             border-radius: 20px;
@@ -59,9 +63,6 @@
 
         .careers-image-wrapper,
         .careers-person-wrapper {
-            padding-bottom: 24px;
-            border-bottom: 1px solid #ADAEB0;
-            margin-bottom: 40px;
 
             img {
                 width: 100%;
@@ -76,8 +77,8 @@
 
         .careers-cta-heading,
         .careers-offer-heading {
-            //@apply heading-3;
             margin-bottom: 24px;
+            @include cfg.h3;
         }
 
         .careers-offer-list {

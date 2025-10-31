@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-4fJIQfGR.css",
+    "file": "main-Bmc9bsFh.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -109,7 +109,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/image-tips-card.scss": {
-    "file": "image-tips-card-XcQOoRxT.css",
+    "file": "image-tips-card-DuJJ8Edj.css",
     "src": "frontend/styles/sections/image-tips-card.scss",
     "isEntry": true
   },
@@ -160,7 +160,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-fkKiSnRE.css",
+    "file": "text-kicker-description-TCeyc2f7.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },

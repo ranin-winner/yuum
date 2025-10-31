@@ -65,10 +65,6 @@
         </div>
       </nav>
       
-
-        {% if section.settings.show_hint %}
-          <p class="text-xs text-black/50 mt-2">Порада: ліві пункти — це звичайні лінки. Обрані теги збережуться між сторінками, доки не натиснути "Clear all".</p>
-        {% endif %}
       </aside>
 
       {%- comment -%} RIGHT: tag chips + clear {%- endcomment -%}
@@ -102,10 +98,6 @@
             </button>
           </template>
         </div>
-
-        {% if section.settings.note != blank %}
-          <p class="text-xs text-black/50 mt-3">{{ section.settings.note }}</p>
-        {% endif %}
       </div>
     </div>
   </div>
@@ -283,12 +275,9 @@
       "type": "textarea",
       "id": "tags_source",
       "label": "Tags available for filtering",
-      "info": "Список тегів через кому, крапку з комою або з нового рядка. Напр.: sweet, sour, bitter",
+      "info": "List of tags separated by commas, semicolons, or new lines. Ex: sweet, sour, bitter",
       "default": "sweet, sour, bitter, salt, umami, chilled, frozen, vegetarian, gluten free, japan, brazil"
-    },
-    { "type": "checkbox", "id": "show_hint", "label": "Show note under links", "default": false },
-    { "type": "text", "id": "note", "label": "Small note under tags" }
-    // { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" }
+    }
   ],
   "blocks": [
     {

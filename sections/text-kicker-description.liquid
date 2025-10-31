@@ -13,15 +13,21 @@
 
     <div class="{{ text_classes }}">
       {% if section.settings.title != blank %}
-        <h2 class="text-kicker-description__title">{{ section.settings.title | escape }}</h2>
+        <h2 class="text-kicker-description__title {% if section.settings.title_bigger %} text-kicker-description__title--bigger {% endif %}">{{ section.settings.title | escape }}</h2>
       {% endif %}
 
       {% if section.settings.richtext != blank %}
-        <div class="text-kicker-description__desc rte mx-auto">
+        <div
+          class="text-kicker-description__desc rte mx-auto"
+          style="--desc-w-m: {{ section.settings.description_width_mob | default: '100%' }}; --desc-w-d: {{ section.settings.description_width_desk | default: '100%' }};"
+        >
           {{ section.settings.richtext }}
         </div>
       {% endif %}
     </div>
+    {% if section.settings.border_visible == true %}
+        <p class="border-b border-[#ADAEB0]"></p>
+    {% endif %}
   </div>
 </section>
 
@@ -31,8 +37,12 @@
   "settings": [
     { "type": "text", "id": "kicker", "label": "Small label", "default": "ABOUT THE PRODUCT" },
     { "type": "checkbox", "label": "Text align left", "id": "align_left", "default": false },
+    { "type": "checkbox", "label": "Make title bigger", "id": "title_bigger", "default": false },
     { "type": "text", "id": "title", "label": "Title", "default": "Description" },
-    { "type": "richtext", "id": "richtext", "label": "Description text", "default": "<p>Write your description here.</p>" }
+    { "type": "text", "id": "description_width_desk", "label": "Set description width (desktop)", "default": "100%" },
+    { "type": "text", "id": "description_width_mob", "label": "Set description width (mobile)", "default": "100%" },
+    { "type": "richtext", "id": "richtext", "label": "Description text", "default": "<p>Write your description here.</p>" },
+    { "type": "checkbox", "label": "Add border bottom", "id": "border_visible", "default": false }
   ],
   "presets": [{ "name": "Text Kicker & Description" }]
 }

@@ -388,6 +388,16 @@
 
 }
 
+// events
+.m-page-events {
+    .shopify-section {
+        &:first-child {
+            padding-top: 60px;
+            padding-bottom: 0px;
+        }
+    }
+}
+
 .template-index {
   .shopify-section {
     padding-bottom: 0;
