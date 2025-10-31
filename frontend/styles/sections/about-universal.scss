@@ -91,7 +91,7 @@ $accent-hover: #333333;
   &__intro {
     @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
-    margin: 0 auto;
+    margin: 0 auto 48px;
     max-width: 900px;
     @include fonts.font-smoothing;
   }
@@ -99,92 +99,26 @@ $accent-hover: #333333;
   &__guide {
     @include fonts.font(heading-400, 32px, 1.5);
     color: $text-primary;
-    margin: 0 auto;
+    margin: 48px auto;
     max-width: 1200px;
     @include fonts.font-smoothing;
   }
-
-  &__intro { margin-bottom: 48px; }
-  &__guide { margin: 48px auto; }
 }
 
 .m-flavours-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 32px;
-  max-width: 100%;
-  margin: 48px auto;
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
   justify-items: center;
-  padding: 0 20px;
 
   @include cfg.media(max-m) {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 800px;
   }
 
   @include cfg.media(max-xs) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-.m-flavour-item {
-  padding: 30px 20px;
-  transition: all 0.3s ease;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  min-width: 140px;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-
-  @include cfg.media(max-m) {
-    padding: 24px 16px;
-    gap: 16px;
-  }
-}
-
-.m-flavour-image {
-  width: 140px;
-  height: 140px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .m-flavour-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  @include cfg.media(max-m) {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.m-flavours-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, auto);
-  gap: 16px;
-  margin: 48px 0;
-  justify-items: center;
-
-  @include cfg.media(max-m) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, auto);
-  }
-
-  @include cfg.media(max-xs) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, auto); // 5 рядків
   }
 }
 
@@ -195,7 +129,7 @@ $accent-hover: #333333;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 
   &:hover {
     transform: translateY(-4px);
@@ -214,57 +148,16 @@ $accent-hover: #333333;
   align-items: center;
   justify-content: center;
 
-  .m-flavour-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; // Показує всю картинку
-  }
-
   @include cfg.media(max-m) {
     width: 60px;
     height: 60px;
   }
 }
 
-.m-flavour-item {
-  padding: 20px 16px;
-  transition: all 0.3s ease;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-
-  @include cfg.media(max-m) {
-    padding: 16px 12px;
-  }
-}
-
-.m-flavours-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  max-width: 600px;
-  margin: 0 auto;
-  justify-items: center;
-
-  @include cfg.media(max-m) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @include cfg.media(max-xs) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 .m-flavour-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .m-flavour-name {
