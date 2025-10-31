@@ -27,6 +27,7 @@
       "type": "careers",
       "name": "Careers Section",
       "settings": {
+        "add_top_border": true,
         "small_heading": "Events",
         "heading": "Host Your Event at YUUM",
         "description": "<p>Delight your customers with the most authentic mochi in the UK — handcrafted in Japan for exceptional taste, delicate texture, and unforgettable experiences.<br/><br/>Whether you're curating a dessert menu, hosting an event, or looking for a unique retail product, The Real Mochi adds a refined and memorable touch. With a variety of flavors and beautiful presentation, it's more than a dessert — it’s a moment of joy your guests will remember.</p>",
@@ -36,6 +37,7 @@
         "background_color": "#e7e7e7",
         "equal_columns": false,
         "reverse_image_size": true,
+        "align_images_bottom": false,
         "team_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_3.png",
         "add_bottom_border": false,
         "offer_heading": "",
@@ -47,13 +49,56 @@
         "button_link": ""
       }
     },
-    "main": {
-      "type": "main-404",
-      "disabled": true,
+    "careers_7hEdB7": {
+      "type": "careers",
+      "name": "Careers Section",
       "settings": {
-        "heading": "404 Page Not Found",
-        "text": "The page you are looking for does not exist.",
-        "button_label": "Go to Home"
+        "add_top_border": true,
+        "small_heading": "Catering",
+        "heading": "Catering by YUUM",
+        "description": "<p>Bring the YUUM experience to your space with our curated catering service. Whether it's a team breakfast, launch event, or private celebration, we offer a fresh and flavour-led menu featuring signature drinks, seasonal bites, and vibrant desserts.<br/>Our catering is designed to be flexible — with delivery, setup, and service options available. Everything is made with care, beautifully presented, and aligned with YUUM’s philosophy of taste, culture, and creativity.<br/><br/>Let’s make your event deliciously unforgettable.</p>",
+        "button_text_1": "Contact us",
+        "button_link_1": "shopify://pages/contact",
+        "additional_text": "",
+        "background_color": "#e5e5e5",
+        "equal_columns": false,
+        "reverse_image_size": false,
+        "align_images_bottom": true,
+        "team_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones_4.png",
+        "add_bottom_border": false,
+        "offer_heading": "",
+        "person_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_4.png",
+        "add_bottom_border_person": false,
+        "cta_heading": "",
+        "cta_text": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "careers_EbRqdD": {
+      "type": "careers",
+      "name": "Careers Section",
+      "settings": {
+        "add_top_border": true,
+        "small_heading": "wholesale",
+        "heading": "Elevate Your Dessert Offering with Authentic Mochi from Japan",
+        "description": "<p>Delight your customers with the most authentic mochi in the UK — handcrafted in Japan for exceptional taste, delicate texture, and unforgettable experiences.<br/>Whether you're curating a dessert menu, hosting an event, or looking for a unique retail product, The Real Mochi adds a refined and memorable touch.  With a variety of flavors and beautiful presentation, it's more than a dessert — it’s a moment of joy your guests will remember.</p>",
+        "button_text_1": "Contact us",
+        "button_link_1": "shopify://pages/contact",
+        "additional_text": "",
+        "background_color": "#e5e5e5",
+        "equal_columns": false,
+        "reverse_image_size": true,
+        "align_images_bottom": false,
+        "team_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_5.png",
+        "add_bottom_border": false,
+        "offer_heading": "",
+        "person_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones_5.png",
+        "add_bottom_border_person": false,
+        "cta_heading": "",
+        "cta_text": "",
+        "button_text": "",
+        "button_link": ""
       }
     },
     "join_us_8Qn8bk": {
@@ -72,15 +117,27 @@
       "name": "Join Us",
       "settings": {
         "heading": "Let’s Work Together",
+        "one_column_section": true,
         "reverse": true,
         "text_line_1": "<p>We are always here to help. Please fill out the contact form below and we will get back to you as soon as possible. We normally respond within 1 to 2 working days.</p>"
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
       }
     }
   },
   "order": [
     "text_kicker_description_F3HtMF",
     "careers_xrQipC",
-    "main",
-    "join_us_8Qn8bk"
+    "careers_7hEdB7",
+    "careers_EbRqdD",
+    "join_us_8Qn8bk",
+    "main"
   ]
 }
