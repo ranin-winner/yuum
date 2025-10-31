@@ -86,9 +86,16 @@ $accent-hover: #333333;
     @include fonts.font-smoothing;
   }
 
-  &__intro,
-  &__guide {
+  &__intro {
     @include fonts.font(body-400, 16px, 1.5);
+    color: $text-primary;
+    margin: 0 auto;
+    max-width: 600px;
+    @include fonts.font-smoothing;
+  }
+
+  &__guide {
+    @include fonts.font(heading-400, 22px, 1.5);
     color: $text-primary;
     margin: 0 auto;
     max-width: 600px;
@@ -137,13 +144,56 @@ $accent-hover: #333333;
 .m-flavour-image {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .m-flavour-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; // Показує всю картинку
+  }
 
   @include cfg.media(max-m) {
     width: 60px;
     height: 60px;
+  }
+}
+
+.m-flavour-item {
+  padding: 20px 16px;
+  background: $background-white;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  @include cfg.media(max-m) {
+    padding: 16px 12px;
+  }
+}
+
+.m-flavours-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin: 48px 0;
+  justify-items: center; // Центрує всі елементи
+
+  @include cfg.media(max-m) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @include cfg.media(max-xs) {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -154,7 +204,7 @@ $accent-hover: #333333;
 }
 
 .m-flavour-name {
-  @include fonts.font(body-500, 14px, 20px);
+  @include fonts.font(body-400, 14px, 20px);
   letter-spacing: 4px;
   text-transform: uppercase;
   color: $text-primary;

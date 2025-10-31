@@ -31,12 +31,12 @@
           {% assign flavour_image_key = 'flavour_image_' | append: i %}
           {% if section.settings[flavour_key] != blank %}
             <div class="m-flavour-item">
+              <span class="m-flavour-name">{{ section.settings[flavour_key] }}</span>
               {% if section.settings[flavour_image_key] != blank %}
                 <div class="m-flavour-image">
-                  {% render 'image', image: section.settings[flavour_image_key], class: 'm-flavour-img' %}
+                   {% render 'image', image: section.settings[flavour_image_key], src_size: 'master', class: 'm-flavour-img' %}
                 </div>
               {% endif %}
-              <span class="m-flavour-name">{{ section.settings[flavour_key] }}</span>
             </div>
           {% endif %}
         {% endfor %}
