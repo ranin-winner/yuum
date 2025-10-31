@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-mdKV0AsS.css",
+    "file": "main-CtrRmKJO.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -25,6 +25,11 @@
     "file": "main-product-CrbXoggx.js",
     "name": "main-product",
     "src": "frontend/scripts/sections/main-product.js",
+    "isEntry": true
+  },
+  "frontend/styles/sections/about-universal.scss": {
+    "file": "about-universal-DpnKnpAF.css",
+    "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
   "frontend/styles/sections/account.scss": {
