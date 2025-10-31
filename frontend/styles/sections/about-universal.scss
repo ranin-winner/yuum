@@ -225,10 +225,15 @@ $accent-hover: #333333;
   }
 
   &-title {
-    @include fonts.font(heading-400, 32px);
+    @include fonts.font(heading-400, 56px, 1.1);
+    text-align: center;
     color: $text-primary;
     margin: 0 0 40px;
-    @include fonts.font-smoothing;
+    letter-spacing: 0;
+
+    @include cfg.media(max-m) {
+      font-size: 42px;
+    }
   }
 }
 
@@ -321,21 +326,18 @@ $accent-hover: #333333;
 }
 
 .m-sweet-word {
-  padding: 12px 20px;
-  border: 2px solid $border-medium;
+  padding: 8px 15px;
+  border: 1px solid $text-primary;
   border-radius: 25px;
-  @include fonts.font(body-500, 14px);
+  @include fonts.font(body-500, 13px, 16px);
   color: $text-primary;
-  background: $background-white;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
 
   &.active,
   &:hover {
-    border-color: $accent-primary;
-    background: $accent-primary;
-    color: $text-white;
+
   }
 }
 

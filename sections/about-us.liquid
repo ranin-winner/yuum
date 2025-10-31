@@ -49,8 +49,18 @@
 
     <!-- Sweet Section -->
     <div class="m-sweet-section">
-      <h3 class="m-sweet-title">{{ section.settings.sweet_title }}</h3>
+      <h3 class="m-sweet-section-title">{{ section.settings.sweet_title }}</h3>
       <div class="m-sweet-content">
+        <div class="m-sweet-words">
+          {% for i in (1..9) %}
+            {% assign sweet_name_key = 'sweet_name_' | append: i %}
+            {% if section.settings[sweet_name_key] != blank %}
+              <span class="m-sweet-word {% if forloop.first %}active{% endif %}" data-sweet="{{ section.settings[sweet_name_key] | handleize }}">
+                {{ section.settings[sweet_name_key] }}
+              </span>
+            {% endif %}
+          {% endfor %}
+        </div>
         <div class="m-sweet-slider">
           <button class="m-sweet-arrow m-sweet-arrow-prev">←</button>
           <div class="m-sweet-image-container">
@@ -65,16 +75,6 @@
             {% endfor %}
           </div>
           <button class="m-sweet-arrow m-sweet-arrow-next">→</button>
-        </div>
-        <div class="m-sweet-words">
-          {% for i in (1..9) %}
-            {% assign sweet_name_key = 'sweet_name_' | append: i %}
-            {% if section.settings[sweet_name_key] != blank %}
-              <span class="m-sweet-word {% if forloop.first %}active{% endif %}" data-sweet="{{ section.settings[sweet_name_key] | handleize }}">
-                {{ section.settings[sweet_name_key] }}
-              </span>
-            {% endif %}
-          {% endfor %}
         </div>
       </div>
       <div class="m-sweet-explore">
