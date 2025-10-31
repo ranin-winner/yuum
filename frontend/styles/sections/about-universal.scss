@@ -291,16 +291,16 @@ $accent-hover: #333333;
 
   .m-sweet-word {
     padding: 8px 15px;
-    border: 1px solid $text-primary;
+    border: 1px solid $border-medium;
     border-radius: 25px;
-    @include fonts.font(body-500, 13px, 16px);
+    @include fonts.font(body-400, 13px, 16px);
     color: $text-primary;
     cursor: pointer;
     transition: all 0.3s ease;
     @include fonts.font-smoothing;
     text-align: center;
     white-space: nowrap;
-    background: $background-white;
+    background: transparent;
 
     &:nth-child(7) { grid-column: 2 / span 2; }
     &:nth-child(8) { grid-column: 4 / span 2; }
