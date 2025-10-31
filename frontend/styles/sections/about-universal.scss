@@ -281,12 +281,11 @@ $accent-hover: #333333;
 }
 
 .m-sweet-words {
-  display: grid;
-  grid-template-columns: repeat(6, auto);
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  justify-items: center;
-  max-width: 800px;
+  gap: 12px;
+  max-width: 600px;
   margin: 0 auto;
 
   .m-sweet-word {
@@ -301,23 +300,21 @@ $accent-hover: #333333;
     text-align: center;
     white-space: nowrap;
     background: transparent;
-
-    &:nth-child(7) { grid-column: 2 / span 2; }
-    &:nth-child(8) { grid-column: 4 / span 2; }
-    &:nth-child(9) { grid-column: 6 / span 2; }
+    flex-shrink: 0;
   }
 
   @include cfg.media(max-m) {
-    grid-template-columns: repeat(3, auto);
-    .m-sweet-word:nth-child(7),
-    .m-sweet-word:nth-child(8),
-    .m-sweet-word:nth-child(9) {
-      grid-column: span 1;
-    }
+    max-width: 500px;
   }
 
   @include cfg.media(max-xs) {
-    grid-template-columns: repeat(2, auto);
+    max-width: 300px;
+    gap: 8px;
+
+    .m-sweet-word {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
   }
 }
 
