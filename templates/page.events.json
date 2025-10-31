@@ -15,8 +15,12 @@
       "settings": {
         "kicker": "",
         "align_left": true,
+        "title_bigger": true,
         "title": "Events",
-        "richtext": "<p>YUUM is a combination of modern design and technology with high quality and original taste of natural authentic products from different cultures with quality service.</p>"
+        "description_width_desk": "600px",
+        "description_width_mob": "100%",
+        "richtext": "<p>YUUM is a combination of modern design and technology with high quality and original taste of natural authentic products from different cultures with quality service.</p>",
+        "border_visible": true
       }
     },
     "careers_xrQipC": {
@@ -31,9 +35,12 @@
         "additional_text": "",
         "background_color": "#e7e7e7",
         "equal_columns": false,
+        "reverse_image_size": true,
         "team_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_3.png",
+        "add_bottom_border": false,
         "offer_heading": "",
         "person_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones_3.png",
+        "add_bottom_border_person": false,
         "cta_heading": "",
         "cta_text": "",
         "button_text": "",
