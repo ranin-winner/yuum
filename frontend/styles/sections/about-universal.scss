@@ -65,18 +65,15 @@ $accent-hover: #333333;
 
   @include cfg.media(max-m) {
     margin-bottom: 60px;
-
     &__title { font-size: 42px; }
     &__subtitle { font-size: 14px; margin-bottom: 40px; }
-    &__image {
-      max-height: 300px;
-    }
+    &__image { max-height: 300px; }
   }
 }
 
 // ===== Flavours Section =====
 .m-about-flavours {
-  max-width: 1200p;
+  max-width: 1200px;
   margin: 0 auto 80px;
   text-align: center;
   padding: 0 40px;
@@ -111,7 +108,7 @@ $accent-hover: #333333;
   gap: 20px;
   max-width: 1200px;
   margin: auto;
-  justify-content: center; // Додати це
+  justify-content: center;
   justify-items: center;
 
   @include cfg.media(max-m) {
@@ -150,8 +147,13 @@ $accent-hover: #333333;
   justify-content: center;
 
   @include cfg.media(max-m) {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
+  }
+
+  @include cfg.media(max-xs) {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -256,18 +258,6 @@ $accent-hover: #333333;
   }
 }
 
-.m-sweet-image-container {
-  width: 100%;
-  max-width: 400px;
-  height: 300px;
-  position: relative;
-
-  @include cfg.media(max-m) {
-    max-width: 300px;
-    height: 200px;
-  }
-}
-
 .m-sweet-image-item {
   position: absolute;
   top: 0;
@@ -292,11 +282,11 @@ $accent-hover: #333333;
 
 .m-sweet-words {
   display: grid;
-  grid-template-columns: repeat(6, auto); // 6 колонок для першого ряду
+  grid-template-columns: repeat(6, auto);
   gap: 12px;
   justify-content: center;
   justify-items: center;
-  max-width: 800px; // Збільшено для 6 елементів
+  max-width: 800px;
   margin: 0 auto;
 
   .m-sweet-word {
@@ -310,25 +300,15 @@ $accent-hover: #333333;
     @include fonts.font-smoothing;
     text-align: center;
     white-space: nowrap;
-    background: $background-white; // Додано білий фон
+    background: $background-white;
 
-    // Другий ряд - 3 елементи по центру
-    &:nth-child(n+7) {
-      grid-column: span 2; // Кожен елемент займає 2 колонки
-    }
-
-    &:nth-child(7) { grid-column: 2 / span 2; } // caramel - колонки 2-3
-    &:nth-child(8) { grid-column: 4 / span 2; } // chocolate - колонки 4-5
-    &:nth-child(9) { grid-column: 6 / span 2; } // vanilla - колонки 6-7
+    &:nth-child(7) { grid-column: 2 / span 2; }
+    &:nth-child(8) { grid-column: 4 / span 2; }
+    &:nth-child(9) { grid-column: 6 / span 2; }
   }
 
   @include cfg.media(max-m) {
     grid-template-columns: repeat(3, auto);
-
-    .m-sweet-word:nth-child(n+7) {
-      grid-column: span 1;
-    }
-
     .m-sweet-word:nth-child(7),
     .m-sweet-word:nth-child(8),
     .m-sweet-word:nth-child(9) {
@@ -349,8 +329,9 @@ $accent-hover: #333333;
     color: $text-primary;
     margin: 0;
     @include fonts.font-smoothing;
+
     @include cfg.media(max-m) {
-      @include fonts.font(heading-400, 32px, 1.5);
+      font-size: 32px;
     }
   }
 }
