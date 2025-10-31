@@ -392,11 +392,11 @@ $accent-hover: #333333;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 60px 40px;
   text-align: center;
 
   @include cfg.media(max-m) {
-    padding: 24px;
+    padding: 40px 24px;
   }
 }
 
@@ -410,56 +410,56 @@ $accent-hover: #333333;
 .m-seasonal-intro {
   @include fonts.font(body-400, 16px, 1.5);
   color: $text-white;
-  margin: 0 auto 60px;
+  margin: 0 auto 40px;
   max-width: 800px;
   @include fonts.font-smoothing;
 }
 
 .m-seasonal-name {
-  @include fonts.font(heading-400, 56px, 1.1);
+  @include fonts.font(heading-400, 100px, 1.1);
   color: $text-white;
+  margin-top: 40px;
   margin-bottom: 40px;
   @include fonts.font-smoothing;
 }
 
 .m-seasonal-seasons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
   width: 100%;
   max-width: 600px;
 
   @include cfg.media(max-m) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 30px;
   }
 
   @include cfg.media(max-xs) {
-    grid-template-columns: 1fr;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 }
 
 .m-seasonal-season {
   @include fonts.font(body-400, 18px, 24px);
-  letter-spacing: 0.6px;
   color: $text-white;
   text-align: center;
-  padding: 12px 20px;
+  padding: 12px 0;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
 
   &.active {
-    border-bottom: 1px solid $text-white;
+    border-bottom: 2px solid $text-white;
   }
 
   &:hover {
-    border-bottom: 1px solid $text-white;
+    border-bottom: 2px solid $text-white;
   }
 
   @include cfg.media(max-m) {
     font-size: 16px;
-    padding: 10px 16px;
+    letter-spacing: 2px;
   }
 }
 
