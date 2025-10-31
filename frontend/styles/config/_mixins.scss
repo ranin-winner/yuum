@@ -9,7 +9,7 @@
    
    @mixin h1 {
      font-weight: 400;
-     font-size: 48px; line-height: 0.95;
+     font-size: 48px; line-height: 1;
      @media (min-width: $tablet)  { font-size: 76px; line-height: 1; }
      @media (min-width: $desktop) { font-size: 100px; line-height: 1; }
    }

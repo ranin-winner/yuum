@@ -2,7 +2,11 @@
 
 <div class="join-us-section">
   <div class="container">
-    <div class="join-us-card border-t-[1px] border-[#ADAEB0] pt-[40px] grid gap-[40px] md:grid-cols-2 {% unless section.settings.reverse %}join-us-card--reverse{% endunless %}">
+    <div class="join-us-card border-t-[1px] border-[#ADAEB0] pt-[40px] grid gap-[40px] md:grid-cols-2 
+        {% unless section.settings.reverse %}join-us-card--reverse{% endunless %}
+        {% if section.settings.one_column_section %} join-us-card--one-column {% endif %}
+        "
+    >
 
       <!-- Left text -->
       <div class="join-us-content">
@@ -55,6 +59,12 @@
       "id": "heading",
       "label": "Heading",
       "default": "Join us"
+    },
+    {
+        "type": "checkbox",
+        "id": "one_column_section",
+        "label": "Set it to make 1 column section",
+        "default": false
     },
     {
         "type": "checkbox",
