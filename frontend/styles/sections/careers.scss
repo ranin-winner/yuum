@@ -1,3 +1,5 @@
+@use '../config/all-config' as cfg;
+
 .careers-section {
     .careers-heading {
         margin-bottom: 24px;
@@ -76,7 +78,7 @@
         .careers-cta-heading,
         .careers-offer-heading {
             margin-bottom: 24px;
-            @apply heading-3;
+            @include cfg.h3;
         }
 
         .careers-offer-list {

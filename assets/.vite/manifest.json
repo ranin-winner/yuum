@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-Bmc9bsFh.css",
+    "file": "main-CEbA-X2h.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -64,7 +64,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/careers.scss": {
-    "file": "careers-eQsk-8x4.css",
+    "file": "careers-Fc5KPK-G.css",
     "src": "frontend/styles/sections/careers.scss",
     "isEntry": true
   },
@@ -79,7 +79,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/contact-form.scss": {
-    "file": "contact-form-7vX1g7UM.css",
+    "file": "contact-form-BmRB_7Rb.css",
     "src": "frontend/styles/sections/contact-form.scss",
     "isEntry": true
   },
@@ -109,13 +109,18 @@
     "isEntry": true
   },
   "frontend/styles/sections/image-tips-card.scss": {
-    "file": "image-tips-card-DuJJ8Edj.css",
+    "file": "image-tips-card-XcQOoRxT.css",
     "src": "frontend/styles/sections/image-tips-card.scss",
     "isEntry": true
   },
   "frontend/styles/sections/info-banner.scss": {
     "file": "info-banner-CCy9TC2k.css",
     "src": "frontend/styles/sections/info-banner.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/join-us.scss": {
+    "file": "join-us-C-YaaeSa.css",
+    "src": "frontend/styles/sections/join-us.scss",
     "isEntry": true
   },
   "frontend/styles/sections/location-info.scss": {
@@ -155,7 +160,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-fkKiSnRE.css",
+    "file": "text-kicker-description-TCeyc2f7.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },
