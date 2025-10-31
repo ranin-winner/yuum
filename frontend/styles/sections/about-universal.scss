@@ -95,7 +95,7 @@ $accent-hover: #333333;
   }
 
   &__guide {
-    @include fonts.font(heading-400, 22px, 1.5);
+    @include fonts.font(heading-400, 32px, 1.5);
     color: $text-primary;
     margin: 0 auto;
     max-width: 600px;
