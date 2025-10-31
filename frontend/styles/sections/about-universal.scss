@@ -369,21 +369,19 @@ $accent-hover: #333333;
     background: $accent-hover;
   }
 }
-
 // ===== Seasonal Section =====
 .m-seasonal {
-  max-width: 1200px;
-  margin: 0 auto 80px;
-
-  @include cfg.media(max-m) {
-    margin-bottom: 60px;
-  }
+  margin: 0 auto;
+  width: 100%;
 }
 
 .m-seasonal-image {
   position: relative;
   height: 600px;
   overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 
   @include cfg.media(max-m) {
     height: 400px;
@@ -458,13 +456,22 @@ $accent-hover: #333333;
   letter-spacing: 0.6px;
   color: $text-white;
   text-align: center;
-  padding: 12px;
+  padding: 12px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
 
   &.active {
-    text-decoration: underline;
+    border-bottom: 1px solid $text-white;
+  }
+
+  &:hover {
+    border-bottom: 1px solid $text-white;
+  }
+
+  @include cfg.media(max-m) {
+    font-size: 16px;
+    padding: 10px 16px;
   }
 }
 
@@ -474,10 +481,19 @@ $accent-hover: #333333;
   margin: 0 auto;
   height: 600px;
   overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-bottom: 0;
 
   @include cfg.media(max-m) {
     height: 400px;
   }
+}
+
+.m-universal-background {
+  width: 100%;
+  height: 100%;
 }
 
 .m-universal-bg-image {
@@ -487,7 +503,10 @@ $accent-hover: #333333;
 }
 
 .m-universal-content {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -506,15 +525,8 @@ $accent-hover: #333333;
   color: $text-white;
   margin: 0;
   @include fonts.font-smoothing;
-}
 
-// ===== Container Mobile Styles =====
-@include cfg.media(max-m) {
-  .m-container {
-    padding: 0 16px;
-  }
-
-  .m-about-flavours {
-    margin-bottom: 60px;
+  @include cfg.media(max-m) {
+    font-size: 42px;
   }
 }
