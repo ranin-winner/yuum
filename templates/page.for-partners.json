@@ -43,9 +43,9 @@
           "settings": {
             "image_main": "shopify://shop_images/image_7_22a65f65-a84d-45a5-b852-c1c43f14e7be.png",
             "image_side": "shopify://shop_images/freepik__the-style-is-candid-image-photography-with-natural__7790.png",
-            "kicker": "wrfrw",
-            "title": "wrfwf",
-            "text": "<p>wrff</p>",
+            "kicker": "",
+            "title": "",
+            "text": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>",
             "radius": 16,
             "reverse_on_desktop": false,
             "custom_class": ""
@@ -80,6 +80,30 @@
         "button_link": ""
       }
     },
+    "careers_HchCX3": {
+      "type": "careers",
+      "name": "Careers Section",
+      "settings": {
+        "add_top_border": true,
+        "small_heading": "To Connect with Partners and Franchisees",
+        "heading": "Whether you want to open one location or multiple, we’ll help you get started and scale with confidence",
+        "description": "<p>Franchising provides the opportunity to develop a premium brand while taking advantage of YUUM knowledge, expertise and support.  We are looking for committed partners who have a strong work ethic and successful track record in addition to desire and motivation to make the franchise a success.  Experience in franchising and/or a café, hospitality environment, retail management or a background in entrepreneurship is preferred.<br/><br/>Select a direction and click the button below to start the process.</p>",
+        "button_text_1": "",
+        "button_link_1": "",
+        "additional_text": "",
+        "background_color": "#e5e5e5",
+        "equal_columns": false,
+        "reverse_image_size": false,
+        "align_images_bottom": false,
+        "add_bottom_border": false,
+        "offer_heading": "",
+        "add_bottom_border_person": false,
+        "cta_heading": "",
+        "cta_text": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
     "main": {
       "type": "main-404",
       "disabled": true,
@@ -88,11 +112,76 @@
         "text": "The page you are looking for does not exist.",
         "button_label": "Go to Home"
       }
+    },
+    "proposals_grid_449r6w": {
+      "type": "proposals-grid",
+      "blocks": {
+        "item_FhPQMb": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        },
+        "item_gELhTf": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        },
+        "item_Hq6WQz": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        },
+        "item_TqAfdx": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        }
+      },
+      "block_order": [
+        "item_FhPQMb",
+        "item_gELhTf",
+        "item_Hq6WQz",
+        "item_TqAfdx"
+      ],
+      "name": "Proposals grid",
+      "settings": {
+        "heading": "Opportunities"
+      }
     }
   },
   "order": [
     "franchise_section_XNHfXw",
     "careers_Cci6UQ",
-    "main"
+    "careers_HchCX3",
+    "main",
+    "proposals_grid_449r6w"
   ]
 }
