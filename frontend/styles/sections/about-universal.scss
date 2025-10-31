@@ -1,4 +1,6 @@
 // sections/about-universal.scss
+@use '../config/all-config' as cfg;
+@use '../config/fonts' as fonts;
 
 // ===== Variables =====
 $text-primary: #1a1a1a;
@@ -28,22 +30,18 @@ $accent-hover: #333333;
   margin: 0 auto 80px;
 
   &__title {
-    font-family: 'WT Monarch Nova', serif;
-    font-weight: 400;
-    font-size: 64px;
-    line-height: 1.1;
+    @include fonts.font(heading-400, 64px, 1.1);
     color: $text-primary;
     margin: 0 0 32px;
     letter-spacing: -0.02em;
+    @include fonts.font-smoothing;
   }
 
   &__subtitle {
-    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
+    @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
     margin: 0 0 60px;
+    @include fonts.font-smoothing;
   }
 
   &__image {
@@ -52,21 +50,12 @@ $accent-hover: #333333;
     object-fit: cover;
   }
 
-  @media (max-width: 768px) {
+  @include cfg.media(max-m) {
     margin-bottom: 60px;
 
-    &__title {
-      font-size: 42px;
-    }
-
-    &__subtitle {
-      font-size: 14px;
-      margin-bottom: 40px;
-    }
-
-    &__image {
-      height: 300px;
-    }
+    &__title { font-size: 42px; }
+    &__subtitle { font-size: 14px; margin-bottom: 40px; }
+    &__image { height: 300px; }
   }
 }
 
@@ -77,32 +66,23 @@ $accent-hover: #333333;
   text-align: center;
 
   &__title {
-    font-family: 'WT Monarch Nova', serif;
-    font-weight: 400;
-    font-size: 48px;
+    @include fonts.font(heading-400, 48px);
     color: $text-primary;
     margin: 0 0 32px;
+    @include fonts.font-smoothing;
   }
 
-  &__intro {
-    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: $text-primary;
-    margin: 0 auto 48px;
-    max-width: 600px;
-  }
-
+  &__intro,
   &__guide {
-    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
+    @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
-    margin: 48px auto;
+    margin: 0 auto;
     max-width: 600px;
+    @include fonts.font-smoothing;
   }
+
+  &__intro { margin-bottom: 48px; }
+  &__guide { margin: 48px auto; }
 }
 
 .m-flavours-grid {
@@ -110,6 +90,15 @@ $accent-hover: #333333;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
   margin: 48px 0;
+
+  @include cfg.media(max-m) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @include cfg.media(max-xs) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .m-flavour-item {
@@ -125,6 +114,10 @@ $accent-hover: #333333;
   &:hover {
     transform: translateY(-4px);
   }
+
+  @include cfg.media(max-m) {
+    padding: 16px 12px;
+  }
 }
 
 .m-flavour-image {
@@ -133,6 +126,11 @@ $accent-hover: #333333;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
+
+  @include cfg.media(max-m) {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .m-flavour-img {
@@ -142,13 +140,11 @@ $accent-hover: #333333;
 }
 
 .m-flavour-name {
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
+  @include fonts.font(body-500, 14px, 20px);
   letter-spacing: 4px;
   text-transform: uppercase;
   color: $text-primary;
+  @include fonts.font-smoothing;
 }
 
 // ===== Sweet Section =====
@@ -159,12 +155,16 @@ $accent-hover: #333333;
   text-align: center;
   max-width: 1200px;
 
+  @include cfg.media(max-m) {
+    padding: 32px 24px;
+    margin: 0 auto 60px;
+  }
+
   &-title {
-    font-family: 'WT Monarch Nova', serif;
-    font-weight: 400;
-    font-size: 32px;
+    @include fonts.font(heading-400, 32px);
     color: $text-primary;
     margin: 0 0 40px;
+    @include fonts.font-smoothing;
   }
 }
 
@@ -182,6 +182,11 @@ $accent-hover: #333333;
   gap: 20px;
   width: 100%;
   max-width: 600px;
+
+  @include cfg.media(max-m) {
+    max-width: 100%;
+    gap: 10px;
+  }
 }
 
 .m-sweet-arrow {
@@ -202,6 +207,12 @@ $accent-hover: #333333;
   &:hover {
     background: $accent-hover;
   }
+
+  @include cfg.media(max-m) {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
 }
 
 .m-sweet-image-container {
@@ -209,6 +220,11 @@ $accent-hover: #333333;
   max-width: 400px;
   height: 300px;
   position: relative;
+
+  @include cfg.media(max-m) {
+    max-width: 300px;
+    height: 200px;
+  }
 }
 
 .m-sweet-image-item {
@@ -244,13 +260,12 @@ $accent-hover: #333333;
   padding: 12px 20px;
   border: 2px solid $border-medium;
   border-radius: 25px;
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
+  @include fonts.font(body-500, 14px);
   color: $text-primary;
   background: $background-white;
   cursor: pointer;
   transition: all 0.3s ease;
+  @include fonts.font-smoothing;
 
   &.active,
   &:hover {
@@ -264,12 +279,10 @@ $accent-hover: #333333;
   margin: 32px 0;
 
   p {
-    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
+    @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
     margin: 0;
+    @include fonts.font-smoothing;
   }
 }
 
@@ -280,13 +293,11 @@ $accent-hover: #333333;
   color: $text-white;
   text-decoration: none;
   border-radius: 12px;
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
+  @include fonts.font(body-500, 14px, 16px);
   letter-spacing: 4px;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
+  @include fonts.font-smoothing;
 
   &:hover {
     background: $accent-hover;
@@ -297,12 +308,20 @@ $accent-hover: #333333;
 .m-seasonal {
   max-width: 1200px;
   margin: 0 auto 80px;
+
+  @include cfg.media(max-m) {
+    margin-bottom: 60px;
+  }
 }
 
 .m-seasonal-image {
   position: relative;
   height: 600px;
   overflow: hidden;
+
+  @include cfg.media(max-m) {
+    height: 400px;
+  }
 }
 
 .m-seasonal-img {
@@ -323,33 +342,32 @@ $accent-hover: #333333;
   justify-content: center;
   padding: 40px;
   text-align: center;
+
+  @include cfg.media(max-m) {
+    padding: 24px;
+  }
 }
 
 .m-seasonal-title {
-  font-family: 'WT Monarch Nova', serif;
-  font-weight: 400;
-  font-size: 48px;
+  @include fonts.font(heading-400, 48px);
   color: $text-white;
   margin: 0 0 24px;
+  @include fonts.font-smoothing;
 }
 
 .m-seasonal-intro {
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  @include fonts.font(body-400, 16px, 1.5);
   color: $text-white;
   margin: 0 auto 60px;
   max-width: 800px;
+  @include fonts.font-smoothing;
 }
 
 .m-seasonal-name {
-  font-family: 'WT Monarch Nova', serif;
-  font-weight: 400;
-  font-size: 56px;
-  line-height: 1.1;
+  @include fonts.font(heading-400, 56px, 1.1);
   color: $text-white;
   margin-bottom: 40px;
+  @include fonts.font-smoothing;
 }
 
 .m-seasonal-seasons {
@@ -358,19 +376,26 @@ $accent-hover: #333333;
   gap: 20px;
   width: 100%;
   max-width: 600px;
+
+  @include cfg.media(max-m) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @include cfg.media(max-xs) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .m-seasonal-season {
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
+  @include fonts.font(body-400, 18px, 24px);
   letter-spacing: 0.6px;
   color: $text-white;
   text-align: center;
   padding: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
+  @include fonts.font-smoothing;
 
   &.active {
     text-decoration: underline;
@@ -383,6 +408,10 @@ $accent-hover: #333333;
   margin: 0 auto;
   height: 600px;
   overflow: hidden;
+
+  @include cfg.media(max-m) {
+    height: 400px;
+  }
 }
 
 .m-universal-bg-image {
@@ -407,87 +436,19 @@ $accent-hover: #333333;
 }
 
 .m-universal-description {
-  font-family: 'WT Monarch Nova', serif;
-  font-weight: 400;
-  font-size: 56px;
-  line-height: 1.1;
+  @include fonts.font(heading-400, 56px, 1.1);
   color: $text-white;
   margin: 0;
+  @include fonts.font-smoothing;
 }
 
-// ===== Mobile Styles =====
-@media (max-width: 768px) {
+// ===== Container Mobile Styles =====
+@include cfg.media(max-m) {
   .m-container {
     padding: 0 16px;
   }
 
   .m-about-flavours {
     margin-bottom: 60px;
-  }
-
-  .m-flavours-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .m-flavour-item {
-    padding: 16px 12px;
-  }
-
-  .m-flavour-image {
-    width: 60px;
-    height: 60px;
-  }
-
-  .m-sweet-section {
-    padding: 32px 24px;
-    margin: 0 auto 60px;
-  }
-
-  .m-sweet-slider {
-    max-width: 100%;
-    gap: 10px;
-  }
-
-  .m-sweet-image-container {
-    max-width: 300px;
-    height: 200px;
-  }
-
-  .m-sweet-arrow {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-  }
-
-  .m-seasonal {
-    margin-bottom: 60px;
-  }
-
-  .m-seasonal-image {
-    height: 400px;
-  }
-
-  .m-seasonal-content {
-    padding: 24px;
-  }
-
-  .m-seasonal-seasons {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .m-universal-design {
-    height: 400px;
-  }
-}
-
-@media (max-width: 480px) {
-  .m-flavours-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .m-seasonal-seasons {
-    grid-template-columns: 1fr;
   }
 }
