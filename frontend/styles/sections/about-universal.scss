@@ -6,6 +6,7 @@
 $text-primary: #1a1a1a;
 $text-white: #ffffff;
 $background-white: #ffffff;
+$background-main: #E7E7E7;
 $background-gray: #f8f8f8;
 $border-medium: #ADAEB0;
 $accent-primary: #1a1a1a;
@@ -14,7 +15,7 @@ $accent-hover: #333333;
 // ===== Base Styles =====
 .m-about-universal {
   padding-top: 40px;
-  background: $background-white;
+  background: $background-main;
 }
 
 .m-container {
@@ -108,23 +109,25 @@ $accent-hover: #333333;
 
 .m-flavours-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
   gap: 16px;
   margin: 48px 0;
+  justify-items: center;
 
   @include cfg.media(max-m) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-rows: repeat(3, auto);
   }
 
   @include cfg.media(max-xs) {
     grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto); // 5 рядків
   }
 }
 
 .m-flavour-item {
   padding: 20px 16px;
-  background: $background-white;
   transition: all 0.3s ease;
   text-align: center;
   display: flex;
@@ -163,7 +166,6 @@ $accent-hover: #333333;
 
 .m-flavour-item {
   padding: 20px 16px;
-  background: $background-white;
   transition: all 0.3s ease;
   text-align: center;
   display: flex;
@@ -183,17 +185,17 @@ $accent-hover: #333333;
 .m-flavours-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin: 48px 0;
-  justify-items: center; // Центрує всі елементи
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  justify-items: center;
 
   @include cfg.media(max-m) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @include cfg.media(max-xs) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -245,11 +247,13 @@ $accent-hover: #333333;
 }
 
 .m-sweet-slider {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 20px;
   width: 100%;
   max-width: 600px;
+  margin: 0 auto;
 
   @include cfg.media(max-m) {
     max-width: 100%;
@@ -257,10 +261,23 @@ $accent-hover: #333333;
   }
 }
 
+.m-sweet-image-container {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  position: relative;
+  margin: 0 auto;
+
+  @include cfg.media(max-m) {
+    max-width: 300px;
+    height: 200px;
+  }
+}
+
 .m-sweet-arrow {
-  background: $accent-primary;
-  color: $text-white;
-  border: none;
+  background: $text-white;
+  color: $text-primary;
+  border: 1px solid $text-primary;
   width: 40px;
   height: 40px;
   border-radius: 50%;
