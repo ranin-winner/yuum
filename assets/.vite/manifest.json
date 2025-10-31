@@ -63,6 +63,11 @@
     "src": "frontend/styles/sections/bundle-product-slider.scss",
     "isEntry": true
   },
+  "frontend/styles/sections/careers.scss": {
+    "file": "careers-eQsk-8x4.css",
+    "src": "frontend/styles/sections/careers.scss",
+    "isEntry": true
+  },
   "frontend/styles/sections/collection-grid.scss": {
     "file": "collection-grid-DbTvZDNP.css",
     "src": "frontend/styles/sections/collection-grid.scss",

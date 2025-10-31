@@ -5,15 +5,10 @@
   style="--mt-desktop: {{ section.settings.mt_desktop }}; --mt-mobile: {{ section.settings.mt_mobile }};"
 >
   <div class="container">
-    {% if section.settings.bg_image != blank %}
-      <div class="contact-section__bg">
-        {{ section.settings.bg_image | image_url: width: 2400 | image_tag: loading: 'lazy', decoding: 'async', alt: section.settings.title | escape }}
-      </div>
-    {% endif %}
-
-    <header class="contact-section__head text-center">
+    
+    <header class="contact-section__head text-center md:mb-[40px] mb-[32px]">
       {% if section.settings.title != blank %}
-        <h1 class="heading-1 !mb-3">{{ section.settings.title }}</h1>
+        <h1 class="heading-2 !mb-3">{{ section.settings.title }}</h1>
       {% endif %}
       {% if section.settings.subtitle != blank %}
         <div class="contact-section__subtitle">{{ section.settings.subtitle }}</div>
@@ -34,7 +29,7 @@
           </ul>
         {% endif %}
 
-        <div class="contact-form__grid grid md:grid-cols-2 gap-6">
+        <div class="contact-form__grid grid md:grid-cols-2 md:gap-[24px] gap-[16px]">
           <div class="contact-form__field">
             <label for="ContactForm-name" class="label">{{ section.settings.label_name }}</label>
             <input id="ContactForm-name" type="text" name="contact[name]" autocomplete="name" required>
@@ -52,9 +47,9 @@
           </div>
           {% endif %}
 
-          <div class="contact-form__field md:col-span-2">
+          <div class="contact-form__field md:col-span-2 has-select">
             <label for="ContactForm-reason" class="label">{{ section.settings.label_reason }}</label>
-            <select id="ContactForm-reason">
+            <select id="ContactForm-reason" required>
               <option value="" selected disabled>{{ section.settings.reason_placeholder }}</option>
               {% for block in section.blocks %}
                 {% if block.type == 'reason' and block.settings.text != blank %}
@@ -66,9 +61,9 @@
 
           <div class="contact-form__field md:col-span-2">
             <label for="ContactForm-message" class="label">{{ section.settings.label_message }}</label>
-            <textarea id="ContactForm-message" rows="4" maxlength=""></textarea>
+            <textarea id="ContactForm-message" class="h-full max-h-[84px]" rows="4" maxlength=""></textarea>
             <div class="contact-form__counter">
-              <span id="ContactForm-count">0</span>/<span id="ContactForm-max"></span>
+              <span id="ContactForm-count">0</span><span id="ContactForm-max"></span>
             </div>
           </div>
         </div>
@@ -91,68 +86,113 @@
       const root = document.getElementById('contact-{{ section.id }}');
       const form = root?.querySelector('#ContactForm');
       if (!form) return;
-
-      const nameEl = form.querySelector('#ContactForm-name');
-      const emailEl = form.querySelector('#ContactForm-email');
-      const phoneEl = form.querySelector('#ContactForm-phone');
+  
+      const nameEl   = form.querySelector('#ContactForm-name');
+      const emailEl  = form.querySelector('#ContactForm-email');
+      const phoneEl  = form.querySelector('#ContactForm-phone');
       const reasonEl = form.querySelector('#ContactForm-reason');
-      const msgEl = form.querySelector('#ContactForm-message');
-      const bodyEl = form.querySelector('#ContactForm-body');
-      const counter = form.querySelector('#ContactForm-count');
-      const max = Number(form.querySelector('#ContactForm-max')?.textContent || 100);
-
-      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-
+      const msgEl    = form.querySelector('#ContactForm-message');
+      const bodyEl   = form.querySelector('#ContactForm-body');
+      const counter  = form.querySelector('#ContactForm-count');
+      const maxBox   = form.querySelector('#ContactForm-max');
+      const btn      = form.querySelector('button[type="submit"]');
+  
+      /* --- CHAR LIMIT LOGIC DISABLED ---
+      const MAX = Number(msgEl?.dataset.max || msgEl?.getAttribute('maxlength') || 100);
+      if (msgEl && !msgEl.hasAttribute('maxlength')) msgEl.setAttribute('maxlength', String(MAX));
+      if (maxBox) maxBox.textContent = `/${MAX}`;
+      ----------------------------------- */
+  
+      // показуємо лише лічильник введених символів
+      if (maxBox) maxBox.textContent = ""; // приховуємо "/100" якщо був
       const setCounter = () => { if (counter && msgEl) counter.textContent = String(msgEl.value.length); };
-      msgEl?.addEventListener('input', setCounter);
-      setCounter();
-
+      msgEl?.addEventListener('input', setCounter); setCounter();
+  
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+  
+      // helpers: інлайн-помилки
+      const fieldWrap = el => el?.closest('.contact-form__field');
+      const clearFieldError = el => {
+        const wrap = fieldWrap(el); if (!wrap) return;
+        wrap.classList.remove('is-invalid');
+        el?.removeAttribute('aria-invalid');
+        wrap.querySelector('.field-error')?.remove();
+      };
+      const showFieldError = (el, message) => {
+        const wrap = fieldWrap(el); if (!wrap) return;
+        clearFieldError(el);
+        el?.setAttribute('aria-invalid','true');
+        wrap.classList.add('is-invalid');
+        const p = document.createElement('p');
+        p.className = 'field-error';
+        p.textContent = message;
+        wrap.appendChild(p);
+      };
+  
+      // чистимо помилки по вводу
+      [nameEl, emailEl, phoneEl, reasonEl, msgEl].forEach(el => {
+        el?.addEventListener('input', () => clearFieldError(el));
+        el?.addEventListener('change', () => clearFieldError(el));
+      });
+  
       form.addEventListener('submit', (e) => {
-        // basic validation
-        const errors = [];
-
-        if (!nameEl.value.trim() || nameEl.value.trim().length < 2) {
-          errors.push('Please enter your name.');
+        e.preventDefault(); // контролюємо відправку самі
+  
+        // зняти попередні помилки
+        [nameEl, emailEl, phoneEl, reasonEl, msgEl].forEach(clearFieldError);
+  
+        const nameVal   = nameEl?.value?.trim() || '';
+        const emailVal  = emailEl?.value?.trim() || '';
+        const phoneVal  = phoneEl?.value?.trim() || '';
+        const reasonVal = reasonEl?.value || '';
+        const msgVal    = msgEl?.value || '';
+  
+        const invalids = [];
+  
+        if (nameVal.length < 2) {
+          showFieldError(nameEl, 'Please enter your name.');
+          invalids.push(nameEl);
         }
-        if (!emailRe.test(emailEl.value.trim())) {
-          errors.push('Please enter a valid email.');
+        if (!emailRe.test(emailVal)) {
+          showFieldError(emailEl, 'Please enter a valid email.');
+          invalids.push(emailEl);
         }
-        if (phoneEl && phoneEl.value && !/^[\d\s()+\-]{6,}$/.test(phoneEl.value)) {
-          errors.push('Please enter a valid phone number.');
+        if (phoneEl && phoneVal && !/^[\d\s()+\-]{6,}$/.test(phoneVal)) {
+          showFieldError(phoneEl, 'Please enter a valid phone number.');
+          invalids.push(phoneEl);
         }
-        if (!reasonEl.value) {
-          errors.push('Please choose a reason for contacting.');
+        if (!reasonVal) {
+          showFieldError(reasonEl, 'Please choose a reason for contacting.');
+          invalids.push(reasonEl);
         }
-        if (msgEl.value.length > max) {
-          errors.push('Your message is too long.');
+  
+        /* --- CHAR LIMIT VALIDATION DISABLED ---
+        if (msgVal.length > MAX) {
+          showFieldError(msgEl, 'Your message is too long.');
+          invalids.push(msgEl);
         }
-
-        // show inline error list (without server roundtrip)
-        let list = form.querySelector('.js-inline-errors');
-        if (!list) {
-          list = document.createElement('ul');
-          list.className = 'contact-form__errors js-inline-errors';
-          form.prepend(list);
+        ---------------------------------------- */
+  
+        if (invalids.length) {
+          invalids[0]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return; // не відправляємо
         }
-        list.innerHTML = '';
-        if (errors.length) {
-          e.preventDefault();
-          errors.forEach(t => {
-            const li = document.createElement('li');
-            li.textContent = t;
-            list.appendChild(li);
-          });
-          return;
-        }
-
-        // compose body (native contact[body])
+  
+        // все ок — формуємо contact[body] і відправляємо
         const parts = [];
-        if (reasonEl.value) parts.push(`Reason: ${reasonEl.value}`);
-        if (msgEl.value.trim()) parts.push(`Message:\n${msgEl.value.trim()}`);
+        if (reasonVal) parts.push(`Reason: ${reasonVal}`);
+        if (msgVal.trim()) parts.push(`Message:\n${msgVal.trim()}`);
         bodyEl.value = parts.join('\n\n');
+  
+        btn?.setAttribute('disabled','disabled');
+        try { form.submit(); } finally {
+          setTimeout(() => btn?.removeAttribute('disabled'), 2000);
+        }
       });
     })();
   </script>
+  
+  
 </section>
 
 {% schema %}
@@ -161,7 +201,6 @@
   "settings": [
     { "type": "text", "id": "title", "label": "Title", "default": "Send us a message" },
     { "type": "richtext", "id": "subtitle", "label": "Subtitle", "default": "<p>We are always here to help. Please fill out the contact form below and we will get back to you as soon as possible. We normally respond within 1 to 2 working days.</p>" },
-    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
 
     { "type": "text", "id": "mt_desktop", "label": "Margin-top (desktop)", "default": "80px" },
     { "type": "text", "id": "mt_mobile", "label": "Margin-top (mobile)", "default": "40px" },

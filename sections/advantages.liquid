@@ -6,7 +6,7 @@
 >
   <div class="container">
 
-    <div class="advantages__inner">
+    <div id="useful-properties" class="advantages__inner">
       <div class="advantages__text">
         {% if section.settings.heading != blank %}
             <h2 class="advantages__title heading-3 mb-[40px] md:mb-[0]">
@@ -24,7 +24,7 @@
                       height="{{ section.settings.image_desktop.height }}">
             {% endif %}
             <img
-              class="mx-auto block h-auto w-full max-w-[520px]"
+              class="mx-auto block h-auto w-full max-w-[400px]"
               {% if section.settings.image_mobile != blank %}
                 src="{{ section.settings.image_mobile | image_url: width: 800 }}"
                 width="{{ section.settings.image_mobile.width }}"

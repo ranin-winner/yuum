@@ -6,7 +6,12 @@
       <p class="text-kicker-description__kicker">{{ section.settings.kicker | escape }}</p>
     {% endif %}
 
-    <div class="text-kicker-description__text">
+    {% assign text_classes = 'text-kicker-description__text' %}
+    {% if section.settings.align_left %}
+      {% assign text_classes = text_classes | append: ' text-kicker-description__text--left' %}
+    {% endif %}
+
+    <div class="{{ text_classes }}">
       {% if section.settings.title != blank %}
         <h2 class="text-kicker-description__title">{{ section.settings.title | escape }}</h2>
       {% endif %}
@@ -25,6 +30,7 @@
   "name": "Text Kicker & Description",
   "settings": [
     { "type": "text", "id": "kicker", "label": "Small label", "default": "ABOUT THE PRODUCT" },
+    { "type": "checkbox", "label": "Text align left", "id": "align_left", "default": false },
     { "type": "text", "id": "title", "label": "Title", "default": "Description" },
     { "type": "richtext", "id": "richtext", "label": "Description text", "default": "<p>Write your description here.</p>" }
   ],

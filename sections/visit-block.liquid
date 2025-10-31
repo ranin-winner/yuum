@@ -20,8 +20,8 @@
 >
   <div class="{% if section.settings.container == 'narrow' %}max-w-5xl{% elsif section.settings.container == 'wide' %}max-w-7xl{% else %}max-w-screen-xl{% endif %} mx-auto px-4">
     <div
-      class="visit-flex-{{ section.id }}"
-      style="display:flex; align-items:center; gap: {{ section.settings.col_gap }}px; flex-wrap: nowrap;"
+      class="grid items-end"
+      style="gap: {{ section.settings.col_gap }}px; grid-template-columns: 1fr minmax(0, 0.9fr);"
     >
       {%- comment -%} Left large image {%- endcomment -%}
       {% if section.settings.image_left != blank %}
@@ -40,28 +40,27 @@
       {% endif %}
 
       {%- comment -%} Right: text group + small image {%- endcomment -%}
-      <div class="visit-col visit-right-{{ section.id }} flex flex-col"
-           style="flex: 0.9 1 0; row-gap: {{ section.settings.inner_gap }}px; color: {{ section.settings.text_color }};">
-        <div class="flex flex-col items-start self-start w-auto" style="row-gap: {{ section.settings.text_gap }}px;" data-reveal>
+      <div class="flex flex-col"
+           style="row-gap: {{ section.settings.inner_gap }}px; color: {{ section.settings.text_color }};">
+        <div class="flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px;" data-reveal>
           {% if section.settings.title != blank %}
-            <h2 class="m-0"
-                style="font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }}; line-height: 1.2; margin-bottom: 16px;">
+            <h2 class="m-0 font-normal leading-tight"
+                style="font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }};">
               {{ section.settings.title }}
             </h2>
           {% endif %}
 
           {% if section.settings.text != blank %}
-            <p class="m-0 opacity-90"
-               style="font-size: {{ section.settings.text_size }}px; margin-bottom: 32px;">
+            <p class="m-0 opacity-90 mb-[16px]"
+               style="font-size: {{ section.settings.text_size }}px;">
               {{ section.settings.text }}
             </p>
           {% endif %}
 
           {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
-            <a
-              href="{{ section.settings.btn_url }}"
-              class="inline-flex btn btn-light items-center justify-center transition"
-            >
+            <a href="{{ section.settings.btn_url }}"
+               class="btn btn-light"
+               style="column-gap: 10px; border-color: currentColor; color: {{ section.settings.button_text_color }}; background-color: {{ section.settings.button_bg_color }};">
               {{ section.settings.btn_label }}
             </a>
           {% endif %}
@@ -132,11 +131,11 @@
 
     { "type": "range", "id": "col_gap", "min": 8, "max": 120, "step": 4, "unit": "px", "label": "Gap between columns", "default": 72 },
     { "type": "range", "id": "inner_gap", "min": 8, "max": 80, "step": 4, "unit": "px", "label": "Gap inside right column", "default": 24 },
-    { "type": "range", "id": "text_gap", "min": 4, "max": 48, "step": 2, "unit": "px", "label": "Gap between title and text", "default": 12 },
+    { "type": "range", "id": "text_gap", "min": 4, "max": 48, "step": 2, "unit": "px", "label": "Gap between title and text", "default": 16 },
 
     { "type": "color", "id": "title_color", "label": "Title color", "default": "#1A1A1A" },
     { "type": "color", "id": "text_color", "label": "Body text color", "default": "#5B5B5B" },
-    { "type": "range", "id": "title_size", "min": 18, "max": 80, "step": 1, "unit": "px", "label": "Title size", "default": 48 },
+    { "type": "range", "id": "title_size", "min": 18, "max": 76, "step": 1, "unit": "px", "label": "Title size", "default": 48 },
     { "type": "range", "id": "text_size", "min": 12, "max": 22, "step": 1, "unit": "px", "label": "Body text size", "default": 14 },
 
     { "type": "checkbox", "id": "enable_parallax", "label": "Enable parallax on images (uses data-parallax)", "default": true },

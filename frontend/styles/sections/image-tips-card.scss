@@ -1,7 +1,12 @@
 .image-tips-card {
     
     &__wrap {
-        @apply grid grid-cols-2 items-stretch;
+        @apply grid  items-stretch;
+        grid-template-columns: repeat(2, minmax(680px, 680px));
+
+        @media (max-width: 1410px) {
+            @apply grid-cols-2;
+        }
 
         @media (max-width: 1200px) {
           @apply grid grid-cols-1 items-stretch;
