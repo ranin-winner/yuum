@@ -76,7 +76,7 @@ $accent-hover: #333333;
 
 // ===== Flavours Section =====
 .m-about-flavours {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto 80px;
   text-align: center;
 
@@ -335,25 +335,33 @@ $accent-hover: #333333;
 }
 
 .m-sweet-words {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
   gap: 12px;
   justify-content: center;
-}
+  justify-items: center;
+  max-width: 600px;
+  margin: 0 auto;
 
-.m-sweet-word {
-  padding: 8px 15px;
-  border: 1px solid $text-primary;
-  border-radius: 25px;
-  @include fonts.font(body-500, 13px, 16px);
-  color: $text-primary;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  @include fonts.font-smoothing;
+  .m-sweet-word {
+    padding: 8px 15px;
+    border: 1px solid $text-primary;
+    border-radius: 25px;
+    @include fonts.font(body-500, 13px, 16px);
+    color: $text-primary;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @include fonts.font-smoothing;
+    text-align: center;
+    white-space: nowrap;
+  }
 
-  &.active,
-  &:hover {
+  @include cfg.media(max-m) {
+    grid-template-columns: repeat(3, auto);
+  }
 
+  @include cfg.media(max-xs) {
+    grid-template-columns: repeat(2, auto);
   }
 }
 
