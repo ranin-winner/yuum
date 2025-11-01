@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-BbaKYXaV.css",
+    "file": "main-CtrRmKJO.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -25,6 +25,11 @@
     "file": "main-product-CrbXoggx.js",
     "name": "main-product",
     "src": "frontend/scripts/sections/main-product.js",
+    "isEntry": true
+  },
+  "frontend/styles/sections/about-universal.scss": {
+    "file": "about-universal-DpnKnpAF.css",
+    "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
   "frontend/styles/sections/account.scss": {
@@ -53,11 +58,6 @@
     "src": "frontend/styles/sections/blog-post-list.scss",
     "isEntry": true
   },
-  "frontend/styles/sections/brand-quote.scss": {
-    "file": "brand-quote-DsJJb4ur.css",
-    "src": "frontend/styles/sections/brand-quote.scss",
-    "isEntry": true
-  },
   "frontend/styles/sections/build-your-bundle.scss": {
     "file": "build-your-bundle-Wbd_sYJC.css",
     "src": "frontend/styles/sections/build-your-bundle.scss",
@@ -66,11 +66,6 @@
   "frontend/styles/sections/bundle-product-slider.scss": {
     "file": "bundle-product-slider-DEH44Koo.css",
     "src": "frontend/styles/sections/bundle-product-slider.scss",
-    "isEntry": true
-  },
-  "frontend/styles/sections/careers.scss": {
-    "file": "careers-YgqI60Jg.css",
-    "src": "frontend/styles/sections/careers.scss",
     "isEntry": true
   },
   "frontend/styles/sections/collection-grid.scss": {
@@ -84,7 +79,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/contact-form.scss": {
-    "file": "contact-form-BmRB_7Rb.css",
+    "file": "contact-form-7vX1g7UM.css",
     "src": "frontend/styles/sections/contact-form.scss",
     "isEntry": true
   },
@@ -108,29 +103,19 @@
     "src": "frontend/styles/sections/footer-image-carousel.scss",
     "isEntry": true
   },
-  "frontend/styles/sections/franchise-section.scss": {
-    "file": "franchise-section-DdhAr--L.css",
-    "src": "frontend/styles/sections/franchise-section.scss",
-    "isEntry": true
-  },
   "frontend/styles/sections/homepage-community.scss": {
     "file": "homepage-community-CNjGE-v8.css",
     "src": "frontend/styles/sections/homepage-community.scss",
     "isEntry": true
   },
   "frontend/styles/sections/image-tips-card.scss": {
-    "file": "image-tips-card-XcQOoRxT.css",
+    "file": "image-tips-card-DuJJ8Edj.css",
     "src": "frontend/styles/sections/image-tips-card.scss",
     "isEntry": true
   },
   "frontend/styles/sections/info-banner.scss": {
     "file": "info-banner-CCy9TC2k.css",
     "src": "frontend/styles/sections/info-banner.scss",
-    "isEntry": true
-  },
-  "frontend/styles/sections/join-us.scss": {
-    "file": "join-us-CrQWBqsE.css",
-    "src": "frontend/styles/sections/join-us.scss",
     "isEntry": true
   },
   "frontend/styles/sections/location-info.scss": {
@@ -159,11 +144,6 @@
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
-  "frontend/styles/sections/proposals-grid.scss": {
-    "file": "proposals-grid-DANxVcfX.css",
-    "src": "frontend/styles/sections/proposals-grid.scss",
-    "isEntry": true
-  },
   "frontend/styles/sections/review-section.scss": {
     "file": "review-section-BdDn4zGL.css",
     "src": "frontend/styles/sections/review-section.scss",
@@ -175,7 +155,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-TCeyc2f7.css",
+    "file": "text-kicker-description-fkKiSnRE.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },

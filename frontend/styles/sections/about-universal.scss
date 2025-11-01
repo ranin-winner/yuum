@@ -1,0 +1,527 @@
+// sections/about-universal.scss
+@use '../config/all-config' as cfg;
+@use '../config/fonts' as fonts;
+
+// ===== Variables =====
+$text-primary: #1a1a1a;
+$text-white: #ffffff;
+$background-white: #ffffff;
+$background-main: #E7E7E7;
+$background-gray: #f8f8f8;
+$border-medium: #ADAEB0;
+$accent-primary: #1a1a1a;
+$accent-hover: #333333;
+
+// ===== Base Styles =====
+.m-about-universal {
+  padding-top: 40px;
+  background: $background-main;
+}
+
+.m-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// ===== Hero Section =====
+.m-about-hero {
+  position: relative;
+  padding: 80px 0;
+  margin-bottom: 80px;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1686' viewBox='0 0 1920 1686' fill='none'%3E%3Cg filter='url(%23filter0_f)'%3E%3Cpath d='M613 642L847 637L1044 740L1064 1004L1292 1385L768 1265L528 1181L165 827L514 934L716 939L609 830L613 642Z' fill='%239CBCE1'/%3E%3C/g%3E%3Cg filter='url(%23filter1_f)'%3E%3Cpath d='M1127 747L1411 633L1522 989L1649 1132L1365 1180L1356 1349L1089 1246L913 1024L1091 1086L817 773L1068 626L1127 747Z' fill='%23B3D5A1'/%3E%3C/g%3E%3Cg filter='url(%23filter2_f)'%3E%3Cpath d='M1068 427L850 300L514 335L215 770L531 825L650 853L996 906L1210 735L1029 754L873 670L1016 590L1068 427Z' fill='%23F4D7E5'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f' x='-134' y='337' width='1726' height='1348' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter1_f' x='517' y='326' width='1431' height='1323' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter2_f' x='-84' y='0' width='1594' height='1206' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &__content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    @include fonts.font(heading-400, 64px, 1.1);
+    color: $text-primary;
+    margin: 0 0 32px;
+    letter-spacing: -0.02em;
+    @include fonts.font-smoothing;
+  }
+
+  &__subtitle {
+    @include fonts.font(body-400, 16px, 1.5);
+    color: $text-primary;
+    margin: 0 0 60px;
+    @include fonts.font-smoothing;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+  }
+
+  @include cfg.media(max-m) {
+    margin-bottom: 60px;
+    &__title { font-size: 42px; }
+    &__subtitle { font-size: 14px; margin-bottom: 40px; }
+    &__image { max-height: 300px; }
+  }
+}
+
+// ===== Flavours Section =====
+.m-about-flavours {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  text-align: center;
+  padding: 0 40px;
+
+  &__title {
+    @include fonts.font(heading-400, 48px);
+    color: $text-primary;
+    margin: 0 0 32px;
+    @include fonts.font-smoothing;
+  }
+
+  &__intro {
+    @include fonts.font(body-400, 16px, 1.5);
+    color: $text-primary;
+    margin: 0 auto 48px;
+    max-width: 900px;
+    @include fonts.font-smoothing;
+  }
+
+  &__guide {
+    @include fonts.font(heading-400, 44px, 1.5);
+    color: $text-primary;
+    margin: 48px auto;
+    max-width: 1200px;
+    @include fonts.font-smoothing;
+  }
+}
+
+.m-flavours-grid {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  justify-content: center;
+  justify-items: center;
+
+  @include cfg.media(max-m) {
+    grid-template-columns: repeat(3, auto);
+  }
+
+  @include cfg.media(max-xs) {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+.m-flavour-item {
+  padding: 20px 16px;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  @include cfg.media(max-m) {
+    padding: 16px 12px;
+  }
+}
+
+.m-flavour-image {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include cfg.media(max-m) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @include cfg.media(max-xs) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.m-flavour-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.m-flavour-name {
+  @include fonts.font(body-400, 14px, 20px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: $text-primary;
+  @include fonts.font-smoothing;
+}
+
+// ===== Sweet Section =====
+.m-sweet-section {
+  margin: 0 auto 80px;
+  padding: 40px;
+  text-align: center;
+  max-width: 1200px;
+
+  @include cfg.media(max-m) {
+    padding: 32px 24px;
+    margin: 0 auto 60px;
+  }
+
+  &-title {
+    @include fonts.font(heading-400, 56px, 1.1);
+    text-align: center;
+    color: $text-primary;
+    margin: 0 0 40px;
+    letter-spacing: 0;
+
+    @include cfg.media(max-m) {
+      font-size: 42px;
+    }
+  }
+}
+
+.m-sweet-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.m-sweet-slider {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include cfg.media(max-m) {
+    max-width: 100%;
+    gap: 10px;
+  }
+}
+
+.m-sweet-image-container {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  position: relative;
+  margin: 0 auto;
+
+  @include cfg.media(max-m) {
+    max-width: 300px;
+    height: 200px;
+  }
+}
+
+.m-sweet-arrow {
+  background: $text-white;
+  color: $text-primary;
+  border: 1px solid $text-primary;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background: $accent-hover;
+  }
+
+  @include cfg.media(max-m) {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
+.m-sweet-image-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.m-sweet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.m-sweet-words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  .m-sweet-word {
+    padding: 8px 15px;
+    border: 1px solid $border-medium;
+    border-radius: 25px;
+    @include fonts.font(body-400, 13px, 16px);
+    color: $text-primary;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @include fonts.font-smoothing;
+    text-align: center;
+    white-space: nowrap;
+    background: transparent;
+    flex-shrink: 0;
+  }
+
+  @include cfg.media(max-m) {
+    max-width: 500px;
+  }
+
+  @include cfg.media(max-xs) {
+    max-width: 300px;
+    gap: 8px;
+
+    .m-sweet-word {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  }
+}
+
+.m-sweet-explore {
+  margin: 32px 0;
+
+  &-title {
+    @include fonts.font(heading-400, 56px, 1.5);
+    color: $text-primary;
+    margin: 0;
+    @include fonts.font-smoothing;
+
+    @include cfg.media(max-m) {
+      font-size: 32px;
+    }
+  }
+}
+
+.m-sweet-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 166px;
+  height: 48px;
+  border-radius: 100px;
+  border: 1px solid $accent-primary;
+  @include fonts.font(body-400, 14px, 16px);
+  letter-spacing: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  background: $background-gray;
+  color: $text-primary;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  @include fonts.font-smoothing;
+
+  &:hover {
+    background: transparent;
+    border-color: $accent-hover;
+  }
+}
+
+// ===== Seasonal Section =====
+.m-seasonal {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.m-seasonal-image {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+
+  @include cfg.media(max-m) {
+    height: 400px;
+  }
+}
+
+.m-seasonal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.m-seasonal-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  text-align: center;
+
+  @include cfg.media(max-m) {
+    padding: 40px 24px;
+  }
+}
+
+.m-seasonal-title {
+  @include fonts.font(heading-400, 48px);
+  color: $text-white;
+  margin: 0 0 24px;
+  @include fonts.font-smoothing;
+}
+
+.m-seasonal-intro {
+  @include fonts.font(body-400, 16px, 1.5);
+  color: $text-white;
+  margin: 0 auto 40px;
+  max-width: 800px;
+  @include fonts.font-smoothing;
+}
+
+.m-seasonal-name {
+  @include fonts.font(heading-400, 100px, 1.1);
+  color: $text-white;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  @include fonts.font-smoothing;
+}
+
+.m-seasonal-seasons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 600px;
+
+  @include cfg.media(max-m) {
+    gap: 30px;
+  }
+
+  @include cfg.media(max-xs) {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+.m-seasonal-season {
+  @include fonts.font(body-400, 18px, 24px);
+  color: $text-white;
+  text-align: center;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  @include fonts.font-smoothing;
+
+  &.active {
+    border-bottom: 2px solid $text-white;
+  }
+
+  &:hover {
+    border-bottom: 2px solid $text-white;
+  }
+
+  @include cfg.media(max-m) {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+}
+
+// ===== Universal Design Section =====
+.m-universal-design {
+  position: relative;
+  margin: 0 auto;
+  height: 600px;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-bottom: 0;
+
+  @include cfg.media(max-m) {
+    height: 400px;
+  }
+}
+
+.m-universal-background {
+  width: 100%;
+  height: 100%;
+}
+
+.m-universal-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.m-universal-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-universal-text {
+  @include fonts.font(heading-400, 56px, 1.1);
+  color: $text-white;
+  @include fonts.font-smoothing;
+  max-width: 1000px;
+  margin: auto;
+  padding: 0 20px;
+  text-align: center;
+
+  @include cfg.media(max-m) {
+    font-size: 42px;
+  }
+}
+
+.m-universal-description {
+  @include fonts.font(heading-400, 56px, 1.1);
+  color: $text-white;
+  margin: 0;
+  @include fonts.font-smoothing;
+
+  @include cfg.media(max-m) {
+    font-size: 42px;
+  }
+}
