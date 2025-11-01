@@ -14,6 +14,7 @@
       "name": "Hero Banner",
       "settings": {
         "title": "YUUM Café",
+        "enable_title_fill": false,
         "subtitle": "Text. A boutique cafe is a place where you can prepare and serve a product in an original form that reveals the correct flavor of your taste.",
         "baner_button": "",
         "baner_button_link": "",
@@ -112,6 +113,35 @@
         "contact_title": "Contact",
         "contact_email": "contact @yuum.co.uk",
         "contact_phone": "+44 7900 000000"
+      }
+    },
+    "map_section_b9TCfW": {
+      "type": "map-section",
+      "blocks": {
+        "location_xTbtNf": {
+          "type": "location",
+          "settings": {
+            "label": "YUUM",
+            "address": "London, UK",
+            "lat": "",
+            "lng": "",
+            "popup_title": "YUUM Café",
+            "popup_richtext": "<p>Hours | 7:30–18:00</p><p>Contact | +44 7000 000000</p>"
+          }
+        }
+      },
+      "block_order": [
+        "location_xTbtNf"
+      ],
+      "name": "Map section",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "mapbox_public_token": "pk.eyJ1IjoieXV1bSIsImEiOiJjbWhlbjdjY2MwMTdsMnFwaWdnY211ZXgxIn0.tH0y8CuBWZZWKwF0THdK7g",
+        "mapbox_style": "mapbox://styles/mapbox/streets-v12",
+        "default_lat": "51.5072",
+        "default_lng": "-0.1276",
+        "map_min_height": 800
       }
     },
     "locations_slider_bmnrEP": {
@@ -221,6 +251,7 @@
   "order": [
     "c_hero_banner_Vgy4mU",
     "locations_section_QfnznA",
+    "map_section_b9TCfW",
     "locations_slider_bmnrEP",
     "main"
   ]
