@@ -1,0 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "franchise_section_XNHfXw": {
+      "type": "franchise-section",
+      "name": "Franchise teaser",
+      "settings": {
+        "title": "Franchise",
+        "richtext": "<p>We are always looking for new and interesting acquaintances! We’re expanding globally — and looking for passionate partners to help us share our signature mochi, puddings and drinks with the world.</p>",
+        "btn_label": "START YOUR FRANCHISE JOURNEY",
+        "btn_link": "shopify://pages/contact",
+        "btn_blank": false,
+        "image": "shopify://shop_images/Image_1_c434a123-8c95-49d2-92b2-bc12711926be.png",
+        "image_alt": "Franchise storefront",
+        "lazyload_image": true,
+        "reverse": false,
+        "mt_desktop": "80px",
+        "mt_mobile": "40px"
+      }
+    },
+    "careers_Cci6UQ": {
+      "type": "careers",
+      "blocks": {
+        "quote_item_nN8ntA": {
+          "type": "quote_item",
+          "settings": {
+            "quote_bg": "shopify://shop_images/Group_6606.png",
+            "icon": "<svg width=\"120\" height=\"91\" viewbox=\"0 0 120 91\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">    <path d=\"M22.5434 91C7.51445 77.621 0 65.3954 0 54.3232C0 45.0963 4.39306 36.3308 13.1792 28.0266C21.9653 19.4917 33.2948 10.1495 47.1676 0L50.6358 5.19011C40.9249 13.4943 33.9884 20.2991 29.8266 25.6046C25.6647 30.91 23.5838 35.7541 23.5838 40.1369C23.5838 44.7503 25.4335 49.2484 29.1329 53.6312C33.0636 57.7833 38.1503 62.9734 44.3931 69.2015L22.5434 91ZM91.9075 91C76.8786 77.621 69.3642 65.3954 69.3642 54.3232C69.3642 45.0963 73.7572 36.3308 82.5434 28.0266C91.3295 19.4917 102.659 10.1495 116.532 0L120 5.19011C110.289 13.4943 103.353 20.2991 99.1908 25.6046C95.0289 30.91 92.948 35.7541 92.948 40.1369C92.948 44.7503 94.7977 49.2484 98.4971 53.6312C102.428 57.7833 107.514 62.9734 113.757 69.2015L91.9075 91Z\" fill=\"#474747\"></path></svg>",
+            "quote_text": "YUUM is more than a dessert brand — it’s a crafted experience. Our mission is to craft unforgettable flavour experiences by blending curiosity, authenticity, and adventure — reimagining iconic cultural tastes through bold, sensory creations made right.",
+            "quote_author": "— Full Name, Founder and CEO."
+          }
+        },
+        "double_image_text_6fTQVH": {
+          "type": "double_image_text",
+          "settings": {
+            "image_main": "shopify://shop_images/image_7_22a65f65-a84d-45a5-b852-c1c43f14e7be.png",
+            "image_side": "shopify://shop_images/freepik__the-style-is-candid-image-photography-with-natural__7790.png",
+            "kicker": "",
+            "title": "",
+            "text": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>",
+            "radius": 16,
+            "reverse_on_desktop": false,
+            "custom_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "quote_item_nN8ntA",
+        "double_image_text_6fTQVH"
+      ],
+      "name": "Careers Section",
+      "settings": {
+        "add_top_border": true,
+        "small_heading": "Overview",
+        "heading": "Founded in 2023, YUUM quickly became a local favourite for mochi, puddings and flavour-forward drinks",
+        "description": "<p>Now we’re looking for partners to help us grow the experience beyond London. <br/>In just over a year, we’ve built a strong following in London thanks to:<br/></p><ul><li>Unique mochi & dessert recipes</li><li>A design-led retail experience</li><li>Loyal local customer base</li><li>Consistent quality and warm service</li></ul>",
+        "button_text_1": "",
+        "button_link_1": "",
+        "additional_text": "",
+        "background_color": "#e5e5e5",
+        "equal_columns": false,
+        "reverse_image_size": true,
+        "align_images_bottom": false,
+        "team_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1_6.png",
+        "add_bottom_border": false,
+        "offer_heading": "",
+        "person_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones_6.png",
+        "add_bottom_border_person": false,
+        "cta_heading": "",
+        "cta_text": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "careers_HchCX3": {
+      "type": "careers",
+      "name": "Careers Section",
+      "settings": {
+        "add_top_border": true,
+        "small_heading": "To Connect with Partners and Franchisees",
+        "heading": "Whether you want to open one location or multiple, we’ll help you get started and scale with confidence",
+        "description": "<p>Franchising provides the opportunity to develop a premium brand while taking advantage of YUUM knowledge, expertise and support.  We are looking for committed partners who have a strong work ethic and successful track record in addition to desire and motivation to make the franchise a success.  Experience in franchising and/or a café, hospitality environment, retail management or a background in entrepreneurship is preferred.<br/><br/>Select a direction and click the button below to start the process.</p>",
+        "button_text_1": "",
+        "button_link_1": "",
+        "additional_text": "",
+        "background_color": "#e5e5e5",
+        "equal_columns": false,
+        "reverse_image_size": false,
+        "align_images_bottom": false,
+        "add_bottom_border": false,
+        "offer_heading": "",
+        "add_bottom_border_person": false,
+        "cta_heading": "",
+        "cta_text": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {
+        "heading": "404 Page Not Found",
+        "text": "The page you are looking for does not exist.",
+        "button_label": "Go to Home"
+      }
+    },
+    "proposals_grid_449r6w": {
+      "type": "proposals-grid",
+      "blocks": {
+        "item_FhPQMb": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        },
+        "item_gELhTf": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        },
+        "item_Hq6WQz": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        },
+        "item_TqAfdx": {
+          "type": "item",
+          "settings": {
+            "number": "01",
+            "title": "Open a YUUM Café",
+            "text": "<p>Short supporting copy goes here.</p>",
+            "variant": "default",
+            "btn_label": "Send a proposal",
+            "btn_link": "",
+            "btn_newtab": false
+          }
+        }
+      },
+      "block_order": [
+        "item_FhPQMb",
+        "item_gELhTf",
+        "item_Hq6WQz",
+        "item_TqAfdx"
+      ],
+      "name": "Proposals grid",
+      "settings": {
+        "heading": "Opportunities"
+      }
+    }
+  },
+  "order": [
+    "franchise_section_XNHfXw",
+    "careers_Cci6UQ",
+    "careers_HchCX3",
+    "main",
+    "proposals_grid_449r6w"
+  ]
+}

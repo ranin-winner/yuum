@@ -1,0 +1,84 @@
+{% render 'entry' with '@/styles/sections/franchise-section.scss' %}
+
+<section
+  id="franchise-{{ section.id }}"
+  class="franchise-section"
+  style="--mt-desktop: {{ section.settings.mt_desktop }}; --mt-mobile: {{ section.settings.mt_mobile }};"
+>
+  <div class="container">
+    <div class="franchise__inner {% if section.settings.reverse %}franchise__inner--reverse{% endif %}">
+      <div class="franchise__text">
+        {% if section.settings.title != blank %}
+          <h2 class="franchise__title heading-1">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+
+        {% if section.settings.richtext != blank %}
+          <div class="franchise__desc rte">
+            {{ section.settings.richtext }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.btn_label != blank and section.settings.btn_link != blank %}
+          <a
+            class="franchise__btn inline-flex items-center justify-center"
+            href="{{ section.settings.btn_link }}"
+            {% if section.settings.btn_blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+          >
+            {{ section.settings.btn_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="franchise__media">
+        {%- assign img_desktop = section.settings.image -%}
+        {%- assign img_mobile  = section.settings.image_mobile | default: section.settings.image -%}
+
+        {%- comment -%} мобільна картинка {%- endcomment -%}
+        {% render 'image'
+          with img_mobile,
+          class: 'franchise__image block md:hidden',
+          alt: section.settings.image_alt,
+          lazyload: section.settings.lazyload_image
+        %}
+
+        {%- comment -%} десктопна картинка {%- endcomment -%}
+        {% render 'image'
+          with img_desktop,
+          class: 'franchise__image hidden md:block',
+          alt: section.settings.image_alt,
+          lazyload: section.settings.lazyload_image
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Franchise teaser",
+  "tag": "section",
+  "class": "palette",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Franchise" },
+    { "type": "richtext", "id": "richtext", "label": "Text", "default": "<p>We are always looking for new and interesting acquaintances! We’re expanding globally — and looking for passionate partners to help us share our signature mochi, puddings and drinks with the world.</p>" },
+
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "START YOUR FRANCHISE JOURNEY" },
+    { "type": "url", "id": "btn_link", "label": "Button link" },
+    { "type": "checkbox", "id": "btn_blank", "label": "Open link in new tab", "default": false },
+
+    { "type": "image_picker", "id": "image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile image (optional)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt", "default": "Franchise storefront" },
+    { "type": "checkbox", "id": "lazyload_image", "label": "Lazy-load image", "default": true },
+
+    { "type": "checkbox", "id": "reverse", "label": "Reverse columns on desktop", "default": false },
+
+    { "type": "text", "id": "mt_desktop", "label": "Margin-top desktop (e.g. 80px or -40px)", "default": "80px" },
+    { "type": "text", "id": "mt_mobile", "label": "Margin-top mobile (e.g. 40px or -20px)", "default": "40px" }
+  ],
+  "blocks": [],
+  "presets": [
+    { "name": "Franchise teaser" }
+  ]
+}
+{% endschema %}

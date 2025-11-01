@@ -1,0 +1,94 @@
+{%- comment -%}
+  Snippet: double-image-text.liquid
+  Desktop → зображення зліва (одне над одним), текст справа  
+  Mobile → все йде стовпчиком: 2 картинки поруч, потім текст
+{%- endcomment -%}
+
+{%- assign img_main = block.settings.image_main -%}
+{%- assign img_side = block.settings.image_side -%}
+
+{%- if img_main and img_side -%}
+  <style>
+    .dit {
+      --r: {{ block.settings.radius | default: 16 }}px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+    }
+    
+    .dit__media {
+      display: flex;
+      flex-direction: row !important;
+      gap: 16px;
+      width: 100%;
+    }
+    
+    .dit__img {
+      border-radius: var(--r);
+      overflow: hidden;
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .dit__img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .dit__content {
+      width: 100%;
+      gap: 60px;
+    }
+    
+    @media (min-width: 768px) {
+      .dit {
+        flex-direction: row;
+        gap: 24px;
+      }
+      
+      .dit--rev {
+        flex-direction: row-reverse;
+      }
+      
+      .dit__media {
+        flex-direction: column !important;
+        gap: 24px;
+        flex: 1;
+        width: auto;
+      }
+      
+      .dit__content {
+        flex: 1;
+        gap: 150px;
+        width: auto;
+      }
+    }
+  </style>
+
+  <div class="dit {{ block.settings.custom_class }} {% if block.settings.reverse_on_desktop %}dit--rev{% endif %}" {{ block.shopify_attributes }}>
+    <div class="dit__media">
+      <div class="dit__img">
+        {% render 'image', image: img_main, class: 'w-full h-full object-cover', lazyload: true %}
+      </div>
+    </div>
+
+    <div class="dit__content flex flex-col justify-center">
+        <div class="dit__img">
+            {% render 'image', image: img_side, class: 'w-full h-full object-cover max-h-[334px]', lazyload: true %}
+        </div>
+
+        {% if block.settings.kicker != blank %}
+            <p class="text-sm uppercase tracking-wide opacity-60 mb-3">{{ block.settings.kicker | escape }}</p>
+        {% endif %}
+        {% if block.settings.title != blank %}
+            <h3 class="text-[28px] md:text-[32px] leading-tight mb-4">{{ block.settings.title | escape }}</h3>
+        {% endif %}
+        {% if block.settings.text != blank %}
+            <div class="prose max-w-none leading-[1.5]">{{ block.settings.text }}</div>
+        {% endif %}
+    </div>
+  </div>
+{%- endif -%}

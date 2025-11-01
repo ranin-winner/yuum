@@ -5,7 +5,7 @@
     {% if section.settings.add_top_border %}
         <p class="border-t border-[#ADAEB0] pb-[40px]"></p>
     {% endif %}
-    <div class="grid gap-[32px] md:gap-[178px] md:grid-cols-[280px_1fr] grid-cols-1">
+    <div class="careers-section__content-wrapper">
 
         {%- if section.settings.small_heading != blank -%}
             <div class="">
@@ -37,44 +37,45 @@
             {% comment %} careers-content--equal {% endcomment %}
             <div class="careers-content 
                 {% if section.settings.equal_columns %} careers-content--equal{% endif %}
-                {% if section.settings.reverse_image_size %} careers-content--img-reverse {% endif %}%}
+                {% if section.settings.reverse_image_size %} careers-content--img-reverse {% endif %}
+                {% if section.settings.align_images_bottom %} items-end {% endif %}  
                 "
             >
             <!-- Team Image -->
             <div class="careers-team-block">
-                {%- if section.settings.team_image != blank -%}
-                    <div class="careers-image-wrapper">
-                        <img
-                        src="{{ section.settings.team_image | img_url: '600x' }}"
-                        alt="{{ section.settings.team_image.alt | escape }}"
-                        loading="lazy"
-                        class="careers-image"
-                        >
+                    {%- if section.settings.team_image != blank -%}
+                        <div class="careers-image-wrapper">
+                            <img
+                            src="{{ section.settings.team_image | img_url: '600x' }}"
+                            alt="{{ section.settings.team_image.alt | escape }}"
+                            loading="lazy"
+                            class="careers-image"
+                            >
 
-                        {% if section.settings.add_bottom_border %}
-                            <p class="border-b border-[#ADAEB0] pt-[24px] mb-[40px]"></p>
-                        {% endif %}
-                    </div>
-                {%- endif -%}
+                            {% if section.settings.add_bottom_border %}
+                                <p class="border-b border-[#ADAEB0] pt-[24px] mb-[40px]"></p>
+                            {% endif %}
+                        </div>
+                    {%- endif -%}
 
-                <!-- What we offer list -->
-                <div class="careers-offer-section">
-                {%- if section.settings.offer_heading != blank -%}
-                    <h3 class="careers-offer-heading">{{ section.settings.offer_heading }}</h3>
-                {%- endif -%}
+                    <!-- What we offer list -->
+                    <div class="careers-offer-section">
+                    {%- if section.settings.offer_heading != blank -%}
+                        <h3 class="careers-offer-heading">{{ section.settings.offer_heading }}</h3>
+                    {%- endif -%}
 
-                {%- if section.blocks.size > 0 -%}
-                    <ul class="careers-offer-list">
-                    {%- for block in section.blocks -%}
-                        {%- if block.type == 'offer_item' -%}
-                        <li class="careers-offer-item" {{ block.shopify_attributes }}>
-                            <span class="careers-offer-number">{{ block.settings.number }}</span>
-                            <span class="careers-offer-text">{{ block.settings.text }}</span>
-                        </li>
-                        {%- endif -%}
-                    {%- endfor -%}
-                    </ul>
-                {%- endif -%}
+                    {%- if section.blocks.size > 0 -%}
+                        <ul class="careers-offer-list">
+                        {%- for block in section.blocks -%}
+                            {%- if block.type == 'offer_item' -%}
+                            <li class="careers-offer-item" {{ block.shopify_attributes }}>
+                                <span class="careers-offer-number">{{ block.settings.number }}</span>
+                                <span class="careers-offer-text">{{ block.settings.text }}</span>
+                            </li>
+                            {%- endif -%}
+                        {%- endfor -%}
+                        </ul>
+                    {%- endif -%}
                 </div>
             </div>
 
@@ -96,23 +97,57 @@
                     
                 {%- endif -%}
 
-                <div class="careers-cta-content">
-                {%- if section.settings.cta_heading != blank -%}
-                    <h3 class="careers-cta-heading">{{ section.settings.cta_heading }}</h3>
-                {%- endif -%}
+                    <div class="careers-cta-content">
+                        {%- if section.settings.cta_heading != blank -%}
+                            <h3 class="careers-cta-heading">{{ section.settings.cta_heading }}</h3>
+                        {%- endif -%}
 
-                {%- if section.settings.cta_text != blank -%}
-                    <p class="careers-cta-text">{{ section.settings.cta_text }}</p>
-                {%- endif -%}
+                        {%- if section.settings.cta_text != blank -%}
+                            <p class="careers-cta-text">{{ section.settings.cta_text }}</p>
+                        {%- endif -%}
 
-                {%- if section.settings.button_text != blank -%}
-                    <a href="{{ section.settings.button_link }}" class="careers-button btn btn-light">
-                    {{ section.settings.button_text }}
-                    </a>
-                {%- endif -%}
-                </div>
+                        {%- if section.settings.button_text != blank -%}
+                            <a href="{{ section.settings.button_link }}" class="careers-button btn btn-light">
+                            {{ section.settings.button_text }}
+                            </a>
+                        {%- endif -%}
+                    </div>
+
+
             </div>
             </div>
+
+            {%- if section.blocks.size > 0 -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'quote_item' -%}
+                    {%- assign bg_url = block.settings.quote_bg | image_url -%}
+                    <div class="careers-quote" {{ block.shopify_attributes }} >
+
+                        <img src="{{ bg_url }}" alt="img">
+                        <div class="relative">
+                            <div class="careers-quote--icon">
+                                <svg width="120" height="91" viewBox="0 0 120 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.5434 91C7.51445 77.621 0 65.3954 0 54.3232C0 45.0963 4.39306 36.3308 13.1792 28.0266C21.9653 19.4917 33.2948 10.1495 47.1676 0L50.6358 5.19011C40.9249 13.4943 33.9884 20.2991 29.8266 25.6046C25.6647 30.91 23.5838 35.7541 23.5838 40.1369C23.5838 44.7503 25.4335 49.2484 29.1329 53.6312C33.0636 57.7833 38.1503 62.9734 44.3931 69.2015L22.5434 91ZM91.9075 91C76.8786 77.621 69.3642 65.3954 69.3642 54.3232C69.3642 45.0963 73.7572 36.3308 82.5434 28.0266C91.3295 19.4917 102.659 10.1495 116.532 0L120 5.19011C110.289 13.4943 103.353 20.2991 99.1908 25.6046C95.0289 30.91 92.948 35.7541 92.948 40.1369C92.948 44.7503 94.7977 49.2484 98.4971 53.6312C102.428 57.7833 107.514 62.9734 113.757 69.2015L91.9075 91Z" fill="#474747"/>
+                                </svg>
+                            </div>
+                    
+                            <div class="careers-quote--text">
+                                {{ block.settings.quote_text }}
+                                <p class="careers-quote--author">{{ block.settings.quote_author }}</p>
+                            </div>
+                        </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+            {%- endif -%}
+
+            {%- if section.blocks.size > 0 -%}
+                {%- for block in section.blocks -%}
+                    {%- if block.type == 'double_image_text' -%}
+                        {% render 'double-image-text', block: block %}
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- endif -%}
         </div>
     </div>
   </div>
@@ -188,6 +223,12 @@
         "default": false
     },
     {
+        "type": "checkbox",
+        "id": "align_images_bottom",
+        "label": "Images bottom alignment",
+        "default": false
+    },
+    {
       "type": "image_picker",
       "id": "team_image",
       "label": "Team Image"
@@ -257,6 +298,59 @@
           "default": "A supportive, purpose-driven team"
         }
       ]
+    },
+    {
+      "type": "quote_item",
+      "name": "Quote Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "quote_bg",
+          "label": "Quote background"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Quote icon"
+        },
+        {
+          "type": "text",
+          "id": "quote_text",
+          "label": "Quote Text",
+          "default": "YUUM is more than a dessert brand — it’s a crafted experience. Our mission is to craft unforgettable flavour experiences by blending curiosity, authenticity, and adventure — reimagining iconic cultural tastes through bold, sensory creations made right."
+        },
+        {
+          "type": "text",
+          "id": "quote_author",
+          "label": "Quote author",
+          "default": "— Full Name, Founder and CEO."
+        }
+      ]
+    },
+    {
+        "type": "double_image_text",
+        "name": "Double images + text",
+        "settings": [
+            { "type": "image_picker", "id": "image_main", "label": "Main image" },
+            { "type": "image_picker", "id": "image_side", "label": "Side image" },
+            { "type": "text", "id": "kicker", "label": "Kicker" },
+            { "type": "text", "id": "title", "label": "Title" },
+            { "type": "richtext", "id": "text", "label": "Text" },
+            {
+            "type": "range",
+            "id": "radius",
+            "label": "Image border radius",
+            "min": 0, "max": 32, "step": 1, "unit": "px",
+            "default": 16
+            },
+            {
+            "type": "checkbox",
+            "id": "reverse_on_desktop",
+            "label": "Swap columns on desktop",
+            "default": false
+            },
+            { "type": "text", "id": "custom_class", "label": "Custom CSS class" }
+        ]
     }
   ],
   "presets": [
