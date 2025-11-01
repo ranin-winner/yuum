@@ -1,82 +1,105 @@
 .proposals-grid {
     &__list {
       display: grid;
-      gap: 24px;
+      gap: 8px;
       @apply md:grid-cols-2 xl:grid-cols-4;
     }
   }
   
   .proposals-card {
-    border: 1px solid #D9DADB;
-    background: #EFEFEF;
-    border-radius: 16px;
-    padding: 24px;
+    border: 1px solid #ADAEB0;
+    background: #E7E7E7;
+    color: #474747;
+    border-radius: 20px;
+    padding: 32px 20px;
     display: grid;
     align-content: start;
-    gap: 12px;
     transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+
   
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,.05);
-      border-color: #C9CACB;
+      border-color: #FFFFFF;
+      background-color: #fff;
     }
   
     &--primary { background: #FFFFFF; }
   
     &__head {
       display: grid;
-      grid-template-columns: auto 1fr;
-      column-gap: 12px;
+      grid-template-columns: 1fr;
+      gap: 12px;
       align-items: baseline;
     }
-  
-    &__num {
-      line-height: 1;
-      font-size: 32px;
-      font-weight: 500;
-      color: #3A3A3A;
-    }
-  
+    
     &__title {
-      font-weight: 600;
-      font-size: 18px;
-      color: #2B2B2B;
-      margin: 0;
+        margin-bottom: 12px;
     }
   
     &__text {
-      color: #5A5B5D;
-      font-size: 13px;
       line-height: 1.4;
-    }
-  
-    &__btn {
-      @apply inline-flex items-center justify-center;
-      padding: 10px 16px;
-      border-radius: 9999px;
-      border: 1px solid #2F2F2F;
-      background: #2F2F2F;
-      color: #fff;
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      width: max-content;
-      transition: background-color .2s ease, color .2s ease, border-color .2s ease;
-  
-      &:hover { background: transparent; color: #2F2F2F; }
     }
   }
   
   @media (max-width: 767px) {
     .proposals-card {
-      border-radius: 12px;
-      padding: 16px;
-      gap: 10px;
-  
-      &__num { font-size: 24px; }
-      &__title { font-size: 16px; }
-      &__btn { font-size: 11px; padding: 9px 14px; }
+        padding: 32px 16px;
     }
   }
+
+// modal styles
+.c-modal { 
+    transition: opacity .2s ease; 
+    &__panel {
+        padding: 60px 120px;
+        transform: translateY(12px); 
+        opacity: 0; 
+        transition: transform .2s ease, opacity .2s ease;
+
+        max-height: min(880px, calc(100svh - 32px)); 
+    
+        @supports not (height: 1svh) {
+            max-height: min(880px, calc(100vh - 32px));
+        }
+
+        @media (max-width: 900px) {
+            padding: 60px 16px;
+        }
+
+        width: min(900px, 92vw);
+    }
+
+    &.is-open {
+        .c-modal__panel {
+            transform: translateY(0); opacity: 1;
+        }
+    }
+
+    &__close {
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &__content {
+        overflow: auto;
+
+        max-height: min(660px, calc(60svh - 32px)); 
+    
+        @supports not (height: 1svh) {
+            max-height: min(660px, calc(60vh - 32px));
+        }
+
+        textarea {
+            height: 84px!important;
+            padding-top: 20px!important;
+        }
+    }
+
+    @supports (width: 1svw) {
+        .c-modal__panel { width: min(900px, 92svw); }
+    }
+}
+
+
   

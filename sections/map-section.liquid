@@ -1,0 +1,114 @@
+{% comment %} {% render 'entry' with '@/styles/sections/map-section.scss' %} {% endcomment %}
+
+<section id="map-section-{{ section.id }}" class="map-section">
+  <div class="container container-full !p-[0]">
+    <div class="map-section__inner">
+      {% if section.settings.title != blank %}
+        <h2 class="heading-2 mb-[16px]">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <div class="text-[#474747] mb-[24px]">{{ section.settings.subtitle }}</div>
+      {% endif %}
+
+      <div
+        id="mapboxContainer-{{ section.id }}"
+        class="map-section__map"
+        data-mapbox-section
+        data-token="{{ section.settings.mapbox_public_token | escape }}"
+        data-style="{{ section.settings.mapbox_style | default: 'mapbox://styles/mapbox/streets-v12' | escape }}"
+        data-default-lng="{{ section.settings.default_lng | default: '-0.1276' }}"
+        data-default-lat="{{ section.settings.default_lat | default: '51.5072' }}"
+        style="
+          width:100%;
+          --map-h: {{ section.settings.map_min_height | default: 520 }}px;
+          --map-h-mobile: {{ section.settings.map_min_height_mobile | default: 360 }}px;
+        "
+      ></div>
+
+      {%- capture markers_json -%}
+      [
+        {%- for block in section.blocks -%}
+          {
+            "id": {{ block.id | json }},
+            "address": {{ block.settings.address | json }},
+            "lat": {{ block.settings.lat | json }},
+            "lng": {{ block.settings.lng | json }},
+            "label": {{ block.settings.label | default: 'YUUM' | json }},
+            "popup_title": {{ block.settings.popup_title | json }},
+            "popup_html": {{ block.settings.popup_richtext | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+      {%- endcapture -%}
+      <script type="application/json" id="map-data-{{ section.id }}">{{ markers_json | strip }}</script>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* висота мапи через змінні: desktop і mobile */
+  #map-section-{{ section.id }} .map-section__map {
+    min-height: var(--map-h, 520px);
+  }
+  @media (max-width: 767px) {
+    #map-section-{{ section.id }} .map-section__map {
+      min-height: var(--map-h-mobile, 360px);
+    }
+  }
+
+  /* базова стилізація маркера та попапу; перенеси в SCSS при бажанні */
+  .mapboxgl-popup-content { 
+    padding:0!important; 
+    margin-bottom: 20px!important;
+  }
+  .mapboxgl-popup-tip:has(~ .mapboxgl-popup-content) { display:none!important; }
+
+  .yuum-marker { display:flex; flex-direction:column; align-items:center; transform:translateY(-8px); }
+  .yuum-marker__label {
+    background:#474747; color:#fff; font-size:11px; font-weight:600; letter-spacing:.05em;
+    padding:4px 10px; border-radius:6px; margin-bottom:4px;
+  }
+  .yuum-marker__pin svg { display:block; }
+
+  .yuum-popup { background:#474747; color:#fff; border-radius:8px; padding:12px 16px; font-size:14px; line-height:1.4; }
+  .yuum-popup strong { display:block; font-weight:600; margin-bottom:6px; font-size:15px; }
+  .yuum-popup p { margin:3px 0; opacity:.9; }
+</style>
+
+{% schema %}
+{
+  "name": "Map section",
+  "tag": "section",
+  "class": "shopify-section--map",
+  "settings": [
+    { "type":"text", "id":"title", "label":"Title" },
+    { "type":"richtext", "id":"subtitle", "label":"Subtitle" },
+
+    { "type":"text", "id":"mapbox_public_token", "label":"Mapbox public token (pk…)", "info":"Обов'язково pk-… токен" },
+    { "type":"text", "id":"mapbox_style", "label":"Mapbox style URL", "default":"mapbox://styles/mapbox/streets-v12" },
+
+    { "type":"text", "id":"default_lat", "label":"Default latitude", "default":"51.5072" },
+    { "type":"text", "id":"default_lng", "label":"Default longitude", "default":"-0.1276" },
+
+    { "type":"range", "id":"map_min_height", "label":"Map height (desktop, px)", "min":280, "max":1000, "step":20, "default":800 },
+    { "type":"range", "id":"map_min_height_mobile", "label":"Map height (mobile, px)", "min":200, "max":800, "step":10, "default":500 }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Location",
+      "settings": [
+        { "type":"text", "id":"label", "label":"Marker label", "default":"YUUM" },
+        { "type":"text", "id":"address", "label":"Address for geocoding", "default":"London, UK", "info":"Вкажи адресу або поштовий індекс. Якщо задані lat/lng — геокодинг не потрібен." },
+        { "type":"text", "id":"lat", "label":"Latitude (optional)" },
+        { "type":"text", "id":"lng", "label":"Longitude (optional)" },
+
+        { "type":"text", "id":"popup_title", "label":"Popup title", "default":"YUUM Café" },
+        { "type":"richtext", "id":"popup_richtext", "label":"Popup content (yuum-popup)", "default":"<p>Hours | 7:30–18:00</p><p>Contact | +44 7000 000000</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [{ "name":"Map section", "category":"Contact" }]
+}
+{% endschema %}

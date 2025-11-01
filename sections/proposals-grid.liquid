@@ -8,36 +8,159 @@
 
     <div class="proposals-grid__list">
       {%- for block in section.blocks -%}
-        <article
-          class="proposals-card {% if block.settings.variant == 'primary' %}proposals-card--primary{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          <div class="proposals-card__head">
-            {% if block.settings.number != blank %}
-              <span class="proposals-card__num">{{ block.settings.number }}</span>
-            {% endif %}
-            {% if block.settings.title != blank %}
-              <h3 class="proposals-card__title">{{ block.settings.title | escape }}</h3>
-            {% endif %}
-          </div>
+        {%- if block.type == 'item' -%}
+          <article
+            class="proposals-card {% if block.settings.variant == 'primary' %}proposals-card--primary{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="proposals-card__head">
+              {% if block.settings.number != blank %}
+                <span class="proposals-card__num heading-3">{{ block.settings.number }}</span>
+              {% endif %}
+              {% if block.settings.title != blank %}
+                <h3 class="proposals-card__title heading-6">{{ block.settings.title | escape }}</h3>
+              {% endif %}
+            </div>
 
-          {% if block.settings.text != blank %}
-            <div class="proposals-card__text rte">{{ block.settings.text }}</div>
-          {% endif %}
+            {% if block.settings.text != blank %}
+              <div class="proposals-card__text rte md:mb-[40px] mb-[32px]">{{ block.settings.text }}</div>
+            {% endif %}
 
-          {% if block.settings.btn_label != blank and block.settings.btn_link != blank %}
-            <a
-              href="{{ block.settings.btn_link }}"
-              class="proposals-card__btn"
-              {% if block.settings.btn_newtab %}target="_blank" rel="noopener noreferrer"{% endif %}
-            >
-              {{ block.settings.btn_label | escape }}
-            </a>
-          {% endif %}
-        </article>
+            {%- if block.settings.action_type == 'link' and block.settings.btn_label != blank and block.settings.btn_link != blank -%}
+              <a href="{{ block.settings.btn_link }}"
+                 class="proposals-card__btn btn btn-light"
+                 {% if block.settings.btn_newtab %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                {{ block.settings.btn_label | escape }}
+              </a>
+            {%- elsif block.settings.action_type == 'modal' and block.settings.btn_label != blank and block.settings.modal_handle != blank -%}
+              <button
+                 type="button"
+                 class="proposals-card__btn btn btn-light"
+                 data-open-modal="{{ block.settings.modal_handle | handleize }}"
+                 aria-haspopup="dialog"
+                 aria-expanded="false">
+                 {{ block.settings.btn_label | escape }}
+              </button>
+            {%- endif -%}
+          </article>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </div>
+
+  {%- comment -%} Render all modal blocks once, hidden until opened {%- endcomment -%}
+  <div class="proposals-grid__modals">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'form_modal' -%}
+        {% render 'form-modal',
+          id: block.settings.modal_handle,
+          title: block.settings.modal_title,
+          subtitle: block.settings.modal_subtitle,
+          content: block.settings.form_code
+        %}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%}
+    Minimal JS to open/close modals.
+    Uses existing .l-overlay for backdrop (adds .is-active while any modal open).
+    Scopes by section.id so multiple sections can coexist.
+  {%- endcomment -%}
+  <script>
+    (function() {
+      var root = document.querySelector('[data-section-id="{{ section.id }}"]');
+      if (!root) return;
+    
+      var HIDDEN = 'hidden';
+    
+      function getModal(handle){ return root.querySelector('[data-modal="'+ handle +'"]'); }
+    
+      function setBodyScrollLocked(locked) {
+        // твоя глобальна логіка підхоплює цей клас і показує overlay
+        document.body.classList.toggle('no-scroll', !!locked);
+    
+        // опційно — евенти для Alpine/іншої логіки
+        document.dispatchEvent(new CustomEvent('modal:' + (locked ? 'open' : 'close')));
+      }
+    
+      function openModal(handle, trigger){
+        var m = getModal(handle);
+        if (!m) return;
+    
+        // показати модалку + анімація
+        m.classList.remove(HIDDEN, 'pointer-events-none', 'opacity-0');
+        requestAnimationFrame(function(){ m.classList.add('is-open'); });
+    
+        // a11y
+        m.setAttribute('aria-hidden','false');
+        if (trigger) {
+          if (!trigger.id) trigger.id = 'btn-' + Math.random().toString(36).slice(2);
+          m.dataset.triggerId = trigger.id;
+          trigger.setAttribute('aria-expanded','true');
+        }
+    
+        // фокус
+        var focusable = m.querySelector('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+        (focusable || m).focus();
+    
+        setBodyScrollLocked(true);
+      }
+    
+      function closeModal(handle){
+        var m = getModal(handle);
+        if (!m) return;
+    
+        // старт закриття
+        m.classList.remove('is-open');
+        m.setAttribute('aria-hidden','true');
+    
+        setTimeout(function(){
+          m.classList.add(HIDDEN, 'pointer-events-none', 'opacity-0');
+        }, 200);
+    
+        var triggerId = m.dataset.triggerId;
+        if (triggerId) {
+          var t = document.getElementById(triggerId);
+          if (t) t.setAttribute('aria-expanded','false');
+        }
+    
+        setBodyScrollLocked(false);
+      }
+    
+      // open
+      root.addEventListener('click', function(e){
+        var btn = e.target.closest('[data-open-modal]');
+        if (!btn) return;
+        e.preventDefault();
+        openModal(btn.getAttribute('data-open-modal'), btn);
+      });
+    
+      // close (кнопка)
+      root.addEventListener('click', function(e){
+        var closeBtn = e.target.closest('[data-close-modal]');
+        if (!closeBtn) return;
+        closeModal(closeBtn.getAttribute('data-close-modal'));
+      });
+    
+      // close (клік поза панеллю)
+      root.addEventListener('mousedown', function(e){
+        var panel = e.target.closest('.c-modal__panel');
+        var wrapper = e.target.closest('.c-modal');
+        if (wrapper && !panel) closeModal(wrapper.getAttribute('data-modal'));
+      });
+    
+      // close (ESC)
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') {
+          var opened = root.querySelector('.c-modal:not(.hidden)');
+          if (opened) closeModal(opened.getAttribute('data-modal'));
+        }
+      });
+    })();
+    </script>
+    
+    
 </section>
 
 {% schema %}
@@ -66,13 +189,29 @@
             { "value": "primary", "label": "Highlighted (like first card)" }
           ]
         },
+        { "type": "select", "id": "action_type", "label": "Button action", "default": "modal", "options": [
+          { "value": "modal", "label": "Open modal" },
+          { "value": "link", "label": "Open link" }
+        ]},
         { "type": "text", "id": "btn_label", "label": "Button label", "default": "Send a proposal" },
-        { "type": "url", "id": "btn_link", "label": "Button link" },
-        { "type": "checkbox", "id": "btn_newtab", "label": "Open in new tab", "default": false }
+        { "type": "url", "id": "btn_link", "label": "Button link (used when action = Link)" },
+        { "type": "checkbox", "id": "btn_newtab", "label": "Open link in new tab", "default": false },
+        { "type": "text", "id": "modal_handle", "label": "Modal handle to open (used when action = Modal)", "info": "Вкажи handle модалки з блоків “Form modal” нижче. Напр.: partners-offer" }
+      ]
+    },
+    {
+      "type": "form_modal",
+      "name": "Form modal",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "modal_handle", "label": "Modal handle (unique)", "default": "partners-offer", "info": "Тільки латиниця/дефіси. Використовується кнопками карток для відкриття цієї модалки." },
+        { "type": "text", "id": "modal_title", "label": "Modal title", "default": "Partnership Offer" },
+        { "type": "text", "id": "modal_subtitle", "label": "Modal subtitle", "default": "Fill in all the required fields and we will contact you." },
+        { "type": "textarea", "id": "form_code", "label": "Form code (embed from app)", "info": "Встав тут HTML/див ембед із додатку (без <script>).", "default": "<div style=\"margin:0 auto;\" class=\"pxFormGenerator\" id=\"Ntlfp4ij6M6R5VFqr8rTMQ\"></div>" }
       ]
     }
   ],
-  "max_blocks": 12,
+  "max_blocks": 20,
   "presets": [
     {
       "name": "Proposals grid",
@@ -80,7 +219,8 @@
         { "type": "item" },
         { "type": "item" },
         { "type": "item" },
-        { "type": "item" }
+        { "type": "item" },
+        { "type": "form_modal" }
       ]
     }
   ]

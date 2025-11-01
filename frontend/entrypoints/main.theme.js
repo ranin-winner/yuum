@@ -16,6 +16,7 @@ import '../components/alp-build-box'; // FE TODO Must be included only for the b
 import '../components/main-product-replaced.js';
 import { mountAuthStore } from '../components/auth-modal';
 import { search } from '../components/search';
+import { initMapSections } from '../components/map-section';
 
 
 
@@ -45,10 +46,13 @@ initScrollAnimations(document);
 
 document.addEventListener('DOMContentLoaded', initLazySections);
 
+initMapSections(document);
+
 
 document.addEventListener('lazy:section:loaded', (e) => {
   initScrollAnimations(e.target); // тільки в нововставленій секції
   smoothRefresh();                 // оновити тригери висот
+  initMapSections(e.target);
 });
 
 smoothRefresh();
