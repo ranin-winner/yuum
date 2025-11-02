@@ -1,5 +1,7 @@
 @use '../config/all-config' as cfg;
 
+@forward '../elements/auth-modal';
+
 /* Header */
 .b-header {
   $mobile-resolutions: 768px;

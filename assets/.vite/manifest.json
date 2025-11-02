@@ -1,11 +1,11 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-B0ox5kGG.css",
+    "file": "main-Db-uJPAq.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-BtROxe12.js",
+    "file": "main.theme-DpmhSiTZ.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
@@ -165,7 +165,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/proposals-grid.scss": {
-    "file": "proposals-grid-DANxVcfX.css",
+    "file": "proposals-grid-Bk-4Olrk.css",
     "src": "frontend/styles/sections/proposals-grid.scss",
     "isEntry": true
   },
@@ -190,7 +190,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/visit-us.scss": {
-    "file": "visit-us-Dod8yEEX.css",
+    "file": "visit-us-AYbo5lLs.css",
     "src": "frontend/styles/sections/visit-us.scss",
     "isEntry": true
   }
