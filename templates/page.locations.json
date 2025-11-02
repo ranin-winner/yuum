@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,6 +16,26 @@
         "heading": "404 Page Not Found",
         "text": "The page you are looking for does not exist.",
         "button_label": "Go to Home"
+      }
+    },
+    "visit_us_tpWtFt": {
+      "type": "visit-us",
+      "name": "Visit Us",
+      "settings": {
+        "title": "Visit Us",
+        "subtitle": "<p>Your text here.</p>",
+        "input_label": "Enter Postcode or City",
+        "input_placeholder": "Enter Postcode",
+        "button_label": "CONFIRM",
+        "mapbox_public_token": "pk.eyJ1IjoieXV1bSIsImEiOiJjbWhlbjdjY2MwMTdsMnFwaWdnY211ZXgxIn0.tH0y8CuBWZZWKwF0THdK7g",
+        "mapbox_style": "mapbox://styles/mapbox/standard",
+        "default_lat": "51.5072",
+        "default_lng": "-0.1276",
+        "default_zoom": 8,
+        "location_title": "Our Location",
+        "location_info": "",
+        "location_phone": "",
+        "location_hours": ""
       }
     },
     "locations_slider_iTxmz4": {
@@ -118,7 +147,7 @@
   },
   "order": [
     "main",
-    "locations_slider_iTxmz4",
-    "visit_us_tpWtFt"
+    "visit_us_tpWtFt",
+    "locations_slider_iTxmz4"
   ]
 }

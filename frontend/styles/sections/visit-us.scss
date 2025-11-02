@@ -23,4 +23,13 @@
             padding: 40px 16px 0px 16px;
         }
     }
+
+    .form-control:-webkit-autofill, .form-control:-webkit-autofill:hover, .form-control:-webkit-autofill:active, input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:active, textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:active {
+        -webkit-text-fill-color: #1a1a1a !important;
+        caret-color: #1a1a1a;
+        box-shadow: 0 0 0 1000px #E7E7E7 inset !important;
+        -webkit-box-shadow: 0 0 0 1000px #E7E7E7 inset !important;
+        -webkit-transition: background-color 5000s ease-in-out 0s;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 }

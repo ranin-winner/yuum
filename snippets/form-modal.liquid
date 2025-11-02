@@ -1,0 +1,41 @@
+{%- comment -%}
+  Reusable modal
+  Props:
+    - id: string (required) — machine handle, must be unique per section
+    - title: string (optional)
+    - content: string (HTML) — form embed, richtext, etc.
+{%- endcomment -%}
+
+{%- assign modal_id = id | handleize -%}
+<div
+  class="c-modal hidden opacity-0 pointer-events-none fixed inset-0 z-[999] flex items-center justify-center"
+  data-modal="{{ modal_id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-{{ modal_id }}-title"
+  tabindex="-1"
+>
+  <div class="c-modal__panel relative w-[min(720px,92vw)] rounded-[32px] bg-[#F5F5F5] shadow-xl">
+    <button type="button"
+      class="c-modal__close absolute right-[12px] top-[12px] p-2"
+      aria-label="Close"
+      data-close-modal="{{ modal_id }}">
+      {% render 'icon-close', color: '#1b4c62' %}
+    </button>
+    
+    {%- if title != blank -%}
+      <h3 id="modal-{{ modal_id }}-title" class="heading-4 text-center mb-[16px]">{{ title }}</h3>
+    {%- endif -%}
+
+    {% if subtitle != blank %}
+        <p id="modal-{{ modal_id }}-subtitle" class="text-[#474747] text-[18px] mb-[32px] text-center">{{ subtitle }}</p> 
+    {% endif %}
+
+    <div class="c-modal__content">
+      {{ content }}
+    </div>
+  </div>
+</div>
+
+{% comment %} ===== {% endcomment %}
+

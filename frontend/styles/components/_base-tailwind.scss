@@ -126,6 +126,25 @@
   }
 
 
+ //map styles
+ .visit-suggestions {
+    transition: all 0.3s ease;
+    font-size: 14px;
+    border-radius: 4px;
+    
+    li {
+        padding: 10px 16px;
+        &:hover {
+            background-color: #474747;
+            color: #ffff;
+        }
+    }
+ }
+  
+
+
+
+
  //common form styles
   .form-control,
   input,
@@ -695,4 +714,13 @@
 
 .ush-info-title + .ProductRating__Wrapper-sc-1l4gexz-0.iwgPnw.ush-bundle-rating-wrapper {
     display: block!important;
+}
+
+
+.m-page-contact {
+    .shopify-section {
+        &:last-child {
+            padding-bottom: 0px;
+        }
+    }
 }
