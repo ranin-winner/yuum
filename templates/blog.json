@@ -3,11 +3,9 @@
     "c_blog_post_list_XPrixg": {
       "type": "c-blog-post-list",
       "settings": {
-        "blog": "partners",
-        "color_scheme": "scheme-1",
-        "title": "ALL IN Blog",
-        "subtitle": "Lorem ipsum dolor",
-        "heading-img": "shopify:\/\/shop_images\/bg-testi.jpg"
+        "blog": "news",
+        "blog_title": "YUUM",
+        "blog_subtitle": "Journal"
       }
     },
     "footer_image_carousel_TcQV6g": {
