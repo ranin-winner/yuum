@@ -1,3 +1,4 @@
+// sections/blog-posts.scss
 @use '../config/all-config' as cfg;
 @use '../config/fonts' as fonts;
 
@@ -40,88 +41,62 @@ $accent-hover: #333333;
     @include fonts.font-smoothing;
   }
 
-  &__posts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: auto;
+  // FIXED WRAPPER
+  &__group-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
     gap: 40px;
-    align-items: start;
+    margin-bottom: 40px;
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
 .m-blog-post-modern {
   &--large {
-    grid-column: 1;
-    grid-row: span 2;
+    flex: 0 0 50%; // Фіксована ширина 50%
     display: flex;
     flex-direction: column;
     gap: 30px;
-
-    &.m-blog-post-modern--mirror {
-      grid-column: 2;
-      grid-row: span 2;
-    }
   }
 
   &--small {
+    flex: 0 0 25%; // Фіксована ширина 25%
     display: flex;
-    gap: 30px;
-    height: fit-content;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  &--horizontal {
-    grid-column: 2;
-
-    &.m-blog-post-modern--reverse {
-      grid-row: 2;
-    }
-
-    &:not(.m-blog-post-modern--reverse) {
-      grid-row: 1;
-    }
-
-    &.m-blog-post-modern--mirror {
-      grid-column: 1;
-
-      &.m-blog-post-modern--reverse {
-        grid-row: 1;
-      }
-
-      &:not(.m-blog-post-modern--reverse) {
-        grid-row: 2;
-      }
-    }
+  &--reverse {
+    // Для small карток з реверсом
   }
 
   &__image {
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid #e0e0e0;
+    width: 100%;
 
     .m-blog-post-modern--large & {
-      flex: 0 0 auto;
+      height: 300px;
     }
 
     .m-blog-post-modern--small & {
-      flex: 0 0 50%;
+      height: 200px;
     }
   }
 
   &__img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
 
-    .m-blog-post-modern--large & {
-      height: 300px;
-      object-fit: cover;
-    }
-
-    .m-blog-post-modern--small & {
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .m-blog-post-modern:hover & {
+    &:hover {
       transform: scale(1.05);
     }
   }
@@ -130,14 +105,10 @@ $accent-hover: #333333;
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    .m-blog-post-modern--large & {
-      flex: 1;
-    }
+    flex: 1;
 
     .m-blog-post-modern--small & {
-      flex: 0 0 50%;
-      justify-content: center;
+      gap: 15px;
     }
   }
 
@@ -149,7 +120,8 @@ $accent-hover: #333333;
     @include fonts.font-smoothing;
 
     .m-blog-post-modern--small & {
-      font-size: 20px;
+      font-size: 18px;
+      line-height: 1.4;
     }
 
     a {
@@ -185,6 +157,7 @@ $accent-hover: #333333;
     @include fonts.font-smoothing;
     transition: all 0.3s ease;
     align-self: flex-start;
+    margin-top: auto;
 
     &:hover {
       color: $accent-hover;
@@ -194,6 +167,7 @@ $accent-hover: #333333;
 
   &__placeholder {
     width: 100%;
+    height: 100%;
     background: $background-gray;
     display: flex;
     align-items: center;
@@ -202,19 +176,6 @@ $accent-hover: #333333;
     @include fonts.font(body-400, 14px, 1.4);
     border-radius: 8px;
     @include fonts.font-smoothing;
-
-    .m-blog-post-modern--large & {
-      height: 300px;
-    }
-
-    .m-blog-post-modern--small & {
-      height: 200px;
-    }
-
-    &-svg {
-      width: 100%;
-      height: 100%;
-    }
   }
 }
 
@@ -238,49 +199,28 @@ $accent-hover: #333333;
       font-size: 18px;
     }
 
-    &__posts {
-      grid-template-columns: 1fr;
-      grid-auto-rows: auto;
+    &__group-wrapper {
+      flex-direction: column;
       gap: 30px;
     }
   }
 
   .m-blog-post-modern {
     &--large {
-      grid-column: 1;
-      grid-row: auto;
-
-      &.m-blog-post-modern--mirror {
-        grid-column: 1;
-      }
+      flex: 0 0 100%;
     }
 
     &--small {
-      grid-column: 1;
-      grid-row: auto;
-      flex-direction: column;
-      gap: 20px;
+      flex: 0 0 100%;
     }
 
-    &--horizontal {
-      &.m-blog-post-modern--reverse,
-      &:not(.m-blog-post-modern--reverse) {
-        grid-row: auto;
-      }
-
-      &.m-blog-post-modern--mirror {
-        grid-column: 1;
-        grid-row: auto;
-      }
-    }
-
-    &__img {
+    &__image {
       .m-blog-post-modern--large & {
         height: 250px;
       }
 
       .m-blog-post-modern--small & {
-        height: 180px;
+        height: 200px;
       }
     }
 

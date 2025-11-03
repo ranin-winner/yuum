@@ -2,191 +2,205 @@
   <div class="m-blog-modern__container">
     <div class="m-blog-modern__header">
       <h1 class="m-blog-modern__main-title">{{ section.settings.blog_title | default: 'Journal' }}</h1>
-      <h2 class="m-blog-modern__subtitle">{{ section.settings.blog_subtitle | default: 'YUUM' }}</h2>
+      <h2 class="m-blog-post-modern__subtitle">{{ section.settings.blog_subtitle | default: 'YUUM' }}</h2>
     </div>
 
-    <div class="m-blog-modern__posts">
-      {%- assign blog = blogs[section.settings.blog] -%}
-      {%- assign posts_limit = section.settings.posts_limit | default: 9 -%}
+    {%- assign blog = blogs[section.settings.blog] -%}
+    {%- assign posts_limit = section.settings.posts_limit | default: 9 -%}
 
-      {%- if blog and blog.articles.size > 0 -%}
-        {%- assign total_posts = blog.articles.size -%}
-        {%- assign posts_to_show = posts_limit | at_most: total_posts -%}
+    {%- if blog and blog.articles.size > 0 -%}
+      {%- assign total_posts = blog.articles.size -%}
+      {%- assign posts_to_show = posts_limit | at_most: total_posts -%}
 
-        {%- for i in (1..posts_to_show) -%}
-          {%- assign post_index = i | minus: 1 | modulo: total_posts -%}
-          {%- assign article = blog.articles[post_index] -%}
-          {%- assign group_index = i | minus: 1 | divided_by: 3 -%}
-          {%- assign position_in_group = i | minus: 1 | modulo: 3 -%}
-          {%- assign is_mirror_group = group_index | modulo: 2 -%}
+      {%- for i in (1..posts_to_show) -%}
+        {%- assign post_index = i | minus: 1 | modulo: total_posts -%}
+        {%- assign article = blog.articles[post_index] -%}
+        {%- assign group_index = i | minus: 1 | divided_by: 3 -%}
+        {%- assign position_in_group = i | minus: 1 | modulo: 3 -%}
+        {%- assign is_mirror_group = group_index | modulo: 2 -%}
 
-          {%- if position_in_group == 0 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--large {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
-              <div class="m-blog-post-modern__image">
-                <a href="{{ article.url }}">
-                  {%- if article.image -%}
-                    <img src="{{ article.image | img_url: '600x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                  {%- elsif section.settings.default_image -%}
-                    <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                  {%- else -%}
-                    <div class="m-blog-post-modern__placeholder">
-                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                    </div>
-                  {%- endif -%}
-                </a>
-              </div>
-              <div class="m-blog-post-modern__content">
-                <h3 class="m-blog-post-modern__title">
-                  <a href="{{ article.url }}">{{ article.title }}</a>
-                </h3>
-                <div class="m-blog-post-modern__excerpt">
-                  {%- if article.excerpt != blank -%}
-                    {{ article.excerpt | strip_html | truncatewords: 25 }}
-                  {%- else -%}
-                    {{ article.content | strip_html | truncatewords: 25 }}
-                  {%- endif -%}
-                </div>
-                <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
-              </div>
-            </article>
+        {%- if position_in_group == 0 -%}
+          <div class="m-blog-modern__group-wrapper">
+        {%- endif -%}
 
-          {%- elsif position_in_group == 1 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
-              <div class="m-blog-post-modern__content">
-                <h3 class="m-blog-post-modern__title">
-                  <a href="{{ article.url }}">{{ article.title }}</a>
-                </h3>
-                <div class="m-blog-post-modern__excerpt">
-                  {%- if article.excerpt != blank -%}
-                    {{ article.excerpt | strip_html | truncatewords: 20 }}
-                  {%- else -%}
-                    {{ article.content | strip_html | truncatewords: 20 }}
-                  {%- endif -%}
-                </div>
-                <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
-              </div>
-              <div class="m-blog-post-modern__image">
-                <a href="{{ article.url }}">
-                  {%- if article.image -%}
-                    <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                  {%- elsif section.settings.default_image -%}
-                    <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                  {%- else -%}
-                    <div class="m-blog-post-modern__placeholder">
-                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                    </div>
-                  {%- endif -%}
-                </a>
-              </div>
-            </article>
-
-          {%- elsif position_in_group == 2 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
-              <div class="m-blog-post-modern__image">
-                <a href="{{ article.url }}">
-                  {%- if article.image -%}
-                    <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                  {%- elsif section.settings.default_image -%}
-                    <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                  {%- else -%}
-                    <div class="m-blog-post-modern__placeholder">
-                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                    </div>
-                  {%- endif -%}
-                </a>
-              </div>
-              <div class="m-blog-post-modern__content">
-                <h3 class="m-blog-post-modern__title">
-                  <a href="{{ article.url }}">{{ article.title }}</a>
-                </h3>
-                <div class="m-blog-post-modern__excerpt">
-                  {%- if article.excerpt != blank -%}
-                    {{ article.excerpt | strip_html | truncatewords: 20 }}
-                  {%- else -%}
-                    {{ article.content | strip_html | truncatewords: 20 }}
-                  {%- endif -%}
-                </div>
-                <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
-              </div>
-            </article>
-          {%- endif -%}
-        {%- endfor -%}
-
-      {%- else -%}
-        {%- for i in (1..posts_limit) -%}
-          {%- assign group_index = i | minus: 1 | divided_by: 3 -%}
-          {%- assign position_in_group = i | minus: 1 | modulo: 3 -%}
-          {%- assign is_mirror_group = group_index | modulo: 2 -%}
-
-          {%- capture demo_title -%}
-            {%- case position_in_group -%}
-              {%- when 0 -%}Opening of a new cafe Yuum
-              {%- when 1 -%}What can you eat in the spring to give your mother more energy?
-              {%- when 2 -%}What is immunity and how to boost it?
-            {%- endcase -%}
-          {%- endcapture -%}
-
-          {%- capture demo_excerpt -%}
-            In the spring we often feel this is the marriage of energy. In this article, nutritionist Anna Kaninska explains why this is so, and shares the simple principles of spring food, the use of tea.
-          {%- endcapture -%}
-
-          {%- if position_in_group == 0 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--large {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
-              <div class="m-blog-post-modern__image">
-                {%- if section.settings.default_image -%}
-                  <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+        {%- if position_in_group == 0 -%}
+          <article class="m-blog-post-modern m-blog-post-modern--large">
+            <div class="m-blog-post-modern__image">
+              <a href="{{ article.url }}">
+                {%- if article.image -%}
+                  <img src="{{ article.image | img_url: '600x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                {%- elsif section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
                 {%- else -%}
                   <div class="m-blog-post-modern__placeholder">
                     {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
                   </div>
                 {%- endif -%}
+              </a>
+            </div>
+            <div class="m-blog-post-modern__content">
+              <h3 class="m-blog-post-modern__title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3>
+              <div class="m-blog-post-modern__excerpt">
+                {%- if article.excerpt != blank -%}
+                  {{ article.excerpt | strip_html | truncatewords: 25 }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 25 }}
+                {%- endif -%}
               </div>
-              <div class="m-blog-post-modern__content">
-                <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
-                <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
-                <a href="#" class="m-blog-post-modern__link">READ MORE</a>
-              </div>
-            </article>
+              <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
+            </div>
+          </article>
 
-          {%- elsif position_in_group == 1 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
-              <div class="m-blog-post-modern__content">
-                <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
-                <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
-                <a href="#" class="m-blog-post-modern__link">READ MORE</a>
+        {%- elsif position_in_group == 1 -%}
+          <article class="m-blog-post-modern m-blog-post-modern--small">
+            <div class="m-blog-post-modern__content">
+              <h3 class="m-blog-post-modern__title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3>
+              <div class="m-blog-post-modern__excerpt">
+                {%- if article.excerpt != blank -%}
+                  {{ article.excerpt | strip_html | truncatewords: 20 }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 20 }}
+                {%- endif -%}
               </div>
-              <div class="m-blog-post-modern__image">
-                {%- if section.settings.default_image -%}
-                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+              <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
+            </div>
+            <div class="m-blog-post-modern__image">
+              <a href="{{ article.url }}">
+                {%- if article.image -%}
+                  <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                {%- elsif section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
                 {%- else -%}
                   <div class="m-blog-post-modern__placeholder">
                     {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
                   </div>
                 {%- endif -%}
-              </div>
-            </article>
+              </a>
+            </div>
+          </article>
 
-          {%- elsif position_in_group == 2 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
-              <div class="m-blog-post-modern__image">
-                {%- if section.settings.default_image -%}
-                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+        {%- elsif position_in_group == 2 -%}
+          <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse">
+            <div class="m-blog-post-modern__image">
+              <a href="{{ article.url }}">
+                {%- if article.image -%}
+                  <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                {%- elsif section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
                 {%- else -%}
                   <div class="m-blog-post-modern__placeholder">
                     {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
                   </div>
                 {%- endif -%}
+              </a>
+            </div>
+            <div class="m-blog-post-modern__content">
+              <h3 class="m-blog-post-modern__title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3>
+              <div class="m-blog-post-modern__excerpt">
+                {%- if article.excerpt != blank -%}
+                  {{ article.excerpt | strip_html | truncatewords: 20 }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 20 }}
+                {%- endif -%}
               </div>
-              <div class="m-blog-post-modern__content">
-                <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
-                <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
-                <a href="#" class="m-blog-post-modern__link">READ MORE</a>
-              </div>
-            </article>
-          {%- endif -%}
-        {%- endfor -%}
-      {%- endif -%}
-    </div>
+              <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
+            </div>
+          </article>
+        {%- endif -%}
+
+        {%- if position_in_group == 2 or i == posts_to_show -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+    {%- else -%}
+      {%- for i in (1..posts_limit) -%}
+        {%- assign group_index = i | minus: 1 | divided_by: 3 -%}
+        {%- assign position_in_group = i | minus: 1 | modulo: 3 -%}
+        {%- assign is_mirror_group = group_index | modulo: 2 -%}
+
+        {%- if position_in_group == 0 -%}
+          <div class="m-blog-modern__group-wrapper">
+        {%- endif -%}
+
+        {%- capture demo_title -%}
+          {%- case position_in_group -%}
+            {%- when 0 -%}Opening of a new cafe Yuum
+            {%- when 1 -%}What can you eat in the spring to give your mother more energy?
+            {%- when 2 -%}What is immunity and how to boost it?
+          {%- endcase -%}
+        {%- endcapture -%}
+
+        {%- capture demo_excerpt -%}
+          In the spring we often feel this is the marriage of energy. In this article, nutritionist Anna Kaninska explains why this is so, and shares the simple principles of spring food, the use of tea.
+        {%- endcapture -%}
+
+        {%- if position_in_group == 0 -%}
+          <article class="m-blog-post-modern m-blog-post-modern--large">
+            <div class="m-blog-post-modern__image">
+              {%- if section.settings.default_image -%}
+                <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+              {%- else -%}
+                <div class="m-blog-post-modern__placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="m-blog-post-modern__content">
+              <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
+              <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
+              <a href="#" class="m-blog-post-modern__link">READ MORE</a>
+            </div>
+          </article>
+
+        {%- elsif position_in_group == 1 -%}
+          <article class="m-blog-post-modern m-blog-post-modern--small">
+            <div class="m-blog-post-modern__content">
+              <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
+              <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
+              <a href="#" class="m-blog-post-modern__link">READ MORE</a>
+            </div>
+            <div class="m-blog-post-modern__image">
+              {%- if section.settings.default_image -%}
+                <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+              {%- else -%}
+                <div class="m-blog-post-modern__placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </div>
+          </article>
+
+        {%- elsif position_in_group == 2 -%}
+          <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse">
+            <div class="m-blog-post-modern__image">
+              {%- if section.settings.default_image -%}
+                <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+              {%- else -%}
+                <div class="m-blog-post-modern__placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="m-blog-post-modern__content">
+              <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
+              <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
+              <a href="#" class="m-blog-post-modern__link">READ MORE</a>
+            </div>
+          </article>
+        {%- endif -%}
+
+        {%- if position_in_group == 2 or i == posts_limit -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
   </div>
 </section>
 
