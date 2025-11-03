@@ -6,7 +6,7 @@ $text-gray: #666666;
 $background-white: #ffffff;
 $background-gray: #f5f5f5;
 $accent-hover: #333333;
-$background : #E7E7E7;
+$background: #E7E7E7;
 $border-medium: #ADAEB0;
 
 .m-blog-modern {
@@ -33,62 +33,63 @@ $border-medium: #ADAEB0;
     @include fonts.font-smoothing;
   }
 
-  &__subtitle {
-    @include fonts.font(heading-400, 24px, 1.2);
-    color: $text-primary;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    @include fonts.font-smoothing;
-  }
-
-  &__group-wrapper {
+  &__group {
     display: flex;
-    justify-content: center;
-    align-items: stretch;
     gap: 40px;
     margin-bottom: 40px;
-    width: 100%;
+    align-items: stretch;
 
     &:last-child {
       margin-bottom: 0;
     }
 
-    &--mirror {
+    &--reverse {
       flex-direction: row-reverse;
     }
   }
+
+  &__small-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    flex: 0 0 50%;
+  }
 }
 
-.m-blog-post-modern {
+.m-blog-post {
   background: $background-white;
   border: 1px solid $border-medium;
   border-radius: 20px;
+  overflow: hidden;
+
   &--large {
     flex: 0 0 50%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
   }
 
   &--small {
-    flex: 0 0 25%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 20px;
+    flex: 1;
+
+    &.m-blog-post--reverse {
+      flex-direction: row-reverse;
+    }
   }
 
   &__image {
-    border-radius: 20px;
     overflow: hidden;
-    width: 100%;
+    flex-shrink: 0;
 
-    .m-blog-post-modern--large & {
+    .m-blog-post--large & {
       height: 300px;
     }
 
-    .m-blog-post-modern--small & {
-      height: 200px;
+    .m-blog-post--small & {
+      width: 40%;
+      height: 150px;
     }
   }
 
@@ -106,24 +107,23 @@ $border-medium: #ADAEB0;
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     flex: 1;
+    padding: 30px;
 
-    .m-blog-post-modern--small & {
-      gap: 15px;
+    .m-blog-post--small & {
+      padding: 20px;
     }
   }
 
   &__title {
     @include fonts.font(heading-400, 24px, 1.3);
     color: $text-primary;
-    margin: 0;
-    text-transform: none;
+    margin: 0 0 15px;
     @include fonts.font-smoothing;
 
-    .m-blog-post-modern--small & {
+    .m-blog-post--small & {
       font-size: 18px;
-      line-height: 1.4;
+      margin-bottom: 10px;
     }
 
     a {
@@ -139,12 +139,12 @@ $border-medium: #ADAEB0;
   &__excerpt {
     @include fonts.font(body-400, 16px, 1.6);
     color: $text-gray;
-    margin: 0;
+    margin: 0 0 20px;
     @include fonts.font-smoothing;
 
-    .m-blog-post-modern--small & {
+    .m-blog-post--small & {
       font-size: 14px;
-      line-height: 1.5;
+      margin-bottom: 15px;
     }
   }
 
@@ -174,9 +174,8 @@ $border-medium: #ADAEB0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $text-gray;
     @include fonts.font(body-400, 14px, 1.4);
-    border-radius: 8px;
+    color: $text-gray;
     @include fonts.font-smoothing;
   }
 }
@@ -197,39 +196,58 @@ $border-medium: #ADAEB0;
       font-size: 36px;
     }
 
-    &__subtitle {
-      font-size: 18px;
+    &__group {
+      flex-direction: column;
+      gap: 30px;
+
+      &--reverse {
+        flex-direction: column;
+      }
     }
 
-    &__group-wrapper {
-      flex-direction: column;
+    &__small-posts {
+      flex: 0 0 100%;
       gap: 30px;
     }
   }
 
-  .m-blog-post-modern {
+  .m-blog-post {
     &--large {
       flex: 0 0 100%;
     }
 
     &--small {
-      flex: 0 0 100%;
+      flex-direction: column;
+      align-items: stretch;
+
+      &.m-blog-post--reverse {
+        flex-direction: column;
+      }
     }
 
     &__image {
-      .m-blog-post-modern--large & {
+      .m-blog-post--large & {
         height: 250px;
       }
 
-      .m-blog-post-modern--small & {
+      .m-blog-post--small & {
+        width: 100%;
         height: 200px;
+      }
+    }
+
+    &__content {
+      padding: 25px;
+
+      .m-blog-post--small & {
+        padding: 25px;
       }
     }
 
     &__title {
       font-size: 20px;
 
-      .m-blog-post-modern--small & {
+      .m-blog-post--small & {
         font-size: 18px;
       }
     }
@@ -237,7 +255,7 @@ $border-medium: #ADAEB0;
     &__excerpt {
       font-size: 15px;
 
-      .m-blog-post-modern--small & {
+      .m-blog-post--small & {
         font-size: 14px;
       }
     }
