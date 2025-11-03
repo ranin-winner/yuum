@@ -36,6 +36,11 @@
         "label": "Header Logo"
       },
       {
+        "type": "image_picker",
+        "id": "header_logo_light",
+        "label": "Header Logo (light / on hero)"
+      },
+      {
         "type": "color",
         "id": "header_bg",
         "label": "Header Background"

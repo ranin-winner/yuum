@@ -312,3 +312,45 @@
     }
   }
 }
+
+.header--over-hero .logo--light, .header--over-hero.b-header.m-sticky .logo--dark { display: inline-flex; }
+.logo--light, .header--over-hero .logo--dark, .header--over-hero.b-header.m-sticky .logo--light { display: none; }
+
+.menu-collection {
+  &:not(:first-child) {
+    margin-top: 24px;
+  }
+
+  &_image {
+    min-width: 116px;
+    height: 116px;
+  }
+
+  &_description {
+    span {
+      font-size: 18px;
+      line-height: 24px;
+      font-family: var(--font-heading, "WT Monarch Nova"), system-ui, -apple-system, Arial, sans-serif;
+      margin-bottom: 6px;
+      display: inline-flex;
+    }
+
+    &-text {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 12px;
+    }
+
+    .link {
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(71, 71, 71, 1);
+
+      &:hover {
+        border-bottom-color: transparent;
+      }
+    }
+  }
+}

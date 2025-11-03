@@ -11,10 +11,9 @@
 
         &--text-and-btn {
             display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-            .text:not(:has(~ .text)) { 
-                margin-bottom: 10px; 
+            justify-content: center;
+            .text:not(:has(~ .text)) {
+                margin-bottom: 10px;
             }
         }
 
@@ -31,7 +30,7 @@
         }
 
     }
-  
+
     .swiper-button-next,
     .swiper-button-prev {
         border: none;
@@ -46,7 +45,7 @@
         @media (max-width: 1024px) {
             display: none;
         }
-   
+
     }
 
     .swiper-box .swiper-button-next {
@@ -65,7 +64,7 @@
 
     }
   }
-  
+
   @media (min-width: 768px) {
     .products-section .products-section__container {
       padding-left: 0;
@@ -73,6 +72,5 @@
     }
   }
 
-  
 
- 
+

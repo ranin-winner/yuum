@@ -156,6 +156,81 @@
       {% render 'customer-auth-modal' %}
     </div>
   </body>
+
+  <script>
+    (function() {
+      const HEADER_SELECTOR = '.b-header'; // заміни на свій, якщо потрібно (наприклад, '.b-header')
+      const HERO_SELECTOR = '.b-hero-banner';
+      const HERO_FIRST_CLASS = 'hero--is-first';
+
+      const header = document.querySelector(HEADER_SELECTOR);
+      if (!header) return;
+
+      // 1) Знаходимо ПЕРШУ видиму контентну секцію після хедера
+      const sections = document.querySelectorAll('.shopify-section');
+      let firstSection = null;
+      for (const sec of sections) {
+        const visible = sec.offsetParent !== null || getComputedStyle(sec).display !== 'none';
+        if (visible && sec.childElementCount > 0) {
+          firstSection = sec;
+          break;
+        }
+      }
+      if (!firstSection) return;
+
+      // 2) Перевіряємо, чи в першій секції є hero
+      //    ВАЖЛИВО: клас додаємо ЛИШЕ на цей конкретний hero у першій секції
+      const firstHero = firstSection.querySelector(HERO_SELECTOR);
+      if (!firstHero) {
+        // якщо перша секція не hero — гарантуємо сірий стан, і все
+        header.classList.remove('header--over-hero');
+        return;
+      }
+
+      // 2.1) Позначаємо цей hero як "перший"
+      firstHero.classList.add(HERO_FIRST_CLASS);
+
+      // 3) Логіка перемикання стану хедера (залишена, як просив)
+      function setupObserver() {
+        const headerH = header.offsetHeight || 80;
+
+        // Початковий стан (на випадок перезавантаження не з самого верху)
+        header.classList.toggle('header--over-hero', firstHero.getBoundingClientRect().top < headerH);
+
+        const io = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            header.classList.add('header--over-hero');   // білий (поверх hero)
+          } else {
+            header.classList.remove('header--over-hero'); // сірий
+          }
+        }, {
+          root: null,
+          rootMargin: `-${headerH}px 0px 0px 0px`,
+          threshold: 0
+        });
+
+        io.observe(firstHero);
+
+        // Перебудова при зміні розмірів (висота хедера/ресайз)
+        window.addEventListener('resize', debounce(() => {
+          io.disconnect();
+          setupObserver();
+        }, 200));
+      }
+
+      function debounce(fn, ms) {
+        let t;
+        return function() { clearTimeout(t); t = setTimeout(fn, ms); };
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupObserver);
+      } else {
+        setupObserver();
+      }
+    })();
+  </script>
+
 </html>
 
 

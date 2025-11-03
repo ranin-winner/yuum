@@ -15,22 +15,158 @@
 {% endcapture %}
 
 {% capture searchIcon %}
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18.9399 18.1543L14.5995 13.8139C15.9316 12.2948 16.6667 10.3726 16.6667 8.33333C16.6667 6.10731 15.7997 4.01476 14.2258 2.44086C12.6519 0.866971 10.5594 0 8.33333 0C6.10731 0 4.01476 0.866971 2.44086 2.44086C0.866971 4.01476 0 6.10731 0 8.33333C0 10.5594 0.866971 12.6519 2.44086 14.2258C4.01476 15.7997 6.10731 16.6667 8.33333 16.6667C10.3726 16.6667 12.2948 15.9316 13.8139 14.5995L18.1543 18.9399C18.2628 19.0484 18.4049 19.1026 18.5471 19.1026C18.6892 19.1026 18.8314 19.0484 18.9399 18.9399C19.1569 18.7229 19.1569 18.3713 18.9399 18.1543ZM3.22645 13.4402C1.86252 12.076 1.11111 10.2623 1.11111 8.33333C1.11111 6.40435 1.86252 4.59066 3.22645 3.22645C4.59066 1.86252 6.40435 1.11111 8.33333 1.11111C10.2623 1.11111 12.076 1.86252 13.4402 3.22645C14.8041 4.59066 15.5556 6.40435 15.5556 8.33333C15.5556 10.2623 14.8041 12.076 13.4402 13.4402C12.076 14.8041 10.2623 15.5556 8.33333 15.5556C6.40435 15.5556 4.59066 14.8041 3.22645 13.4402Z" fill="#474747"/>
-    </svg>
-
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_8267_7936)">
+      <path d="M25.3891 24.603L21.0487 20.2626C22.3809 18.7435 23.1159 16.8214 23.1159 14.7821C23.1159 12.556 22.2489 10.4635 20.675 8.88959C19.1011 7.3157 17.0086 6.44873 14.7826 6.44873C12.5565 6.44873 10.464 7.3157 8.89008 8.88959C7.31619 10.4635 6.44922 12.556 6.44922 14.7821C6.44922 17.0081 7.31619 19.1006 8.89008 20.6745C10.464 22.2484 12.5565 23.1154 14.7826 23.1154C16.8218 23.1154 18.744 22.3804 20.2631 21.0482L24.6035 25.3886C24.712 25.4971 24.8542 25.5514 24.9963 25.5514C25.1385 25.5514 25.2806 25.4971 25.3891 25.3886C25.6061 25.1716 25.6061 24.82 25.3891 24.603ZM9.67567 19.8889C8.31174 18.5247 7.56033 16.711 7.56033 14.7821C7.56033 12.8531 8.31174 11.0394 9.67567 9.67518C11.0399 8.31125 12.8536 7.55984 14.7826 7.55984C16.7115 7.55984 18.5252 8.31125 19.8894 9.67518C21.2534 11.0394 22.0048 12.8531 22.0048 14.7821C22.0048 16.711 21.2534 18.5247 19.8894 19.8889C18.5252 21.2529 16.7115 22.0043 14.7826 22.0043C12.8536 22.0043 11.0399 21.2529 9.67567 19.8889Z" fill="#474747"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_8267_7936">
+        <rect width="20" height="20" fill="white" transform="translate(6 6)"/>
+      </clipPath>
+    </defs>
+  </svg>
 {% endcapture %}
 
 {% if settings.show_promo %}
-  <div class="b-header__promo w-full py-6 px-12 text-center tracking-wid text-white-content tracking-[0.1rem]">
-    {% if settings.show_promo_link != blank %}<a href="{{ settings.show_promo_link }}" target="_blank">{% endif %}
-    {{ settings.promo_text }}
-    {% if settings.show_promo_link != blank %}
-      {% render 'icon-arrow-right' %}
-      </a>
-    {%- endif %}
+  <div class="b-header__promo relative w-full overflow-hidden bg-black py-4 text-center text-white-content tracking-[0.1rem]">
+    {% assign has_list = settings.promo_text contains '<li' %}
+    {% if has_list %}
+      <ul class="b-promo-hslider js-promo-hslider relative h-[1.6em]">
+        {{ settings.promo_text }}
+      </ul>
+    {% else %}
+      <div class="b-header__promo-single">
+        {% if settings.show_promo_link != blank %}
+          <a href="{{ settings.show_promo_link }}" target="_blank" class="inline-flex items-center gap-2">
+            {{ settings.promo_text }}
+            {% render 'icon-arrow-right' %}
+          </a>
+        {% else %}
+          {{ settings.promo_text }}
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
+  <style>
+    /* Контейнер — одна лінія висоти */
+    .b-promo-hslider {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      height: 1.6em;            /* підбери під свій шрифт */
+      line-height: 1.6em;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Базовий стан: елемент поза екраном зліва */
+    .b-promo-hslider li {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;              /* показуємо один item на весь блок */
+      white-space: nowrap;
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 1200ms ease, opacity 300ms ease;
+    }
+
+    /* Активний у центрі */
+    .b-promo-hslider li.is-active {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+
+    /* Вихід вправо */
+    .b-promo-hslider li.is-prev {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    /* Заготовка зліва (поза екраном) */
+    .b-promo-hslider li.is-next {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.querySelector('.js-promo-hslider');
+      if (!slider) return;
+
+      const items = Array.from(slider.querySelectorAll('li'));
+      if (items.length === 0) return;
+
+      // Якщо лише один – просто показуємо, без анімації
+      if (items.length === 1) {
+        items[0].classList.add('is-active');
+        return;
+      }
+
+      const DURATION = 1200;   // має збігатися з CSS transition (transform)
+      const HOLD = 2400;      // пауза між слайдами
+      let index = 0;
+
+      // Ініціалізація: перший активний, решта – "is-next" (готові зліва)
+      items.forEach((li, i) => {
+        li.classList.remove('is-active', 'is-prev', 'is-next');
+        if (i === 0) {
+          li.classList.add('is-active');
+        } else {
+          li.classList.add('is-next');
+        }
+      });
+
+      function resetToLeftInstant(el) {
+        // Повертаємо елемент миттєво вліво (без анімації), щоб не було "стрибка" в очі
+        el.style.transition = 'none';
+        el.classList.remove('is-active', 'is-prev');
+        el.classList.add('is-next'); // translateX(-100%)
+        // force reflow
+        void el.offsetWidth;
+        // Повертаємо transition назад
+        el.style.transition = '';
+      }
+
+      function nextSlide() {
+        const current = items[index];
+        const nextIdx = (index + 1) % items.length;
+        const next = items[nextIdx];
+
+        // Гарантуємо: "next" підготовлений зліва
+        next.classList.remove('is-active', 'is-prev');
+        next.classList.add('is-next');
+
+        // Запускаємо анімацію:
+        // current: центр (is-active) -> вправо (is-prev)
+        // next: зліва (is-next) -> центр (is-active)
+        current.classList.remove('is-active');
+        current.classList.add('is-prev');
+
+        // Невелика мікрозатримка, щоб браузер застосував клас до current
+        requestAnimationFrame(() => {
+          next.classList.remove('is-next');
+          next.classList.add('is-active');
+        });
+
+        // Після завершення анімації transform у current — повертаємо його миттєво вліво (is-next)
+        const onEnd = (e) => {
+          if (e.propertyName !== 'transform') return;
+          current.removeEventListener('transitionend', onEnd);
+          resetToLeftInstant(current);
+          index = nextIdx;
+        };
+        current.addEventListener('transitionend', onEnd);
+      }
+
+      // Крутимо цикл
+      setInterval(nextSlide, HOLD + DURATION);
+    });
+  </script>
 {% endif %}
+
 <div
   class="relative b-header__wrapper"
   {% if settingsHeaderBg %}
@@ -42,7 +178,6 @@
       {% assign dropdown_counter = 0 %}
       <ul class="b-header__list flex">
         {% for link in settings.header_menu_1.links %}
-          {% assign is_active = (link.url == request.path or link.url == request.fullpath) %}
           {% if link.links.size > 0 and settings.is_enabled_megamenu %}
             {% assign dropdown_counter = dropdown_counter | plus: 1 %}
             {% render 'megamenu', link: link, dropdown_index: dropdown_counter, is_active: is_active %}
@@ -51,7 +186,7 @@
               <a
                 href="{{ link.url }}"
                 title="{{ link.title }}"
-                class="b-header__list-link {% if is_active %}m-active{% endif %}"
+                class="b-header__list-link"
                 {% if is_active %}aria-current="page"{% endif %}
               >
                 {{ link.title }}
@@ -62,11 +197,26 @@
       </ul>
     </nav>
     <div class="b-header__logo flex w-[150px]">
-      <a href="{{ routes.root_url }}" class="flex items-center no-underline ">
-        {% if settings.header_logo != blank %}
-          <img src="{{ settings.header_logo | image_url }}" width="240" height="110" alt="{{ shop.name }}">
-        {% else %}
-          Logo title
+      <a href="{{ routes.root_url }}" class="flex items-center no-underline">
+        {% if settings.header_logo %}
+          <img
+            src="{{ settings.header_logo | image_url }}"
+            alt="{{ shop.name }}"
+            class="logo--dark"
+            width="240"
+            height="110"
+            loading="lazy"
+          >
+        {% endif %}
+        {% if settings.header_logo_light %}
+          <img
+            src="{{ settings.header_logo_light | image_url }}"
+            alt="{{ shop.name }}"
+            class="logo--light"
+            width="240"
+            height="110"
+            loading="lazy"
+          >
         {% endif %}
       </a>
     </div>
@@ -96,11 +246,11 @@
       {%- if shop.customer_accounts_enabled -%}
         <a
             href="{{ routes.account_login_url }}"
-            class="b-header__account flex hover:scale-110"
+            class="b-header__account flex"
             x-data
             @click.prevent.stop="$store.auth.open('login')"
         >
-        
+
             {{ accountIcon }}
         </a>
       {%- endif -%}
@@ -108,12 +258,12 @@
       <div class="b-header_wishlist text-[#474747]">
         {% render 'wishlisthero-header-icon.liquid' %}
       </div>
-      
+
       <div class="b-header_cart" x-data>
         <span
           id="i-mini-cart"
           @click.stop="$store.cart.toggleCart()"
-          class="b-header_cart-toggle text-color_1 relative cursor-pointer flex hover:scale-110">
+          class="b-header_cart-toggle text-color_1 relative cursor-pointer flex">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
            <path d="M10.7972 25H21.1566C22.9748 25 24.4538 23.5209 24.4538 21.7028V11.8462C24.4538 11.5246 24.1908 11.2615 23.8692 11.2615H20.3615V10.3846C20.3615 7.96723 18.3943 6 15.9769 6C13.5595 6 11.5923 7.96723 11.5923 10.3846V11.2615H8.08462C7.76308 11.2615 7.5 11.5246 7.5 11.8462V21.7028C7.5 23.5209 8.97908 25 10.7972 25ZM12.7615 10.3846C12.7615 8.61031 14.2026 7.16923 15.9769 7.16923C17.7512 7.16923 19.1923 8.61031 19.1923 10.3846V11.2615H12.7615V10.3846ZM8.66923 12.4308H11.5923V13.8923C11.5923 14.2138 11.8554 14.4769 12.1769 14.4769C12.4985 14.4769 12.7615 14.2138 12.7615 13.8923V12.4308H19.1923V13.8923C19.1923 14.2138 19.4554 14.4769 19.7769 14.4769C20.0985 14.4769 20.3615 14.2138 20.3615 13.8923V12.4308H23.2846V21.7028C23.2846 22.8749 22.3288 23.8308 21.1566 23.8308H10.7972C9.62508 23.8308 8.66923 22.8749 8.66923 21.7028V12.4308Z" fill="#474747"/>
           </svg>
@@ -129,4 +279,43 @@
   </div>
 </div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const promoBlock = document.querySelector(".b-header__promo");
+    if (!promoBlock) return;
+
+    const desktopUl = promoBlock.querySelector(".promo-desktop");
+    const mobileEl  = promoBlock.querySelector(".mobile-promo");
+
+    // Fix: Get all nested li elements from the structure
+    const items = Array.from(desktopUl.querySelectorAll("li li"))
+      .map(li => li.textContent.trim())
+      .filter(Boolean);
+
+    if (!items.length) return;
+
+    let idx = 0;
+    const fadeDur = 700;   // має збігатися з duration-700 (ms)
+    const pause   = 5000;  // 5 секунд між змінами
+
+    function showNext() {
+      // фейд-аут
+      mobileEl.classList.add("opacity-0");
+
+      // міняємо текст після фейдауту, потім фейд-ін
+      setTimeout(() => {
+        mobileEl.textContent = items[idx];
+        mobileEl.classList.remove("opacity-0");
+        idx = (idx + 1) % items.length;
+      }, fadeDur);
+    }
+
+    // чисто на старті переконаємось, що спан порожній
+    mobileEl.textContent = "";
+
+    // перший показ і цикл
+    showNext();
+    setInterval(showNext, pause);
+  });
+</script>
 
