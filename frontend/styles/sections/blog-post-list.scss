@@ -38,6 +38,7 @@ $border-medium: #ADAEB0;
     gap: 40px;
     margin-bottom: 40px;
     align-items: stretch;
+    justify-content: space-around;
 
     &:last-child {
       margin-bottom: 0;
@@ -70,13 +71,8 @@ $border-medium: #ADAEB0;
 
   &--small {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: stretch;
     flex: 1;
-
-    &.m-blog-post--reverse {
-      flex-direction: row-reverse;
-    }
   }
 
   &__image {
@@ -88,8 +84,7 @@ $border-medium: #ADAEB0;
     }
 
     .m-blog-post--small & {
-      width: 40%;
-      height: 150px;
+      width: 50%;
     }
   }
 
@@ -107,11 +102,13 @@ $border-medium: #ADAEB0;
   &__content {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     flex: 1;
     padding: 30px;
 
     .m-blog-post--small & {
-      padding: 20px;
+      padding: 25px;
+      width: 50%;
     }
   }
 
@@ -149,13 +146,12 @@ $border-medium: #ADAEB0;
   }
 
   &__link {
-    @include fonts.font(body-600, 14px, 1.4);
+    @include fonts.font(body-400, 14px, 16px);
     color: $text-primary;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 4px;
     padding-bottom: 2px;
-    border-bottom: 2px solid $text-primary;
     @include fonts.font-smoothing;
     transition: all 0.3s ease;
     align-self: flex-start;
@@ -218,7 +214,6 @@ $border-medium: #ADAEB0;
 
     &--small {
       flex-direction: column;
-      align-items: stretch;
 
       &.m-blog-post--reverse {
         flex-direction: column;
@@ -241,6 +236,7 @@ $border-medium: #ADAEB0;
 
       .m-blog-post--small & {
         padding: 25px;
+        width: 100%;
       }
     }
 
