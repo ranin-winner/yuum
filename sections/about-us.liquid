@@ -25,16 +25,16 @@
         {{ section.settings.flavours_intro }}
       </div>
 
-      <div class="m-flavours-grid">
+      <div class="m-flavours-animation-container">
         {% for i in (1..5) %}
           {% assign flavour_key = 'flavour_' | append: i %}
           {% assign flavour_image_key = 'flavour_image_' | append: i %}
           {% if section.settings[flavour_key] != blank %}
-            <div class="m-flavour-item">
+            <div class="m-flavour-item" data-flavour="{{ section.settings[flavour_key] | handleize }}">
               <span class="m-flavour-name">{{ section.settings[flavour_key] }}</span>
               {% if section.settings[flavour_image_key] != blank %}
                 <div class="m-flavour-image">
-                   {% render 'image', image: section.settings[flavour_image_key], src_size: 'master', class: 'm-flavour-img' %}
+                  {% render 'image', image: section.settings[flavour_image_key], src_size: 'master', class: 'm-flavour-img' %}
                 </div>
               {% endif %}
             </div>
