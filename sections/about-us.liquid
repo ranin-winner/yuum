@@ -40,6 +40,13 @@
             </div>
           {% endif %}
         {% endfor %}
+
+        {% if section.settings.pentagon_final_image != blank %}
+          <div class="m-pentagon-final">
+            {% render 'image', image: section.settings.pentagon_final_image, class: 'm-pentagon-final__img' %}
+          </div>
+        {% endif %}
+
       </div>
 
       <div class="m-about-flavours__guide">
@@ -276,6 +283,11 @@
       "type": "image_picker",
       "id": "flavour_image_5",
       "label": "Flavour 5 Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "pentagon_final_image",
+      "label": "Pentagon Final Shape Image"
     },
     {
       "type": "text",

@@ -106,6 +106,26 @@ $accent-hover: #333333;
   justify-content: center;
   align-items: center;
 
+  // Фінальна картинка пентагона
+  .m-pentagon-final {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease 0.8s;
+    z-index: 1;
+
+    .m-pentagon-final__img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
   &:hover {
     .m-flavour-item {
       top: 50% !important;
@@ -113,14 +133,16 @@ $accent-hover: #333333;
       transform: translate(-50%, -50%) !important;
       width: 200px !important;
       height: 200px !important;
+      opacity: 0; // Додаємо зникнення
+    }
+
+    .m-pentagon-final {
+      opacity: 1;
+      visibility: visible;
     }
 
     .m-flavour-name {
       opacity: 0;
-    }
-
-    .m-flavour-img {
-      transform: scale(0.8);
     }
   }
 }
