@@ -78,22 +78,24 @@
                     </div>
 
                     {%- comment -%} Popular products (product_list) {%- endcomment -%}
-                    <div class="ps-col">
-                        <p class="ps-heading">Popular products</p>
-                      
-                        {%- assign col_handle = settings.popular_products_collection -%}
-                        {%- assign pop_limit  = settings.popular_products_limit | default: 6 -%}
-                        {%- assign pop_col    = collections[col_handle] -%}
-                      
-                        {%- if pop_col and pop_col.products_count > 0 -%}
-                          <div class="predictive-grid">
-                            {%- for product in pop_col.products limit: pop_limit -%}
-                              {% render 'product-card-lite', product: product, show_quick_add: true, image_width: 360 %}
-                            {%- endfor -%}
-                          </div>
-                        {%- else -%}
-                          <p class="ps-empty">No popular products set.</p>
-                        {%- endif -%}
+                    <div class="ps-col flex justify-end">
+                        <div class="flex flex-col max-w-[504px]">
+                            <p class="ps-heading">Popular products</p>
+                        
+                            {%- assign col_handle = settings.popular_products_collection -%}
+                            {%- assign pop_limit  = settings.popular_products_limit | default: 6 -%}
+                            {%- assign pop_col    = collections[col_handle] -%}
+                        
+                            {%- if pop_col and pop_col.products_count > 0 -%}
+                            <div class="predictive-grid pre-search-grid">
+                                {%- for product in pop_col.products limit: pop_limit -%}
+                                {% render 'product-card-lite', product: product, show_quick_add: true, image_width: 360 %}
+                                {%- endfor -%}
+                            </div>
+                            {%- else -%}
+                            <p class="ps-empty">No popular products set.</p>
+                            {%- endif -%}
+                        </div>
                     </div>
 
                 </div>

@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CJ4xPuP0.css",
+    "file": "main-C4qMO-Te.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -160,7 +160,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/proposals-grid.scss": {
-    "file": "proposals-grid-Bk-4Olrk.css",
+    "file": "proposals-grid-DzksMppo.css",
     "src": "frontend/styles/sections/proposals-grid.scss",
     "isEntry": true
   },
@@ -170,7 +170,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/search.scss": {
-    "file": "search-BkBjq9n6.css",
+    "file": "search-8eDxtZ47.css",
     "src": "frontend/styles/sections/search.scss",
     "isEntry": true
   },

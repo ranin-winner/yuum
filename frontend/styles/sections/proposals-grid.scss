@@ -56,16 +56,17 @@
         transition: transform .2s ease, opacity .2s ease;
 
         max-height: min(880px, calc(100svh - 32px)); 
+
+        width: min(900px, 92vw);
     
-        @supports not (height: 1svh) {
-            max-height: min(880px, calc(100vh - 32px));
-        }
 
         @media (max-width: 900px) {
             padding: 60px 16px;
         }
 
-        width: min(900px, 92vw);
+        @supports not (height: 1svh) {
+            max-height: min(880px, calc(100vh - 32px));
+        }
     }
 
     &.is-open {

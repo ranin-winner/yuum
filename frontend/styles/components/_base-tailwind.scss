@@ -392,7 +392,7 @@
     margin-top: 0!important;
 }
 
-.m-page-about_products,
+
 .template-collection,
 .m-page-faq-tabs {
     .shopify-section {
@@ -553,6 +553,11 @@
     &--light {
         width: fit-content;
         @apply inline-flex items-center leading-[16px] rounded-full bg-[#ADAEB0] text-white font-normal px-[12px] py-[8px] text-[12px];
+    }
+
+    &--transparent {
+        background-color: transparent;
+        color: #474747;
     }
 }
 

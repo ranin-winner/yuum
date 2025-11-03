@@ -7,6 +7,9 @@
         &--title {
             color: #474747;
             margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         &--text-and-btn {
