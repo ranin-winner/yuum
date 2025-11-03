@@ -6,10 +6,12 @@ $text-gray: #666666;
 $background-white: #ffffff;
 $background-gray: #f5f5f5;
 $accent-hover: #333333;
+$background : #E7E7E7;
+$border-medium: #ADAEB0;
 
 .m-blog-modern {
   padding: 80px 0;
-  background: $background-white;
+  background: $background;
 
   &__container {
     max-width: 1200px;
@@ -23,10 +25,10 @@ $accent-hover: #333333;
   }
 
   &__main-title {
-    @include fonts.font(heading-400, 48px, 1.1);
+    @include fonts.font(heading-400, 100px, 1.1);
     color: $text-primary;
     margin: 0 0 10px;
-    text-transform: uppercase;
+    text-align: left;
     letter-spacing: 2px;
     @include fonts.font-smoothing;
   }
@@ -59,6 +61,9 @@ $accent-hover: #333333;
 }
 
 .m-blog-post-modern {
+  background: $background-white;
+  border: 1px solid $border-medium;
+  border-radius: 20px;
   &--large {
     flex: 0 0 50%;
     display: flex;
@@ -74,9 +79,8 @@ $accent-hover: #333333;
   }
 
   &__image {
-    border-radius: 8px;
+    border-radius: 20px;
     overflow: hidden;
-    border: 1px solid #e0e0e0;
     width: 100%;
 
     .m-blog-post-modern--large & {

@@ -4,8 +4,10 @@
       "type": "c-blog-post-list",
       "settings": {
         "blog": "news",
-        "blog_title": "YUUM",
-        "blog_subtitle": "Journal"
+        "posts_limit": 9,
+        "blog_title": "Journal",
+        "blog_subtitle": "Journal",
+        "default_image": "shopify:\/\/shop_images\/Image_10418c20-b9cc-4896-9b6a-a1641f352768.png"
       }
     },
     "footer_image_carousel_TcQV6g": {
