@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-B0sgLjMO.css",
+    "file": "main-ClZzUpAo.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -53,7 +53,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-list.scss": {
-    "file": "blog-post-list-tjFmugyq.css",
+    "file": "blog-post-list-eieudClL.css",
     "src": "frontend/styles/sections/blog-post-list.scss",
     "isEntry": true
   },

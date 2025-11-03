@@ -2,7 +2,7 @@
   <div class="m-blog-modern__container">
     <div class="m-blog-modern__header">
       <h1 class="m-blog-modern__main-title">{{ section.settings.blog_title | default: 'Journal' }}</h1>
-      <h2 class="m-blog-post-modern__subtitle">{{ section.settings.blog_subtitle | default: 'YUUM' }}</h2>
+      <h2 class="m-blog-modern__subtitle">{{ section.settings.blog_subtitle | default: 'YUUM' }}</h2>
     </div>
 
     {%- assign blog = blogs[section.settings.blog] -%}
@@ -20,7 +20,7 @@
         {%- assign is_mirror_group = group_index | modulo: 2 -%}
 
         {%- if position_in_group == 0 -%}
-          <div class="m-blog-modern__group-wrapper">
+          <div class="m-blog-modern__group-wrapper {% if is_mirror_group == 1 %}m-blog-modern__group-wrapper--mirror{% endif %}">
         {%- endif -%}
 
         {%- if position_in_group == 0 -%}
@@ -54,7 +54,22 @@
           </article>
 
         {%- elsif position_in_group == 1 -%}
-          <article class="m-blog-post-modern m-blog-post-modern--small">
+          <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 1 %}m-blog-post-modern--reverse{% endif %}">
+            {%- if is_mirror_group == 1 -%}
+              <div class="m-blog-post-modern__image">
+                <a href="{{ article.url }}">
+                  {%- if article.image -%}
+                    <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- elsif section.settings.default_image -%}
+                    <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- else -%}
+                    <div class="m-blog-post-modern__placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </a>
+              </div>
+            {%- endif -%}
             <div class="m-blog-post-modern__content">
               <h3 class="m-blog-post-modern__title">
                 <a href="{{ article.url }}">{{ article.title }}</a>
@@ -68,36 +83,40 @@
               </div>
               <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
             </div>
-            <div class="m-blog-post-modern__image">
-              <a href="{{ article.url }}">
-                {%- if article.image -%}
-                  <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                {%- elsif section.settings.default_image -%}
-                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                {%- else -%}
-                  <div class="m-blog-post-modern__placeholder">
-                    {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                  </div>
-                {%- endif -%}
-              </a>
-            </div>
+            {%- if is_mirror_group == 0 -%}
+              <div class="m-blog-post-modern__image">
+                <a href="{{ article.url }}">
+                  {%- if article.image -%}
+                    <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- elsif section.settings.default_image -%}
+                    <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- else -%}
+                    <div class="m-blog-post-modern__placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </a>
+              </div>
+            {%- endif -%}
           </article>
 
         {%- elsif position_in_group == 2 -%}
-          <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse">
-            <div class="m-blog-post-modern__image">
-              <a href="{{ article.url }}">
-                {%- if article.image -%}
-                  <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                {%- elsif section.settings.default_image -%}
-                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
-                {%- else -%}
-                  <div class="m-blog-post-modern__placeholder">
-                    {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                  </div>
-                {%- endif -%}
-              </a>
-            </div>
+          <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 0 %}m-blog-post-modern--reverse{% endif %}">
+            {%- if is_mirror_group == 0 -%}
+              <div class="m-blog-post-modern__image">
+                <a href="{{ article.url }}">
+                  {%- if article.image -%}
+                    <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- elsif section.settings.default_image -%}
+                    <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- else -%}
+                    <div class="m-blog-post-modern__placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </a>
+              </div>
+            {%- endif -%}
             <div class="m-blog-post-modern__content">
               <h3 class="m-blog-post-modern__title">
                 <a href="{{ article.url }}">{{ article.title }}</a>
@@ -111,6 +130,21 @@
               </div>
               <a href="{{ article.url }}" class="m-blog-post-modern__link">READ MORE</a>
             </div>
+            {%- if is_mirror_group == 1 -%}
+              <div class="m-blog-post-modern__image">
+                <a href="{{ article.url }}">
+                  {%- if article.image -%}
+                    <img src="{{ article.image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- elsif section.settings.default_image -%}
+                    <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-post-modern__img">
+                  {%- else -%}
+                    <div class="m-blog-post-modern__placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </a>
+              </div>
+            {%- endif -%}
           </article>
         {%- endif -%}
 
@@ -126,7 +160,7 @@
         {%- assign is_mirror_group = group_index | modulo: 2 -%}
 
         {%- if position_in_group == 0 -%}
-          <div class="m-blog-modern__group-wrapper">
+          <div class="m-blog-modern__group-wrapper {% if is_mirror_group == 1 %}m-blog-modern__group-wrapper--mirror{% endif %}">
         {%- endif -%}
 
         {%- capture demo_title -%}
@@ -160,39 +194,65 @@
           </article>
 
         {%- elsif position_in_group == 1 -%}
-          <article class="m-blog-post-modern m-blog-post-modern--small">
+          <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 1 %}m-blog-post-modern--reverse{% endif %}">
+            {%- if is_mirror_group == 1 -%}
+              <div class="m-blog-post-modern__image">
+                {%- if section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+                {%- else -%}
+                  <div class="m-blog-post-modern__placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
             <div class="m-blog-post-modern__content">
               <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
               <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
               <a href="#" class="m-blog-post-modern__link">READ MORE</a>
             </div>
-            <div class="m-blog-post-modern__image">
-              {%- if section.settings.default_image -%}
-                <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
-              {%- else -%}
-                <div class="m-blog-post-modern__placeholder">
-                  {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                </div>
-              {%- endif -%}
-            </div>
+            {%- if is_mirror_group == 0 -%}
+              <div class="m-blog-post-modern__image">
+                {%- if section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+                {%- else -%}
+                  <div class="m-blog-post-modern__placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
           </article>
 
         {%- elsif position_in_group == 2 -%}
-          <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse">
-            <div class="m-blog-post-modern__image">
-              {%- if section.settings.default_image -%}
-                <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
-              {%- else -%}
-                <div class="m-blog-post-modern__placeholder">
-                  {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
-                </div>
-              {%- endif -%}
-            </div>
+          <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 0 %}m-blog-post-modern--reverse{% endif %}">
+            {%- if is_mirror_group == 0 -%}
+              <div class="m-blog-post-modern__image">
+                {%- if section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+                {%- else -%}
+                  <div class="m-blog-post-modern__placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
             <div class="m-blog-post-modern__content">
               <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
               <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
               <a href="#" class="m-blog-post-modern__link">READ MORE</a>
             </div>
+            {%- if is_mirror_group == 1 -%}
+              <div class="m-blog-post-modern__image">
+                {%- if section.settings.default_image -%}
+                  <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
+                {%- else -%}
+                  <div class="m-blog-post-modern__placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'm-blog-post-modern__placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
           </article>
         {%- endif -%}
 
