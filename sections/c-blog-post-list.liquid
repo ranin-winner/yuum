@@ -7,19 +7,21 @@
 
     <div class="m-blog-modern__posts">
       {%- assign blog = blogs[section.settings.blog] -%}
+      {%- assign posts_limit = section.settings.posts_limit | default: 9 -%}
 
       {%- if blog and blog.articles.size > 0 -%}
         {%- assign total_posts = blog.articles.size -%}
-        {%- assign posts_to_show = 6 -%}
+        {%- assign posts_to_show = posts_limit | at_most: total_posts -%}
 
         {%- for i in (1..posts_to_show) -%}
           {%- assign post_index = i | minus: 1 | modulo: total_posts -%}
           {%- assign article = blog.articles[post_index] -%}
           {%- assign group_index = i | minus: 1 | divided_by: 3 -%}
           {%- assign position_in_group = i | minus: 1 | modulo: 3 -%}
+          {%- assign is_mirror_group = group_index | modulo: 2 -%}
 
           {%- if position_in_group == 0 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--large {% if group_index == 1 %}m-blog-post-modern--mirror{% endif %}">
+            <article class="m-blog-post-modern m-blog-post-modern--large {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
               <div class="m-blog-post-modern__image">
                 <a href="{{ article.url }}">
                   {%- if article.image -%}
@@ -49,7 +51,7 @@
             </article>
 
           {%- elsif position_in_group == 1 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--horizontal {% if group_index == 1 %}m-blog-post-modern--mirror{% endif %}">
+            <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
               <div class="m-blog-post-modern__content">
                 <h3 class="m-blog-post-modern__title">
                   <a href="{{ article.url }}">{{ article.title }}</a>
@@ -79,7 +81,7 @@
             </article>
 
           {%- elsif position_in_group == 2 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--horizontal m-blog-post-modern--reverse {% if group_index == 1 %}m-blog-post-modern--mirror{% endif %}">
+            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
               <div class="m-blog-post-modern__image">
                 <a href="{{ article.url }}">
                   {%- if article.image -%}
@@ -109,19 +111,18 @@
             </article>
           {%- endif -%}
         {%- endfor -%}
+
       {%- else -%}
-        {%- for i in (1..6) -%}
+        {%- for i in (1..posts_limit) -%}
           {%- assign group_index = i | minus: 1 | divided_by: 3 -%}
           {%- assign position_in_group = i | minus: 1 | modulo: 3 -%}
+          {%- assign is_mirror_group = group_index | modulo: 2 -%}
 
           {%- capture demo_title -%}
-            {%- case i -%}
-              {%- when 1 -%}Opening of a new cafe Yuum
-              {%- when 2 -%}What can you eat in the spring to give your mother more energy?
-              {%- when 3 -%}What is immunity and how to boost it?
-              {%- when 4 -%}Superfoods: 3 Foods That Deserve the Title
-              {%- when 5 -%}When's the best way to taste mochi?
-              {%- when 6 -%}Tea accessories for traditional matcha
+            {%- case position_in_group -%}
+              {%- when 0 -%}Opening of a new cafe Yuum
+              {%- when 1 -%}What can you eat in the spring to give your mother more energy?
+              {%- when 2 -%}What is immunity and how to boost it?
             {%- endcase -%}
           {%- endcapture -%}
 
@@ -130,7 +131,7 @@
           {%- endcapture -%}
 
           {%- if position_in_group == 0 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--large {% if group_index == 1 %}m-blog-post-modern--mirror{% endif %}">
+            <article class="m-blog-post-modern m-blog-post-modern--large {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
               <div class="m-blog-post-modern__image">
                 {%- if section.settings.default_image -%}
                   <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
@@ -148,7 +149,7 @@
             </article>
 
           {%- elsif position_in_group == 1 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--horizontal {% if group_index == 1 %}m-blog-post-modern--mirror{% endif %}">
+            <article class="m-blog-post-modern m-blog-post-modern--small {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
               <div class="m-blog-post-modern__content">
                 <h3 class="m-blog-post-modern__title">{{ demo_title }}</h3>
                 <div class="m-blog-post-modern__excerpt">{{ demo_excerpt }}</div>
@@ -166,7 +167,7 @@
             </article>
 
           {%- elsif position_in_group == 2 -%}
-            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--horizontal m-blog-post-modern--reverse {% if group_index == 1 %}m-blog-post-modern--mirror{% endif %}">
+            <article class="m-blog-post-modern m-blog-post-modern--small m-blog-post-modern--reverse {% if is_mirror_group == 1 %}m-blog-post-modern--mirror{% endif %}">
               <div class="m-blog-post-modern__image">
                 {%- if section.settings.default_image -%}
                   <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post-modern__img">
@@ -203,9 +204,9 @@
       "id": "posts_limit",
       "label": "Posts to show",
       "min": 3,
-      "max": 6,
+      "max": 12,
       "step": 3,
-      "default": 6
+      "default": 9
     },
     {
       "type": "text",

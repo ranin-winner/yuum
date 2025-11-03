@@ -43,7 +43,7 @@ $accent-hover: #333333;
   &__posts {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-auto-rows: auto;
     gap: 40px;
     align-items: start;
   }
@@ -52,13 +52,14 @@ $accent-hover: #333333;
 .m-blog-post-modern {
   &--large {
     grid-column: 1;
-    grid-row: 1 / span 2;
+    grid-row: span 2;
     display: flex;
     flex-direction: column;
     gap: 30px;
 
     &.m-blog-post-modern--mirror {
       grid-column: 2;
+      grid-row: span 2;
     }
   }
 
@@ -82,12 +83,12 @@ $accent-hover: #333333;
     &.m-blog-post-modern--mirror {
       grid-column: 1;
 
-      &:not(.m-blog-post-modern--reverse) {
-        grid-row: 2;
-      }
-
       &.m-blog-post-modern--reverse {
         grid-row: 1;
+      }
+
+      &:not(.m-blog-post-modern--reverse) {
+        grid-row: 2;
       }
     }
   }
@@ -95,6 +96,7 @@ $accent-hover: #333333;
   &__image {
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid #e0e0e0;
 
     .m-blog-post-modern--large & {
       flex: 0 0 auto;
@@ -238,7 +240,7 @@ $accent-hover: #333333;
 
     &__posts {
       grid-template-columns: 1fr;
-      grid-template-rows: auto;
+      grid-auto-rows: auto;
       gap: 30px;
     }
   }
