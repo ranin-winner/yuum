@@ -47,16 +47,16 @@
       {%- comment -%} List {%- endcomment -%}
       {%- assign items = section.blocks | where: 'type', 'advantage' -%}
       {% if items.size > 0 %}
-        <ol class="advantages__list grid grid-cols-2 sm:grid-cols-2 gap-6 md:gap-[32px] counter-reset md:pl-[100px]">
+        <ol class="advantages__list grid grid-cols-2 sm:grid-cols-2 gap-6 md:gap-[32px] counter-reset">
           {% for block in items %}  
             {%- assign num_str = forloop.index | prepend: '0' -%}
             <li class="advantages__item flex gap-[4px] flex-col" {{ block.shopify_attributes }}>
               <div class="advantages__num shrink-0">
                 <h5 class="advantages__num-badge heading-5">{{ block.settings.list_item_number }}</h5>
               </div>
-              <div class="advantages__list text-[13px] leading-[1.35] md:text-[14px]">
+              <div class="advantages__list-item text-[13px] leading-[1.35] md:text-[14px]">
                 {% if block.settings.text != blank %}
-                  <p class="opacity-85">{{ block.settings.text }}</p>
+                  <p class="">{{ block.settings.text }}</p>
                 {% endif %}
               </div>
             </li>

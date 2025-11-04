@@ -42,6 +42,10 @@
         @media (min-width: 992px){
             grid-template-columns:repeat(3,minmax(0,1fr)); 
         }
+
+        &.pre-search-grid {
+            grid-template-columns:repeat(2,minmax(0,1fr)); 
+        }
           
     }
 
@@ -50,6 +54,23 @@
             margin-bottom: 0;
         }
 
+        .product-card--lite {
+
+            .product-card__cta {
+                overflow: hidden;
+            }
+
+            .product-card__btn {
+                transform: translateY(200%);
+            }
+            
+            &:hover {
+                .product-card__btn {
+                    transform: translateY(0);
+                }
+            }
+            
+        }
 
     }
 

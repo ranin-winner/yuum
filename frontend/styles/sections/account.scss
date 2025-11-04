@@ -202,16 +202,16 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
     overflow: hidden;
-    @media (min-width: 1280px) {
-        margin-top: -45px;
-    }
-   
-
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: end;
     width: 100%;
+
+    @media (min-width: 1280px) {
+        margin-top: -45px;
+    }
 
     .totals__inner {
         div:not(:last-child) {

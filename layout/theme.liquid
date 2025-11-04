@@ -60,8 +60,12 @@
 
     {% render 'typography' %}
 
+
+
     {% render 'entry' with 'main.theme.js' %}
     {% render 'entry' with 'main.scss', preload_stylesheet: true %}
+
+
 
     {% if template contains 'collection' %}
       {% comment %} {% render 'entry' with 'theme.collection.js' %} {% endcomment %}

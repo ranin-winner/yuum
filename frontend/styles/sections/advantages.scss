@@ -6,9 +6,13 @@
     &__inner {
         @include cfg.media(min-t) {
             display: grid;
-            grid-template-columns: 350px 1fr 1fr;
+            grid-template-columns: 350px 1fr 680px;
+            // grid-template-columns: 300px 1fr 1fr;
         }
         
+        @media (max-width: 1300px) {
+            grid-template-columns: 300px 1fr 1fr;
+        }
     }
 
     &__text {
@@ -17,19 +21,33 @@
         @include cfg.media(min-t) {
             text-align: left;
             max-width: 350px; 
-            transform: translateX(170px);
+            transform: translateX(130px);
         }
     }
 
     &__list {
         column-gap: 80px;
+       
+
+        p {
+            font-size: 14px;
+            color: #474747;
+        }
+
+        &__item {
+            justify-content: center;
+        }
+
+        @media (min-width: 1400px) {
+            padding-left: 100px;
+        }
+
     }
   
     .advantages__num-badge {
         color: #474747;
     }
-  
-    .opacity-85 { opacity: .85; }
+
   
     .advantages__decor {
       position: absolute;
