@@ -1,0 +1,199 @@
+@use '../config/all-config' as cfg;
+@use '../config/fonts' as *;
+
+$text-primary: #1a1a1a;
+$text-gray: #666666;
+$background-white: #ffffff;
+$border-medium: #ADAEB0;
+
+.m-blog-article-single {
+  &__banner {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0;
+    @include font(body-500, 14px, 1.2);
+    @include font-smoothing;
+    letter-spacing: 0.5px;
+  }
+
+  &__nav {
+    border-bottom: 1px solid $border-medium;
+    padding: 24px 0;
+
+    &-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    &-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      strong {
+        @include font(body-600, 16px, 1.2);
+        color: $text-primary;
+      }
+
+      a, span {
+        @include font(body-400, 14px, 1.4);
+        color: $text-gray;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__logo {
+    text-align: center;
+    padding: 40px 0;
+    border-bottom: 1px solid $border-medium;
+
+    h1 {
+      @include font(heading-400, 2.5rem, 1);
+      color: $text-primary;
+      @include font-smoothing;
+    }
+  }
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  &__main-layout {
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+    padding: 60px 0;
+  }
+
+  &__content-left {
+    flex: 1;
+    padding-top: 20px;
+  }
+
+  &__title {
+    @include font(heading-400, 3rem, 1.1);
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+    color: $text-primary;
+    @include font-smoothing;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px solid $border-medium;
+
+    &-year {
+      @include font(body-500, 16px, 1.2);
+      color: $text-primary;
+    }
+
+    &-author {
+      @include font(body-400, 14px, 1.4);
+      color: $text-gray;
+    }
+  }
+
+  &__hero-image {
+    flex: 0 0 50%;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+  }
+
+  &__img-hero {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__full-content {
+    padding: 50px 0 80px;
+    border-top: 1px solid $border-medium;
+  }
+
+  &__article-content {
+    @include font(body-400, 16px, 1.7);
+    color: $text-primary;
+    max-width: 800px;
+    margin: 0 auto;
+
+    p {
+      margin-bottom: 24px;
+    }
+
+    img {
+      width: 100%;
+      max-width: none;
+      margin: 40px 0;
+      display: block;
+    }
+
+    .image-container,
+    .article-image,
+    figure {
+      width: 100%;
+      max-width: none;
+      margin: 40px 0;
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__nav-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    &__main-layout {
+      flex-direction: column;
+      gap: 40px;
+      padding: 40px 0;
+    }
+
+    &__hero-image {
+      flex: none;
+      width: 100%;
+    }
+
+    &__title {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
+
+    &__article-content {
+      max-width: 100%;
+
+      img,
+      .image-container,
+      .article-image,
+      figure {
+        margin: 30px 0;
+      }
+    }
+  }
+}

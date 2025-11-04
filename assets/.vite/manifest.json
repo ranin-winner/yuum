@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-ClNM5M15.css",
+    "file": "main-DjfJ5SaK.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -55,6 +55,11 @@
   "frontend/styles/sections/blog-post-list.scss": {
     "file": "blog-post-list-B_-uUusx.css",
     "src": "frontend/styles/sections/blog-post-list.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/blog-post-singe.scss": {
+    "file": "blog-post-singe-KrNmm8eS.css",
+    "src": "frontend/styles/sections/blog-post-singe.scss",
     "isEntry": true
   },
   "frontend/styles/sections/build-your-bundle.scss": {
