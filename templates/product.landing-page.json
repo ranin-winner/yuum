@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "trial_hero_6dknCb": {
@@ -15,7 +6,7 @@
         "feature_FMMmCy": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/usda-organic-seal.png",
+            "icon": "shopify:\/\/shop_images\/usda-organic-seal.png",
             "feature_title": "ORGANIC INGREDIENTS",
             "feature_description": "Perfectly packaged together"
           }
@@ -23,7 +14,7 @@
         "feature_9g4xHy": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Group_129.png",
+            "icon": "shopify:\/\/shop_images\/Group_129.png",
             "feature_title": "FAIR TRADE CHOCOLATE",
             "feature_description": "Oooy, gooey goodness in (almost) every bar"
           }
@@ -31,7 +22,7 @@
         "feature_ftQqMV": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Group_130.png",
+            "icon": "shopify:\/\/shop_images\/Group_130.png",
             "feature_title": "PALM OIL FREE",
             "feature_description": "Good for you and the planet, too"
           }
@@ -45,7 +36,7 @@
       "settings": {
         "title": "try [ALL] our bars",
         "subtitle": "just $0.99 + FREE SHIPPING",
-        "image": "shopify://shop_images/stack_1.png",
+        "image": "shopify:\/\/shop_images\/stack_1.png",
         "bg_color": "#b9e1ed"
       }
     },
@@ -112,7 +103,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
-        "title_section": "<p>your new favorite <br/>snack subscription</p>"
+        "title_section": "<p>your new favorite <br\/>snack subscription<\/p>"
       }
     },
     "feature_section_custom_Vz7FEC": {
@@ -150,7 +141,7 @@
         "color_scheme": "scheme-5c0f826f-d435-4d54-9cbc-7f5914495a94",
         "header_top": "your new favorite",
         "header_bottom": "snack subscription",
-        "image": "shopify://shop_images/smores_1_1.png",
+        "image": "shopify:\/\/shop_images\/smores_1_1.png",
         "image_full_bleed": false,
         "show_first_button": true,
         "button_text": "SUBSCRIBE & SAVE",
@@ -166,7 +157,7 @@
         "review_mPQ4Hj": {
           "type": "review",
           "settings": {
-            "product_image": "shopify://shop_images/AllIn_New_Packaging_Renders_PDCPB_Transparent_1_0343b4c1-2de8-4a05-8c1a-e9c3557f3060.png",
+            "product_image": "shopify:\/\/shop_images\/AllIn_New_Packaging_Renders_PDCPB_Transparent_1_0343b4c1-2de8-4a05-8c1a-e9c3557f3060.png",
             "review_text": "\"These bars have become a family favorite! My kids love them and I love that they’re palm oil-free.\"",
             "reviewer_name": "Sarah T"
           }
@@ -174,7 +165,7 @@
         "review_VAheq7": {
           "type": "review",
           "settings": {
-            "product_image": "shopify://shop_images/smores-2.png",
+            "product_image": "shopify:\/\/shop_images\/smores-2.png",
             "review_text": "\"Perfect for on-the-go, and my kids devour them every time. I feel good knowing they’re getting something organic and made with real ingredients.\"",
             "reviewer_name": "Chris E."
           }
@@ -182,7 +173,7 @@
         "review_NqYeem": {
           "type": "review",
           "settings": {
-            "product_image": "shopify://shop_images/chocolate_chip.png",
+            "product_image": "shopify:\/\/shop_images\/chocolate_chip.png",
             "review_text": "\"These bars are a lifesaver—delicious and so satisfying! I love that they have a lot of fiber to keep me full for a bit and my kids can’t get enough of them!\"",
             "reviewer_name": "Jessica M"
           }
@@ -194,7 +185,7 @@
         "review_NqYeem"
       ],
       "settings": {
-        "background_image": "shopify://shop_images/heart_2.png",
+        "background_image": "shopify:\/\/shop_images\/heart_2.png",
         "button_text": "TRY NOW",
         "button_link": "",
         "color_scheme": ""
@@ -207,84 +198,84 @@
           "type": "faq_item",
           "settings": {
             "question": "What’s the deal with the trial pack?",
-            "answer": "<p>You get to try all of our delicious snack bars for just $0.99 + free shipping! When you sign up for a trial, you’ll get a sampler pack of our tasty bars delivered right to your door. After the trial, you’ll automatically be subscribed to an ongoing plan with our best sellers, so you never run out of your favorite snacks. Don’t worry, you can cancel or modify your plan to any of your favorite flavors at any time before your first subscription charge.</p>"
+            "answer": "<p>You get to try all of our delicious snack bars for just $0.99 + free shipping! When you sign up for a trial, you’ll get a sampler pack of our tasty bars delivered right to your door. After the trial, you’ll automatically be subscribed to an ongoing plan with our best sellers, so you never run out of your favorite snacks. Don’t worry, you can cancel or modify your plan to any of your favorite flavors at any time before your first subscription charge.<\/p>"
           }
         },
         "faq_item_cjwAg8": {
           "type": "faq_item",
           "settings": {
             "question": "What happens after my trial?",
-            "answer": "<p>After you enjoy your free trial, you’ll automatically be enrolled in our subscription plan, where you’ll receive your favorite snacks on a regular basis. No stress—if you ever need to pause or cancel your subscription, you can easily manage it from your account. Plus, you’ll always have access to exclusive offers, 10% off, and free shipping on every order!</p>"
+            "answer": "<p>After you enjoy your free trial, you’ll automatically be enrolled in our subscription plan, where you’ll receive your favorite snacks on a regular basis. No stress—if you ever need to pause or cancel your subscription, you can easily manage it from your account. Plus, you’ll always have access to exclusive offers, 10% off, and free shipping on every order!<\/p>"
           }
         },
         "faq_item_EJgnJA": {
           "type": "faq_item",
           "settings": {
             "question": "What’s included in the free trial?",
-            "answer": "<p>Your free trial pack will include one of each snack bar: Peruvian Dark Chocolate + Peanut Butter, Madagascar Vanilla, S’mores, and Chocolate Chip. It’s the perfect way to try all our flavors and find your favorite!</p>"
+            "answer": "<p>Your free trial pack will include one of each snack bar: Peruvian Dark Chocolate + Peanut Butter, Madagascar Vanilla, S’mores, and Chocolate Chip. It’s the perfect way to try all our flavors and find your favorite!<\/p>"
           }
         },
         "faq_item_9gqLgH": {
           "type": "faq_item",
           "settings": {
             "question": "Can I cancel my subscription anytime?",
-            "answer": "<p>Yes! We want you to love our snacks, but if for any reason you decide that All In isn’t right for you, you can cancel your subscription anytime. Just log into your account, and we’ll take care of the rest. There’s no commitment or hidden fees.</p>"
+            "answer": "<p>Yes! We want you to love our snacks, but if for any reason you decide that All In isn’t right for you, you can cancel your subscription anytime. Just log into your account, and we’ll take care of the rest. There’s no commitment or hidden fees.<\/p>"
           }
         },
         "faq_item_xDPmLA": {
           "type": "faq_item",
           "settings": {
             "question": "Do you ship internationally?",
-            "answer": "<p>At this time, we’re only able to offer shipping within the U.S. We’re working on expanding our reach, so stay tuned for updates!</p>"
+            "answer": "<p>At this time, we’re only able to offer shipping within the U.S. We’re working on expanding our reach, so stay tuned for updates!<\/p>"
           }
         },
         "faq_item_daxeqH": {
           "type": "faq_item",
           "settings": {
             "question": "Why did All In rebrand from This Saves Lives?",
-            "answer": "<p>Great question! After more than a decade of supporting childhood hunger relief globally, we felt it was time for a change. Our mission has always been to create impact through food, and now, we’re focusing on supporting local communities in the U.S. through increased access to nutritious food. The rebrand to All In reflects our deep commitment to local action and the belief that everyone deserves access to delicious, nourishing snacks. We’re All In this together.</p>"
+            "answer": "<p>Great question! After more than a decade of supporting childhood hunger relief globally, we felt it was time for a change. Our mission has always been to create impact through food, and now, we’re focusing on supporting local communities in the U.S. through increased access to nutritious food. The rebrand to All In reflects our deep commitment to local action and the belief that everyone deserves access to delicious, nourishing snacks. We’re All In this together.<\/p>"
           }
         },
         "faq_item_6bg8pe": {
           "type": "faq_item",
           "settings": {
             "question": "How has your impact model changed?",
-            "answer": "<p>While This Saves Lives focused on ending childhood hunger around the world, we’ve shifted our focus to supporting food access right here in our backyard—and in yours. We partner with organizations that work locally to increase access to nutritious food in underserved communities across the U.S. When you buy our snacks, you help fund these programs, and you can even nominate a local nonprofit to receive one of our grants.</p>"
+            "answer": "<p>While This Saves Lives focused on ending childhood hunger around the world, we’ve shifted our focus to supporting food access right here in our backyard—and in yours. We partner with organizations that work locally to increase access to nutritious food in underserved communities across the U.S. When you buy our snacks, you help fund these programs, and you can even nominate a local nonprofit to receive one of our grants.<\/p>"
           }
         },
         "faq_item_dAzPwC": {
           "type": "faq_item",
           "settings": {
             "question": "How do I nominate a local organization for a grant?",
-            "answer": "<p>It’s easy! If you know of a nonprofit working to increase access to good food in your community, you can nominate them directly through our website. Just head to the \"Nominate\" section, and tell us about the organization. We’re always looking for new partners to support!</p>"
+            "answer": "<p>It’s easy! If you know of a nonprofit working to increase access to good food in your community, you can nominate them directly through our website. Just head to the \"Nominate\" section, and tell us about the organization. We’re always looking for new partners to support!<\/p>"
           }
         },
         "faq_item_hwbmP9": {
           "type": "faq_item",
           "settings": {
             "question": "What makes All In’s bars different from other snacks?",
-            "answer": "<p>At All In, we believe that great taste should never be a compromise. Our bars are made with organic, high-quality ingredients that not only taste amazing but also fuel you throughout the day. Plus, every bar you enjoy helps make a positive impact in your community by supporting local, nutritious food access initiatives.</p>"
+            "answer": "<p>At All In, we believe that great taste should never be a compromise. Our bars are made with organic, high-quality ingredients that not only taste amazing but also fuel you throughout the day. Plus, every bar you enjoy helps make a positive impact in your community by supporting local, nutritious food access initiatives.<\/p>"
           }
         },
         "faq_item_CQij3r": {
           "type": "faq_item",
           "settings": {
             "question": "Why should I care about food access in my community?",
-            "answer": "<p>Food access is a crucial issue, and everyone deserves to have nourishing food available, no matter where they live. By supporting All In, you’re directly contributing to making nutritious food more accessible to underserved communities across the U.S. We’re all in this together—your choice to snack on our bars makes a real difference.</p>"
+            "answer": "<p>Food access is a crucial issue, and everyone deserves to have nourishing food available, no matter where they live. By supporting All In, you’re directly contributing to making nutritious food more accessible to underserved communities across the U.S. We’re all in this together—your choice to snack on our bars makes a real difference.<\/p>"
           }
         },
         "faq_item_bLKf73": {
           "type": "faq_item",
           "settings": {
             "question": "Are your products allergen-friendly?",
-            "answer": "<p>All of our products are soy free, gluten free, palm oil free, kosher, and non-GMO. Our whole grain line of bars are also free of the top 8 allergens and produced in a fully separate facility to reduce any risk of cross-contamination. </p>"
+            "answer": "<p>All of our products are soy free, gluten free, palm oil free, kosher, and non-GMO. Our whole grain line of bars are also free of the top 8 allergens and produced in a fully separate facility to reduce any risk of cross-contamination. <\/p>"
           }
         },
         "faq_item_kGi7fV": {
           "type": "faq_item",
           "settings": {
             "question": "What should I do if I have questions about my order or subscription?",
-            "answer": "<p>If you have any questions about your order or subscription, our customer support team is here to help! Just reach out to us via email or our contact form, and we’ll get back to you as soon as possible.</p>"
+            "answer": "<p>If you have any questions about your order or subscription, our customer support team is here to help! Just reach out to us via email or our contact form, and we’ll get back to you as soon as possible.<\/p>"
           }
         }
       },

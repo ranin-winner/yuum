@@ -1,85 +1,495 @@
-<section
-  class="relative grid items-center py-[calc(var(--spacing)*0.75)] lg:py-[--spacing] overflow-hidden pb-8"
-  style="--spacing: {{ section.settings.spacing }}px">
-  <div class="container mx-auto px-4">
-    {% liquid
-      assign image = section.settings.image | default: page_image
-    %}
+<section class="m-about-universal">
+  <div class="m-container">
 
-    <div class="relativ flex flex-col items-center">
-      <!-- Background Image -->
-      {% if image != blank %}
-        <div class="w-[80%] h-[500px] rounded-2xl overflow-hidden border-4 border-color_1 ">
-          {% render 'image' with image,
-            class: 'w-full h-full object-cover',
-            loading: 'lazy'
-          %}
+    <!-- Hero Section -->
+    <div class="m-about-hero">
+      <div class="m-about-hero__content">
+        <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
+        <div class="m-about-hero__subtitle">
+          {{ section.settings.hero_subtitle }}
+        </div>
+      </div>
+      {% if section.settings.hero_image != blank %}
+        <div class="m-about-hero__media">
+          {% render 'image', image: section.settings.hero_image, class: 'm-about-hero__image' %}
         </div>
       {% endif %}
+    </div>
 
-      <!-- Content Overlay -->
-      <div class="inset-0 flex items-center justify-center -mt-[32px] ">
-        <div class="bg-white rounded-2xl p-10 md:p-20 max-w-4xl mx-4 shadow-lg border-4 border-color_1 px-8 py-4">
-          <h1 class="mb-4 text-color_1 leading-title-1 heading-3 text-center">
-            {{ section.settings.heading | default: 'ABOUT US' }}
-          </h1>
+    <!-- Flavours Section -->
+    <div class="m-about-flavours">
+      <h2 class="m-about-flavours__title">{{ section.settings.flavours_title }}</h2>
+      <div class="m-about-flavours__intro">
+        {{ section.settings.flavours_intro }}
+      </div>
 
-          <p class="text-xl leading-12 text-center max-w-xl py-2 px-8">
-            {{ section.settings.text }}
-          </p>
+      <div class="m-flavours-animation-container">
+        {% for i in (1..5) %}
+          {% assign flavour_key = 'flavour_' | append: i %}
+          {% assign flavour_image_key = 'flavour_image_' | append: i %}
+          {% if section.settings[flavour_key] != blank %}
+            <div class="m-flavour-item" data-flavour="{{ section.settings[flavour_key] | handleize }}">
+              <span class="m-flavour-name">{{ section.settings[flavour_key] }}</span>
+              {% if section.settings[flavour_image_key] != blank %}
+                <div class="m-flavour-image">
+                  {% render 'image', image: section.settings[flavour_image_key], src_size: 'master', class: 'm-flavour-img' %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
 
+        {% if section.settings.pentagon_final_image != blank %}
+          <div class="m-pentagon-final">
+            {% render 'image', image: section.settings.pentagon_final_image, class: 'm-pentagon-final__img' %}
+          </div>
+        {% endif %}
+
+      </div>
+
+      <div class="m-about-flavours__guide">
+        <p>{{ section.settings.flavours_guide }}</p>
+      </div>
+    </div>
+
+    <!-- Sweet Section -->
+    <div class="m-sweet-section">
+      <h3 class="m-sweet-section-title">{{ section.settings.sweet_title }}</h3>
+      <div class="m-sweet-content">
+        <div class="m-sweet-words">
+          {% for i in (1..9) %}
+            {% assign sweet_name_key = 'sweet_name_' | append: i %}
+            {% if section.settings[sweet_name_key] != blank %}
+              <span class="m-sweet-word {% if forloop.first %}active{% endif %}" data-sweet="{{ section.settings[sweet_name_key] | handleize }}">
+                {{ section.settings[sweet_name_key] }}
+              </span>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="m-sweet-slider">
+          <button class="m-sweet-arrow m-sweet-arrow-prev">←</button>
+          <div class="m-sweet-image-container">
+            {% for i in (1..9) %}
+              {% assign sweet_image_key = 'sweet_image_' | append: i %}
+              {% assign sweet_name_key = 'sweet_name_' | append: i %}
+              {% if section.settings[sweet_image_key] != blank %}
+                <div class="m-sweet-image-item {% if forloop.first %}active{% endif %}" data-sweet="{{ section.settings[sweet_name_key] | handleize }}">
+                  {% render 'image', image: section.settings[sweet_image_key], src_size: 'master', class: 'm-sweet-img' %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <button class="m-sweet-arrow m-sweet-arrow-next">→</button>
+        </div>
+      </div>
+      <div class="m-sweet-explore">
+        <p class="m-sweet-explore-title">{{ section.settings.sweet_explore_text }}</p>
+      </div>
+      {% if section.settings.sweet_cta_text != blank %}
+        <a href="{{ section.settings.sweet_cta_link | default: '#' }}" class="m-sweet-cta">
+          {{ section.settings.sweet_cta_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Seasonal Section -->
+    <div class="m-seasonal">
+      <div class="m-seasonal-image">
+        {% if section.settings.seasonal_image != blank %}
+          {% render 'image', image: section.settings.seasonal_image, class: 'm-seasonal-img' %}
+        {% endif %}
+        <div class="m-seasonal-content">
+          <h2 class="m-seasonal-title">{{ section.settings.seasonal_title }}</h2>
+          <div class="m-seasonal-intro">
+            <p>{{ section.settings.seasonal_intro }}</p>
+          </div>
+          <div class="m-seasonal-text">
+            <div class="m-seasonal-seasons">
+              {% for i in (1..4) %}
+                {% assign season_key = 'season_' | append: i %}
+                {% if section.settings[season_key] != blank %}
+                  <div class="m-seasonal-season {% if forloop.first %}active{% endif %}">{{ section.settings[season_key] }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <h3 class="m-seasonal-name">{{ section.settings.seasonal_name }}</h3>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Universal Design Section -->
+    <div class="m-universal-design">
+      <div class="m-universal-background">
+        {% if section.settings.universal_image != blank %}
+          {% render 'image', image: section.settings.universal_image, class: 'm-universal-bg-image' %}
+        {% endif %}
+      </div>
+      <div class="m-universal-content">
+        <div class="m-universal-text">
+          <p class="m-universal-description">{{ section.settings.universal_text }}</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Sweet section slider
+    const sweetWords = document.querySelectorAll('.m-sweet-word');
+    const sweetImages = document.querySelectorAll('.m-sweet-image-item');
+    const sweetPrev = document.querySelector('.m-sweet-arrow-prev');
+    const sweetNext = document.querySelector('.m-sweet-arrow-next');
+    let currentSweetIndex = 0;
+
+    function showSweet(index) {
+      // Remove active class from all words and images
+      sweetWords.forEach(w => w.classList.remove('active'));
+      sweetImages.forEach(img => img.classList.remove('active'));
+
+      // Add active class to current word and image
+      sweetWords[index].classList.add('active');
+      sweetImages[index].classList.add('active');
+      currentSweetIndex = index;
+    }
+
+    sweetWords.forEach((word, index) => {
+      word.addEventListener('click', function() {
+        showSweet(index);
+      });
+    });
+
+    sweetPrev.addEventListener('click', function() {
+      let newIndex = currentSweetIndex - 1;
+      if (newIndex < 0) newIndex = sweetWords.length - 1;
+      showSweet(newIndex);
+    });
+
+    sweetNext.addEventListener('click', function() {
+      let newIndex = currentSweetIndex + 1;
+      if (newIndex >= sweetWords.length) newIndex = 0;
+      showSweet(newIndex);
+    });
+
+    // Seasonal section
+    const seasonItems = document.querySelectorAll('.m-seasonal-season');
+
+    seasonItems.forEach(item => {
+      item.addEventListener('click', function() {
+        seasonItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        // Here you can add functionality to change the seasonal content
+      });
+    });
+  });
+</script>
+
 {% schema %}
 {
-  "name": "About us",
+  "name": "About Us Universal",
   "settings": [
     {
+      "type": "header",
+      "content": "Hero Settings"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Here at Yuum we're<br>born dreamers"
+    },
+    {
+      "type": "richtext",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "<p>We fantasise about flavour. We're passionate about purpose. And we have a constant, insatiable craving for curiosity that's fuelled by our restless appetite for adventure and authenticity. When we're not creating delicious new sensory combinations, we spend our days scouting the world. Seeking out exhilarating new tastes and textures to help connect with the iconic cultural flavours we believe are just done better, when they're done right. We hope you love them as much as we do.</p>"
+    },
+    {
       "type": "image_picker",
-      "id": "image",
-      "label": "Background Image"
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "header",
+      "content": "Flavours Settings"
     },
     {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "ABOUT US"
+      "id": "flavours_title",
+      "label": "Flavours Title",
+      "default": "Flavours"
     },
     {
-      "type": "textarea",
-      "id": "text",
-      "label": "Text",
-      "default": "Lopaus Point uses thoughtfully selected ingredients. We use only whole, organic fruit to lightly sweeten our batters."
+      "type": "richtext",
+      "id": "flavours_intro",
+      "label": "Flavours Introduction",
+      "default": "<p>However you look at it, life is made up of flavours. Sweet, sour, salty, bitter and savoury. Or umami as our Japanese friends like to call it. We believe that by embracing the Japanese way of thinking we're able to create mochi that brings together all of life's flavours to create a world where delicious is more than just a dream. It's a portal to other cultures. Yuum. It's a life full of flavour.</p>"
     },
     {
       "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
-      "default": "Learn More"
+      "id": "flavour_1",
+      "label": "Flavour 1",
+      "default": "BITTER"
+    },
+    {
+      "type": "image_picker",
+      "id": "flavour_image_1",
+      "label": "Flavour 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "flavour_2",
+      "label": "Flavour 2",
+      "default": "SWEET"
+    },
+    {
+      "type": "image_picker",
+      "id": "flavour_image_2",
+      "label": "Flavour 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "flavour_3",
+      "label": "Flavour 3",
+      "default": "SALT"
+    },
+    {
+      "type": "image_picker",
+      "id": "flavour_image_3",
+      "label": "Flavour 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "flavour_4",
+      "label": "Flavour 4",
+      "default": "SOUR"
+    },
+    {
+      "type": "image_picker",
+      "id": "flavour_image_4",
+      "label": "Flavour 4 Image"
+    },
+    {
+      "type": "text",
+      "id": "flavour_5",
+      "label": "Flavour 5",
+      "default": "UMAMI"
+    },
+    {
+      "type": "image_picker",
+      "id": "flavour_image_5",
+      "label": "Flavour 5 Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "pentagon_final_image",
+      "label": "Pentagon Final Shape Image"
+    },
+    {
+      "type": "text",
+      "id": "flavours_guide",
+      "label": "Flavours Guide Text",
+      "default": "When looking at the products, you will know what flavours you are about to experience by recognising the flavour shape that is associated with each of them. Use this as a guide to make your picks or feel free try something new if you are feeling adventurous!"
+    },
+    {
+      "type": "header",
+      "content": "Sweet Section"
+    },
+    {
+      "type": "text",
+      "id": "sweet_title",
+      "label": "Sweet Title",
+      "default": "Sweet"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_1",
+      "label": "Sweet Name 1",
+      "default": "strawberry"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_1",
+      "label": "Sweet Image 1"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_2",
+      "label": "Sweet Name 2",
+      "default": "raspberry"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_2",
+      "label": "Sweet Image 2"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_3",
+      "label": "Sweet Name 3",
+      "default": "blueberry"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_3",
+      "label": "Sweet Image 3"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_4",
+      "label": "Sweet Name 4",
+      "default": "mango"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_4",
+      "label": "Sweet Image 4"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_5",
+      "label": "Sweet Name 5",
+      "default": "banana"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_5",
+      "label": "Sweet Image 5"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_6",
+      "label": "Sweet Name 6",
+      "default": "coconut"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_6",
+      "label": "Sweet Image 6"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_7",
+      "label": "Sweet Name 7",
+      "default": "caramel"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_7",
+      "label": "Sweet Image 7"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_8",
+      "label": "Sweet Name 8",
+      "default": "chocolate"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_8",
+      "label": "Sweet Image 8"
+    },
+    {
+      "type": "text",
+      "id": "sweet_name_9",
+      "label": "Sweet Name 9",
+      "default": "vanilla"
+    },
+    {
+      "type": "image_picker",
+      "id": "sweet_image_9",
+      "label": "Sweet Image 9"
+    },
+    {
+      "type": "text",
+      "id": "sweet_explore_text",
+      "label": "Sweet Explore Text",
+      "default": "Explore the wealth of unique flavors at Yuum"
+    },
+    {
+      "type": "text",
+      "id": "sweet_cta_text",
+      "label": "Sweet CTA Text",
+      "default": "SHOP NOW"
     },
     {
       "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
+      "id": "sweet_cta_link",
+      "label": "Sweet CTA Link"
     },
     {
-      "type": "range",
-      "id": "spacing",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "label": "Vertical Spacing",
-      "default": 16
+      "type": "header",
+      "content": "Seasonal Settings"
+    },
+    {
+      "type": "text",
+      "id": "seasonal_title",
+      "label": "Seasonal Title",
+      "default": "Seasonality"
+    },
+    {
+      "type": "text",
+      "id": "seasonal_intro",
+      "label": "Seasonal Introduction",
+      "default": "Text about Seasonality - how life around us changes with the seasons (foliage / sun / blossom / moods / cold) and how this also changes the world of our cafe. The packaging / menu changes with the seasons. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "type": "image_picker",
+      "id": "seasonal_image",
+      "label": "Seasonal Background Image"
+    },
+    {
+      "type": "text",
+      "id": "seasonal_name",
+      "label": "Season Name",
+      "default": "Spring"
+    },
+    {
+      "type": "text",
+      "id": "season_1",
+      "label": "Season 1",
+      "default": "SPRING"
+    },
+    {
+      "type": "text",
+      "id": "season_2",
+      "label": "Season 2",
+      "default": "SUMMER"
+    },
+    {
+      "type": "text",
+      "id": "season_3",
+      "label": "Season 3",
+      "default": "AUTUMN"
+    },
+    {
+      "type": "text",
+      "id": "season_4",
+      "label": "Season 4",
+      "default": "WINTER"
+    },
+    {
+      "type": "header",
+      "content": "Universal Design Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "universal_image",
+      "label": "Universal Background Image"
+    },
+    {
+      "type": "richtext",
+      "id": "universal_text",
+      "label": "Universal Text",
+      "default": "<p>A text about a unique approach to design and creating an environment for all ... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
     }
   ],
   "presets": [
     {
-      "name": "About us"
+      "name": "About Us Universal",
+      "category": "Custom"
     }
   ]
 }

@@ -8,6 +8,7 @@
 // All elements
 // @use './elements/all-elements' as elements;
 @use './elements/all-elements';
+@use './elements/auth-modal'
 
 // All components
 @use './components/critical-components';

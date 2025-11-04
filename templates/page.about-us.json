@@ -1,66 +1,94 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "footer_custom_9dhpdA": {
-      "type": "footer-custom",
-      "blocks": {
-        "social_icon_taJHad": {
-          "type": "social_icon",
-          "settings": {
-            "social_name": "Instagram",
-            "social_link": ""
-          }
-        },
-        "social_icon_dycGWQ": {
-          "type": "social_icon",
-          "settings": {
-            "social_name": "Twitter",
-            "social_link": "#"
-          }
-        },
-        "social_icon_E7Benf": {
-          "type": "social_icon",
-          "settings": {
-            "social_name": "TikTok",
-            "social_link": ""
-          }
-        },
-        "social_icon_m86rtB": {
-          "type": "social_icon",
-          "settings": {
-            "social_name": "FaceBook",
-            "social_link": "#"
-          }
-        }
-      },
-      "block_order": [
-        "social_icon_taJHad",
-        "social_icon_dycGWQ",
-        "social_icon_E7Benf",
-        "social_icon_m86rtB"
-      ],
-      "disabled": true,
+    "about_us_cmtAjh": {
+      "type": "about-us",
+      "name": "About Us Universal",
       "settings": {
-        "footer_menu_1": "",
-        "footer_menu_2": "customer-account-main-menu",
-        "newsletter_title": "Sign up to get email updates",
-        "newsletter_placeholder": "email@gmail.com",
-        "newsletter_button_text": "SIGN UP",
-        "social_title": "Follow Us:",
-        "copyright_text": "© 2023 Shop Name | All Rights Reserved",
-        "footer_menu_3": "footer"
+        "hero_title": "Here at Yuum we'reborn dreamers",
+        "hero_subtitle": "<p>We fantasise about flavour. We're passionate about purpose. And we have a constant, insatiable craving for curiosity that's fuelled by our restless appetite for adventure and authenticity. When we're not creating delicious new sensory combinations, we spend our days scouting the world. Seeking out exhilarating new tastes and textures to help connect with the iconic cultural flavours we believe are just done better, when they're done right. We hope you love them as much as we do.<\/p>",
+        "hero_image": "shopify:\/\/shop_images\/Image_7.png",
+        "flavours_title": "Flavours",
+        "flavours_intro": "<p>However you look at it, life is made up of flavours. Sweet, sour, salty, bitter and savoury. Or umami as our Japanese friends like to call it. We believe that by embracing the Japanese way of thinking we're able to create mochi that brings together all of life's flavours to create a world where delicious is more than just a dream. It's a portal to other cultures. Yuum. It's a life full of flavour.<\/p>",
+        "flavour_1": "SWEET",
+        "flavour_image_1": "shopify:\/\/shop_images\/Bitter_ec67cd38-f3e5-4b58-8759-8ec79bf6ac7c.png",
+        "flavour_2": "BITTER",
+        "flavour_image_2": "shopify:\/\/shop_images\/Sweet_1c700884-e77d-4494-b7c9-ca37482b4424.png",
+        "flavour_3": "SALT",
+        "flavour_image_3": "shopify:\/\/shop_images\/Salt_9b0f5292-dba1-4bd5-a4c0-301beddd73c1.png",
+        "flavour_4": "SOUR",
+        "flavour_image_4": "shopify:\/\/shop_images\/Sour_0a564c64-523d-46cb-b5ee-43c55bd06ac4.png",
+        "flavour_5": "UMAMI",
+        "flavour_image_5": "shopify:\/\/shop_images\/Umami_73ff2e1f-8f38-4d65-b4a5-548ea2a5e8dd.png",
+        "pentagon_final_image": "shopify:\/\/shop_images\/Frame.png",
+        "flavours_guide": "When looking at the products, you will know what flavours you are about to experience by recognising the flavour shape that is associated with each of them. Use this as a guide to make your picks or feel free try something new if you are feeling adventurous!",
+        "sweet_title": "Sweet",
+        "sweet_name_1": "strawberry",
+        "sweet_image_1": "shopify:\/\/shop_images\/Taste-Sweet.png",
+        "sweet_name_2": "raspberry",
+        "sweet_image_2": "shopify:\/\/shop_images\/Taste-Bitter.png",
+        "sweet_name_3": "blueberry",
+        "sweet_image_3": "shopify:\/\/shop_images\/Taste-Salt_108a8ce0-67d6-4044-b013-20963097224b.png",
+        "sweet_name_4": "mango",
+        "sweet_image_4": "shopify:\/\/shop_images\/Taste-Sour.png",
+        "sweet_name_5": "banana",
+        "sweet_image_5": "shopify:\/\/shop_images\/Taste-Umami.png",
+        "sweet_name_6": "coconut",
+        "sweet_image_6": "shopify:\/\/shop_images\/Taste-Sweet_2.png",
+        "sweet_name_7": "caramel",
+        "sweet_image_7": "shopify:\/\/shop_images\/Taste-Bitter.png",
+        "sweet_name_8": "chocolate",
+        "sweet_image_8": "shopify:\/\/shop_images\/Taste-Salt.png",
+        "sweet_name_9": "vanilla",
+        "sweet_image_9": "shopify:\/\/shop_images\/Taste-Sour.png",
+        "sweet_explore_text": "Explore the wealth of unique flavors at Yuum",
+        "sweet_cta_text": "SHOP NOW",
+        "sweet_cta_link": "",
+        "seasonal_title": "Seasonality",
+        "seasonal_intro": "Text about Seasonality - how life around us changes with the seasons (foliage \/ sun \/ blossom \/ moods \/ cold) and how this also changes the world of our cafe. The packaging \/ menu changes with the seasons. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "seasonal_image": "shopify:\/\/shop_images\/2025-04-03_21.34.09_1_4c7222cb-056e-4adc-a0ef-a264a0d81a10.png",
+        "seasonal_name": "Spring",
+        "season_1": "Spring",
+        "season_2": "Summer",
+        "season_3": "Autumn",
+        "season_4": "Winter",
+        "universal_image": "shopify:\/\/shop_images\/image_6.png",
+        "universal_text": "<p>A text about a unique approach to design and creating an environment for all ... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<\/p>"
+      }
+    },
+    "visit_block_pwidgn": {
+      "type": "visit-block",
+      "name": "Visit block",
+      "settings": {
+        "bg_color": "rgba(0,0,0,0)",
+        "pad_top": 120,
+        "pad_bottom": 120,
+        "container": "xl",
+        "col_gap": 72,
+        "inner_gap": 24,
+        "text_gap": 12,
+        "title_color": "#474747",
+        "text_color": "#5b5b5b",
+        "title_size": 76,
+        "text_size": 16,
+        "enable_parallax": false,
+        "radius": 20,
+        "left_opacity": 100,
+        "right_opacity": 100,
+        "title": "Visit us",
+        "text": "A boutique café is a place where you will be prepared and served a product in its original form, revealing the correct understanding of its taste.",
+        "btn_label": "Our locations",
+        "btn_url": "shopify:\/\/pages\/locations",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#1a1a1a",
+        "image_left": "shopify:\/\/shop_images\/Image_1_1.png",
+        "image_left_alt": "",
+        "image_right": "shopify:\/\/shop_images\/Image_2_1.png",
+        "image_right_alt": ""
       }
     }
   },
   "order": [
-    "footer_custom_9dhpdA"
+    "about_us_cmtAjh",
+    "visit_block_pwidgn"
   ]
 }

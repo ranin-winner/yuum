@@ -1,5 +1,6 @@
 {%- comment -%} snippets/customer-auth-modal.liquid {%- endcomment -%}
-{% render 'entry' with '@/styles/elements/_auth-modal.scss' %}
+{% comment %}{% render 'entry' with '@/styles/elements/_auth-modal.scss' %}{% endcomment %}
+
 <section
   id="authModal"
   class="auth-modal"
@@ -58,7 +59,7 @@
             <input type="password" name="customer[password]" placeholder="Password" required>
             <input type="hidden" name="return_to" value="{{ request.path }}">
             <button type="submit">Sign in</button>
-          
+
             {%- if form.errors -%}
               <input type="hidden" data-auth-flag="login-has-errors" value="1">
             {%- endif -%}
@@ -118,7 +119,7 @@
             <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
             <input type="password" name="customer[password]" placeholder="Password" required>
             <button type="submit">Sign up</button>
-          
+
             {%- if form.errors -%}
               <input type="hidden" data-auth-flag="register-has-errors" value="1">
             {%- endif -%}
