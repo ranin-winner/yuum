@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-D8DTzSvI.css",
+    "file": "main-CZLPZDm-.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -38,7 +38,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/advantages.scss": {
-    "file": "advantages-BH9atSW0.css",
+    "file": "advantages-q12RQ861.css",
     "src": "frontend/styles/sections/advantages.scss",
     "isEntry": true
   },
@@ -123,7 +123,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/image-tips-card.scss": {
-    "file": "image-tips-card-XcQOoRxT.css",
+    "file": "image-tips-card-C2XOImyZ.css",
     "src": "frontend/styles/sections/image-tips-card.scss",
     "isEntry": true
   },
@@ -159,12 +159,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-B3w8RaH0.css",
+    "file": "products-section-DpV-Jh8F.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
   "frontend/styles/sections/proposals-grid.scss": {
-    "file": "proposals-grid-Bk-4Olrk.css",
+    "file": "proposals-grid-DzksMppo.css",
     "src": "frontend/styles/sections/proposals-grid.scss",
     "isEntry": true
   },
@@ -174,12 +174,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/search.scss": {
-    "file": "search-BkBjq9n6.css",
+    "file": "search-8eDxtZ47.css",
     "src": "frontend/styles/sections/search.scss",
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-TCeyc2f7.css",
+    "file": "text-kicker-description-xACrEBJB.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },
