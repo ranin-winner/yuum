@@ -6,9 +6,9 @@
 {% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
-    assign file_url_prefix = 'http://localhost:443'
+    assign file_url_prefix = 'http://localhost:5173'
   else
-    assign file_url_prefix = 'http://localhost:443/frontend/entrypoints/'
+    assign file_url_prefix = 'http://localhost:5173/frontend/entrypoints/'
   endif
   assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
@@ -21,7 +21,7 @@
     assign is_css = true
   endif
 %}
-<script src="http://localhost:443/@vite/client" type="module"></script>
+<script src="http://localhost:5173/@vite/client" type="module"></script>
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
