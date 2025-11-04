@@ -1,4 +1,4 @@
-{% render 'entry' with '@/styles/sections/blog-featured-posts.scss' %}
+{% render 'entry' with '@/styles/sections/blog-featured.scss' %}
 
 <section class="m-blog-featured-posts">
   <div class="m-blog-featured-posts__container">
@@ -13,12 +13,12 @@
       <div class="m-blog-featured-posts__grid">
         {%- for article in featured_blog.articles limit: posts_limit -%}
           <article class="m-blog-featured-card">
-            <div class="m-blog-featured-card__image">
-              <a href="{{ article.url }}">
+            <div class="m-blog-featured-card__figure">
+              <a href="{{ article.url }}" class="m-blog-featured-card__image-link">
                 {%- if article.image -%}
-                  <img src="{{ article.image | img_url: '500x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-featured-card__img">
+                  <img src="{{ article.image | img_url: '600x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-featured-card__img">
                 {%- elsif section.settings.default_image -%}
-                  <img src="{{ section.settings.default_image | img_url: '500x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-featured-card__img">
+                  <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ article.title | escape }}" class="m-blog-featured-card__img">
                 {%- else -%}
                   <div class="m-blog-featured-card__placeholder">
                     {{ 'image' | placeholder_svg_tag: 'm-blog-featured-card__placeholder-svg' }}
@@ -34,9 +34,9 @@
 
               <div class="m-blog-featured-card__excerpt">
                 {%- if article.excerpt != blank -%}
-                  {{ article.excerpt | strip_html | truncatewords: 25 }}
+                  {{ article.excerpt | strip_html | truncatewords: 20 }}
                 {%- else -%}
-                  {{ article.content | strip_html | truncatewords: 25 }}
+                  {{ article.content | strip_html | truncatewords: 20 }}
                 {%- endif -%}
               </div>
 
