@@ -1,5 +1,3 @@
-{% render 'entry' with '../styles/sections/about-universal.scss' %}
-
 <section class="m-about-universal">
   <div class="m-container">
 
@@ -25,21 +23,28 @@
         {{ section.settings.flavours_intro }}
       </div>
 
-      <div class="m-flavours-grid">
+      <div class="m-flavours-animation-container">
         {% for i in (1..5) %}
           {% assign flavour_key = 'flavour_' | append: i %}
           {% assign flavour_image_key = 'flavour_image_' | append: i %}
           {% if section.settings[flavour_key] != blank %}
-            <div class="m-flavour-item">
+            <div class="m-flavour-item" data-flavour="{{ section.settings[flavour_key] | handleize }}">
               <span class="m-flavour-name">{{ section.settings[flavour_key] }}</span>
               {% if section.settings[flavour_image_key] != blank %}
                 <div class="m-flavour-image">
-                   {% render 'image', image: section.settings[flavour_image_key], src_size: 'master', class: 'm-flavour-img' %}
+                  {% render 'image', image: section.settings[flavour_image_key], src_size: 'master', class: 'm-flavour-img' %}
                 </div>
               {% endif %}
             </div>
           {% endif %}
         {% endfor %}
+
+        {% if section.settings.pentagon_final_image != blank %}
+          <div class="m-pentagon-final">
+            {% render 'image', image: section.settings.pentagon_final_image, class: 'm-pentagon-final__img' %}
+          </div>
+        {% endif %}
+
       </div>
 
       <div class="m-about-flavours__guide">
@@ -276,6 +281,11 @@
       "type": "image_picker",
       "id": "flavour_image_5",
       "label": "Flavour 5 Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "pentagon_final_image",
+      "label": "Pentagon Final Shape Image"
     },
     {
       "type": "text",
