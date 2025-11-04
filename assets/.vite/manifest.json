@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-D5oM6tkw.css",
+    "file": "main-D8DTzSvI.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/about-universal.scss": {
-    "file": "about-universal-DpnKnpAF.css",
+    "file": "about-universal-mH2ls01m.css",
     "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
@@ -53,8 +53,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-list.scss": {
-    "file": "blog-post-list-l0sNRNKZ.js",
-    "name": "blog-post-list",
+    "file": "blog-post-list-B_-uUusx.css",
     "src": "frontend/styles/sections/blog-post-list.scss",
     "isEntry": true
   },
