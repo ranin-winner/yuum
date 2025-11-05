@@ -10,8 +10,8 @@ $border-medium: #ADAEB0;
 .m-blog-article-single {
   &__breadcrumb {
     padding: 20px 0;
-    text-align: right;
-    @include font(body-500, 14px, 16px);
+    text-align: left;
+    @include font(body-400, 14px, 16px);
     color: $text-gray;
     letter-spacing: 0.6px;
 
