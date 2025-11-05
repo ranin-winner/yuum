@@ -8,66 +8,32 @@ $background-gray: #E7E7E7;
 $border-medium: #ADAEB0;
 
 .m-blog-article-single {
-  &__banner {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 12px 0;
-    @include font(body-500, 14px, 1.2);
-    @include font-smoothing;
-    letter-spacing: 0.5px;
-  }
+  &__breadcrumb {
+    padding: 20px 0;
+    text-align: right;
+    @include font(body-500, 14px, 16px);
+    color: $text-gray;
+    letter-spacing: 0.6px;
 
-  &__nav {
-    border-bottom: 1px solid $border-medium;
-    padding: 24px 0;
+    a {
+      color: $text-gray;
+      text-decoration: none;
 
-    &-container {
-      display: flex;
-      justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    &-column {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
-      strong {
-        @include font(body-600, 16px, 1.2);
+      &:hover {
         color: $text-primary;
       }
-
-      a, span {
-        @include font(body-400, 14px, 1.4);
-        color: $text-gray;
-        text-decoration: none;
-      }
     }
-  }
 
-  &__logo {
-    text-align: center;
-    padding: 40px 0;
-    border-bottom: 1px solid $border-medium;
-    background-color: $background-white;
-
-    h1 {
-      @include font(heading-400, 2.5rem, 1);
+    span {
       color: $text-primary;
-      @include font-smoothing;
     }
   }
 
-  // Сіра секція
   &__gray-section {
     background-color: $background-gray;
-    padding: 60px 0 32px 0; // 32px бордер знизу
+    padding: 60px 0 32px 0;
   }
 
-  // Біла секція
   &__white-section {
     background-color: $background-white;
     padding: 0 0 80px 0;
@@ -88,8 +54,6 @@ $border-medium: #ADAEB0;
   &__content-left {
     flex: 1;
     padding-top: 20px;
-    position: relative;
-    padding-bottom: 32px;
   }
 
   &__title {
@@ -100,19 +64,17 @@ $border-medium: #ADAEB0;
     @include font-smoothing;
   }
 
+  &__divider {
+    width: 100%;
+    height: 1px;
+    background-color: $border-medium;
+    margin-bottom: 20px;
+  }
+
   &__meta {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    &::before {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 1px;
-      background-color: $border-medium;
-      margin-bottom: 20px;
-    }
+    justify-content: space-between;
+    align-items: center;
 
     &-year {
       @include font(body-500, 16px, 1.2);
@@ -130,7 +92,7 @@ $border-medium: #ADAEB0;
     position: relative;
     overflow: hidden;
     background-color: $background-white;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
 
     &::before {
       content: '';
@@ -148,6 +110,7 @@ $border-medium: #ADAEB0;
     object-fit: cover;
     width: 100%;
     height: 100%;
+    border-radius: 0 0 20px 20px;
   }
 
   &__full-content {
@@ -187,22 +150,9 @@ $border-medium: #ADAEB0;
   }
 
   @media (max-width: 768px) {
-    &__nav-container {
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    &__gray-section {
-      padding: 40px 0 24px 0;
-    }
-
     &__main-layout {
       flex-direction: column;
       gap: 40px;
-    }
-
-    &__content-left {
-      padding-bottom: 24px;
     }
 
     &__hero-image {
@@ -213,6 +163,12 @@ $border-medium: #ADAEB0;
     &__title {
       font-size: 2.2rem;
       margin-bottom: 30px;
+    }
+
+    &__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
     }
 
     &__article-content {

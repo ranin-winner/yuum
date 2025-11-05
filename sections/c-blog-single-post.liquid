@@ -1,32 +1,19 @@
 {% render 'entry' with '@/styles/sections/blog-article-single.scss' %}
 
 <section class="m-blog-article-single">
-  <nav class="m-blog-article-single__nav">
-    <div class="m-blog-article-single__nav-container">
-      <div class="m-blog-article-single__nav-column">
-        <strong>Catalogue</strong>
-        <a href="/">Home</a>
-      </div>
-      <div class="m-blog-article-single__nav-column">
-        <strong>About products</strong>
-        <a href="/blogs/{{ blog.handle }}">Blog</a>
-      </div>
-      <div class="m-blog-article-single__nav-column">
-        <strong>Delivery</strong>
-        <span>{{ article.title }}</span>
-      </div>
-      <div class="m-blog-article-single__nav-column">
-        <strong>Locations</strong>
-      </div>
-    </div>
-  </nav>
+  <div class="m-blog-article-single__container">
+    <nav class="m-blog-article-single__breadcrumb">
+      <a href="/">Home</a> | <a href="/blogs/{{ blog.handle }}">Blog</a> | <span>{{ article.title }}</span>
+    </nav>
+  </div>
 
   <div class="m-blog-article-single__gray-section">
     <div class="m-blog-article-single__container">
       <div class="m-blog-article-single__main-layout">
-
         <div class="m-blog-article-single__content-left">
           <h2 class="m-blog-article-single__title">{{ article.title }}</h2>
+
+          <div class="m-blog-article-single__divider"></div>
 
           <div class="m-blog-article-single__meta">
             <span class="m-blog-article-single__year">2004-2024</span>
@@ -43,10 +30,8 @@
     </div>
   </div>
 
-
   <div class="m-blog-article-single__white-section">
     <div class="m-blog-article-single__container">
-
       <section class="m-blog-article-single__full-content">
         <div class="m-blog-article-single__article-content">
           {{ article.content }}
