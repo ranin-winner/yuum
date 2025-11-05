@@ -61,7 +61,9 @@
                 <div class="b-mini_cart-item__right-section">
                   <div class="b-mini_cart-item__main-info">
                     <div class="b-mini_cart-item__text-content">
-                      <h4 class="b-mini_cart-item__name" x-html="item.product_title || item.title"></h4>
+                      <a :href="item.url || item.product_url" class="b-mini_cart-item__name-link">
+                        <h4 class="b-mini_cart-item__name" x-html="item.product_title || item.title"></h4>
+                      </a>
                       <p class="b-mini_cart-item__variant"
                          x-text="item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title : (item.grams ? item.grams + 'g' : '')">
                       </p>

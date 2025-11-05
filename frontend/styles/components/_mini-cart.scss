@@ -19,6 +19,7 @@ $border-radius-sm: 8px;
 $border-radius-md: 12px;
 $border-radius-mid: 20px;
 $border-radius-lg: 32px;
+$border-radius-xl: 100px;
 
 $padding-sm: 12px;
 $padding-md: 16px;
@@ -118,26 +119,28 @@ $padding-xxl: 35px;
     padding: $padding-xl * 2 0;
 
     &__title {
-      @include fonts.font(body-500, 18px, 1.4);
+      @include fonts.font(heeading-400, 32px, 1.4);
+      max-width: 250px;
       color: $dark-grey;
       margin: 0 0 $padding-xl 0;
     }
   }
 
   &-continue {
-    @include fonts.font(body-500, 14px, 1);
+    @include fonts.font(body-400, 14px, 1);
     letter-spacing: 4px;
     text-transform: uppercase;
-    background: $black;
-    color: $white;
-    border: none;
+    background: $lightest-grey-3;
+    color: $dark-grey;
+    border-radius: $border-radius-xl;
+    border: 1px solid $dark-grey;
     padding: $padding-sm $padding-xl;
-    border-radius: $border-radius-sm;
     cursor: pointer;
     transition: background-color 0.2s;
 
     &:hover {
-      background: $additional-color-5;
+      background-color: $dark-grey;
+      color: $white;
     }
   }
 
@@ -680,7 +683,7 @@ $padding-xxl: 35px;
       padding: $padding-xl 0;
 
       &__title {
-        @include fonts.font(body-500, 16px, 1.4);
+        @include fonts.font(body-400, 16px, 1.4);
         margin: 0 0 $padding-lg 0;
       }
     }
