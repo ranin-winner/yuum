@@ -18,10 +18,6 @@ $border-medium: #ADAEB0;
     a {
       color: $text-gray;
       text-decoration: none;
-
-      &:hover {
-        color: $text-primary;
-      }
     }
 
     span {
@@ -31,12 +27,12 @@ $border-medium: #ADAEB0;
 
   &__gray-section {
     background-color: $background-gray;
-    padding: 60px 0 32px 0;
+    padding: 60px 0;
   }
 
   &__white-section {
     background-color: $background-white;
-    padding: 0 0 80px 0;
+    padding: 80px 0;
   }
 
   &__container {
@@ -48,20 +44,26 @@ $border-medium: #ADAEB0;
   &__main-layout {
     display: flex;
     gap: 80px;
-    align-items: flex-start;
+    align-items: stretch;
+    min-height: 500px;
   }
 
   &__content-left {
     flex: 1;
-    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   &__title {
     @include font(heading-400, 3rem, 1.1);
-    margin-bottom: 40px;
-    letter-spacing: -0.02em;
     color: $text-primary;
     @include font-smoothing;
+    margin-bottom: 40px;
+  }
+
+  &__meta-container {
+    margin-top: auto;
+    padding-top: 40px;
   }
 
   &__divider {
@@ -91,36 +93,25 @@ $border-medium: #ADAEB0;
     flex: 0 0 50%;
     position: relative;
     overflow: hidden;
-    background-color: $background-white;
     border-radius: 0 0 20px 20px;
-
-    &::before {
-      content: '';
-      display: block;
-      padding-top: 100%;
-    }
   }
 
   &__img-hero {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    object-fit: cover;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    display: block;
     border-radius: 0 0 20px 20px;
   }
 
   &__full-content {
-    padding: 50px 0 0 0;
+    padding-top: 0;
   }
 
   &__article-content {
     @include font(body-400, 16px, 1.7);
     color: $text-primary;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
 
     p {
@@ -129,23 +120,8 @@ $border-medium: #ADAEB0;
 
     img {
       width: 100%;
-      max-width: none;
       margin: 40px 0;
       display: block;
-    }
-
-    .image-container,
-    .article-image,
-    figure {
-      width: 100%;
-      max-width: none;
-      margin: 40px 0;
-
-      img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
     }
   }
 
@@ -153,16 +129,16 @@ $border-medium: #ADAEB0;
     &__main-layout {
       flex-direction: column;
       gap: 40px;
+      min-height: auto;
     }
 
     &__hero-image {
       flex: none;
-      width: 100%;
+      height: 300px;
     }
 
     &__title {
       font-size: 2.2rem;
-      margin-bottom: 30px;
     }
 
     &__meta {
@@ -174,10 +150,7 @@ $border-medium: #ADAEB0;
     &__article-content {
       max-width: 100%;
 
-      img,
-      .image-container,
-      .article-image,
-      figure {
+      img {
         margin: 30px 0;
       }
     }
