@@ -478,6 +478,10 @@ $accent-hover: #333333;
   margin-right: calc(-50vw + 50%);
 
   @include cfg.media(max-m) {
+    height: 500px;
+  }
+
+  @include cfg.media(max-xs) {
     height: 400px;
   }
 }
@@ -504,13 +508,26 @@ $accent-hover: #333333;
   @include cfg.media(max-m) {
     padding: 40px 24px;
   }
+
+  @include cfg.media(max-xs) {
+    padding: 32px 20px;
+  }
 }
 
 .m-seasonal-title {
-  @include fonts.font(heading-400, 56px);
+  @include fonts.font(heading-400, 56px, 1.1);
   color: $text-white;
   margin: 0 0 24px;
   @include fonts.font-smoothing;
+
+  @include cfg.media(max-m) {
+    @include fonts.font(heading-400, 42px, 1.1);
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(heading-400, 32px, 1.1);
+    margin-bottom: 16px;
+  }
 }
 
 .m-seasonal-intro {
@@ -519,6 +536,12 @@ $accent-hover: #333333;
   margin: 0 auto 40px;
   max-width: 800px;
   @include fonts.font-smoothing;
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(body-400, 14px, 1.5);
+    margin-bottom: 32px;
+    max-width: 90%;
+  }
 }
 
 .m-seasonal-name {
@@ -527,6 +550,16 @@ $accent-hover: #333333;
   margin-top: 40px;
   margin-bottom: 40px;
   @include fonts.font-smoothing;
+
+  @include cfg.media(max-m) {
+    @include fonts.font(heading-400, 72px, 1.1);
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(heading-400, 48px, 1.1);
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
 }
 
 .m-seasonal-seasons {
@@ -541,8 +574,9 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    flex-wrap: wrap;
     gap: 20px;
+    flex-wrap: wrap;
+    max-width: 400px;
   }
 }
 
@@ -564,9 +598,13 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-m) {
-    font-size: 16px;
-    letter-spacing: 2px;
-    padding: 20px 0 30px 0;
+    @include fonts.font(body-400, 16px, 24px);
+    margin: 30px 0 40px 0;
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(body-400, 14px, 24px);
+    margin: 20px 0 30px 0;
   }
 }
 
