@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-C246zqG8.css",
+    "file": "main--lmZOhLp.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -48,7 +48,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-featured.scss": {
-    "file": "blog-featured-ZYnHXrsT.css",
+    "file": "blog-featured-CUudvjbJ.css",
     "src": "frontend/styles/sections/blog-featured.scss",
     "isEntry": true
   },
@@ -58,7 +58,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-singe.scss": {
-    "file": "blog-post-singe-BoIEGphZ.css",
+    "file": "blog-post-singe-C9Yk6tEJ.css",
     "src": "frontend/styles/sections/blog-post-singe.scss",
     "isEntry": true
   },
