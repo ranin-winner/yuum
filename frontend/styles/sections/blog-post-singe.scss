@@ -154,7 +154,8 @@ $border-medium: #ADAEB0;
 
     &__hero-image {
       flex: none;
-      height: 300px;
+      height: 100%;
+      width: 100%;
     }
 
     &__title {
