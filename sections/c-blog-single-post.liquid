@@ -19,8 +19,8 @@
             <div class="m-blog-article-single__divider"></div>
 
             <div class="m-blog-article-single__meta">
-              <span class="m-blog-article-single__year">2004-2024</span>
-              <span class="m-blog-article-single__author">Author | {{ article.author }}</span>
+              <span class="m-blog-article-single__year">{{ article.published_at | date: "%d.%m.%Y" }}</span>
+              <span class="m-blog-article-single__author"><span>Author</span> | {{ article.author }}</span>
             </div>
           </div>
         </div>

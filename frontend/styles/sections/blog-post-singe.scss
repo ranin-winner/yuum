@@ -1,8 +1,9 @@
 @use '../config/all-config' as cfg;
 @use '../config/fonts' as *;
 
-$text-primary: #1a1a1a;
-$text-gray: #666666;
+$text-primary: #474747;
+$text-gray: #474747;
+$light-grey: #ADAEB0;
 $background-white: #ffffff;
 $background-gray: #E7E7E7;
 $border-medium: #ADAEB0;
@@ -21,7 +22,7 @@ $border-medium: #ADAEB0;
     }
 
     span {
-      color: $text-primary;
+      color: $light-grey;
     }
   }
 
@@ -33,6 +34,7 @@ $border-medium: #ADAEB0;
   &__white-section {
     background-color: $background-white;
     padding: 80px 0;
+    border-radius: 32px 32px 0 0;
   }
 
   &__container {
@@ -62,7 +64,7 @@ $border-medium: #ADAEB0;
   }
 
   &__title {
-    @include font(heading-400, 3rem, 1.1);
+    @include font(heading-400, 3.5rem, 1.1);
     color: $text-primary;
     @include font-smoothing;
     margin: 0;
@@ -97,10 +99,17 @@ $border-medium: #ADAEB0;
   }
 
   &__hero-image {
-    flex: 0 0 50%;
+    flex: 0 0 668px;
+    width: 668px;
+    height: 460px;
     position: relative;
     overflow: hidden;
     border-radius: 20px;
+    opacity: 1;
+  }
+
+  &__author span {
+    color: $light-grey;
   }
 
   &__img-hero {
