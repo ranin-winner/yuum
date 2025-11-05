@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main--lmZOhLp.css",
+    "file": "main-CDqMdPnN.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -135,6 +135,11 @@
   "frontend/styles/sections/non-profit.scss": {
     "file": "non-profit-Brx1pw4E.css",
     "src": "frontend/styles/sections/non-profit.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/not-found-page.scss": {
+    "file": "not-found-page-zvX6bI3V.css",
+    "src": "frontend/styles/sections/not-found-page.scss",
     "isEntry": true
   },
   "frontend/styles/sections/our-mission.scss": {
