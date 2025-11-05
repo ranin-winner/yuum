@@ -52,7 +52,7 @@ $border-dark: #474747;
 }
 
 .m-404-page__button {
-  @include font(body-500, 14px, 16px);
+  @include font(body-400, 14px, 16px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
