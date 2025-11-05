@@ -1,10 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "header_logo": "shopify:\/\/shop_images\/Default-Dark-Grey.png",
+    "header_logo": "shopify://shop_images/Default-Dark-Grey.png",
+    "header_logo_light": "shopify://shop_images/Default-White.svg",
     "header_bg": "rgba(0,0,0,0)",
     "show_promo": true,
     "show_promo_link": "",
-    "promo_text": "<p>Free  delivery over £50<\/p>",
+    "promo_text": "<ul><li>Free  delivery over £50</li><li>Free  delivery over £20</li><li>Free  delivery over £30</li></ul>",
     "header_menu_1": "new-menu",
     "header_menu_2": "",
     "mm1_enable": true,
@@ -25,11 +35,11 @@
     "mm4_categories_heading": "",
     "mm4_show_collection_images": false,
     "mm4_product_heading": "",
-    "popular_searches": "<p><a href=\"\/collections\/build-your-bundle\" title=\"Build your bundle\">Mochi<\/a>,<a href=\"\/collections\/gift-cards\" title=\"Gift Cards\">Matcha<\/a>,<a href=\"\/collections\/all\" title=\"All products\">Sets<\/a>,<a href=\"\/collections\/the-real-mochi-collection\" title=\"The Real Mochi Collection\">Mango<\/a>,<a href=\"\/collections\/whole-fruit-mochi-collection\" title=\"Whole Fruit Collection\">Vegan<\/a><\/p>",
+    "popular_searches": "<p><a href=\"/collections/build-your-bundle\" title=\"Build your bundle\">Mochi</a>,<a href=\"/collections/gift-cards\" title=\"Gift Cards\">Matcha</a>,<a href=\"/collections/all\" title=\"All products\">Sets</a>,<a href=\"/collections/the-real-mochi-collection\" title=\"The Real Mochi Collection\">Mango</a>,<a href=\"/collections/whole-fruit-mochi-collection\" title=\"Whole Fruit Collection\">Vegan</a></p>",
     "popular_products_collection": "search",
-    "footer_logo": "shopify:\/\/shop_images\/Default.svg",
+    "footer_logo": "shopify://shop_images/Default.svg",
     "footer_logo_width": 160,
-    "footer_tagline_image": "shopify:\/\/shop_images\/food_culture.svg",
+    "footer_tagline_image": "shopify://shop_images/food_culture.svg",
     "footer_bg": "#474747",
     "footer_menu_title_1": "Catalogue",
     "footer_menu_1": "footer",
@@ -38,13 +48,13 @@
     "newsletter_title": "Don't miss out on new products, exclusive offers and much more by joining the Yuum newsletter",
     "social_title": "",
     "social_facebook": "#",
-    "social_facebook_icon": "shopify:\/\/shop_images\/Default_bac8088d-658c-4eb4-9528-e2cc925ae5c4.svg",
+    "social_facebook_icon": "shopify://shop_images/Default_bac8088d-658c-4eb4-9528-e2cc925ae5c4.svg",
     "social_instagram": "#",
-    "social_instagram_icon": "shopify:\/\/shop_images\/Default_23d3a2c9-c6e4-46c8-8bd3-d0a2a7c8b07d.svg",
+    "social_instagram_icon": "shopify://shop_images/Default_23d3a2c9-c6e4-46c8-8bd3-d0a2a7c8b07d.svg",
     "social_twitter": "#",
-    "social_twitter_icon": "shopify:\/\/shop_images\/Default_a7da964a-0ee1-48c4-abc6-2d7166a56027.svg",
+    "social_twitter_icon": "shopify://shop_images/Default_a7da964a-0ee1-48c4-abc6-2d7166a56027.svg",
     "social_youtube": "#",
-    "social_youtube_icon": "shopify:\/\/shop_images\/Frame_3.svg",
+    "social_youtube_icon": "shopify://shop_images/Frame_3.svg",
     "footer_menu_3": "",
     "copyright_text": "Copyright © 2025 Yuum. All rights reserved.",
     "cart_type": "drawer",
@@ -64,7 +74,7 @@
     "content_for_index": [],
     "blocks": {
       "1366455014531238847": {
-        "type": "shopify:\/\/apps\/wishlist-hero\/blocks\/customize-style-block\/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+        "type": "shopify://apps/wishlist-hero/blocks/customize-style-block/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
         "disabled": false,
         "settings": {
           "Btn_color": "rgba(0,0,0,0)",
@@ -78,7 +88,7 @@
         }
       },
       "7870687481494312845": {
-        "type": "shopify:\/\/apps\/wishlist-hero\/blocks\/app-embed\/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+        "type": "shopify://apps/wishlist-hero/blocks/app-embed/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
         "disabled": false,
         "settings": {
           "customThemeName": "~",
@@ -89,7 +99,7 @@
         }
       },
       "10486658301671024706": {
-        "type": "shopify:\/\/apps\/wishlist-hero\/blocks\/collection-embed\/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+        "type": "shopify://apps/wishlist-hero/blocks/collection-embed/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
         "disabled": false,
         "settings": {
           "customThemeName": "~",
@@ -111,11 +121,6 @@
           "wlProductHandleExtractor": "",
           "searchAndFilterApp": "none"
         }
-      },
-      "319724205969189013": {
-        "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
-        "disabled": false,
-        "settings": {}
       },
       "12278196506123073350": {
         "type": "shopify://apps/ushopaid-easy-bundle-builder/blocks/ushopaid-embed-block/aab9c55c-57e0-4cff-a2ac-2a862f4e359e",
