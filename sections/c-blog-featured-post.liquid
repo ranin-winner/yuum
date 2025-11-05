@@ -4,6 +4,7 @@
   <div class="m-blog-featured-posts__container">
     <div class="m-blog-featured-posts__header">
       <h2 class="m-blog-featured-posts__title">More Posts</h2>
+      <a href="/blogs/{{ featured_blog.handle }}" class="m-blog-featured-posts__explore-btn">EXPLORE JOURNAL</a>
     </div>
 
     {%- assign featured_blog = blogs[section.settings.blog] -%}
@@ -44,10 +45,6 @@
             </div>
           </article>
         {%- endfor -%}
-      </div>
-
-      <div class="m-blog-featured-posts__explore">
-        <a href="/blogs/{{ featured_blog.handle }}" class="m-blog-featured-posts__explore-btn">EXPLORE JOURNAL</a>
       </div>
     {%- endif -%}
   </div>

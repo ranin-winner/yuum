@@ -130,7 +130,7 @@ $border-medium: #ADAEB0;
     position: relative;
     overflow: hidden;
     background-color: $background-white;
-    border-radius: 8px;
+    border-radius: 20px;
 
     &::before {
       content: '';
@@ -157,7 +157,7 @@ $border-medium: #ADAEB0;
   &__article-content {
     @include font(body-400, 16px, 1.7);
     color: $text-primary;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 
     p {
