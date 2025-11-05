@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CDqMdPnN.css",
+    "file": "main-CM0CNhjT.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -138,7 +138,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/not-found-page.scss": {
-    "file": "not-found-page-zvX6bI3V.css",
+    "file": "not-found-page-CnHyXaqe.css",
     "src": "frontend/styles/sections/not-found-page.scss",
     "isEntry": true
   },

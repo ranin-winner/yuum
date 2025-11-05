@@ -12,6 +12,11 @@ $border-dark: #474747;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+    min-height: calc(100vh - 80px);
+  }
 }
 
 .m-404-page__content {
@@ -27,6 +32,10 @@ $border-dark: #474747;
   color: $text-primary;
   @include font-smoothing;
   margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 96px;
+  }
 }
 
 .m-404-page__subtitle {
@@ -34,10 +43,16 @@ $border-dark: #474747;
   color: $text-primary;
   max-width: 600px;
   margin: 0;
+  padding: 0 20px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 0 16px;
+  }
 }
 
 .m-404-page__button {
-  @include font(body-400, 14px, 16px);
+  @include font(body-500, 14px, 16px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -57,5 +72,10 @@ $border-dark: #474747;
   &:hover {
     background-color: $border-dark;
     color: #ffffff;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: 244px;
   }
 }
