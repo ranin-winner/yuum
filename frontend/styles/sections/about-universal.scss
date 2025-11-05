@@ -3,7 +3,7 @@
 @use '../config/fonts' as fonts;
 
 // ===== Variables =====
-$text-primary: #1a1a1a;
+$text-primary: #474747;
 $text-white: #ffffff;
 $background-white: #ffffff;
 $background-main: #E7E7E7;
@@ -90,11 +90,16 @@ $accent-hover: #333333;
   }
 
   &__guide {
-    @include fonts.font(heading-400, 44px, 1.5);
+    @include fonts.font(heading-400, 56px, 1.1);
     color: $text-primary;
     margin: 48px auto;
     max-width: 1200px;
     @include fonts.font-smoothing;
+
+    @include cfg.media(max-m) {
+      margin: 80px auto;
+      @include fonts.font(heading-400, 36px, 1.1);
+    }
   }
 }
 .m-flavours-animation-container {
@@ -212,6 +217,10 @@ $accent-hover: #333333;
 }
 
 @include cfg.media(max-m) {
+  .m-flavour-name {
+    margin-bottom: 10px;
+  }
+
   .m-flavours-animation-container {
     min-height: 250px;
   }
@@ -408,7 +417,8 @@ $accent-hover: #333333;
   &-title {
     @include fonts.font(heading-400, 56px, 1.5);
     color: $text-primary;
-    margin: 0;
+    max-width: 80%;
+    margin: auto;
     @include fonts.font-smoothing;
 
     @include cfg.media(max-m) {
@@ -485,7 +495,7 @@ $accent-hover: #333333;
 }
 
 .m-seasonal-title {
-  @include fonts.font(heading-400, 48px);
+  @include fonts.font(heading-400, 56px);
   color: $text-white;
   margin: 0 0 24px;
   @include fonts.font-smoothing;
@@ -528,7 +538,7 @@ $accent-hover: #333333;
   @include fonts.font(body-400, 18px, 24px);
   color: $text-white;
   text-align: center;
-  padding: 12px 0;
+  margin: 40px 0 60px 0;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
@@ -544,6 +554,7 @@ $accent-hover: #333333;
   @include cfg.media(max-m) {
     font-size: 16px;
     letter-spacing: 2px;
+    padding: 20px 0 30px 0;
   }
 }
 
@@ -585,13 +596,13 @@ $accent-hover: #333333;
   justify-content: center;
 }
 
-.m-universal-text {
+.m-universal-text p {
   @include fonts.font(heading-400, 56px, 1.1);
   color: $text-white;
   @include fonts.font-smoothing;
-  max-width: 1000px;
+  max-width: 80%;
   margin: auto;
-  padding: 0 20px;
+  padding: 20px;
   text-align: center;
 
   @include cfg.media(max-m) {
