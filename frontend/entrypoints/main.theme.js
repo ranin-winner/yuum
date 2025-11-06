@@ -17,6 +17,7 @@ import '../components/main-product-replaced.js';
 import { mountAuthStore } from '../components/auth-modal';
 import { search } from '../components/search';
 import { initMapSections } from '../components/map-section';
+import { initFeaturesSlider } from '../components/features-slider';
 
 
 
@@ -39,6 +40,7 @@ import { productCarousel } from '../components/product-carousel';
 headerSticky();
 variantSelect();
 productCarousel();
+initFeaturesSlider();
 
 
 
