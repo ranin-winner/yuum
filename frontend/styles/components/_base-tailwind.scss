@@ -247,8 +247,11 @@
 
         &-item {
             display: inline-flex;
-            font-size: 14px;
             color: #474747;
+            font-size: 14px;
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
 
         }
 
@@ -260,6 +263,10 @@
             font-weight: 400;
             text-decoration: none;
             transition: color 0.3s ease;
+
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
 
             &:hover {
                 color: #ADAEB0;
@@ -726,6 +733,16 @@
     .shopify-section {
         &:last-child {
             padding-bottom: 0px;
+        }
+    }
+}
+
+.m-product-new-bundle {
+    [id*="__text_kicker_description_"] {
+        padding-bottom: 80px;
+
+        @media screen and (max-width: 768px) {
+            padding-bottom: 60px;
         }
     }
 }

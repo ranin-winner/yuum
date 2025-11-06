@@ -104,7 +104,7 @@
 
                     {% when 'gift_variants' %}
                         <div class="gift-card__values flex gap-[8px] flex-wrap mb-[32px]">
-                            <p class="mb-[8px] basis-full uppercase text-[14px] tracking-[4px] text-[#474747]">
+                            <p class="mt-[8px] mb-[8px] basis-full uppercase text-[14px] tracking-[4px] text-[#474747]">
                                 Gift Card Value
                             </p>
                             {% for variant in product.variants %}
@@ -137,7 +137,7 @@
                         {% when 'gift_form' %}
                             <div class="gift-card__form">
                                 <label class="custom-checkbox">
-                                    <input type="checkbox" id="gift-checkbox" name="send_as_gift">
+                                    <input class="hidden" type="checkbox" id="gift-checkbox" name="send_as_gift">
                                     <span class="checkbox-box"></span>
                                     <span class="checkbox-label">I want to send this as a gift</span>
                                 </label>
@@ -186,7 +186,7 @@
                         {% assign html = product.metafields.custom.product_detais | metafield_tag %}
                       
                         {% assign html = html
-                          | replace: '<ul>', '<ul class="my-6 border-t border-b border-[#474747] py-4 list-none m-0 p-0 space-y-3">'
+                          | replace: '<ul>', '<ul class="my-[24px] border-t border-b border-[#474747] py-[16px] list-none m-0 p-0 space-y-3">'
                           | replace: '<li>', '<li class="flex justify-between gap-[15px] text-right  pb-3 last:pb-0">'
                           | replace: '<strong>', '<strong class="col-span-4 pr-4 text-base leading-[22px] tracking-[0.6px] font-semibold">'
                           | replace: '<span class="value">', '<span class="value col-span-8 pl-4 text-base leading-[22px] font-medium text-right block">'
@@ -254,7 +254,7 @@
                                     @click="if (quantity > min) quantity--"
                                     :disabled="quantity <= min"
                                     class="inline-flex items-center justify-center md:w-[48px] md:h-[48px]
-                                    w-[40px] h-[40px] rounded-full border p-[14px] text-xl transition
+                                    w-[40px] h-[40px] rounded-full border p-[17px] text-xl transition
                                         text-[#474747] border-[#474747] bg-[#F5F5F5]
                                         disabled:border-[#ADAEB0] disabled:text-[#ADAEB0]
                                         hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
@@ -283,7 +283,7 @@
                                     @click="if (!max || quantity < max) quantity++"
                                     :disabled="max && quantity >= max"
                                     class="inline-flex items-center justify-center md:w-[48px] md:h-[48px]
-                                    w-[40px] h-[40px] rounded-full border p-[14px] text-xl transition
+                                    w-[40px] h-[40px] rounded-full border p-[17px] text-xl transition
                                         text-[#474747] border-[#474747] bg-[#F5F5F5]
                                         disabled:border-[#ADAEB0] disabled:text-[#ADAEB0]
                                         hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
@@ -329,7 +329,7 @@
                         </form>
 
                   {% when 'delivery' %}
-                    <div class="product-delivery__info border border-[#ADAEB0] rounded-2xl p-5 md:p-6 mb-[24px]">
+                    <div class="product-delivery__info border border-[#ADAEB0] rounded-2xl py-[16px] px-[16px] md:py-[20px] md:px-[24px] md:p-6 mb-[24px]">
                         <ul class="list-none m-0 p-0 space-y-[14px]">
                         {% for i in (1..3) %}
                             {% assign key_t  = 'text_' | append: i %}
@@ -354,7 +354,7 @@
                                 {% endif %}
                     
                                 {% if t != blank %}
-                                <p class="text-sm leading-5 tracking-normal">
+                                <p class="text-[14px] text-[#474747] leading-5 tracking-normal">
                                     {{ t }}
                                 </p>
                                 {% endif %}

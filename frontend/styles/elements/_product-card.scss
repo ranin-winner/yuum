@@ -20,6 +20,12 @@
 
     &__media{ 
         width:100%; 
+        @media (max-width: 767.98px){
+            max-width: 328px;
+            max-height: 328px;
+            margin: 0 auto;
+        }
+        
     }
     &__img{ 
         width:100%; 
@@ -34,6 +40,10 @@
         text-align:center; 
         margin-top: 16px;
         margin-bottom: 72px;
+
+        @media (max-width: 767.98px){
+            margin-bottom: 8px;
+        }
     }
 
     &__title {

@@ -13,6 +13,13 @@
         background-color: #F5F5F5;
     }
 
+    .swiper-box .swiper-button-prev,
+    .swiper-box .swiper-button-next {
+        &:hover {
+            background-color: #474747;
+        }
+    }
+
     .swiper-box 
     .swiper-button-next, 
     .swiper-box .swiper-button-prev {
@@ -37,7 +44,8 @@
         display: flex; 
         align-items: center; 
         justify-content: center; 
-        background: rgba(0,0,0,0.03); cursor: pointer; 
+        // background: rgba(0,0,0,0.03); 
+        cursor: pointer; 
         transition: transform .2s ease;
         @media (min-width: 768px) { 
             width: 90px; 
@@ -109,7 +117,12 @@
         .bundle-slide__text { 
             color: #474747;
         }
-        .bundle-slide__text p { margin: 0 0 10px; }
+        .bundle-slide__text p { 
+           line-height: 22px;
+            &:first-child {
+                 margin: 0 0 32px; 
+            }
+        }
       }
     }
   
