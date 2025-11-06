@@ -52,8 +52,16 @@
         z-index: 3;
         position: relative;
 
-        // align-items: flex-end;
+        @media (max-width: 968px) {
+            grid-template-columns: 1fr 1fr;
+        }
 
+        .careers-offer-list {
+            @media (max-width: 600px) {
+                margin-bottom: 36px;
+            }
+        }
+        
         &--img-reverse {
             grid-template-columns: 334px 542px;
             @media (max-width: 1300px) {
