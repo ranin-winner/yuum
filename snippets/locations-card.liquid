@@ -8,7 +8,7 @@
 
 {%- assign href = link_page.url | default: link_url | default: '#' -%}
 <a href="{{ href }}"
-   class="locations-card group block overflow-hidden transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+   class="locations-card group block overflow-hidden transition-colors duration-200 focus:outline-none">
   <div class="locations-card__photo-inner relative rounded-[20px] bg-neutral-100 overflow-hidden">
     {%- if image != blank -%}
       {%- assign img = image -%}
@@ -43,31 +43,31 @@
     {%- endif -%}
   </div>
 
-  <div class="p-4 md:p-5">
+  <div class="pt-[16px]">
     {%- if title != blank -%}
       <h6 class="heading-6 mb-[16px] pt-[16px] border-t-[1px] border-[#474747]">{{ title }}</h6>
     {%- endif -%}
     {%- if subtitle != blank -%}
-      <div class="text-[14px] tracking-[4px] uppercase mb-[24px]">{{ subtitle }}</div>
+      <div class="text-[14px] tracking-[4px] uppercase mb-[24px] text-[#474747]">{{ subtitle }}</div>
     {%- endif -%}
 
-    <div class="flex flex-wrap flex-col md:flex-row md:gap-[40px] gap-[8px] border-t-[1px] border-[#ADAEB0] pt-[17px] mb-[24px]">
+    <div class="flex flex-wrap flex-col md:flex-row md:gap-[40px] gap-[8px] border-t-[1px] border-[#ADAEB0] pt-[17px] mb-[32px]">
       {%- if hours != blank -%}
         <div class="flex items-start gap-2">
           <span class="shrink-0 mr-[5px] text-[#ADAEB0]">Hours |</span>
-          <span>{{ hours }}</span>
+          <span class="text-[#474747]">{{ hours }}</span>
         </div>
       {%- endif -%}
       {%- if phone != blank -%}
         <div class="flex items-start gap-2">
           <span class="shrink-0 mr-[5px] text-[#ADAEB0]">Contact |</span>
-          <a href="{{ phone }}">{{ phone }}</a>
+          <a class="text-[#474747]" href="{{ phone }}">{{ phone }}</a>
         </div>
       {%- endif -%}
     </div>
 
     {%- if href != '#' and link_label != blank -%}
-      <div class="text-[14px] tracking-[4px] uppercase underline underline-offset-2 group-hover:no-underline">
+      <div class="text-[14px] tracking-[4px] text-[#0B0B0B] uppercase underline underline-offset-2 group-hover:no-underline">
         {{ link_label }}
       </div>
     {%- endif -%}

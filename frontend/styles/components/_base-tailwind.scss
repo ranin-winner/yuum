@@ -746,3 +746,22 @@
         }
     }
 }
+
+.m-page-catering,
+.m-page-wholesale-2 {
+    .join-us-card {
+        @media (min-width: 1024px) {
+            gap: 40px;
+            grid-template-columns: 420px 1fr;
+        }
+    }
+}
+
+.locations-card {
+    .badge {
+        padding: 4px 10px;
+        @media (max-width: 768px) {
+            font-size: 10px;
+        }
+    }
+}

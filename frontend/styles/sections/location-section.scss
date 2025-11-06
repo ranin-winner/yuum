@@ -6,13 +6,13 @@
     .locations-card {
         &__photo-inner {
             max-height: 620px;
-            aspect-ratio: 1/1;
             @media (max-width: 1300px) {
                 max-height: 500px;
             }
 
             @media (max-width: 768px) {
                 max-height: 366px;
+                aspect-ratio: 1/1;
             }
         }
     }
