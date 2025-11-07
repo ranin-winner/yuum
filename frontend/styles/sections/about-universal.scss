@@ -3,7 +3,7 @@
 @use '../config/fonts' as fonts;
 
 // ===== Variables =====
-$text-primary: #1a1a1a;
+$text-primary: #474747;
 $text-white: #ffffff;
 $background-white: #ffffff;
 $background-main: #E7E7E7;
@@ -14,7 +14,6 @@ $accent-hover: #333333;
 
 // ===== Base Styles =====
 .m-about-universal {
-  padding-top: 40px;
   background: $background-main;
 }
 
@@ -27,18 +26,34 @@ $accent-hover: #333333;
 // ===== Hero Section =====
 .m-about-hero {
   position: relative;
-  padding: 80px 0;
-  margin-bottom: 80px;
+  padding: 40px 0 40px 0; // Додано padding-top
+  margin-bottom: 40px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1686' viewBox='0 0 1920 1686' fill='none'%3E%3Cg filter='url(%23filter0_f)'%3E%3Cpath d='M613 642L847 637L1044 740L1064 1004L1292 1385L768 1265L528 1181L165 827L514 934L716 939L609 830L613 642Z' fill='%239CBCE1'/%3E%3C/g%3E%3Cg filter='url(%23filter1_f)'%3E%3Cpath d='M1127 747L1411 633L1522 989L1649 1132L1365 1180L1356 1349L1089 1246L913 1024L1091 1086L817 773L1068 626L1127 747Z' fill='%23B3D5A1'/%3E%3C/g%3E%3Cg filter='url(%23filter2_f)'%3E%3Cpath d='M1068 427L850 300L514 335L215 770L531 825L650 853L996 906L1210 735L1029 754L873 670L1016 590L1068 427Z' fill='%23F4D7E5'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f' x='-134' y='337' width='1726' height='1348' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter1_f' x='517' y='326' width='1431' height='1323' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter2_f' x='-84' y='0' width='1594' height='1206' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
   background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
 
   &__content {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
   }
 
   &__title {
@@ -64,10 +79,19 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-m) {
+    padding: 100px 0 60px 0;
     margin-bottom: 60px;
-    &__title { font-size: 42px; }
-    &__subtitle { font-size: 14px; margin-bottom: 40px; }
-    &__image { max-height: 300px; }
+    &__title { @include fonts.font(heading-400, 48px, 1.1); }
+    &__subtitle { @include fonts.font(body-400, 15px, 1.5); margin-bottom: 40px; }
+    &__image { max-height: 300px; padding: 20px}
+  }
+
+  @include cfg.media(max-xs) {
+    padding: 20px 0 20px 0;
+    margin-bottom: 20px;
+    &__title { @include fonts.font(heading-400, 36px, 1.1); margin-bottom: 24px; }
+    &__subtitle { @include fonts.font(body-400, 14px, 1.5); margin-bottom: 32px; }
+    &__image { max-height: 250px; }
   }
 }
 
@@ -90,11 +114,16 @@ $accent-hover: #333333;
   }
 
   &__guide {
-    @include fonts.font(heading-400, 44px, 1.5);
+    @include fonts.font(heading-400, 56px, 1.1);
     color: $text-primary;
     margin: 48px auto;
     max-width: 1200px;
     @include fonts.font-smoothing;
+
+    @include cfg.media(max-m) {
+      margin: 80px auto;
+      @include fonts.font(heading-400, 36px, 1.1);
+    }
   }
 }
 .m-flavours-animation-container {
@@ -212,6 +241,10 @@ $accent-hover: #333333;
 }
 
 @include cfg.media(max-m) {
+  .m-flavour-name {
+    margin-bottom: 10px;
+  }
+
   .m-flavours-animation-container {
     min-height: 250px;
   }
@@ -408,7 +441,8 @@ $accent-hover: #333333;
   &-title {
     @include fonts.font(heading-400, 56px, 1.5);
     color: $text-primary;
-    margin: 0;
+    max-width: 80%;
+    margin: auto;
     @include fonts.font-smoothing;
 
     @include cfg.media(max-m) {
@@ -456,7 +490,11 @@ $accent-hover: #333333;
   margin-right: calc(-50vw + 50%);
 
   @include cfg.media(max-m) {
-    height: 400px;
+    height: 500px;
+  }
+
+  @include cfg.media(max-xs) {
+    height: 500px;
   }
 }
 
@@ -475,60 +513,99 @@ $accent-hover: #333333;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 60px 40px;
+  justify-content: space-between;
+  padding: 40px 20px 30px 20px;
   text-align: center;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
-    padding: 40px 24px;
+    padding: 30px 16px 20px 16px;
+  }
+
+  @include cfg.media(max-xs) {
+    padding: 20px 12px 15px 12px;
+    justify-content: space-around;
   }
 }
 
 .m-seasonal-title {
-  @include fonts.font(heading-400, 48px);
+  @include fonts.font(heading-400, 56px, 1.1);
   color: $text-white;
-  margin: 0 0 24px;
+  margin: 0 0 16px;
   @include fonts.font-smoothing;
+
+  @include cfg.media(max-m) {
+    @include fonts.font(heading-400, 36px, 1.1);
+    margin-bottom: 12px;
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(heading-400, 28px, 1.1);
+    margin-bottom: 8px;
+  }
 }
 
 .m-seasonal-intro {
-  @include fonts.font(body-400, 16px, 1.5);
+  @include fonts.font(body-400, 16px, 1.4);
   color: $text-white;
-  margin: 0 auto 40px;
+  margin: 0 auto 20px;
   max-width: 800px;
   @include fonts.font-smoothing;
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(body-400, 14px, 1.3);
+    margin-bottom: 15px;
+    max-width: 95%;
+  }
 }
 
 .m-seasonal-name {
   @include fonts.font(heading-400, 100px, 1.1);
   color: $text-white;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 20px 0 20px 0;
+  padding-bottom: 40px;
   @include fonts.font-smoothing;
+
+  @include cfg.media(max-m) {
+    @include fonts.font(heading-400, 60px, 1.1);
+    margin: 15px 0 15px 0;
+    padding-bottom: 20px;
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(heading-400, 40px, 1.1);
+    margin: 10px 0 10px 0;
+  }
 }
 
 .m-seasonal-seasons {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   width: 100%;
   max-width: 600px;
+  margin-top: auto;
+  padding-bottom: 100px;
 
   @include cfg.media(max-m) {
-    gap: 30px;
+    gap: 20px;
+    max-width: 500px;
+    padding-bottom: 30px;
   }
 
   @include cfg.media(max-xs) {
+    gap: 15px;
+    max-width: 100%;
     flex-wrap: wrap;
-    gap: 20px;
   }
 }
 
 .m-seasonal-season {
-  @include fonts.font(body-400, 18px, 24px);
+  @include fonts.font(body-400, 18px, 1.2);
   color: $text-white;
   text-align: center;
-  padding: 12px 0;
+  margin: 0;
+  padding: 8px 0;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
@@ -542,11 +619,18 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-m) {
-    font-size: 16px;
-    letter-spacing: 2px;
+    @include fonts.font(body-400, 16px, 1.2);
+    padding: 6px 0;
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(body-400, 14px, 1.2);
+    padding: 4px 0;
+    flex: 0 0 auto;
   }
 }
 
+// ===== Universal Design Section =====
 // ===== Universal Design Section =====
 .m-universal-design {
   position: relative;
@@ -559,7 +643,11 @@ $accent-hover: #333333;
   padding-bottom: 0;
 
   @include cfg.media(max-m) {
-    height: 400px;
+    height: 500px;
+  }
+
+  @include cfg.media(max-xs) {
+    height: 500px;
   }
 }
 
@@ -583,19 +671,48 @@ $accent-hover: #333333;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  @include cfg.media(max-m) {
+    padding: 30px 16px;
+  }
+
+  @include cfg.media(max-xs) {
+    padding: 20px 12px;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+  }
 }
 
 .m-universal-text {
-  @include fonts.font(heading-400, 56px, 1.1);
-  color: $text-white;
-  @include fonts.font-smoothing;
-  max-width: 1000px;
-  margin: auto;
-  padding: 0 20px;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  @include cfg.media(max-m) {
-    font-size: 42px;
+  p {
+    @include fonts.font(heading-400, 56px, 1.1);
+    color: $text-white;
+    @include fonts.font-smoothing;
+    max-width: 80%;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+
+    @include cfg.media(max-m) {
+      @include fonts.font(heading-400, 42px, 1.1);
+      max-width: 85%;
+      padding: 15px;
+    }
+
+    @include cfg.media(max-xs) {
+      @include fonts.font(heading-400, 28px, 1.1);
+      max-width: 95%;
+      padding: 10px;
+      line-height: 1.2;
+    }
   }
 }
 
@@ -606,6 +723,11 @@ $accent-hover: #333333;
   @include fonts.font-smoothing;
 
   @include cfg.media(max-m) {
-    font-size: 42px;
+    @include fonts.font(heading-400, 42px, 1.1);
+  }
+
+  @include cfg.media(max-xs) {
+    @include fonts.font(heading-400, 28px, 1.1);
+    line-height: 1.2;
   }
 }
