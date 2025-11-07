@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "c_hero_banner_Vgy4mU": {
@@ -126,7 +117,7 @@
             "lat": "",
             "lng": "",
             "popup_title": "YUUM Café",
-            "popup_richtext": "<p>Hours | 7:30–18:00</p><p>Contact | +44 7000 000000</p>"
+            "popup_richtext": "<p>Hours | 7:30–18:00<\/p><p>Contact | +44 7000 000000<\/p>"
           }
         }
       },
@@ -138,7 +129,7 @@
         "title": "",
         "subtitle": "",
         "mapbox_public_token": "pk.eyJ1IjoieXV1bSIsImEiOiJjbWhlbjdjY2MwMTdsMnFwaWdnY211ZXgxIn0.tH0y8CuBWZZWKwF0THdK7g",
-        "mapbox_style": "mapbox://styles/mapbox/streets-v12",
+        "mapbox_style": "mapbox:\/\/styles\/mapbox\/streets-v12",
         "default_lat": "51.5072",
         "default_lng": "-0.1276",
         "map_min_height": 800
@@ -242,7 +233,6 @@
       "type": "main-404",
       "disabled": true,
       "settings": {
-        "heading": "404 Page Not Found",
         "text": "The page you are looking for does not exist.",
         "button_label": "Go to Home"
       }

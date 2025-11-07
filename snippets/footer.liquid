@@ -72,6 +72,7 @@
       </div>
 
       <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-10">
+        {%- comment -%} CATALOGUE {%- endcomment -%}
         <div>
           {% if settings.footer_menu_title_1 != blank %}
             <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_1 }}</h3>
@@ -83,6 +84,7 @@
           {% endfor %}
         </div>
 
+        {%- comment -%} COMPANY {%- endcomment -%}
         <div>
           {% if settings.footer_menu_title_2 != blank %}
             <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_2 }}</h3>
@@ -94,31 +96,35 @@
           {% endfor %}
         </div>
 
-        {% if settings.footer_menu_4 and settings.footer_menu_4.links.size > 0 %}
-          <div>
-            {% if settings.footer_menu_title_4 != blank %}
-              <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_4 }}</h3>
-            {% endif %}
-            {% for link in settings.footer_menu_4.links %}
-              <div class="mb-3 font-Aksen">
-                <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
+        {%- comment -%} INFORMATION {%- endcomment -%}
+        <div>
+          {% if settings.footer_menu_title_3 != blank %}
+            <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_3 }}</h3>
+          {% endif %}
+          {% for link in settings.footer_menu_3.links %}
+            <div class="mb-3 font-Aksen">
+              <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+            </div>
+          {% endfor %}
+        </div>
 
-        {% if settings.footer_menu_5 and settings.footer_menu_5.links.size > 0 %}
-          <div>
-            {% if settings.footer_menu_title_5 != blank %}
-              <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_5 }}</h3>
-            {% endif %}
-            {% for link in settings.footer_menu_5.links %}
-              <div class="mb-3 font-Aksen">
-                <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
-              </div>
-            {% endfor %}
+        {%- comment -%} CONTACT US {%- endcomment -%}
+        <div>
+          <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">CONTACT US</h3>
+          {% if settings.contact_phone != blank %}
+            <div class="mb-3 font-Aksen">
+              <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="opacity-90 hover:opacity-100 transition">{{ settings.contact_phone }}</a>
+            </div>
+          {% endif %}
+          {% if settings.contact_email != blank %}
+            <div class="mb-3 font-Aksen">
+              <a href="mailto:{{ settings.contact_email }}" class="opacity-90 hover:opacity-100 transition">{{ settings.contact_email }}</a>
+            </div>
+          {% endif %}
+          <div class="mb-3 font-Aksen">
+            <a href="#" class="opacity-90 hover:opacity-100 transition">WhatsApp</a>
           </div>
-        {% endif %}
+        </div>
       </div>
     </div>
 
@@ -149,9 +155,12 @@
       </div>
 
       <div class="flex items-center gap-4">
-        {% for link in settings.footer_menu_3.links %}
-          <a href="{{ link.url }}" class="text-sm opacity-80 hover:opacity-100 transition">{{ link.title }}</a>
-        {% endfor %}
+        {% comment %} You can use footer_menu_4 for privacy links here {% endcomment %}
+        {% if settings.footer_menu_4 and settings.footer_menu_4.links.size > 0 %}
+          {% for link in settings.footer_menu_4.links %}
+            <a href="{{ link.url }}" class="text-sm opacity-80 hover:opacity-100 transition">{{ link.title }}</a>
+          {% endfor %}
+        {% endif %}
       </div>
 
       <div class="flex items-center gap-2">
