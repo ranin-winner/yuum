@@ -17,7 +17,7 @@
 
 <section
   id="productSection-{{ section.id }}"
-  class="products-section bg-mesh mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }} flow-bg"
+  class="products-section products-section-bg bg-mesh mx-auto md:py-[120px] py-[60px] flow-bg"
   {% if flow_on and flow_img %} data-image="{{ flow_url }}"{% endif %}
 >
   {% comment %} <div class="container m-responsive px-10"> {% endcomment %}
@@ -61,7 +61,7 @@
               {% endfor %}
             </div>
           </div>
-          <div class="swiper-pagination h-[2px] bg-black/10 w-full"></div>
+          <div class="swiper-pagination h-[2px] bg-white/10 w-full"></div>
         </div>
       {% else %}
         <p class="col-span-full text-center text-gray-600 py-8">No products selected.</p>
