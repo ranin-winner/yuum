@@ -1,7 +1,5 @@
 {% comment %}
-  Section: Features (Tailwind + GSAP hooks)
-  - Використовує готові атрибути: [data-reveal], [data-parallax], [data-parallax-item]
-  - Налаштування: фон (колір/зображення), падінги T/B, колонки, gap, кольори тексту
+  Section: Features (one markup). <1024px — Swiper; ≥1024px — grid (3+ колонки)
 {% endcomment %}
 
 <section
@@ -15,48 +13,62 @@
     "
 >
   <div class="{% if section.settings.container == 'narrow' %}max-w-5xl{% elsif section.settings.container == 'wide' %}max-w-7xl{% else %}max-w-screen-xl{% endif %} mx-auto px-4">
-    <div
-      class="grid"
-      style="gap: {{ section.settings.grid_gap }}px; grid-template-columns: repeat({{ section.settings.columns }}, minmax(0,1fr));"
-    >
-      {% for block in section.blocks %}
-        {% assign img = block.settings.image %}
-        <article
-          class="flex items-center justify-center text-center md:text-left md:justify-start gap-10"
-          data-reveal
-          {{ block.shopify_attributes }}
-          style="color: {{ section.settings.text_color }};"
-        >
-          {% if img != blank %}
-            <div class="shrink-0" data-parallax>
-              <img
-                src="{{ img | image_url: width: 480 }}"
-                alt="{{ block.settings.title | escape }}"
-                class="block object-contain opacity-90"
-                style="width: {{ block.settings.icon_w }}px; height:auto;"
-                loading="lazy"
-                data-parallax-item
-              >
-            </div>
-          {% endif %}
 
-          <div class="flex flex-col items-center md:items-start justify-center text-center md:text-left" style="row-gap: {{ block.settings.v_gap }}px;">
-            {% if block.settings.title != blank %}
-              <h3 class="m-0 font-normal leading-tight"
-                  style="font-size: {{ block.settings.title_size }}px; color: {{ section.settings.title_color }};">
-                {{ block.settings.title }}
-              </h3>
-            {% endif %}
-            {% if block.settings.text != blank %}
-              <p class="m-0 opacity-90"
-                 style="font-size: {{ block.settings.text_size }}px;">
-                {{ block.settings.text }}
-              </p>
-            {% endif %}
-          </div>
-        </article>
-      {% endfor %}
+    {%- assign slides_count = section.blocks.size -%}
+
+    <div
+      class="features-root"
+      data-features
+      data-slides-count="{{ slides_count }}"
+      data-section-id="{{ section.id }}"
+    >
+      <div class="swiper" id="features-swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% assign img = block.settings.image %}
+            <div class="swiper-slide">
+              <article
+                class="flex items-center justify-center text-center md:text-left md:justify-start gap-10"
+                data-reveal
+                {{ block.shopify_attributes }}
+                style="color: {{ section.settings.text_color }};"
+              >
+                {% if img != blank %}
+                  <div class="shrink-0" data-parallax>
+                    <img
+                      src="{{ img | image_url: width: 480 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      class="block object-contain opacity-90"
+                      style="width: {{ block.settings.icon_w }}px; height:auto;"
+                      loading="lazy"
+                      data-parallax-item
+                    >
+                  </div>
+                {% endif %}
+
+                <div class="flex flex-col items-center md:items-start justify-center text-center md:text-left" style="row-gap: {{ block.settings.v_gap }}px;">
+                  {% if block.settings.title != blank %}
+                    <h3 class="m-0 font-normal leading-tight"
+                        style="font-size: {{ block.settings.title_size }}px; color: {{ section.settings.title_color }};">
+                      {{ block.settings.title }}
+                    </h3>
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <p class="m-0 opacity-90"
+                       style="font-size: {{ block.settings.text_size }}px;">
+                      {{ block.settings.text }}
+                    </p>
+                  {% endif %}
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="swiper-pagination mt-4 w-full"></div>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -81,6 +93,8 @@
         { "value": "wide",   "label": "Широкий (max-w-7xl)" }
       ]
     },
+
+    { "type": "image_picker", "id": "bg_image", "label": "Фонове зображення" },
 
     { "type": "color", "id": "title_color", "label": "Колір заголовків", "default": "#FFFFFF" },
     { "type": "color", "id": "text_color",  "label": "Колір тексту",     "default": "#FFFFFF" }
@@ -109,3 +123,45 @@
   ]
 }
 {% endschema %}
+
+{%- comment -%} CSS-перемикач Swiper→Grid без дублювання {%- endcomment -%}
+<style>
+  /* мобільний режим — як звичайний Swiper */
+  #features-{{ section.id }} .swiper { overflow: hidden; }
+
+  #features-{{ section.id }} .swiper-pagination .swiper-pagination-bullet {
+    margin-top: 6px;
+    background-color: #C2C2C2;
+    opacity: 1;
+    margin-right: 4px;
+  }
+
+
+
+  #features-{{ section.id }} .swiper-pagination-bullet-active {
+    background-color: #fff!important;
+    opacity: 1;
+  }
+
+  /* десктоп ≥1024px — примусово грід замість flex Swiper */
+  @media (min-width: 1024px) {
+    #features-{{ section.id }} .swiper { overflow: visible; }
+    #features-{{ section.id }} .swiper-pagination { display: none !important; }
+
+
+
+    #features-{{ section.id }} .swiper-wrapper {
+      display: grid !important;
+      gap: {{ section.settings.grid_gap }}px;
+      grid-template-columns: repeat({{ section.settings.columns }}, minmax(0,1fr));
+      transform: none !important;
+    }
+    #features-{{ section.id }} .swiper-slide {
+      width: auto !important;
+      height: auto !important;
+      /* скасовуємо Swiper-вирівнювання */
+      margin: 0 !important;
+      flex: none !important;
+    }
+  }
+</style>

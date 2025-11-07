@@ -11,7 +11,7 @@
         <h1 class="heading-2 !mb-3">{{ section.settings.title }}</h1>
       {% endif %}
       {% if section.settings.subtitle != blank %}
-        <div class="contact-section__subtitle">{{ section.settings.subtitle }}</div>
+        <div class="contact-section__subtitle text-[#474747]">{{ section.settings.subtitle }}</div>
       {% endif %}
     </header>
 
@@ -29,7 +29,7 @@
           </ul>
         {% endif %}
 
-        <div class="contact-form__grid grid md:grid-cols-2 md:gap-[24px] gap-[16px]">
+        <div class="contact-form__grid grid md:grid-cols-2 md:gap-[24px] gap-[32px]">
           <div class="contact-form__field">
             <label for="ContactForm-name" class="label">{{ section.settings.label_name }}</label>
             <input id="ContactForm-name" type="text" name="contact[name]" autocomplete="name" required>

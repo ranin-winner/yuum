@@ -13,6 +13,10 @@
         }
     }
 
+    .container {
+        overflow: visible;
+    }
+
     &__content-inner {
         width: 100%;
         max-width: 903px;

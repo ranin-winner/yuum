@@ -92,14 +92,22 @@
       ],
       "name": "Careers Section",
       "settings": {
+        "add_top_border": false,
         "small_heading": "CAREERS AT YUUM",
         "heading": "As we grow, we're seeking curious, thoughtful, and driven individuals — from baristas to creatives, and operations to hospitality. People who care about their work and value authenticity.",
-        "description": "<p>Our mission is building exceptional Japanese-inspired flavors to people through a modern, refined experience that feels both warm and bold.</p>",
+        "description": "<p>Our mission is to bring exceptional Japanese-inspired flavours to people through a modern, minimal experience that feels both warm and bold.<br/><br/>We’re not just building a café. We’re creating a new flavour culture — one that’s inclusive, expressive, and elevated. At YUUM, your ideas matter. Your attention to detail matters. And your passion for doing things right (and beautifully) is what moves us forward.<br/>Whether you’re serving handcrafted matcha, shaping product strategy, or sharing a mochi smile with a first-time guest — you’re part of something meaningful.</p>",
+        "button_text_1": "",
+        "button_link_1": "",
         "additional_text": "<p>We're not just building a café. We're creating a new flavor culture — one that's inclusive, expressive, and deliberate. At YUUM, your ideas matter. Your attention to detail matters. And your passion for doing things right (and beautifully) is what moves us forward.</p>",
         "background_color": "#e7e7e7",
+        "equal_columns": false,
+        "reverse_image_size": false,
+        "align_images_bottom": false,
         "team_image": "shopify://shop_images/minimal-modern-cafe-interior-with-light-wooden-slat-wall-blue-accents-neutral-tones.png",
+        "add_bottom_border": true,
         "offer_heading": "What we offer:",
         "person_image": "shopify://shop_images/438454285_473808346_17954411222902037_1135773859952061931_n_1.png",
+        "add_bottom_border_person": true,
         "cta_heading": "Is this you?",
         "cta_text": "If this sounds like you and you're ready to create something truly special, check out our open roles. You care about flavour and function. You care — about people, about craft, and about building something with intention.",
         "button_text": "VIEW VACANCIES",
@@ -122,6 +130,7 @@
       "name": "Join Us",
       "settings": {
         "heading": "Join us",
+        "one_column_section": false,
         "reverse": false,
         "text_line_1": "<p>Open roles coming soon. To express your interest, email us at <a href=\"mailto:careers@yuum.co.uk\" title=\"mailto:careers@yuum.co.uk\">careers@yuum.co.uk</a></p>"
       }

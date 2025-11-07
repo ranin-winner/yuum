@@ -247,8 +247,11 @@
 
         &-item {
             display: inline-flex;
-            font-size: 14px;
             color: #474747;
+            font-size: 14px;
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
 
         }
 
@@ -260,6 +263,10 @@
             font-weight: 400;
             text-decoration: none;
             transition: color 0.3s ease;
+
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
 
             &:hover {
                 color: #ADAEB0;
@@ -726,6 +733,35 @@
     .shopify-section {
         &:last-child {
             padding-bottom: 0px;
+        }
+    }
+}
+
+.m-product-new-bundle {
+    [id*="__text_kicker_description_"] {
+        padding-bottom: 80px;
+
+        @media screen and (max-width: 768px) {
+            padding-bottom: 60px;
+        }
+    }
+}
+
+.m-page-catering,
+.m-page-wholesale-2 {
+    .join-us-card {
+        @media (min-width: 1024px) {
+            gap: 40px;
+            grid-template-columns: 420px 1fr;
+        }
+    }
+}
+
+.locations-card {
+    .badge {
+        padding: 4px 10px;
+        @media (max-width: 768px) {
+            font-size: 10px;
         }
     }
 }

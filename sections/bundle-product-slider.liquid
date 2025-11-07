@@ -91,13 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const thumbs = new Swiper(thumbsSel, {
     slidesPerView: 'auto',
-    spaceBetween: 16,
+    spaceBetween: 32,
     watchSlidesProgress: true,
     watchSlidesVisibility: true,
     slideToClickedSlide: true,
     observer: true,
     observeParents: true,
-    breakpoints: { 0:{spaceBetween:8}, 768:{spaceBetween:12}, 1024:{spaceBetween:16} }
+    breakpoints: { 0:{spaceBetween:4}, 768:{spaceBetween:12}, 1024:{spaceBetween:32} }
   });
 
   const main = new Swiper(mainSel, {

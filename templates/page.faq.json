@@ -12,13 +12,7 @@
     "about_us_e6xJLC": {
       "type": "about-us",
       "name": "About us",
-      "settings": {
-        "heading": "ABOUT US",
-        "text": "Lopaus Point uses thoughtfully selected ingredients. We use only whole, organic fruit to lightly sweeten our batters.",
-        "button_label": "Learn More",
-        "button_link": "",
-        "spacing": 16
-      }
+      "settings": {}
     },
     "main": {
       "type": "main-404",
