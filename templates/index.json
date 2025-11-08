@@ -14,6 +14,7 @@
       "name": "Hero Banner",
       "settings": {
         "title": "Aesthetics in every detail",
+        "title_mb": "12",
         "enable_title_fill": false,
         "subtitle": "Dive into the world of Yuum with our most popular products",
         "baner_button": "Shop Now",
@@ -54,8 +55,6 @@
             "icon_w": 120,
             "title": "Unique products from all over the world",
             "text": "Exclusive collections of products from different cultures around the world",
-            "title_size": 24,
-            "text_size": 16,
             "v_gap": 16
           }
         },
@@ -66,8 +65,6 @@
             "icon_w": 120,
             "title": "14 conceptual boutique cafes",
             "text": "Each location is filled with high-class design and service",
-            "title_size": 24,
-            "text_size": 16,
             "v_gap": 16
           }
         },
@@ -78,8 +75,6 @@
             "icon_w": 120,
             "title": "Delivering gastronomic pleasure",
             "text": "As a gift or to create an atmosphere at home or in the office",
-            "title_size": 24,
-            "text_size": 16,
             "v_gap": 16
           }
         }
@@ -92,11 +87,8 @@
       "name": "Features — parallax",
       "settings": {
         "bg_color": "#adaead",
-        "pad_top": 48,
-        "pad_bottom": 48,
         "columns": 3,
         "grid_gap": 64,
-        "container": "xl",
         "title_color": "#ffffff",
         "text_color": "#ffffff"
       }
@@ -205,6 +197,7 @@
       "name": "Hero Banner",
       "settings": {
         "title": "Yuum is a project that presents a selected unique collection of products that reveal new, interesting taste experiences",
+        "title_mb": "32",
         "enable_title_fill": true,
         "subtitle": "",
         "baner_button": "ABOUT US",
@@ -220,8 +213,8 @@
         "text_position-x-mob": "center",
         "text_position-y": "center",
         "text_alignment": "center",
-        "title_font_size": 75,
-        "title_font_size_mobile": 45,
+        "title_font_size": 76,
+        "title_font_size_mobile": 44,
         "title_color": "#ffffff",
         "subtitle_font_size": 20,
         "subtitle_font_size_mobile": 16,
@@ -232,7 +225,7 @@
         "margin_top_mobile": "0",
         "banner_text_width": "1360",
         "banner_height_desktop": "900",
-        "banner_height_mobile": "300"
+        "banner_height_mobile": "680"
       }
     },
     "product_custom_section_VKxaX9": {
@@ -248,6 +241,7 @@
           "choco-banana-mochi",
           "choco-mochi"
         ],
+        "margins_top_bottom": "60",
         "simple_hover": true,
         "title": "<p>Pre-packed bundles</p>",
         "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. </p>",
