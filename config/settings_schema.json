@@ -38,7 +38,7 @@
       {
         "type": "image_picker",
         "id": "header_logo_light",
-        "label": "Header Logo (light / on hero)"
+        "label": "Header Logo (light \/ on hero)"
       },
       {
         "type": "color",
@@ -521,6 +521,29 @@
       },
       {
         "type": "text",
+        "id": "footer_menu_title_3",
+        "label": "Menu title 3",
+        "default": "Information"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu_3",
+        "label": "Footer Menu 3"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact Phone",
+        "default": "+44 7000 000000"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact Email",
+        "default": "hello@yuum.co.uk"
+      },
+      {
+        "type": "text",
         "id": "newsletter_title",
         "label": "Newsletter Title",
         "default": "Sign up to get email updates"
@@ -585,8 +608,8 @@
       },
       {
         "type": "link_list",
-        "id": "footer_menu_3",
-        "label": "Footer Menu 3"
+        "id": "footer_menu_4",
+        "label": "Footer Menu 4"
       },
       {
         "type": "text",
