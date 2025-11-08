@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "clear": "rimraf node_modules/.vite",
-    "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --",
-    "shopify:dev": "shopify theme dev",
+    "shopify:dev": "node dev.mjs",
     "vite:dev": "vite",
+    "dev": "npm-run-all -p shopify:dev vite:dev",
     "check": "shopify theme check",
     "pull": "shopify theme pull -d -o sections/*.json templates/*.json templates/customers/*.json config/settings_data.json",
     "build": "vite build",

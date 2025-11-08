@@ -5,44 +5,44 @@ import cleanup from '@by-association-only/vite-plugin-shopify-clean';
 import glob from 'fast-glob';
 
 export default defineConfig({
-  // base: '/assets/', // The base path of the build
   resolve: {
     alias: {
       '~': path.resolve(__dirname, './'),
       '@': path.resolve(__dirname, 'frontend'),
     },
   },
-  css: {
-
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
+    cors: true,
+    origin: 'http://127.0.0.1:5173',
+    hmr: {
+      protocol: 'ws',
+      host: '127.0.0.1',
+      port: 5173,
+    },
+    fs: { strict: false },
+  },
+  optimizeDeps: {
+    include: ['@studio-freight/lenis'],
   },
   plugins: [
     cleanup(),
     shopify({
-      themeRoot: './',                        // The root directory of the Shopify theme
-      sourceCodeDir: 'frontend',              // The directory where the source code is located
-      entrypointsDir: 'frontend/entrypoints', // The directory where the entrypoints are located
-      snippetFile: 'entry.liquid',            // The file where the script tag is injected
+      themeRoot: './',
+      sourceCodeDir: 'frontend',
+      entrypointsDir: 'frontend/entrypoints',
+      snippetFile: 'entry.liquid',
       additionalEntrypoints: [
-        ...glob.sync('frontend/styles/sections/**/*.scss'), // SCSS entrypoints
-        ...glob.sync('frontend/scripts/sections/**/*.js')   // JavaScript entrypoints
+        ...glob.sync('frontend/styles/sections/**/*.scss'),
+        ...glob.sync('frontend/scripts/sections/**/*.js'),
       ],
     }),
   ],
   build: {
-    outDir: 'assets', // Output directory for the build
-    emptyOutDir: true, // Don't delete the outDir before building
-    sourcemap: true, // Enable sourcemaps
-    // rollupOptions: {
-    //   input: {
-    //     main:       path.resolve(__dirname, 'frontend/entrypoints/main.theme.js'),
-    //     product:    path.resolve(__dirname, 'frontend/entrypoints/theme.product.js'),
-    //   },
-    //   output: {
-    //     entryFileNames: '[name].[hash].min.js',
-    //     chunkFileNames: '[name].[hash].min.js',
-    //     assetFileNames: '[name].[hash].min[extname]',
-    //   },
-    // },
-    // sourcemap: false, // Enable sourcemaps
+    outDir: 'assets',
+    emptyOutDir: true,
+    sourcemap: true,
   },
 });
