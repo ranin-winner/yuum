@@ -460,10 +460,6 @@
       background-color: #f8f8f8;
     }
   }
-
-  [x-collapse] {
-    background: #fafafa;
-  }
 }
 
 // Mobile Menu Font Corrections - UPDATED
@@ -501,7 +497,7 @@
     padding: 20px 0;
 
     .font-semibold {
-      @include ft.font(body-600, 16px, 1.2);
+      @include ft.font(body-400, 16px, 1.2);
       color: #474747;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -519,23 +515,11 @@
     }
 
     .text-sm {
-      @include ft.font(body-400, 14px, 1.4);
-      color: #666666;
+      @include ft.font(body-400, 16px, 1.4);
+      color: #474747;
 
       &:hover {
         color: #000000;
-      }
-    }
-
-    .text-green-600 {
-      @include ft.font(body-500, 14px, 1.2);
-      color: #25D366;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      &:hover {
-        color: #128C7E;
       }
     }
   }
@@ -647,11 +631,12 @@
       padding: 24px 20px;
 
       .font-semibold {
-        @include ft.font(body-600, 15px, 1.2);
+        @include ft.font(body-400, 14px, 1.2);
+        letter-spacing: 4px;
       }
 
       .text-base {
-        @include ft.font(body-400, 15px, 1.4);
+        @include ft.font(body-400, 16px, 1.4);
       }
     }
   }
@@ -738,7 +723,7 @@ svg[width="16"][height="21"] {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #f8f8f8;
+    background-color: transparent;
     color: #474747;
     transition: all 0.3s ease;
 
@@ -775,12 +760,65 @@ svg[width="16"][height="21"] {
 // Alternative style for dark background
 .footer-socials.m-dark {
   .footer-socials__link {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent;
     color: #ffffff;
 
     &:hover {
-      background-color: #ffffff;
+      background-color: transparent;
       color: #474747;
     }
+  }
+}
+
+// Mobile menu header with close button
+.fixed.inset-0 {
+  .flex.justify-between.items-center.px-6.py-4 {
+    border-bottom: 1px solid #ADB0B0;
+    background: #E7E7E7;
+
+    a {
+      @include ft.font(heading-400, 20px, 1.2);
+      color: #474747;
+      text-decoration: none;
+    }
+
+    button {
+      color: #474747;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+}
+
+// Ensure proper colors for all text
+.mobile-bg {
+  .text-gray-900 {
+    color: #474747;
+  }
+
+  .text-gray-700 {
+    color: #474747;
+  }
+
+  .text-gray-500 {
+    color: #474747;
+  }
+
+  .border-gray-200 {
+    border-color: #ADB0B0;
+  }
+}
+
+// Fix hover states
+.mobile-bg {
+  .hover\:text-gray-900:hover {
+    color: #474747;
+  }
+
+  .hover\:bg-gray-50:hover {
+    background-color: #E7E7E7;
   }
 }
