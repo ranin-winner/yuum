@@ -1,24 +1,21 @@
 <div
   x-data="menuMobile"
-  class="md:hidden"
+  class="b-header__mobile-menu md:hidden"
   @resize.debounce.window="handleResize">
+
   <button
     @click="toggleMobileMenu"
     type="button"
+    class="b-header__mobile-trigger"
     aria-label="Toggle mobile menu"
     :aria-expanded="isOpened">
-    <svg
-      class="h-10 w-10"
-      width="20"
-      height="16"
-      viewBox="0 0 20 16"
-      style="color: var(--secondary-color, --color_1);"
-      xmlns="http://www.w3.org/2000/svg">
+    <svg class="b-header__mobile-icon" width="20" height="16" viewBox="0 0 20 16">
       <path d="M19.375 8C19.375 8.29837 19.2565 8.58452 19.0455 8.79549C18.8345 9.00647 18.5484 9.125 18.25 9.125H1.75C1.45163 9.125 1.16548 9.00647 0.954505 8.79549C0.743526 8.58452 0.625 8.29837 0.625 8C0.625 7.70163 0.743526 7.41548 0.954505 7.2045C1.16548 6.99353 1.45163 6.875 1.75 6.875H18.25C18.5484 6.875 18.8345 6.99353 19.0455 7.2045C19.2565 7.41548 19.375 7.70163 19.375 8ZM1.75 3.125H18.25C18.5484 3.125 18.8345 3.00647 19.0455 2.7955C19.2565 2.58452 19.375 2.29837 19.375 2C19.375 1.70163 19.2565 1.41548 19.0455 1.2045C18.8345 0.993526 18.5484 0.875 18.25 0.875H1.75C1.45163 0.875 1.16548 0.993526 0.954505 1.2045C0.743526 1.41548 0.625 1.70163 0.625 2C0.625 2.29837 0.743526 2.58452 0.954505 2.7955C1.16548 3.00647 1.45163 3.125 1.75 3.125ZM18.25 12.875H1.75C1.45163 12.875 1.16548 12.9935 0.954505 13.2045C0.743526 13.4155 0.625 13.7016 0.625 14C0.625 14.2984 0.743526 14.5845 0.954505 14.7955C1.16548 15.0065 1.45163 15.125 1.75 15.125H18.25C18.5484 15.125 18.8345 15.0065 19.0455 14.7955C19.2565 14.5845 19.375 14.2984 19.375 14C19.375 13.7016 19.2565 13.4155 19.0455 13.2045C18.8345 12.9935 18.5484 12.875 18.25 12.875Z" fill="currentColor"/>
     </svg>
   </button>
+
   <div
-    class="mobile-bg fixed inset-0 z-50 flex flex-col"
+    class="b-header__mobile-panel"
     x-cloak
     x-show="isOpened"
     @click.away="closeMobileMenu"
@@ -33,41 +30,36 @@
     aria-modal="true"
     aria-label="Mobile menu">
 
-    <!-- Header with Close Button -->
-    <div class="flex justify-between items-center px-6 py-6 border-b border-gray-200">
-      <div class="w-10"></div> <!-- Spacer for balance -->
-      <div class="flex-1 flex justify-center">
+    <div class="b-header__mobile-header">
+      <div class="b-header__mobile-spacer"></div>
+      <div class="b-header__mobile-logo">
+        <!-- Logo placeholder -->
       </div>
       <button
         @click="closeMobileMenu"
-        class="w-10 h-10 flex items-center justify-center text-gray-900"
+        class="b-header__mobile-close"
         aria-label="Close menu">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="b-header__mobile-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
 
-    <div class="shrink grow overflow-y-auto">
-      <nav
-        role="navigation"
-        aria-label="Mobile menu"
-        class="overflow-hidden overflow-y-auto grow min-h-full h-auto relative flex flex-col">
-
-        <ul class="flex flex-col grow">
+    <div class="b-header__mobile-content">
+      <nav class="b-header__mobile-nav">
+        <ul class="b-header__mobile-list">
           {% for link in menuItems %}
-            <li class="border-b border-gray-200">
+            <li class="b-header__mobile-item">
               {% if link.links.size > 0 %}
-                <!-- Для пунктів з підменю -->
-                <div x-data="{ isOpen: false }" class="mobile-menu-item">
+                <div x-data="{ isOpen: false }" class="b-header__mobile-dropdown">
                   <button
                     @click="isOpen = !isOpen"
-                    class="flex justify-between items-center w-full py-4 px-6 text-left hover:bg-gray-50 transition-colors"
+                    class="b-header__mobile-dropdown-trigger"
                     :aria-expanded="isOpen.toString()">
-                    <span class="text-base text-gray-900">{{ link.title }}</span>
+                    <span class="b-header__mobile-text">{{ link.title }}</span>
                     <svg
-                      class="w-10 h-10 transform transition-transform duration-200 text-gray-500"
-                      :class="{ 'rotate-180': isOpen }"
+                      class="b-header__mobile-chevron"
+                      :class="{ 'b-header__mobile-chevron--open': isOpen }"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -76,39 +68,34 @@
                     </svg>
                   </button>
 
-                  <!-- Підменю -->
-                  <div x-show="isOpen" x-collapse class="bg-gray-50 border-t border-gray-200">
-                    <div class="py-4 px-6">
-                      <!-- Список підкатегорій -->
-                      <ul class="space-y-3">
-                        {% for child_link in link.links %}
-                          <li>
-                            <a href="{{ child_link.url }}" class="block py-2 text-gray-700 hover:text-gray-900 text-sm transition-colors">
-                              {{ child_link.title }}
-                            </a>
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    </div>
+                  <div x-show="isOpen" x-collapse class="b-header__mobile-dropdown-content">
+                    <ul class="b-header__mobile-sublist">
+                      {% for child_link in link.links %}
+                        <li class="b-header__mobile-subitem">
+                          <a href="{{ child_link.url }}" class="b-header__mobile-sublink">
+                            {{ child_link.title }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
                   </div>
                 </div>
               {% else %}
-                <!-- Звичайні посилання без підменю -->
-                <a href="{{ link.url }}" class="flex items-center py-4 px-6 text-base text-gray-900 hover:bg-gray-50 transition-colors">
+                <a href="{{ link.url }}" class="b-header__mobile-link">
                   {{ link.title }}
                 </a>
               {% endif %}
             </li>
           {% endfor %}
 
-          <!-- CONTACT US - окремий блок -->
-          <li class="border-b border-gray-200">
-            <div class="py-4 px-6">
-              <h4 class="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">CONTACT US</h4>
-              <div class="space-y-2">
-                <a href="tel:+447000000000" class="block text-gray-900 hover:text-blue-600 text-base font-medium transition-colors">+44 7000 000000</a>
-                <a href="mailto:hello@yuum.co.uk" class="block text-gray-700 hover:text-gray-900 text-sm transition-colors">hello@yuum.co.uk</a>
-                <a href="https://wa.me/447000000000" class="flex items-center text-gray-600 hover:text-green-700 mt-2 text-sm transition-colors">
+          <!-- CONTACT US section -->
+          <li class="b-header__mobile-item">
+            <div class="b-header__mobile-contact">
+              <h4 class="b-header__mobile-contact-title">CONTACT US</h4>
+              <div class="b-header__mobile-contact-info">
+                <a href="tel:+447000000000" class="b-header__mobile-phone">+44 7000 000000</a>
+                <a href="mailto:hello@yuum.co.uk" class="b-header__mobile-email">hello@yuum.co.uk</a>
+                <a href="https://wa.me/447000000000" class="b-header__mobile-whatsapp">
                   WhatsApp
                 </a>
               </div>
@@ -116,33 +103,32 @@
           </li>
         </ul>
 
-        <div class="footer-socials">
-          <a href="#" class="footer-socials__link" aria-label="Instagram">
-            <svg class="footer-socials__icon" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        <div class="b-header__mobile-social">
+          <a href="#" class="b-header__mobile-social-link" aria-label="Instagram">
+            <svg class="b-header__mobile-social-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
             </svg>
           </a>
 
-          <a href="#" class="footer-socials__link" aria-label="Facebook">
-            <svg class="footer-socials__icon" fill="currentColor" viewBox="0 0 24 24">
+          <a href="#" class="b-header__mobile-social-link" aria-label="Facebook">
+            <svg class="b-header__mobile-social-icon" viewBox="0 0 24 24" fill="currentColor">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
           </a>
 
-          <a href="#" class="footer-socials__link" aria-label="TikTok">
-            <svg class="footer-socials__icon" fill="currentColor" viewBox="0 0 24 24">
+          <a href="#" class="b-header__mobile-social-link" aria-label="TikTok">
+            <svg class="b-header__mobile-social-icon" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
             </svg>
           </a>
         </div>
 
-        <!-- Account Link -->
-        <div class="px-6 py-4 border-t border-gray-200 bg-white">
-          <a href="/apps/retextion#/login" class="text-gray-700 flex items-center hover:text-gray-900 transition-colors">
-            <svg width="16" height="21" viewBox="0 0 16 21" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 21C0 16.5817 3.58172 13 8 13C12.4183 13 16 16.5817 16 21H0ZM8 12C4.685 12 2 9.315 2 6C2 2.685 4.685 0 8 0C11.315 0 14 2.685 14 6C14 9.315 11.315 12 8 12Z" fill="currentColor"/>
+        <div class="b-header__mobile-account">
+          <a href="/apps/retextion#/login" class="b-header__mobile-account-link">
+            <svg class="b-header__mobile-account-icon" viewBox="0 0 16 21" fill="currentColor">
+              <path d="M0 21C0 16.5817 3.58172 13 8 13C12.4183 13 16 16.5817 16 21H0ZM8 12C4.685 12 2 9.315 2 6C2 2.685 4.685 0 8 0C11.315 0 14 2.685 14 6C14 9.315 11.315 12 8 12Z"/>
             </svg>
-            <span class="ml-2 text-sm">Account</span>
+            <span class="b-header__mobile-account-text">Account</span>
           </a>
         </div>
       </nav>
