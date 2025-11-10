@@ -1,19 +1,22 @@
 @use '../config/all-config' as cfg;
+@use '../config/fonts' as ft;
 
 @forward '../elements/auth-modal';
 
-/* Header */
 .b-header {
   $mobile-resolutions: 768px;
   border-bottom: 1px solid rgba(173, 174, 176, 1);
   border-top: 0;
   position: relative;
   z-index: 999;
-
   transition: all .6ms;
 
   > a, > button {
-    color: rgba(71, 71, 71, 1) !important;
+    color: rgba(71, 71, 71, 1);
+  }
+
+  .absolute.top-full.left-0.w-full {
+    background-color: #E7E7E7;
   }
 
   &.m-sticky {
@@ -22,32 +25,30 @@
     right: 0;
     top: 0;
     z-index: 999;
-    //box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-color: rgba(173, 174, 176, 1) !important;
+    border-color: rgba(173, 174, 176, 1);
     background: rgba(231, 231, 231, 1);
     transition: all .6ms;
 
     .b-header__list-link, .group button, .b-header__list-link.m-active{
-      color: rgba(71, 71, 71, 1) !important;
+      color: rgba(71, 71, 71, 1);
     }
 
     .group button svg path {
-      fill: rgba(71, 71, 71, 1) !important;
+      fill: rgba(71, 71, 71, 1);
     }
 
     .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
-      background: rgba(71, 71, 71, 1) !important;
+      background: rgba(71, 71, 71, 1);
     }
 
     .b-header__cartlogin svg path {
-      fill: rgba(71, 71, 71, 1) !important;
+      fill: rgba(71, 71, 71, 1);
     }
   }
 
   &__promo {
     background: rgba(71, 71, 71, 1);
-    font-size: 16px;
-    font-weight: 400;
+    @include ft.font(body-400, 16px, 1.2);
     a {
       display: flex;
       justify-content: center;
@@ -191,6 +192,7 @@
     line-height: 20px;
     width: 20px;
     height: 20px;
+    @include ft.font(body-600, 12px, 1);
   }
 
   &__account {
@@ -204,6 +206,7 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     top: 50%;
+    @include ft.font(heading-400, null, 1);
 
     @include cfg.media(max-t) {
       width: 150px;
@@ -245,22 +248,20 @@
 
     .groups {
       button {
-        font-size: 16px;
-        font-weight: 400;
+        @include ft.font(body-400, 16px, 1.25);
       }
     }
   }
 
   &__list-item {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 400;
+    @include ft.font(body-400, 16px, 1.25);
   }
 
   &__list-link {
     color: var(--color_1);
     transition: color 0.3s;
     position: relative;
+    @include ft.font(body-400, 16px, 1.25);
 
     &::after,
     &::before {
@@ -304,10 +305,8 @@
       }
 
       a {
-        font-size: 48px;
-        line-height: 1.1;
+        @include ft.font(heading-400, 48px, 1.1);
         font-weight: 300;
-        font-family: var(--font-heading, "WT Monarch Nova"), system-ui, -apple-system, Arial, sans-serif;
       }
     }
   }
@@ -328,22 +327,18 @@
 
   &_description {
     span {
-      font-size: 18px;
-      line-height: 24px;
-      font-family: var(--font-heading, "WT Monarch Nova"), system-ui, -apple-system, Arial, sans-serif;
+      @include ft.font(heading-400, 18px, 1.33);
       margin-bottom: 6px;
       display: inline-flex;
     }
 
     &-text {
-      font-size: 14px;
-      line-height: 20px;
+      @include ft.font(body-400, 14px, 20px);
       margin-bottom: 12px;
     }
 
     .link {
-      font-size: 14px;
-      line-height: 16px;
+      @include ft.font(body-400, 14px, 16px);
       letter-spacing: 4px;
       text-transform: uppercase;
       border-bottom: 1px solid rgba(71, 71, 71, 1);
@@ -353,4 +348,10 @@
       }
     }
   }
+}
+
+.text-xs.uppercase.tracking-wide {
+  @include ft.font(body-400, 14px, 20px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
