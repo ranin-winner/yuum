@@ -174,10 +174,9 @@
   {% endif %}>
   <div class="b-header__inner container m-responsive md:py-8 mx-auto m-{{settings.header_layout}} {% if shop.customer_accounts_enabled %} header--has-account{% endif %}">
 
-
+    {% render 'menu-mobile', menuItems: settings.header_menu_1.links %}
     <!-- Mobile Left Section - Hamburger & Search -->
     <div class="b-header__mobile-left md:hidden flex items-center gap-4">
-      {% render 'menu-mobile', menuItems: settings.header_menu_1.links %}
       <button class="b-header__search-toggle" @click="$store.search.open()" aria-label="Open search">
         {{ searchIcon }}
       </button>
@@ -325,5 +324,48 @@
     // перший показ і цикл
     showNext();
     setInterval(showNext, pause);
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add click event to all search buttons
+    const searchButtons = document.querySelectorAll('.b-header__search-toggle, .b-header_search button');
+
+    searchButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        console.log('🔍 Search button clicked');
+
+        const header = document.querySelector('.b-header');
+        const wrapper = document.querySelector('.b-header__wrapper');
+
+        console.log('Header found:', header);
+        console.log('Wrapper found:', wrapper);
+
+        if (header) {
+          header.classList.add('search-open');
+          console.log('✅ Added search-open class to header');
+        }
+
+        if (wrapper) {
+          wrapper.classList.add('has-search-open');
+          console.log('✅ Added has-search-open class to wrapper');
+        }
+      });
+    });
+
+    // Optional: Close search when clicking outside (remove if you don't want this)
+    document.addEventListener('click', function(e) {
+      const isSearchButton = e.target.closest('.b-header__search-toggle') ||
+        e.target.closest('.b-header_search button');
+
+      if (!isSearchButton) {
+        const header = document.querySelector('.b-header');
+        const wrapper = document.querySelector('.b-header__wrapper');
+
+        if (header) header.classList.remove('search-open');
+        if (wrapper) wrapper.classList.remove('has-search-open');
+      }
+    });
   });
 </script>
