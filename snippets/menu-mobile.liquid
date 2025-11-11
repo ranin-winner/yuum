@@ -1,6 +1,6 @@
 <div
   x-data="menuMobile"
-  class="md:hidden"
+  class="mobile-menu"
   @resize.debounce.window="handleResize">
   <button
     @click="toggleMobileMenu"
@@ -18,7 +18,7 @@
     </svg>
   </button>
   <div
-    class="fixed inset-0 bg-white z-50 flex flex-col"
+    class="mobile-menu-inner fixed inset-0 bg-white z-50 flex flex-col"
     x-cloak
     x-show="isOpened"
     @click.away="closeMobileMenu"

@@ -16,6 +16,18 @@
     color: rgba(71, 71, 71, 1) !important;
   }
 
+  .mobile-menu-inner {
+    width: calc(100% - 32px);
+  }
+
+
+  .mobile-menu {
+    display: none;
+    @media (max-width: 1310px) {
+        display: block;
+    }
+  }
+
   &.m-sticky {
     position: fixed;
     left: 0;
@@ -113,7 +125,7 @@
       padding-bottom: 2rem;
     }
 
-    @include cfg.media(max-m) {
+    @media (max-width: 1310px) {
       justify-content: space-between;
       padding-left: 2rem;
       padding-right: 2rem;
@@ -158,8 +170,8 @@
       flex-grow: 1;
     }
 
-    @include cfg.media(max-m) {
-      display: none;
+    @media (max-width: 1310px) {
+        display: none;
     }
   }
 

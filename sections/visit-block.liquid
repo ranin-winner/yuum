@@ -1,105 +1,115 @@
 {% comment %}
-  Section: Visit Block (Tailwind + GSAP hooks) — FLEX version
-  - Layout: flex-row on desktop, flex-col on mobile
-  - Left: large image
-  - Right: title + text + button + small image
-  - Uses data-reveal and data-parallax/data-parallax-item
-  - Adjustable paddings, gaps, colors, radii, sizes
+  Visit block — single grid with template areas
+  Mobile:
+    ┌ img1 ┬ img2 ┐
+    └────── text ──────┘
+  Desktop:
+    ┌ img1 ┬  text ┐
+    └ img1 ┴  img2 ┘
 {% endcomment %}
 
 <section
   id="visit-{{ section.id }}"
   class="w-full"
   style="
-  {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
-  {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
+    {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
+    {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
     padding-top: {{ section.settings.pad_top }}px;
-    padding-bottom: {{ section.settings.pad_bottom }}px;
-    "
+    padding-bottom: {{ section.settings.pad_bottom }}px;"
   data-reveal
 >
-  <div class="{% if section.settings.container == 'narrow' %}max-w-5xl{% elsif section.settings.container == 'wide' %}max-w-7xl{% else %}max-w-screen-xl{% endif %} mx-auto px-4">
-    <div
-      class="grid items-end"
-      style="gap: {{ section.settings.col_gap }}px; grid-template-columns: 1fr minmax(0, 0.9fr);"
-    >
-      {%- comment -%} Left large image {%- endcomment -%}
+  <div class="container">
+    <div class="visit-grid-{{ section.id }}">
+      {%- comment -%} img1 = велике зображення {%- endcomment -%}
       {% if section.settings.image_left != blank %}
-        <div class="visit-col visit-left-{{ section.id }}" style="flex: 1 1 0;" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+        <div class="visit-img-left" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
           <img
             src="{{ section.settings.image_left | image_url: width: 1600 }}"
             alt="{{ section.settings.image_left_alt | escape }}"
-            class="block w-full h-auto object-cover"
+            class="block w-full h-auto object-cover md:min-h-[900px]"
             style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.left_opacity | divided_by: 100.0 }};"
             loading="lazy"
             {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
           >
         </div>
-      {% else %}
-        <div class="visit-col visit-left-{{ section.id }}" style="flex: 1 1 0;"></div>
       {% endif %}
 
-      {%- comment -%} Right: text group + small image {%- endcomment -%}
-      <div class="flex flex-col"
-           style="row-gap: {{ section.settings.inner_gap }}px; color: {{ section.settings.text_color }};">
-        <div class="flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px;" data-reveal>
-          {% if section.settings.title != blank %}
-            <h2 class="m-0 font-normal leading-tight"
-                style="font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }};">
-              {{ section.settings.title }}
-            </h2>
-          {% endif %}
+      {%- comment -%} text {%- endcomment -%}
+      <div class="visit-text flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px; color: {{ section.settings.text_color }};" data-reveal>
+        {% if section.settings.title != blank %}
+          <h2 class="m-0 heading-2"
+              style="color: {{ section.settings.title_color }};">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
 
-          {% if section.settings.text != blank %}
-            <p class="m-0 opacity-90 mb-[16px]"
-               style="font-size: {{ section.settings.text_size }}px;">
-              {{ section.settings.text }}
-            </p>
-          {% endif %}
+        {% if section.settings.text != blank %}
+          <p class="m-0 mb-[16px]">
+            {{ section.settings.text }}
+          </p>
+        {% endif %}
 
-          {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
-            <a href="{{ section.settings.btn_url }}"
-               class="btn btn-light"
-               style="column-gap: 10px; border-color: currentColor; color: {{ section.settings.button_text_color }}; background-color: {{ section.settings.button_bg_color }};">
-              {{ section.settings.btn_label }}
-            </a>
-          {% endif %}
-        </div>
-
-        {% if section.settings.image_right != blank %}
-          <div {% if section.settings.enable_parallax %}data-parallax{% endif %}>
-            <img
-              src="{{ section.settings.image_right | image_url: width: 1200 }}"
-              alt="{{ section.settings.image_right_alt | escape }}"
-              class="block w-full h-auto object-cover"
-              style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.right_opacity | divided_by: 100.0 }};"
-              loading="lazy"
-              {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
-            >
-          </div>
+        {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
+          <a href="{{ section.settings.btn_url }}"
+             class="btn btn-light"
+             style="column-gap:10px; border-color: currentColor; color: {{ section.settings.button_text_color }}; background-color: {{ section.settings.button_bg_color }};">
+            {{ section.settings.btn_label }}
+          </a>
         {% endif %}
       </div>
+
+      {%- comment -%} img2 = менше зображення {%- endcomment -%}
+      {% if section.settings.image_right != blank %}
+        <div class="visit-img-right" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+          <img
+            src="{{ section.settings.image_right | image_url: width: 1200 }}"
+            alt="{{ section.settings.image_right_alt | escape }}"
+            class="block w-full h-auto object-cover md:max-h-[516px]"
+            style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.right_opacity | divided_by: 100.0 }};"
+            loading="lazy"
+            {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
+          >
+        </div>
+      {% endif %}
     </div>
   </div>
 
   <script>
-    // Re-init GSAP hooks for this section (scoped init)
     if (window.initScrollAnimations) {
       window.initScrollAnimations(document.getElementById('visit-{{ section.id }}'));
     }
   </script>
 
   <style>
-    /* Responsive: stack on small screens (<= 1023px) */
-    @media (max-width: 1023px) {
-      #visit-{{ section.id }} .visit-flex-{{ section.id }} {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      #visit-{{ section.id }} .visit-left-{{ section.id }},
-      #visit-{{ section.id }} .visit-right-{{ section.id }} {
-        flex: 1 1 auto !important;
-        width: 100%;
+    /* базова (mobile): дві колонки для зображень по 50%, потім текст */
+    #visit-{{ section.id }} .visit-grid-{{ section.id }}{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+          "img1 img2"
+          "text text";
+      gap: 40px 16px;
+      align-items: end;
+    }
+    #visit-{{ section.id }} .visit-img-left  { grid-area: img1; }
+    #visit-{{ section.id }} .visit-img-right { grid-area: img2; }
+    #visit-{{ section.id }} .visit-text      { grid-area: text; }
+    
+    @media (max-width:1024px){
+        #visit-{{ section.id }} {
+            padding-top: 60px!important;
+            padding-bottom: 60px!important;
+        }
+    }
+
+    /* desktop: img1 ліворуч на дві стрічки, праворуч зверху текст, знизу img2 */
+    @media (min-width:1024px){
+      #visit-{{ section.id }} .visit-grid-{{ section.id }}{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "img1 text"
+            "img1 img2";
+        gap: 0px 100px; 
       }
     }
   </style>
@@ -117,27 +127,12 @@
     { "type": "range", "id": "pad_top", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding top", "default": 48 },
     { "type": "range", "id": "pad_bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Padding bottom", "default": 48 },
 
-    {
-      "type": "select",
-      "id": "container",
-      "label": "Container width",
-      "default": "xl",
-      "options": [
-        { "value": "narrow", "label": "Narrow (max-w-5xl)" },
-        { "value": "xl",     "label": "Standard (max-w-screen-xl)" },
-        { "value": "wide",   "label": "Wide (max-w-7xl)" }
-      ]
-    },
-
-    { "type": "range", "id": "col_gap", "min": 8, "max": 120, "step": 4, "unit": "px", "label": "Gap between columns", "default": 72 },
-    { "type": "range", "id": "inner_gap", "min": 8, "max": 80, "step": 4, "unit": "px", "label": "Gap inside right column", "default": 24 },
-    { "type": "range", "id": "text_gap", "min": 4, "max": 48, "step": 2, "unit": "px", "label": "Gap between title and text", "default": 16 },
+    { "type": "range", "id": "inner_gap", "min": 8, "max": 80, "step": 4, "unit": "px", "label": "Gap between blocks", "default": 24 },
+    { "type": "range", "id": "text_gap", "min": 4, "max": 48, "step": 2, "unit": "px", "label": "Gap inside text block", "default": 16 },
 
     { "type": "color", "id": "title_color", "label": "Title color", "default": "#1A1A1A" },
     { "type": "color", "id": "text_color", "label": "Body text color", "default": "#5B5B5B" },
-    { "type": "range", "id": "title_size", "min": 18, "max": 76, "step": 1, "unit": "px", "label": "Title size", "default": 48 },
-    { "type": "range", "id": "text_size", "min": 12, "max": 22, "step": 1, "unit": "px", "label": "Body text size", "default": 14 },
-
+    
     { "type": "checkbox", "id": "enable_parallax", "label": "Enable parallax on images (uses data-parallax)", "default": true },
 
     { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Image border radius", "default": 16 },
@@ -155,8 +150,8 @@
     { "type": "image_picker", "id": "image_left",  "label": "Left image" },
     { "type": "text", "id": "image_left_alt", "label": "Left image alt" },
 
-    { "type": "image_picker", "id": "image_right", "label": "Right bottom image" },
-    { "type": "text", "id": "image_right_alt", "label": "Right bottom image alt" }
+    { "type": "image_picker", "id": "image_right", "label": "Right image (smaller)" },
+    { "type": "text", "id": "image_right_alt", "label": "Right image alt" }
   ],
   "presets": [
     { "name": "Visit block", "category": "Sections" }

@@ -61,7 +61,7 @@
           {% endfor %}
         </div>
 
-        <div class="swiper-pagination mt-4 w-full"></div>
+        <div class="swiper-pagination mt-4"></div>
       </div>
     </div>
 
@@ -108,6 +108,11 @@
 
 <style>
   #features-{{ section.id }} .swiper { overflow: hidden; }
+
+  #features-{{ section.id }} .swiper-pagination {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
   #features-{{ section.id }} .swiper-pagination .swiper-pagination-bullet {
     margin-top: 6px;
