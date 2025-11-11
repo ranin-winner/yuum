@@ -9,14 +9,14 @@
     "header_menu_1": "new-menu",
     "header_menu_2": "",
     "mm1_enable": true,
-    "mm1_categories_heading": "Our collections",
+    "mm1_categories_heading": "Trending",
     "mm1_collections": [
       "build-your-bundle",
       "cool-fruit-collection",
       "cream-ice-mochi-collection"
     ],
-    "mm1_product_heading": "Trending",
-    "mm1_product": "choco-mochi",
+    "mm1_product_heading": "Our collections",
+    "mm1_product": "all-flavours-discovery-mochi-bundle",
     "mm2_categories_heading": "",
     "mm2_show_collection_images": false,
     "mm2_product_heading": "",
