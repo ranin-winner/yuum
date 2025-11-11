@@ -29,10 +29,6 @@
     background: rgba(231, 231, 231, 1);
     transition: all .6ms;
 
-    .b-header__list-link, .group button, .b-header__list-link.m-active{
-      color: rgba(71, 71, 71, 1);
-    }
-
     .group button svg path {
       fill: rgba(71, 71, 71, 1);
     }
@@ -190,7 +186,7 @@
     text-align: center;
     width: 20px;
     height: 20px;
-    @include ft.font(body-600, 12px, 1.25);
+    @include ft.font(body-600, 12px, 1.5);
   }
 
   &__account {
@@ -871,4 +867,8 @@ body.overflow-hidden {
   .product-card {
     justify-self: center;
   }
+}
+
+.b-header .absolute.top-full.left-0.w-full {
+  border-color: #ADAEB0;
 }
