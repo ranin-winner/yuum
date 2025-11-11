@@ -49,13 +49,13 @@
     </div>
 
     {%- comment -%} Middle: newsletter (left) + link columns (right) {%- endcomment -%}
-    <div class="mt-10 grid gap-10 lg:gap-16 lg:grid-cols-12 items-start">
+    <div class="mt-16 grid gap-16 lg:gap-20 lg:grid-cols-12 items-start">
       <div class="lg:col-span-5">
         {% if settings.newsletter_title != blank %}
-          <p class="mb-6 max-w-xl leading-relaxed opacity-90">{{ settings.newsletter_title }}</p>
+          <p class="mb-8 max-w-xl leading-relaxed opacity-90">{{ settings.newsletter_title }}</p>
         {% endif %}
 
-        {% form 'customer', class: 'flex flex-col sm:flex-row items-center gap-4 max-w-xl' %}
+        {% form 'customer', class: 'flex flex-col sm:flex-row items-start gap-6 max-w-xl' %}
           <div class="relative w-full">
             <input
               type="email"
@@ -71,15 +71,15 @@
         {% endform %}
       </div>
 
-      <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-12">
         {%- comment -%} CATALOGUE {%- endcomment -%}
         <div>
           {% if settings.footer_menu_title_1 != blank %}
-            <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_1 }}</h3>
+            <h3 class="b-footer__title mb-8">{{ settings.footer_menu_title_1 }}</h3>
           {% endif %}
           {% for link in settings.footer_menu_1.links %}
-            <div class="mb-3 font-Aksen">
-              <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+            <div class="mb-4 last:mb-0">
+              <a href="{{ link.url }}" class="b-footer__link">{{ link.title }}</a>
             </div>
           {% endfor %}
         </div>
@@ -87,11 +87,11 @@
         {%- comment -%} COMPANY {%- endcomment -%}
         <div>
           {% if settings.footer_menu_title_2 != blank %}
-            <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_2 }}</h3>
+            <h3 class="b-footer__title mb-8">{{ settings.footer_menu_title_2 }}</h3>
           {% endif %}
           {% for link in settings.footer_menu_2.links %}
-            <div class="mb-3 font-Aksen">
-              <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+            <div class="mb-4 last:mb-0">
+              <a href="{{ link.url }}" class="b-footer__link">{{ link.title }}</a>
             </div>
           {% endfor %}
         </div>
@@ -99,30 +99,30 @@
         {%- comment -%} INFORMATION {%- endcomment -%}
         <div>
           {% if settings.footer_menu_title_3 != blank %}
-            <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">{{ settings.footer_menu_title_3 }}</h3>
+            <h3 class="b-footer__title mb-8">{{ settings.footer_menu_title_3 }}</h3>
           {% endif %}
           {% for link in settings.footer_menu_3.links %}
-            <div class="mb-3 font-Aksen">
-              <a href="{{ link.url }}" class="opacity-90 hover:opacity-100 transition">{{ link.title }}</a>
+            <div class="mb-4 last:mb-0">
+              <a href="{{ link.url }}" class="b-footer__link">{{ link.title }}</a>
             </div>
           {% endfor %}
         </div>
 
         {%- comment -%} CONTACT US {%- endcomment -%}
         <div>
-          <h3 class="text-sm uppercase tracking-wide mb-6 opacity-80">CONTACT US</h3>
+          <h3 class="b-footer__title mb-8">CONTACT US</h3>
           {% if settings.contact_phone != blank %}
-            <div class="mb-3 font-Aksen">
-              <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="opacity-90 hover:opacity-100 transition">{{ settings.contact_phone }}</a>
+            <div class="mb-4 last:mb-0">
+              <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="b-footer__link">{{ settings.contact_phone }}</a>
             </div>
           {% endif %}
           {% if settings.contact_email != blank %}
-            <div class="mb-3 font-Aksen">
-              <a href="mailto:{{ settings.contact_email }}" class="opacity-90 hover:opacity-100 transition">{{ settings.contact_email }}</a>
+            <div class="mb-4 last:mb-0">
+              <a href="mailto:{{ settings.contact_email }}" class="b-footer__link">{{ settings.contact_email }}</a>
             </div>
           {% endif %}
-          <div class="mb-3 font-Aksen">
-            <a href="#" class="opacity-90 hover:opacity-100 transition">WhatsApp</a>
+          <div class="mb-4 last:mb-0">
+            <a href="#" class="b-footer__link">WhatsApp</a>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@
 
     {%- comment -%} Big tagline row {%- endcomment -%}
     {% if settings.footer_tagline_image != blank %}
-      <div class="mt-12 lg:mt-16 flex justify-center">
+      <div class="mt-20 lg:mt-24 flex justify-center">
         <img
           src="{{ settings.footer_tagline_image | image_url: width: 1600 }}"
           alt="{{ settings.footer_tagline | default: shop.name }}"
@@ -140,7 +140,7 @@
         >
       </div>
     {% elsif settings.footer_tagline != blank %}
-      <div class="mt-12 lg:mt-16">
+      <div class="mt-20 lg:mt-24">
         <div class="leading-none tracking-tight opacity-20 select-none text-center"
              style="font-size: {{ settings.footer_tagline_size | default: 128 }}px; line-height: 0.9;">
           {{ settings.footer_tagline }}
@@ -149,16 +149,16 @@
     {% endif %}
 
     {%- comment -%} Bottom bar {%- endcomment -%}
-    <div class="mt-20 border-t border-white/20 pt-10 flex flex-col-reverse md:flex-row items-center justify-between gap-4">
-      <div class="text-sm opacity-80">
+    <div class="mt-24 border-t border-white/20 pt-10 flex flex-col-reverse md:flex-row items-center justify-between gap-6">
+      <div class="b-footer__copyright">
         {{ settings.copyright_text }}
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-8">
         {% comment %} You can use footer_menu_4 for privacy links here {% endcomment %}
         {% if settings.footer_menu_4 and settings.footer_menu_4.links.size > 0 %}
           {% for link in settings.footer_menu_4.links %}
-            <a href="{{ link.url }}" class="text-sm opacity-80 hover:opacity-100 transition">{{ link.title }}</a>
+            <a href="{{ link.url }}" class="b-footer__bottom-link">{{ link.title }}</a>
           {% endfor %}
         {% endif %}
       </div>
