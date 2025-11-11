@@ -49,23 +49,25 @@
     </div>
 
     {%- comment -%} Middle: newsletter (left) + link columns (right) {%- endcomment -%}
-    <div class="mt-16 grid gap-16 lg:gap-20 lg:grid-cols-12 items-start">
+    <div class="mt-16 grid gap-20 lg:gap-24 lg:grid-cols-12 items-start">
       <div class="lg:col-span-5">
         {% if settings.newsletter_title != blank %}
-          <p class="mb-8 max-w-xl leading-relaxed opacity-90">{{ settings.newsletter_title }}</p>
+          <p class="b-footer__newsletter-title mb-10 max-w-2xl">{{ settings.newsletter_title }}</p>
+        {% else %}
+          <p class="b-footer__newsletter-title mb-10 max-w-2xl">Don't miss out on new products, exclusive offers and much more by joining the Yuum newsletter</p>
         {% endif %}
 
-        {% form 'customer', class: 'flex flex-col sm:flex-row items-start gap-6 max-w-xl' %}
+        {% form 'customer', class: 'flex flex-col sm:flex-row items-start gap-6 max-w-lg' %}
           <div class="relative w-full">
             <input
               type="email"
               name="contact[email]"
-              class="b-footer-input peer w-full bg-transparent border-0 border-b border-white/60 focus:border-white outline-none placeholder:text-white/50 py-2"
+              class="b-footer-input peer w-full bg-transparent border-0 border-b border-white/60 focus:border-white outline-none placeholder:text-white/50 py-3"
               placeholder="{{ settings.newsletter_placeholder }}"
               required
             >
           </div>
-          <button type="submit" class="btn btn-light !font-normal shrink-0 inline-flex items-center justify-center rounded-full px-6 py-2 border border-white/80 bg-white text-black hover:opacity-90 transition">
+          <button type="submit" class="btn btn-light !font-normal shrink-0 inline-flex items-center justify-center rounded-full px-8 py-3 border border-white/80 bg-white text-black hover:opacity-90 transition min-w-[200px]">
             {{ settings.newsletter_button_text }}
           </button>
         {% endform %}
