@@ -423,18 +423,20 @@
         <div x-data="toastBackToBuy('#pdp-buy-buttons')"
         x-show="visible"
         x-transition.opacity.duration.200ms
-        class="md:hidden fixed inset-x-0 bottom-0 z-50 w-full">
+        class="fixed inset-x-0 bottom-0 z-50 w-full">
             <div class="rounded-tl-[20px] rounded-tr-[20px] border border-[#DADADA] bg-white shadow-regular p-[16px]">
-                <h4 class="text-[18px] leading-[120%] text-[#474747] truncate mb-[12px]">
-                {{ product.title }}
-                </h4>
-                <button type="button"
-                    @click="scrollToBuy"
-                    class="w-full inline-flex items-center justify-center px-4 py-[8px] rounded-full
-                            bg-[#474747] text-white text-[12px] leading-4 tracking-[3px] uppercase
-                            transition hover:opacity-90 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
-                Back to buy
-                </button>
+                <div class="flex flex-wrap justify-between items-end">
+                    <h4 class="text-[18px] leading-[120%] text-[#474747] truncate md:mb-[0px] mb-[12px]">
+                    {{ product.title }}
+                    </h4>
+                    <button type="button"
+                        @click="scrollToBuy"
+                        class="md:w-[320px] w-full inline-flex items-center justify-center px-4 py-[8px] rounded-full
+                                bg-[#474747] text-white text-[12px] leading-4 tracking-[3px] uppercase
+                                transition hover:opacity-90 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
+                    Back to buy
+                    </button>
+                </div>
             </div>
         </div>
   </section>
@@ -455,6 +457,7 @@ document.addEventListener('alpine:init', () => {
     io: null,
     headerOffset: 0,
     ro: null,
+    showOnDesktop: opts.showOnDesktop !== false, // за замовчуванням true
 
     init() {
       const target = document.querySelector(targetSelector)
@@ -467,23 +470,20 @@ document.addEventListener('alpine:init', () => {
         let total = 0
         document.querySelectorAll(selector).forEach(el => {
           if (!el) return
-          const rect = el.getBoundingClientRect()
-          // врахуємо тільки видимі зверху елементи
           const style = getComputedStyle(el)
-          const isHidden = style.display === 'none' || style.visibility === 'hidden'
-          if (!isHidden) total += rect.height
+          if (style.display === 'none' || style.visibility === 'hidden') return
+          total += el.getBoundingClientRect().height
         })
         return total
       }
 
       const computeOffset = () => {
-        const extra = 12 // невеликий запас
-        this.headerOffset = (opts.offsetPx ?? 0) + getTotalHeight(selHeader) + getTotalHeight(selAnnounce) + extra
+        const extra = 12
+        this.headerOffset =
+          (opts.offsetPx ?? 0) + getTotalHeight(selHeader) + getTotalHeight(selAnnounce) + extra
       }
 
       computeOffset()
-
-      // оновлюємо офсет при зміні розміру/висоти хедера
       this.ro = new ResizeObserver(() => computeOffset())
       document.querySelectorAll(selHeader + ',' + selAnnounce).forEach(el => this.ro.observe(el))
       window.addEventListener('resize', computeOffset)
@@ -498,14 +498,16 @@ document.addEventListener('alpine:init', () => {
         this.io.observe(target)
       }
       makeObserver()
-      setTimeout(makeObserver, 0) // на випадок асинхронного рендеру хедера
+      setTimeout(makeObserver, 0)
 
       this.onScroll = () => { if (window.scrollY < this.threshold) this.visible = false }
       window.addEventListener('scroll', this.onScroll, { passive: true })
     },
 
     updateVisibility(away) {
-      this.visible = away && window.innerWidth < 768 && window.scrollY > this.threshold
+      // було: this.visible = away && window.innerWidth < 768 && window.scrollY > this.threshold
+      const widthOk = this.showOnDesktop || window.innerWidth < 768
+      this.visible = away && widthOk && window.scrollY > this.threshold
     },
 
     scrollToBuy() {
@@ -524,31 +526,30 @@ document.addEventListener('alpine:init', () => {
   }))
 })
 </script>
-
 <script>
-// smooth-anchors.js
-document.addEventListener('click', (e) => {
-  const link = e.target.closest('.bundle_nav a[href^="#"]');
-  if (!link) return;
+    // smooth-anchors.js
+    document.addEventListener('click', (e) => {
+    const link = e.target.closest('.bundle_nav a[href^="#"]');
+    if (!link) return;
 
-  const hash = link.getAttribute('href');
-  const id = decodeURIComponent(hash.slice(1));
-  const target = document.getElementById(id);
-  if (!target) return;
+    const hash = link.getAttribute('href');
+    const id = decodeURIComponent(hash.slice(1));
+    const target = document.getElementById(id);
+    if (!target) return;
 
-  e.preventDefault();
+    e.preventDefault();
 
-  // висота стікі-хедера, якщо задаєш десь раніше: :root { --sticky-offset: 140px; }
-  const root = document.documentElement;
-  const varVal = getComputedStyle(root).getPropertyValue('--sticky-offset').trim();
-  const offset = parseInt(varVal, 10) || 0;
+    // висота стікі-хедера, якщо задаєш десь раніше: :root { --sticky-offset: 140px; }
+    const root = document.documentElement;
+    const varVal = getComputedStyle(root).getPropertyValue('--sticky-offset').trim();
+    const offset = parseInt(varVal, 10) || 0;
 
-  const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
 
-  window.scrollTo({ top, behavior: 'smooth' });
-  // оновлюємо хеш без миттєвого стрибка
-  history.replaceState(null, '', `#${id}`);
-});
+    window.scrollTo({ top, behavior: 'smooth' });
+    // оновлюємо хеш без миттєвого стрибка
+    history.replaceState(null, '', `#${id}`);
+    });
 </script>
 
 
