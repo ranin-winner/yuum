@@ -81,6 +81,9 @@
 
   .btn.btn-light {
     min-width: 200px;
+    @include cfg.media(max-m) {
+      width: 100%;
+    }
   }
 
   .b-footer-input {
@@ -93,5 +96,8 @@
 
   .footer-space {
     max-width: 90%;
+    @include cfg.media(max-m) {
+      max-width: 100%;
+    }
   }
 }
