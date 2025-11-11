@@ -454,15 +454,18 @@
         fill: #fff;
       }
 
-      .b-header__mobile-left svg path,
-      .b-header__mobile-left svg {
+      // ONLY target the specific hamburger and search buttons in header
+      .b-header__hamburger svg path,
+      .b-header__search-toggle svg,
+      .b-header__mobile-menu .b-header__mobile-icon {
         stroke: #fff;
         color: #fff;
       }
     }
 
     // Виправлений селектор - & має бути на початку
-    &.megamenu-open:not(.m-sticky) {
+    &.megamenu-open:not(.m-sticky),
+    &.search-open:not(.m-sticky) {
       .b-header__list-link, .group button, .b-header__list-link.m-active {
         color: #474747;
       }
@@ -479,8 +482,10 @@
         fill: #474747;
       }
 
-      .b-header__mobile-left svg path,
-      .b-header__mobile-left svg {
+      // ONLY target the specific hamburger and search buttons in header
+      .b-header__hamburger svg path,
+      .b-header__search-toggle svg,
+      .b-header__mobile-menu .b-header__mobile-icon {
         stroke: #474747;
         color: #474747;
       }
@@ -503,8 +508,10 @@
         fill: #474747;
       }
 
-      .b-header__mobile-left svg path,
-      .b-header__mobile-left svg {
+      // ONLY target the specific hamburger and search buttons in header
+      .b-header__hamburger svg path,
+      .b-header__search-toggle svg,
+      .b-header__mobile-menu .b-header__mobile-icon {
         stroke: #474747;
         color: #474747;
       }
@@ -513,19 +520,22 @@
 
   .header--over-hero .logo--light,
   .header--over-hero.b-header.m-sticky .logo--dark,
-  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--dark {
+  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--dark,
+  .header--over-hero.b-header.search-open:not(.m-sticky) .logo--dark {
     display: inline-flex;
   }
 
   .logo--light,
   .header--over-hero .logo--dark,
   .header--over-hero.b-header.m-sticky .logo--light,
-  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--light {
+  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--light,
+  .header--over-hero.b-header.search-open:not(.m-sticky) .logo--light {
     display: none;
   }
 
-  // Фон для wrapper коли мегаменю відкрите
-  .b-header__wrapper.has-megamenu-open {
+  // Фон для wrapper коли мегаменю або search відкрите
+  .b-header__wrapper.has-megamenu-open,
+  .b-header__wrapper.has-search-open {
     background-color: #e7e7e7 !important;
   }
 
