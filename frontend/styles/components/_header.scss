@@ -872,3 +872,7 @@ body.overflow-hidden {
 .b-header .absolute.top-full.left-0.w-full {
   border-color: #ADAEB0;
 }
+
+.b-header.m-sticky .b-header__promo {
+  display: none;
+}
