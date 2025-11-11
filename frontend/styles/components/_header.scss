@@ -761,11 +761,12 @@ body.overflow-hidden {
       @include ft.font(heading-400, 18px, 1.33);
       display: inline-flex;
       color: #474747;
+      margin-bottom: 2.5rem;
     }
 
     &-text {
       @include ft.font(body-400, 14px, 1.4);
-      margin-bottom: 12px;
+      margin-bottom: 2.5rem;
       color: #474747;
     }
 
@@ -834,7 +835,7 @@ body.overflow-hidden {
   }
 
   &__price {
-    @include ft.font(body-600, 16px, 1.25);
+    @include ft.font(body-400, 16px, 1.25);
     color: #474747;
 
     .opacity-60 {

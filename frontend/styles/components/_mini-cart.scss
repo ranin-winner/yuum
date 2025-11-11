@@ -675,7 +675,7 @@ $padding-xxl: 35px;
 
       &__text {
         @include fonts.font(body-400, 13px, 1.4);
-        text-align: center;
+        text-align: left;
       }
     }
 
