@@ -50,14 +50,14 @@
 
     {%- comment -%} Middle: newsletter (left) + link columns (right) {%- endcomment -%}
     <div class="mt-16 grid gap-20 lg:gap-24 lg:grid-cols-12 items-start">
-      <div class="lg:col-span-5">
+      <div class="lg:col-span-5 footer-space">
         {% if settings.newsletter_title != blank %}
-          <p class="b-footer__newsletter-title mb-10 max-w-2xl">{{ settings.newsletter_title }}</p>
+          <p class="b-footer__newsletter-title mb-10 max-w-xxl">{{ settings.newsletter_title }}</p>
         {% else %}
-          <p class="b-footer__newsletter-title mb-10 max-w-2xl">Don't miss out on new products, exclusive offers and much more by joining the Yuum newsletter</p>
+          <p class="b-footer__newsletter-title mb-10 max-w-xxl">Don't miss out on new products, exclusive offers and much more by joining the Yuum newsletter</p>
         {% endif %}
 
-        {% form 'customer', class: 'flex flex-col sm:flex-row items-start gap-6 max-w-lg' %}
+        {% form 'customer', class: 'flex flex-col sm:flex-row items-start gap-6 max-w-xxl' %}
           <div class="relative w-full">
             <input
               type="email"

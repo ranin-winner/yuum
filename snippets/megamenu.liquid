@@ -309,6 +309,23 @@
       hoverTimer: null,
       isDesktop: window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1024,
 
+      init() {
+        this.$watch('isOpened', (value) => {
+          const header = document.querySelector('.b-header');
+          const wrapper = document.querySelector('.b-header__wrapper');
+
+          if (header && wrapper) {
+            if (value) {
+              header.classList.add('megamenu-open');
+              wrapper.classList.add('has-megamenu-open');
+            } else {
+              header.classList.remove('megamenu-open');
+              wrapper.classList.remove('has-megamenu-open');
+            }
+          }
+        });
+      },
+
       handleResize() {
         this.isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1024;
         if (!this.isDesktop) this.closeMegamenu();

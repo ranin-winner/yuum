@@ -437,48 +437,79 @@
   }
 
   .b-header {
-    border-color: #fff;
-    position: relative;
-    z-index: 999;
+    &:not(.m-sticky) {
+      .b-header__list-link, .group button, .b-header__list-link.m-active {
+        color: #fff;
+      }
 
-  // Початковий стан (до скролу) - білий колір
-  &:not(.m-sticky) {
-    .b-header__list-link, .group button, .b-header__list-link.m-active{
-      color: #fff !important;
+      .group button svg path {
+        fill: #fff;
+      }
+
+      .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+        background: #fff;
+      }
+
+      .b-header__cartlogin svg path {
+        fill: #fff;
+      }
     }
 
-    .group button svg path {
-      fill: #fff !important;
+    // Виправлений селектор - & має бути на початку
+    &.megamenu-open:not(.m-sticky) {
+      .b-header__list-link, .group button, .b-header__list-link.m-active {
+        color: #474747;
+      }
+
+      .group button svg path {
+        fill: #474747;
+      }
+
+      .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+        background: #474747;
+      }
+
+      .b-header__cartlogin svg path {
+        fill: #474747;
+      }
     }
 
-    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
-      background: #fff !important;
-    }
+    &.m-sticky {
+      .b-header__list-link, .group button, .b-header__list-link.m-active {
+        color: #474747;
+      }
 
-    .b-header__cartlogin svg path {
-      fill: #fff !important;
+      .group button svg path {
+        fill: #474747;
+      }
+
+      .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+        background: #474747;
+      }
+
+      .b-header__cartlogin svg path {
+        fill: #474747;
+      }
     }
   }
 
-  // Після скролу (sticky) - темний колір
-  &.m-sticky {
-    .b-header__list-link, .group button, .b-header__list-link.m-active{
-      color: #474747 !important;
-    }
-
-    .group button svg path {
-      fill: #474747 !important;
-    }
-
-    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
-      background: #474747 !important;
-    }
-
-    .b-header__cartlogin svg path {
-      fill: #474747 !important;
-    }
+  .header--over-hero .logo--light,
+  .header--over-hero.b-header.m-sticky .logo--dark,
+  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--dark {
+    display: inline-flex;
   }
-}
+
+  .logo--light,
+  .header--over-hero .logo--dark,
+  .header--over-hero.b-header.m-sticky .logo--light,
+  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--light {
+    display: none;
+  }
+
+  // Фон для wrapper коли мегаменю відкрите
+  .b-header__wrapper.has-megamenu-open {
+    background-color: #e7e7e7 !important;
+  }
 
   #insta-feed {
     margin-bottom: 60px !important;
