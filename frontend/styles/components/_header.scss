@@ -306,11 +306,6 @@
       background: none;
       border: none;
       cursor: pointer;
-
-      &:focus {
-        outline: 2px solid #474747;
-        outline-offset: 2px;
-      }
     }
 
     &-icon {
@@ -372,11 +367,6 @@
         background-color: rgba(71, 71, 71, 0.1);
       }
 
-      &:focus {
-        outline: 2px solid #474747;
-        outline-offset: 2px;
-      }
-
       &-icon {
         width: 24px;
         height: 24px;
@@ -432,11 +422,6 @@
         background-color: #e7e7e7;
         color: #000000;
       }
-
-      &:focus {
-        outline: 2px solid #474747;
-        outline-offset: -2px;
-      }
     }
 
     &-text {
@@ -465,15 +450,10 @@
       &:hover {
         background-color: #e7e7e7;
       }
-
-      &:focus {
-        outline: 2px solid #474747;
-        outline-offset: -2px;
-      }
     }
 
     &-dropdown-content {
-      background: #fafafa;
+      background: #e7e7e7;
       border-top: 1px solid #ADB0B0;
     }
 
@@ -513,11 +493,6 @@
       &:focus {
         color: #474747;
         background-color: #e7e7e7;
-      }
-
-      &:focus {
-        outline: 2px solid #474747;
-        outline-offset: -2px;
       }
     }
 
@@ -609,11 +584,6 @@
         background-color: #474747;
         color: #ffffff;
         transform: translateY(-2px);
-      }
-
-      &:focus {
-        outline: 2px solid #474747;
-        outline-offset: 2px;
       }
     }
 
