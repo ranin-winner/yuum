@@ -453,6 +453,12 @@
       .b-header__cartlogin svg path {
         fill: #fff;
       }
+
+      .b-header__mobile-left svg path,
+      .b-header__mobile-left svg {
+        stroke: #fff;
+        color: #fff;
+      }
     }
 
     // Виправлений селектор - & має бути на початку
@@ -472,6 +478,12 @@
       .b-header__cartlogin svg path {
         fill: #474747;
       }
+
+      .b-header__mobile-left svg path,
+      .b-header__mobile-left svg {
+        stroke: #474747;
+        color: #474747;
+      }
     }
 
     &.m-sticky {
@@ -489,6 +501,12 @@
 
       .b-header__cartlogin svg path {
         fill: #474747;
+      }
+
+      .b-header__mobile-left svg path,
+      .b-header__mobile-left svg {
+        stroke: #474747;
+        color: #474747;
       }
     }
   }
@@ -527,6 +545,29 @@
       border-radius: 20px;
       overflow: hidden;
     }
+  }
+
+  .b-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .b-header__mobile-left {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .b-header__cartlogin {
+    flex: 1;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .b-header__logo {
+    justify-content: center;
   }
 }
 
