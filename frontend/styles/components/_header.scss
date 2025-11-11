@@ -188,11 +188,9 @@
     background-color: var(--color_1);
     color: #ffffff;
     text-align: center;
-    font-size: 1.2rem;
-    line-height: 20px;
     width: 20px;
     height: 20px;
-    @include ft.font(body-600, 12px, 1);
+    @include ft.font(body-600, 12px, 1.25);
   }
 
   &__account {
