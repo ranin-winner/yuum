@@ -19,7 +19,7 @@
       <div class="flex-1 relative w-full">
         {%- comment -%} optional decorative bg image (desktop/mobile) {%- endcomment -%}
         {% if section.settings.bg_image_desktop or section.settings.bg_image_mobile %}
-          <picture aria-hidden="true" class="pointer-events-none select-none block">
+          <picture aria-hidden="true" class="pointer-events-none select-none block bundle-img">
             {% if section.settings.bg_image_mobile != blank %}
               <source media="(max-width: 767px)" srcset="{{ section.settings.bg_image_mobile | image_url: width: 768 }}">
             {% endif %}
@@ -27,7 +27,7 @@
               <img
                 src="{{ section.settings.bg_image_desktop | image_url: width: 1200 }}"
                 alt=""
-                class="w-full h-auto object-contain opacity-100"
+                class="w-full  md:min-h-[520px] max-h-[409px]"
                 loading="lazy">
             {% endif %}
           </picture>
@@ -61,7 +61,7 @@
 
       <div class="flex-1 build-bundle__text md:ml-[-20px]">
         {%- if section.settings.show_badge -%}
-          <div class="inline-block relative mb-6">
+          <div class="inline-block relative md:mb-[40px] mb-[26px]">
             {% if section.settings.bird_image %}
               {%- assign bird_x_d = section.settings.bird_offset_x_desktop | default: 28 -%}
               {%- assign bird_y_d = section.settings.bird_offset_y_desktop | default: -28 -%}
@@ -93,7 +93,7 @@
         {% endif %}
 
         {% if section.settings.text != blank %}
-          <p class="mt-[12px] mb-[24px] text-white/85 text-[18px] md:text-[24px] max-w-[44ch] font-normal">
+          <p class="mt-[12px] mb-[24px] text-white/85 text-[16px] md:text-[18px] leading-[24px] max-w-[44ch]">
             {{ section.settings.text }}
           </p>
         {% endif %}
@@ -102,7 +102,7 @@
           <ul class="mt-6 space-y-2 md:flex-row flex-col flex justify-between md:items-center gap-[16px] md:gap-[24px] md:max-w-[500px]">
             {%- for block in section.blocks -%}
               {%- if block.type == 'feature' -%}
-                <li {{ block.shopify_attributes }} class="text-white/90 font-normal text-[18px] md:text-[24px] flex items-start gap-2">
+                <li {{ block.shopify_attributes }} class="text-white md:leading-[28px] leading-[24px] font-normal text-[18px] md:text-[24px] flex items-start gap-2">
                   {% if block.settings.icon != blank %}
                     <img src="{{ block.settings.icon | image_url: width: 40 }}" alt="" class="w-4 h-4 mt-[2px]" loading="lazy">
                   {% endif %}
@@ -114,7 +114,7 @@
         {%- endif -%}
 
         {% if section.settings.btn_label != blank %}
-          <div class="mt-8">
+          <div class="md:mt-[40px] mt-[32px]">
             <a href="{{ section.settings.btn_link | default: '#' }}"
                class="btn btn-light btn-light-no-border !font-normal">
               {{ section.settings.btn_label }}
