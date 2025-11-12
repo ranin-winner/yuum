@@ -38,4 +38,67 @@
     padding-bottom: 40px;
     margin-bottom: 40px;
   }
+
+  &__title {
+    @include cfg.font(body-400, 14px, 1.14);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 32px;
+  }
+
+  &__link {
+    @include cfg.font(body-400, 16px, 1.375);
+    letter-spacing: 0.6px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    vertical-align: middle;
+    display: block;
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__copyright,
+  &__bottom-link {
+    @include cfg.font(body-400, 14px, 1.14);
+    opacity: 0.8;
+  }
+
+  &__bottom-link {
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .btn.btn-light {
+    min-width: 200px;
+    @include cfg.media(max-m) {
+      width: 100%;
+    }
+  }
+
+  .b-footer-input {
+    border-bottom: 1px solid rgb(231, 231, 231) !important;
+    border-radius: 0 !important;
+  }
+
+  .relative .w-full {
+    min-width: 100%;
+  }
+
+  .footer-space {
+    max-width: 90%;
+    @include cfg.media(max-m) {
+      max-width: 100%;
+    }
+  }
 }

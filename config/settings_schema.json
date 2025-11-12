@@ -552,7 +552,7 @@
         "type": "text",
         "id": "newsletter_placeholder",
         "label": "Newsletter Placeholder",
-        "default": "email@gmail.com"
+        "default": "Email"
       },
       {
         "type": "text",

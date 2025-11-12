@@ -131,7 +131,7 @@
     transition: all 0.3s ease;
     font-size: 14px;
     border-radius: 4px;
-    
+
     li {
         padding: 10px 16px;
         &:hover {
@@ -140,7 +140,7 @@
         }
     }
  }
-  
+
 
 
 
@@ -161,14 +161,14 @@
     border-right: none!important;
 
     &::placeholder { color: #C2C2C2!important; }
-    &:focus { 
-        outline: none!important; 
-        border-bottom: 1px solid #78B956!important; 
+    &:focus {
+        outline: none!important;
+        border-bottom: 1px solid #78B956!important;
         box-shadow: none!important;
     }
 
     @include cfg.autofill-fix(#EEEEEE, #1a1a1a, #474747);
-  } 
+  }
 
   .body-2 {
     @include cfg.body-2;
@@ -437,25 +437,106 @@
   }
 
   .b-header {
-    border-color: #fff;
-    position: relative;
-    z-index: 999;
+    &:not(.m-sticky) {
+      .b-header__list-link, .group button, .b-header__list-link.m-active {
+        color: #fff;
+      }
 
-    .b-header__list-link, .group button, .b-header__list-link.m-active{
-      color: #fff !important;
+      .group button svg path {
+        fill: #fff;
+      }
+
+      .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+        background: #fff;
+      }
+
+      .b-header__cartlogin svg path {
+        fill: #fff;
+      }
+
+      // ONLY target the specific hamburger and search buttons in header
+      .b-header__hamburger svg path,
+      .b-header__search-toggle svg,
+      .b-header__mobile-menu .b-header__mobile-icon {
+        stroke: #fff;
+        color: #fff;
+      }
     }
 
-    .group button svg path {
-      fill: #fff !important;
+    // Виправлений селектор - & має бути на початку
+    &.megamenu-open:not(.m-sticky),
+    &.search-open:not(.m-sticky) {
+      .b-header__list-link, .group button, .b-header__list-link.m-active {
+        color: #474747;
+      }
+
+      .group button svg path {
+        fill: #474747;
+      }
+
+      .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+        background: #474747;
+      }
+
+      .b-header__cartlogin svg path {
+        fill: #474747;
+      }
+
+      // ONLY target the specific hamburger and search buttons in header
+      .b-header__hamburger svg path,
+      .b-header__search-toggle svg,
+      .b-header__mobile-menu .b-header__mobile-icon {
+        stroke: #474747;
+        color: #474747;
+      }
     }
 
-    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
-      background: #fff !important;
-    }
+    &.m-sticky {
+      .b-header__list-link, .group button, .b-header__list-link.m-active {
+        color: #474747;
+      }
 
-    .b-header__cartlogin svg path {
-      fill: #fff !important;
+      .group button svg path {
+        fill: #474747;
+      }
+
+      .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+        background: #474747;
+      }
+
+      .b-header__cartlogin svg path {
+        fill: #474747;
+      }
+
+      // ONLY target the specific hamburger and search buttons in header
+      .b-header__hamburger svg path,
+      .b-header__search-toggle svg,
+      .b-header__mobile-menu .b-header__mobile-icon {
+        stroke: #474747;
+        color: #474747;
+      }
     }
+  }
+
+  .header--over-hero .logo--light,
+  .header--over-hero.b-header.m-sticky .logo--dark,
+  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--dark,
+  .header--over-hero.b-header.search-open:not(.m-sticky) .logo--dark {
+    display: inline-flex;
+  }
+
+  .logo--light,
+  .header--over-hero .logo--dark,
+  .header--over-hero.b-header.m-sticky .logo--light,
+  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--light,
+  .header--over-hero.b-header.search-open:not(.m-sticky) .logo--light {
+    display: none;
+  }
+
+  // Фон для wrapper коли мегаменю або search відкрите
+  .b-header__wrapper.has-megamenu-open,
+  .b-header__wrapper.has-search-open {
+    background-color: #e7e7e7 !important;
   }
 
   #insta-feed {
@@ -474,6 +555,29 @@
       border-radius: 20px;
       overflow: hidden;
     }
+  }
+
+  .b-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .b-header__mobile-left {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .b-header__cartlogin {
+    flex: 1;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .b-header__logo {
+    justify-content: center;
   }
 }
 
@@ -497,33 +601,33 @@
     }
 }
 
-// checkbox 
+// checkbox
 .custom-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 32px;
     cursor: pointer;
-    
+
     input[type="checkbox"] {
       position: absolute;
       opacity: 0;
       cursor: pointer;
-      
+
       &:checked + .checkbox-box {
         background-color: #474747;
         border-color: #474747;
-        
+
         &::after {
           display: block;
         }
       }
-      
+
       &:focus + .checkbox-box {
         box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.3);
       }
     }
-    
+
     .checkbox-box {
       position: relative;
       width: 24px;
@@ -531,7 +635,7 @@
       border: 2px solid #9ca3af;
       border-radius: 6px;
       flex-shrink: 0;
-      
+
       &::after {
         content: '';
         position: absolute;
@@ -545,7 +649,7 @@
         transform: rotate(45deg);
       }
     }
-    
+
     .checkbox-label {
       color: #374151;
       user-select: none;
@@ -569,11 +673,11 @@
 }
 
 // whosale
-// .careers-section 
-// .careers-content 
-// .careers-image-wrapper, 
-// .careers-section 
-// .careers-content 
+// .careers-section
+// .careers-content
+// .careers-image-wrapper,
+// .careers-section
+// .careers-content
 // .careers-person-wrapper {
 //     @media (max-width: 1439px) {
 
@@ -587,7 +691,7 @@
     padding-bottom: 20px;
   }
 
-// bundle styles 
+// bundle styles
 .cOnQpd {
     border-top-right-radius: 32px;
     border-top-left-radius: 32px;
@@ -667,7 +771,7 @@
     max-height: 100% !important;
 }
 
-// modal close btn 
+// modal close btn
 .fWaXZd .ush-vs-close {
     background-color: transparent !important;
 }
