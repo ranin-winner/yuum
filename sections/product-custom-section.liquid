@@ -8,9 +8,12 @@
 {% assign sectionBadgeText = section.settings.section_badge_text %}
 {% assign sectionButtonText = section.settings.section_button_text %}
 
+{% assign sectionMargin = section.settings.margins_top_bottom %}
+
 <section
   id="productSection-{{ section.id }}"
-  class="products-section products-section mx-auto md:py-[60px] py-[40px] palette-{{ section.settings.color_scheme }}"
+  class="products-section products-section mx-auto md:py-[60px] pb-[40px]"
+  style="margin-top: {{ sectionMargin }}px; margin-bottom: {{ sectionMargin }}px;"
 >
     <div class="container">
         <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
@@ -196,6 +199,12 @@
     "type": "product_list",
     "id": "products_list",
     "label": "Products"
+  },
+  {
+    "type": "text",
+    "id": "margins_top_bottom",
+    "label": "Section margin",
+    "default": "0"
   },
   {
     "type": "checkbox",

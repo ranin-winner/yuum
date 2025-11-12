@@ -7,12 +7,14 @@
     <div class="b-hero-banner__content">
         {% if section.settings.title != blank %}
           <h1
-            class="b-hero-banner__title heading-1 mb-[12px]"
+            class="b-hero-banner__title heading-1"
             {% if section.settings.enable_title_fill %}
               data-fill-title
               data-fill-text="{{ section.settings.title | escape }}"
             {% endif %}
-            style="--title-color: {{ section.settings.title_color }};"
+            style="--title-color: {{ section.settings.title_color }};
+                margin-bottom: {{ section.settings.title_mb }}px;
+            "
           >
             {{ section.settings.title }}
           </h1>
@@ -129,7 +131,7 @@
   @media (min-width: 768px) {
     #hero-{{ section.id }}.b-hero-banner {
       height: {{ section.settings.banner_height_desktop }}px;
-      margin-top: {{ section.settings.margin_top_desktop }}px; /* може бути від’ємним */
+      margin-top: {{ section.settings.margin_top_desktop }}px; 
     }
   }
 </style>
@@ -144,6 +146,13 @@
       "label": "Title",
       "id": "title",
       "default": "Welcome!"
+    },
+    {
+        "type": "text",
+        "label": "Title margin bottom",
+        "id":"title_mb",
+        "default": "12",
+        "info": "Please, use onle numbers without (px,rem etc.)"
     },
     {
       "type": "checkbox",
