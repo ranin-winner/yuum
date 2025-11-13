@@ -877,13 +877,15 @@ body.overflow-hidden {
 
 .b-header__promo {
   transition: all .5s ease-in-out 0ms;
-  transform: translateY(0);
-  opacity: 1;
+  max-height: 100px;
+  overflow: hidden;
 }
 
 .b-header.m-sticky .b-header__promo {
-  transform: translateY(-100%);
+  max-height: 0;
   opacity: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .template-index,

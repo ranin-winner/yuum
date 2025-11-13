@@ -1,14 +1,10 @@
 export function headerSticky() {
   const header = document.getElementById('id_header');
-  const mainWrapper = document.querySelector('#l-main');
-  const headerHeight = header.offsetHeight;
 
-  // Сторінки з fixed header
-  const fixedHeaderPages = ['template-index', 'template-page'];
-  const isFixedHeaderPage = fixedHeaderPages.some(className => document.body.classList.contains(className));
+  // Встановлюємо фіксовану висоту для body padding
+  const headerHeight = 80; // твоя висота header без промо-бара
 
-  // На сторінках з fixed header додаємо padding до body
-  if (isFixedHeaderPage) {
+  if (document.body.classList.contains('template-index') || document.body.classList.contains('template-page')) {
     document.body.style.paddingTop = `${headerHeight}px`;
   }
 
@@ -17,17 +13,8 @@ export function headerSticky() {
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > sticky) {
       header.classList.add('m-sticky');
-
-      // На інших сторінках додаємо padding до main wrapper
-      if (!isFixedHeaderPage) {
-        mainWrapper.style.paddingTop = `${headerHeight}px`;
-      }
     } else {
       header.classList.remove('m-sticky');
-      if (!isFixedHeaderPage) {
-        mainWrapper.style.paddingTop = '0px';
-      }
     }
   });
 }
-
