@@ -875,6 +875,39 @@ body.overflow-hidden {
   border-color: #ADAEB0;
 }
 
-.b-header.m-sticky .b-header__promo {
-  display: none;
+.b-header__promo {
+  transition: all .5s ease-in-out 0ms;
+  transform: translateY(0);
+  opacity: 1;
 }
+
+.b-header.m-sticky .b-header__promo {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.template-index,
+.template-page {
+  .b-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    border-bottom: none;
+    z-index: 1000;
+    border-bottom: 1px solid #FFFFFF;
+  }
+  .b-header.m-sticky {
+    position: fixed;
+    background: #E7E7E7;
+    border-bottom: 1px solid #ADAEB0;
+  }
+
+  .b-hero-banner {
+    margin-top: 0;
+    position: relative;
+    z-index: 1;
+  }
+}
+
