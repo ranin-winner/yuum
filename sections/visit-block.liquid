@@ -94,7 +94,7 @@
     #visit-{{ section.id }} .visit-img-left  { grid-area: img1; }
     #visit-{{ section.id }} .visit-img-right { grid-area: img2; }
     #visit-{{ section.id }} .visit-text      { grid-area: text; }
-    
+
     @media (max-width:1024px){
         #visit-{{ section.id }} {
             padding-top: 60px!important;
@@ -109,12 +109,45 @@
         grid-template-areas:
             "img1 text"
             "img1 img2";
-        gap: 0px 100px; 
+        gap: 0px 100px;
       }
     }
+
+    @media (min-width:1024px){
+      .center-grid {
+        grid-template-columns: 1fr auto 1fr !important;
+        grid-template-areas:
+        "img1 text img2"
+        "img1 text img2" !important;
+        align-items: center !important;
+        justify-items: center !important;
+      }
+
+      .center-button {
+        justify-self: center !important;
+        align-items: center !important;
+      }
+    }
+
   </style>
 </section>
+<script>
+  // Додаємо клас для центрування коли немає тексту
+  document.addEventListener('DOMContentLoaded', function() {
+    const visitSection = document.getElementById('visit-{{ section.id }}');
+    const visitText = visitSection.querySelector('.visit-text');
 
+    // Перевіряємо чи є заголовок або текст
+    const hasTitle = visitText.querySelector('h2');
+    const hasText = visitText.querySelector('p');
+
+    // Якщо немає заголовка і тексту - додаємо клас
+    if (!hasTitle && !hasText) {
+      visitText.classList.add('center-button');
+      visitSection.querySelector('.visit-grid-{{ section.id }}').classList.add('center-grid');
+    }
+  });
+</script>
 {% schema %}
 {
   "name": "Visit block",
@@ -132,7 +165,7 @@
 
     { "type": "color", "id": "title_color", "label": "Title color", "default": "#1A1A1A" },
     { "type": "color", "id": "text_color", "label": "Body text color", "default": "#5B5B5B" },
-    
+
     { "type": "checkbox", "id": "enable_parallax", "label": "Enable parallax on images (uses data-parallax)", "default": true },
 
     { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Image border radius", "default": 16 },
