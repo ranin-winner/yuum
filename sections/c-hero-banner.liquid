@@ -130,8 +130,25 @@
   /* Desktop */
   @media (min-width: 768px) {
     #hero-{{ section.id }}.b-hero-banner {
-      height: {{ section.settings.banner_height_desktop }}px;
-      margin-top: {{ section.settings.margin_top_desktop }}px; 
+      /* ВИСОТА: 100vh мінус відступи */
+      height: calc(100vh - {{ section.settings.margin_top_desktop | abs }}px - {{ section.settings.padding_desktop | times: 2 }}px);
+      min-height: {{ section.settings.banner_height_desktop }}px;
+      margin-top: {{ section.settings.margin_top_desktop }}px;
+    }
+  }
+
+  /* Додайте цей код в mobile media query */
+  @media (max-width: 767px) {
+    #hero-{{ section.id }}.b-hero-banner {
+      height: calc(100vh - 60px); /* Відступ 60px від хідера */
+      min-height: calc(100vh - 60px);
+      padding: {{ section.settings.padding_mobile }}px;
+      margin-top: 0;
+    }
+
+    /* Центрування контенту */
+    #hero-{{ section.id }} .b-hero-banner__content {
+      transform: translateY(-10px); /* Трохи вище центру */
     }
   }
 </style>
