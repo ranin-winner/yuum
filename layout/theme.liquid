@@ -126,10 +126,14 @@
       });
     </script>
   </head>
+
+  {%- assign no_transparent_pages = 'about-products,about-us' | split: ',' -%}
+  {%- assign current_page_handle = page.handle | default: '' -%}
+
   <body
     x-data
     :class="$store.shopMainStore.body_no_scroll ? 'no-scroll' : ''"
-    class=" min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}"
+    class="min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}{% for page_handle in no_transparent_pages %}{% if page_handle == current_page_handle %} no-transparent-header{% break %}{% endif %}{% endfor %}{% if template.name == '404' %} no-transparent-header{% endif %}"
   >
 
     <div id="l-main">
