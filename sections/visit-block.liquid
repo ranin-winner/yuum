@@ -86,8 +86,8 @@
       display:grid;
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
-          "img1 img2"
-          "text text";
+      "img1 img2"
+      "text text";
       gap: 40px 16px;
       align-items: end;
     }
@@ -96,10 +96,10 @@
     #visit-{{ section.id }} .visit-text      { grid-area: text; }
 
     @media (max-width:1024px){
-        #visit-{{ section.id }} {
-            padding-top: 60px!important;
-            padding-bottom: 60px!important;
-        }
+      #visit-{{ section.id }} {
+        padding-top: 30px!important;
+        padding-bottom: 30px!important;
+      }
     }
 
     /* desktop: img1 ліворуч на дві стрічки, праворуч зверху текст, знизу img2 */
@@ -107,8 +107,8 @@
       #visit-{{ section.id }} .visit-grid-{{ section.id }}{
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            "img1 text"
-            "img1 img2";
+        "img1 text"
+        "img1 img2";
         gap: 0px 100px;
       }
     }
@@ -117,8 +117,8 @@
       .center-grid {
         grid-template-columns: 1fr auto 1fr !important;
         grid-template-areas:
-        "img1 text img2"
-        "img1 text img2" !important;
+    "img1 text img2"
+    "img1 text img2" !important;
         align-items: center !important;
         justify-items: center !important;
       }
@@ -126,6 +126,23 @@
       .center-button {
         justify-self: center !important;
         align-items: center !important;
+      }
+    }
+
+    /* Мобільне центрування кнопки */
+    @media (max-width: 1023px) {
+      .center-grid {
+        gap: 0 !important;
+      }
+      #visit-{{ section.id }} .visit-text.center-button {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+      }
+
+      #visit-{{ section.id }} .visit-text.center-button .button {
+        margin: 0 auto !important;
       }
     }
 
