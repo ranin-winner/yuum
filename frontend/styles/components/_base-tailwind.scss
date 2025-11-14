@@ -424,16 +424,11 @@
     }
 }
 
-.template-index {
+/* Прозорий хедер для головної та сторінок з класом .transparent-header */
+.template-index,
+.template-page.transparent-header:not(.no-transparent-header) {
   .shopify-section {
     padding-bottom: 0;
-  }
-  #hero-template--26463982190966__c_hero_banner_bhLXqh.b-hero-banner {
-    margin-top: -93px;
-
-    @include cfg.media(max-t) {
-      margin-top: -60px;
-    }
   }
 
   .b-header {
@@ -454,7 +449,6 @@
         fill: #fff;
       }
 
-      // ONLY target the specific hamburger and search buttons in header
       .b-header__hamburger svg path,
       .b-header__search-toggle svg,
       .b-header__mobile-menu .b-header__mobile-icon {
@@ -463,7 +457,6 @@
       }
     }
 
-    // Виправлений селектор - & має бути на початку
     &.megamenu-open:not(.m-sticky),
     &.search-open:not(.m-sticky) {
       .b-header__list-link, .group button, .b-header__list-link.m-active {
@@ -482,7 +475,6 @@
         fill: #474747;
       }
 
-      // ONLY target the specific hamburger and search buttons in header
       .b-header__hamburger svg path,
       .b-header__search-toggle svg,
       .b-header__mobile-menu .b-header__mobile-icon {
@@ -508,7 +500,6 @@
         fill: #474747;
       }
 
-      // ONLY target the specific hamburger and search buttons in header
       .b-header__hamburger svg path,
       .b-header__search-toggle svg,
       .b-header__mobile-menu .b-header__mobile-icon {
@@ -518,22 +509,20 @@
     }
   }
 
-  .header--over-hero .logo--light,
-  .header--over-hero.b-header.m-sticky .logo--dark,
-  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--dark,
-  .header--over-hero.b-header.search-open:not(.m-sticky) .logo--dark {
+  .logo--light,
+  .b-header.m-sticky .logo--dark,
+  .b-header.megamenu-open:not(.m-sticky) .logo--dark,
+  .b-header.search-open:not(.m-sticky) .logo--dark {
     display: inline-flex;
   }
 
-  .logo--light,
-  .header--over-hero .logo--dark,
-  .header--over-hero.b-header.m-sticky .logo--light,
-  .header--over-hero.b-header.megamenu-open:not(.m-sticky) .logo--light,
-  .header--over-hero.b-header.search-open:not(.m-sticky) .logo--light {
+  .logo--dark,
+  .b-header.m-sticky .logo--light,
+  .b-header.megamenu-open:not(.m-sticky) .logo--light,
+  .b-header.search-open:not(.m-sticky) .logo--light {
     display: none;
   }
 
-  // Фон для wrapper коли мегаменю або search відкрите
   .b-header__wrapper.has-megamenu-open,
   .b-header__wrapper.has-search-open {
     background-color: #e7e7e7 !important;
@@ -578,6 +567,40 @@
 
   .b-header__logo {
     justify-content: center;
+  }
+}
+
+/* Звичайний хедер для сторінок без класу .transparent-header */
+.template-page:not(.transparent-header) .b-header {
+  background: #e7e7e7;
+  border-bottom: 1px solid #ADB0B0;
+
+  &:not(.m-sticky) {
+    .b-header__list-link, .group button, .b-header__list-link.m-active {
+      color: #474747;
+    }
+    .group button svg path {
+      fill: #474747;
+    }
+    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
+      background: #474747;
+    }
+    .b-header__cartlogin svg path {
+      fill: #474747;
+    }
+    .b-header__hamburger svg path,
+    .b-header__search-toggle svg,
+    .b-header__mobile-menu .b-header__mobile-icon {
+      stroke: #474747;
+      color: #474747;
+    }
+  }
+
+  .logo--dark {
+    display: inline-flex;
+  }
+  .logo--light {
+    display: none;
   }
 }
 

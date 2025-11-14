@@ -54,20 +54,20 @@
       margin: 0;
       padding: 0;
       position: relative;
-      height: 1.6em;            /* підбери під свій шрифт */
+      height: 1.6em;
       line-height: 1.6em;
       overflow: hidden;
       text-align: center;
     }
 
-    /* Базовий стан: елемент поза екраном зліва */
+    /* Базовий стан: елемент поза екраном СПРАВА */
     .b-promo-hslider li {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;              /* показуємо один item на весь блок */
+      width: 100%;
       white-space: nowrap;
-      transform: translateX(-100%);
+      transform: translateX(100%);
       opacity: 0;
       transition: transform 1200ms ease, opacity 300ms ease;
     }
@@ -78,15 +78,15 @@
       opacity: 1;
     }
 
-    /* Вихід вправо */
+    /* Вихід ВЛІВО */
     .b-promo-hslider li.is-prev {
-      transform: translateX(100%);
+      transform: translateX(-100%);
       opacity: 0;
     }
 
-    /* Заготовка зліва (поза екраном) */
+    /* Заготовка СПРАВА (поза екраном) */
     .b-promo-hslider li.is-next {
-      transform: translateX(-100%);
+      transform: translateX(100%);
       opacity: 0;
     }
   </style>
@@ -109,21 +109,21 @@
       const HOLD = 2400;      // пауза між слайдами
       let index = 0;
 
-      // Ініціалізація: перший активний, решта – "is-next" (готові зліва)
+      // Ініціалізація: перший активний, решта – "is-next" (готові СПРАВА)
       items.forEach((li, i) => {
         li.classList.remove('is-active', 'is-prev', 'is-next');
         if (i === 0) {
           li.classList.add('is-active');
         } else {
-          li.classList.add('is-next');
+          li.classList.add('is-next'); // тепер справа
         }
       });
 
-      function resetToLeftInstant(el) {
-        // Повертаємо елемент миттєво вліво (без анімації), щоб не було "стрибка" в очі
+      function resetToRightInstant(el) {
+        // Повертаємо елемент миттєво СПРАВА (без анімації)
         el.style.transition = 'none';
         el.classList.remove('is-active', 'is-prev');
-        el.classList.add('is-next'); // translateX(-100%)
+        el.classList.add('is-next'); // translateX(100%) - справа
         // force reflow
         void el.offsetWidth;
         // Повертаємо transition назад
@@ -135,13 +135,13 @@
         const nextIdx = (index + 1) % items.length;
         const next = items[nextIdx];
 
-        // Гарантуємо: "next" підготовлений зліва
+        // Гарантуємо: "next" підготовлений СПРАВА
         next.classList.remove('is-active', 'is-prev');
         next.classList.add('is-next');
 
         // Запускаємо анімацію:
-        // current: центр (is-active) -> вправо (is-prev)
-        // next: зліва (is-next) -> центр (is-active)
+        // current: центр (is-active) -> ВЛІВО (is-prev)
+        // next: СПРАВА (is-next) -> центр (is-active)
         current.classList.remove('is-active');
         current.classList.add('is-prev');
 
@@ -151,11 +151,11 @@
           next.classList.add('is-active');
         });
 
-        // Після завершення анімації transform у current — повертаємо його миттєво вліво (is-next)
+        // Після завершення анімації transform у current — повертаємо його миттєво СПРАВА (is-next)
         const onEnd = (e) => {
           if (e.propertyName !== 'transform') return;
           current.removeEventListener('transitionend', onEnd);
-          resetToLeftInstant(current);
+          resetToRightInstant(current);
           index = nextIdx;
         };
         current.addEventListener('transitionend', onEnd);

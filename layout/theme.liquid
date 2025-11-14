@@ -126,10 +126,15 @@
       });
     </script>
   </head>
+
+  {%- assign transparent_pages = 'about-product-mochi,contact,catering,vacancies,wholesale' | split: ',' -%}
+  {%- assign current_page_handle = page.handle | default: '' -%}
+  {%- assign template_suffix = template.suffix | default: '' -%}
+
   <body
     x-data
     :class="$store.shopMainStore.body_no_scroll ? 'no-scroll' : ''"
-    class=" min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}"
+    class="min-h-svh template-{{ template.name }} m-{{ template | replace: '.', '-' }}{% for page_handle in transparent_pages %}{% if page_handle == current_page_handle or page_handle == template_suffix %} transparent-header{% break %}{% endif %}{% endfor %}"
   >
 
     <div id="l-main">

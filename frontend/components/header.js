@@ -1,23 +1,20 @@
 export function headerSticky() {
   const header = document.getElementById('id_header');
-  const mainWrapper = document.querySelector('#l-main');
-  const headerHeight = header.offsetHeight;
 
-  const sticky = header.offsetTop;
-  console.log('sticky', sticky);
+  // Встановлюємо фіксовану висоту для body padding
+  const headerHeight = 80; // твоя висота header без промо-бара
+
+  if (document.body.classList.contains('template-index') || document.body.classList.contains('template-page')) {
+    document.body.style.paddingTop = `${headerHeight}px`;
+  }
+
+  const sticky = 100;
+
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > sticky) {
       header.classList.add('m-sticky');
-      if (!mainWrapper.classList.contains('m-header-sticky')) {
-        mainWrapper.classList.add('m-header-sticky');
-        mainWrapper.style.paddingTop = `${headerHeight}px`;
-      }
     } else {
       header.classList.remove('m-sticky');
-      if (mainWrapper.classList.contains('m-header-sticky')) {
-        mainWrapper.classList.remove('m-header-sticky');
-        mainWrapper.style.paddingTop = '0px';
-      }
     }
   });
 }
