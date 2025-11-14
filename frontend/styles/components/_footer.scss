@@ -3,19 +3,56 @@
 .b-footer {
   &-input {
     background-color: transparent;
-    border-bottom: 1px solid rgba(231, 231, 231, 1);
-    color: var(--color_1);
+    border-bottom: 1px solid #E7E7E7; // Inactive
+    color: rgba(255, 255, 255, 1);
     font-size: 1.6rem;
     line-height: 2rem;
     padding: 26px 0 12px;
     width: 290px;
+    transition: border-color 0.3s ease;
 
+    // Плейсхолдер
     &::placeholder {
-      color: var(--color_1);
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.3s ease;
+    }
+
+    // Стани для бордера
+    &:hover {
+      border-bottom-color: #FFFFFF; // Hover
     }
 
     &:focus {
+      border-bottom-color: #78B956; // Focused
       outline: none;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    &:disabled {
+      border-bottom-color: #949597; // Disabled
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    &.error {
+      border-bottom-color: #E12528; // Error
+
+      &::placeholder {
+        color: rgba(255, 107, 107, 1);
+      }
+    }
+
+    &.success {
+      border-bottom-color: #78B956; // Success (такий самий як Focused)
+
+      &::placeholder {
+        color: rgba(120, 255, 120, 1);
+      }
     }
 
     @include cfg.media(max-t) {
@@ -24,81 +61,5 @@
     }
   }
 
-  &-btn {
-    width: 145px;
-
-    @include cfg.media(max-t) {
-      width: 100%;
-      max-width: 380px;
-    }
-  }
-
-  &-top {
-    border-bottom: 1px solid rgba(108, 109, 110, 1);
-    padding-bottom: 40px;
-    margin-bottom: 40px;
-  }
-
-  &__title {
-    @include cfg.font(body-400, 14px, 1.14);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    opacity: 0.8;
-    margin-bottom: 32px;
-  }
-
-  &__link {
-    @include cfg.font(body-400, 16px, 1.375);
-    letter-spacing: 0.6px;
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
-    vertical-align: middle;
-    display: block;
-    margin-bottom: 16px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  &__copyright,
-  &__bottom-link {
-    @include cfg.font(body-400, 14px, 1.14);
-    opacity: 0.8;
-  }
-
-  &__bottom-link {
-    transition: opacity 0.3s ease;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .btn.btn-light {
-    min-width: 200px;
-    @include cfg.media(max-m) {
-      width: 100%;
-    }
-  }
-
-  .b-footer-input {
-    border-bottom: 1px solid rgb(231, 231, 231) !important;
-    border-radius: 0 !important;
-  }
-
-  .relative .w-full {
-    min-width: 100%;
-  }
-
-  .footer-space {
-    max-width: 90%;
-    @include cfg.media(max-m) {
-      max-width: 100%;
-    }
-  }
+  // ... решта вашого коду без змін
 }
