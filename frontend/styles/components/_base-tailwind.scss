@@ -424,8 +424,9 @@
     }
 }
 
+/* Прозорий хедер для головної та сторінок з класом .transparent-header */
 .template-index,
-.template-page {
+.template-page.transparent-header:not(.no-transparent-header) {
   .shopify-section {
     padding-bottom: 0;
   }
@@ -569,7 +570,8 @@
   }
 }
 
-body.no-transparent-header.template-page .b-header {
+/* Звичайний хедер для сторінок без класу .transparent-header */
+.template-page:not(.transparent-header) .b-header {
   background: #e7e7e7;
   border-bottom: 1px solid #ADB0B0;
 
@@ -593,9 +595,7 @@ body.no-transparent-header.template-page .b-header {
       color: #474747;
     }
   }
-}
 
-body.no-transparent-header.template-page {
   .logo--dark {
     display: inline-flex;
   }
