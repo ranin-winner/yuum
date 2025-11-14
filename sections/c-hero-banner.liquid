@@ -66,9 +66,6 @@
   #hero-{{ section.id }}.text-pos-y-center { align-items: center; }
   #hero-{{ section.id }}.text-pos-y-top    { align-items: flex-start; }
   #hero-{{ section.id }}.text-pos-y-flex-end { align-items: flex-end; padding-bottom: 120px;}
-  @media (max-width: 767px) {
-    #hero-{{ section.id }}.text-pos-y-flex-end { padding-bottom: 40px;}
-  }
 
   /* Main Styles */
   #hero-{{ section.id }} .b-hero-banner__content {
@@ -115,25 +112,31 @@
     background-color: rgba(71, 71, 71, 1); border-color: rgba(71, 71, 71, 1); color: #fff;
   }
 
-  /* Mobile */
   @media (max-width: 767px) {
     #hero-{{ section.id }}.b-hero-banner {
-      height: {{ section.settings.banner_height_mobile }}px;
+      height: 100vh;
+      min-height: 100vh;
       padding: {{ section.settings.padding_mobile }}px;
       margin-top: {{ section.settings.margin_top_mobile }}px; /* може бути від’ємним */
     }
     #hero-{{ section.id }} .b-hero-banner__title { font-size: {{ section.settings.title_font_size_mobile }}px; }
     #hero-{{ section.id }} .b-hero-banner__text  { font-size: {{ section.settings.subtitle_font_size_mobile }}px; }
-    #hero-{{ section.id }} .b-hero-banner__content { max-width: 100%; width: 100%; text-align: {{ section.settings.text_position-x-mob }}; }
+    #hero-{{ section.id }} .b-hero-banner__content {
+      max-width: 100%;
+      width: 100%;
+      text-align: {{ section.settings.text_position-x-mob }};
+    }
   }
 
-  /* Desktop */
   @media (min-width: 768px) {
     #hero-{{ section.id }}.b-hero-banner {
       /* ВИСОТА: 100vh мінус відступи */
       height: calc(100vh - {{ section.settings.margin_top_desktop | abs }}px - {{ section.settings.padding_desktop | times: 2 }}px);
       min-height: {{ section.settings.banner_height_desktop }}px;
-      margin-top: {{ section.settings.margin_top_desktop }}px;
+      margin-top: -40px;
+    }
+    #hero-{{ section.id }} .b-hero-banner__content {
+      transform: translateY(10px); /* Трохи вище центру */
     }
   }
 
@@ -143,7 +146,6 @@
       height: calc(100vh - 60px); /* Відступ 60px від хідера */
       min-height: calc(100vh - 60px);
       padding: {{ section.settings.padding_mobile }}px;
-      margin-top: 0;
     }
 
     /* Центрування контенту */
@@ -359,13 +361,13 @@
       "type": "text",
       "id": "margin_top_desktop",
       "label": "Desktop margin-top",
-      "default": "-140"
+      "default": "-40"
     },
     {
       "type": "text",
       "id": "margin_top_mobile",
       "label": "Mobile margin-top",
-      "default": "-100"
+      "default": "-40"
     },
     {
       "type": "text",
