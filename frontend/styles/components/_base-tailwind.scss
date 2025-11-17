@@ -424,13 +424,13 @@
     }
 }
 
+.template-index .shopify-section:first-of-type {
+  padding-bottom: 0;
+}
+
 /* Прозорий хедер для головної та сторінок з класом .transparent-header */
 .template-index,
 .template-page.transparent-header:not(.no-transparent-header) {
-  .shopify-section {
-    padding-bottom: 0;
-  }
-
   .b-header {
     &:not(.m-sticky) {
       .b-header__list-link, .group button, .b-header__list-link.m-active {
