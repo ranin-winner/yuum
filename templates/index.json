@@ -305,7 +305,7 @@
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
         "pad_top": 120,
-        "pad_bottom": 120,
+        "pad_bottom": 0,
         "inner_gap": 24,
         "text_gap": 12,
         "title_color": "#474747",
@@ -351,15 +351,16 @@
       "block_order": [
         "instafeed_app_block_GxYyfp"
       ],
+      "custom_css": [],
       "settings": {}
     },
     "visit_block_PKmpbF": {
       "type": "visit-block",
       "name": "Visit block",
       "settings": {
-        "bg_color": "#eeeeee",
-        "pad_top": 48,
-        "pad_bottom": 48,
+        "bg_color": "#e7e7e7",
+        "pad_top": 0,
+        "pad_bottom": 0,
         "inner_gap": 24,
         "text_gap": 16,
         "title_color": "#1a1a1a",

@@ -145,7 +145,8 @@
         "section_badge_text": "Important information",
         "section_text_2": "<p>Use Mochi Premium Collection after 10 minutes to enjoy the original taste of Japanese cream ice cream. To experience the unique taste of Japanese cream dessert, consume after 40 minutes. Store at a temperature of +2 - +4C. Do not heat treat or re-freeze. Consume within 24 hours<\/p>",
         "section_button_text": "Shop Now",
-        "section_button_link": "shopify:\/\/collections\/all"
+        "section_button_link": "shopify:\/\/collections\/all",
+        "text_btn_alignment": "items-start"
       }
     },
     "build_your_bundle_8pxK7L": {

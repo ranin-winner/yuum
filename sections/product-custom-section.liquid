@@ -27,7 +27,7 @@
                 </div>
             {% endif %}
 
-            <div class="products-section__header--text-and-btn flex flex-col items-end w-auto">
+          <div class="products-section__header--text-and-btn flex flex-col {{ section.settings.text_btn_alignment }} w-auto">
                 {% if sectionText1 != blank %}
                     <div class="text">
                         {{ sectionText1 }}
@@ -252,6 +252,17 @@
     "type": "url",
     "label": "Button Link",
     "id": "section_button_link"
+  },
+  {
+    "type": "select",
+    "id": "text_btn_alignment",
+    "label": "Text & Button Alignment",
+    "options": [
+      {"value": "items-start", "label": "Left"},
+      {"value": "items-center", "label": "Center"},
+      {"value": "items-end", "label": "Right"}
+    ],
+    "default": "items-end"
   }
 ],
 "presets": [
