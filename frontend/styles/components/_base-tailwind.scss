@@ -582,9 +582,36 @@
     .group button svg path {
       fill: #474747;
     }
-    .b-header__list-link.m-active::before, .b-header__list-link.m-active::after {
-      background: #474747;
+
+    .b-header__list-link {
+      &::after,
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        width: 0;
+        height: 1px;
+        background-color: #474747;
+        transition: width 0.3s;
+      }
+
+      &::before {
+        left: 0;
+      }
+
+      &::after {
+        right: 0;
+      }
+
+      &:hover,
+      &.m-active {
+        &::before,
+        &::after {
+          width: 50%;
+        }
+      }
     }
+
     .b-header__cartlogin svg path {
       fill: #474747;
     }

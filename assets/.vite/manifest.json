@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-BRkH_rBE.css",
+    "file": "main-pQvblVDx.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/about-universal.scss": {
-    "file": "about-universal-CR1mLJTd.css",
+    "file": "about-universal-CdVSCk-1.css",
     "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
