@@ -898,3 +898,27 @@
         min-width: 222px;
     }
 }
+
+
+.m-page-delivery {
+    .shopify-section {
+        &:first-child {
+            padding-top: 120px;
+        }
+    }
+
+    .text-kicker-description {
+        .text-kicker-description__title {
+            @include cfg.h1;
+            @media (min-width: 1024px) {
+                margin-bottom: 32px;
+            }
+        }
+
+        .text-kicker-description__desc {
+            @media (min-width: 1024px) {
+                font-size: 18px;
+            }  
+        }
+    }
+}
