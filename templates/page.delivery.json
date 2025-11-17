@@ -23,11 +23,174 @@
       "settings": {
         "kicker": "",
         "align_left": false,
-        "title_bigger": false,
+        "title_bigger": true,
         "title": "Delivery & Returns",
         "description_width_desk": "100%",
         "description_width_mob": "100%",
         "richtext": "<p>Order your favourite products and fragrances for your home.<br/>We ship orders the same day!</p>",
+        "border_visible": false
+      }
+    },
+    "text_kicker_description_8PkaRj": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": true,
+        "title_bigger": false,
+        "title": "Delivery Policy",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<ul><li>We offer 2 delivery methods: Quiver (for immediate, same-day and designated time window deliveries in Central London) and Royal Mail (for 1-2 business day deliveries in the UK Nationwide).</li><li>We deliver every day, however Royal Mail do not deliver on Sundays.Royal Mail orders are shipped using temperature controlled packaging and will arrive ready to be stored in a freezer.</li><li>Once your order has been dispatched, you will receive a confirmation email with a tracking number and a link to track your order.</li><li>Please reach out to us at hello@yuum.co.uk if you have any questions regarding the delivery.</li></ul>",
+        "border_visible": false
+      }
+    },
+    "text_kicker_description_VjfJUb": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": true,
+        "title_bigger": false,
+        "title": "Packaging",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<p>Text about the packaging of urine, kits, etc. <br/>The packaging of the boxes is free of charge and includes:</p><p><br/></p><ul><li>Zip pack</li><li>Cold storage </li><li>Thermal box</li></ul>",
+        "border_visible": false
+      }
+    },
+    "c_hero_img_ERdLCy": {
+      "type": "c-hero-img",
+      "name": "Hero Image",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "baner_button": "",
+        "baner_button_link": "",
+        "image_bg": "shopify://shop_images/Photo_of_the_packaging.png",
+        "image_bg_mobile": "shopify://shop_images/Photo_of_the_packaging_1.png",
+        "bg_color": "rgba(0,0,0,0)",
+        "title_font_size": 60,
+        "title_font_size_mobile": 77,
+        "title_color": "#000000",
+        "subtitle_font_size": 20,
+        "subtitle_font_size_mobile": 16,
+        "text_color": "#000000",
+        "padding_desktop": 40,
+        "padding_mobile": 20,
+        "banner_text_width": "",
+        "banner_height_desktop": "",
+        "banner_height_mobile": ""
+      }
+    },
+    "text_kicker_description_p6zMQF": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": true,
+        "title_bigger": false,
+        "title": "Important",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<ul><li>Pick up the parcel immediately upon its arrival and inspect it upon receipt: in case of damage to the moti, draw up an inspection report for a refund (the parcel is insured for the entire order amount).</li><li>The recommended time for consumption of moti is up to 72 hours (up to 3 days) from the date of dispatch, but it tastes better if eaten within the first 12 hours after receipt. Please leave the moti for 1-2 hours at room temperature before eating: this will make the mascarpone more homogeneous and better combined with the filling during tasting.</li><li>Store the moti in the refrigerator; it can be frozen once and kept for 30 days in the freezer.</li></ul>",
+        "border_visible": false
+      }
+    },
+    "build_your_bundle_RQAnk3": {
+      "type": "build-your-bundle",
+      "blocks": {
+        "feature_Ja349E": {
+          "type": "feature",
+          "settings": {
+            "text": "Free delivery over £50"
+          }
+        },
+        "feature_dgPxB4": {
+          "type": "feature",
+          "settings": {
+            "text": "Additional discounts"
+          }
+        },
+        "feature_KrqJQW": {
+          "type": "feature",
+          "settings": {
+            "text": "Matcha mochi as a gift"
+          }
+        }
+      },
+      "block_order": [
+        "feature_Ja349E",
+        "feature_dgPxB4",
+        "feature_KrqJQW"
+      ],
+      "name": "Build Your Bundle",
+      "settings": {
+        "additional_classes": "bg-[#9B9B9D]",
+        "padding_y_mobile": 40,
+        "padding_y_desktop": 96,
+        "bg_color": "bg-[#9B9B9D]",
+        "bg_tint": "",
+        "bg_image_desktop": "shopify://shop_images/Frame_7938_97062921-49bc-4a9e-afc9-11edf4a1fec2.png",
+        "bg_image_mobile": "shopify://shop_images/Frame_6949_2.png",
+        "phone_image_alt": "Build your own bundle – preview",
+        "side_image_alt": "Product box",
+        "show_badge": true,
+        "badge_text": "New",
+        "bird_image": "shopify://shop_images/2.png",
+        "bird_alt": "Decorative bird",
+        "bird_width_mobile": 80,
+        "bird_width_desktop": 140,
+        "bird_offset_x_mobile": 14,
+        "bird_offset_y_mobile": -14,
+        "bird_offset_x_desktop": 28,
+        "bird_offset_y_desktop": -28,
+        "kicker": "",
+        "title": "Build your own bundle",
+        "text": "Create a completely individual its.box set and combine products from all collections to your liking!",
+        "btn_label": "Build bundle",
+        "btn_link": ""
+      }
+    },
+    "text_kicker_description_m3Axwc": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": true,
+        "title_bigger": false,
+        "title": "Payment",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<p>Payments are securely processed via Stripe. We currently accept Visa, Mastercard and American Express payments but we are working on introducing additional options (PayPal & Apple Pay). For more information, you may also want to read Stripe’s Privacy.</p>",
+        "border_visible": false
+      }
+    },
+    "text_kicker_description_zWGEtd": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": true,
+        "title_bigger": false,
+        "title": "Cost of delivery",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<ol><li>Delivery of packages with a total value of up to 2000₴ to a post office or branch is fixed at 100₴, orders over 2000₴ to a post office or branch are delivered free of charge</li><li>Delivery of packages with a total value of up to 3000₴ by postal service courier: 150₴, orders over 3000₴ are delivered free of charge</li></ol>",
+        "border_visible": false
+      }
+    },
+    "text_kicker_description_Mq3AGb": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": true,
+        "title_bigger": false,
+        "title": "Returns Policy",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<ul><li>We do not accept returns, except in cases where there is an issue with the product quality.</li><li>If you believe that the product you have received is of poor quality, please contact us immediately at <a href=\"mailto:hello@yuum.co.uk\" title=\"mailto:hello@yuum.co.uk\">hello@yuum.co.uk</a> including your order number and all the details of the suspected issue. You will be required to provide photographic evidence of the issue for our analysis.</li><li>If we determine that the issue is with the product quality, we will potentially issue a refund. In certain cases, we may require the product to be shipped back to us for analysis before issuing a refund.</li><li>Please note that we will not issue a refund for products that have been partially or fully consumed.</li><li>If there is an issue with your order delivery (e.g. the order is missing, damaged or incorrect), please contact us within 24 hours of receipt of your order. We will work with you to resolve the issue as quickly as possible.<br/><br/>Please note that this policy is subject to change without notice. If you have any questions or concerns about our delivery and return policy, please do not hesitate to contact us at <a href=\"mailto:hello@yuum.co.uk\" title=\"mailto:hello@yuum.co.uk\">hello@yuum.co.uk</a></li></ul>",
         "border_visible": false
       }
     },
@@ -37,12 +200,14 @@
       "settings": {
         "title": "Do you have any questions?",
         "subtitle": "",
-        "mt_desktop": "80px",
-        "mt_mobile": "40px",
+        "mt_desktop": "60px",
+        "mt_mobile": "0px",
         "show_phone": false,
         "label_name": "Your Name*",
         "label_email": "Email*",
         "label_phone": "Phone (optional)",
+        "show_reason": false,
+        "reason_required": false,
         "label_reason": "Reason for contacting*",
         "reason_placeholder": "Choose a reason",
         "label_message": "Message (optional)",
@@ -54,6 +219,14 @@
   "order": [
     "main",
     "text_kicker_description_3zQzAH",
+    "text_kicker_description_8PkaRj",
+    "text_kicker_description_VjfJUb",
+    "c_hero_img_ERdLCy",
+    "text_kicker_description_p6zMQF",
+    "build_your_bundle_RQAnk3",
+    "text_kicker_description_m3Axwc",
+    "text_kicker_description_zWGEtd",
+    "text_kicker_description_Mq3AGb",
     "contact_form_8dCfym"
   ]
 }
