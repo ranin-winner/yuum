@@ -901,24 +901,82 @@
 
 
 .m-page-delivery {
-    .shopify-section {
-        &:first-child {
-            padding-top: 120px;
+
+    .container {
+        max-width: 980px;
+    }
+
+    [id*="build-your-bundle-template"] {
+        margin-bottom: 60px;
+        @media (min-width: 1024px) {
+            margin-top: 60px;
+            margin-bottom: 120px;
+        }
+        .container {
+            max-width: 1440px;
         }
     }
 
-    .text-kicker-description {
-        .text-kicker-description__title {
-            @include cfg.h1;
+    .shopify-section {
+        &:first-child {
+            padding-top: 120px;
+            padding-bottom: 60px!important;
             @media (min-width: 1024px) {
-                margin-bottom: 32px;
+                padding-bottom: 80px!important;
+            }
+            
+            .text-kicker-description {
+                .text-kicker-description__title {
+                    @media (min-width: 1024px) {
+                        margin-bottom: 32px;
+                    }
+                }
+        
+                .text-kicker-description__desc {
+                    @media (min-width: 1024px) {
+                        font-size: 18px;
+                    }  
+                }
             }
         }
 
-        .text-kicker-description__desc {
+        &:last-child {
+            padding-bottom: 100px!important;
             @media (min-width: 1024px) {
-                font-size: 18px;
-            }  
+                padding-bottom: 160px!important;
+            }
+            
         }
+
+        .text-kicker-description {
+            .text-kicker-description__title  {
+                margin-bottom: 24px;
+            }
+
+            ul,ol {
+                list-style: disc;
+                margin-left: 22px;
+
+                li {
+                    &:not(:last-child) {
+                        padding-bottom: 12px;
+                    }
+                }
+            }
+
+            ol {
+                list-style: decimal;
+            }
+        }
+
+        .b-hero-img {
+            width: 980px;
+            margin: 0 auto;
+            padding: 0 16px 60px 16px;
+            @media (min-width: 1024px) {
+                padding: 0 40px 120px 40px;
+            }
+        }
+        
     }
 }

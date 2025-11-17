@@ -47,9 +47,13 @@
           </div>
           {% endif %}
 
+          {% if section.settings.show_reason %}
           <div class="contact-form__field md:col-span-2 has-select">
             <label for="ContactForm-reason" class="label">{{ section.settings.label_reason }}</label>
-            <select id="ContactForm-reason" required>
+            <select
+              id="ContactForm-reason"
+              {% if section.settings.reason_required %}required{% endif %}
+            >
               <option value="" selected disabled>{{ section.settings.reason_placeholder }}</option>
               {% for block in section.blocks %}
                 {% if block.type == 'reason' and block.settings.text != blank %}
@@ -58,6 +62,7 @@
               {% endfor %}
             </select>
           </div>
+          {% endif %}
 
           <div class="contact-form__field md:col-span-2">
             <label for="ContactForm-message" class="label">{{ section.settings.label_message }}</label>
@@ -80,6 +85,9 @@
       {% endform %}
     </div>
   </div>
+ 
+  {% assign require_reason = section.settings.show_reason | and: section.settings.reason_required %}
+
 
   <script type="module">
     (() => {
@@ -97,6 +105,8 @@
       const maxBox   = form.querySelector('#ContactForm-max');
       const btn      = form.querySelector('button[type="submit"]');
   
+      const requireReason = {{ require_reason | json }};
+  
       /* --- CHAR LIMIT LOGIC DISABLED ---
       const MAX = Number(msgEl?.dataset.max || msgEl?.getAttribute('maxlength') || 100);
       if (msgEl && !msgEl.hasAttribute('maxlength')) msgEl.setAttribute('maxlength', String(MAX));
@@ -113,15 +123,17 @@
       // helpers: інлайн-помилки
       const fieldWrap = el => el?.closest('.contact-form__field');
       const clearFieldError = el => {
+        if (!el) return;
         const wrap = fieldWrap(el); if (!wrap) return;
         wrap.classList.remove('is-invalid');
-        el?.removeAttribute('aria-invalid');
+        el.removeAttribute('aria-invalid');
         wrap.querySelector('.field-error')?.remove();
       };
       const showFieldError = (el, message) => {
+        if (!el) return;
         const wrap = fieldWrap(el); if (!wrap) return;
         clearFieldError(el);
-        el?.setAttribute('aria-invalid','true');
+        el.setAttribute('aria-invalid','true');
         wrap.classList.add('is-invalid');
         const p = document.createElement('p');
         p.className = 'field-error';
@@ -131,15 +143,16 @@
   
       // чистимо помилки по вводу
       [nameEl, emailEl, phoneEl, reasonEl, msgEl].forEach(el => {
-        el?.addEventListener('input', () => clearFieldError(el));
-        el?.addEventListener('change', () => clearFieldError(el));
+        if (!el) return;
+        el.addEventListener('input', () => clearFieldError(el));
+        el.addEventListener('change', () => clearFieldError(el));
       });
   
       form.addEventListener('submit', (e) => {
         e.preventDefault(); // контролюємо відправку самі
   
         // зняти попередні помилки
-        [nameEl, emailEl, phoneEl, reasonEl, msgEl].forEach(clearFieldError);
+        [nameEl, emailEl, phoneEl, reasonEl, msgEl].forEach(el => el && clearFieldError(el));
   
         const nameVal   = nameEl?.value?.trim() || '';
         const emailVal  = emailEl?.value?.trim() || '';
@@ -161,17 +174,10 @@
           showFieldError(phoneEl, 'Please enter a valid phone number.');
           invalids.push(phoneEl);
         }
-        if (!reasonVal) {
+        if (requireReason && !reasonVal) {
           showFieldError(reasonEl, 'Please choose a reason for contacting.');
           invalids.push(reasonEl);
         }
-  
-        /* --- CHAR LIMIT VALIDATION DISABLED ---
-        if (msgVal.length > MAX) {
-          showFieldError(msgEl, 'Your message is too long.');
-          invalids.push(msgEl);
-        }
-        ---------------------------------------- */
   
         if (invalids.length) {
           invalids[0]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -180,7 +186,7 @@
   
         // все ок — формуємо contact[body] і відправляємо
         const parts = [];
-        if (reasonVal) parts.push(`Reason: ${reasonVal}`);
+        if (reasonEl && reasonVal) parts.push(`Reason: ${reasonVal}`);
         if (msgVal.trim()) parts.push(`Message:\n${msgVal.trim()}`);
         bodyEl.value = parts.join('\n\n');
   
@@ -191,8 +197,6 @@
       });
     })();
   </script>
-  
-  
 </section>
 
 {% schema %}
@@ -210,10 +214,13 @@
     { "type": "text", "id": "label_name", "label": "Label: Name", "default": "Your Name*" },
     { "type": "text", "id": "label_email", "label": "Label: Email", "default": "Email*" },
     { "type": "text", "id": "label_phone", "label": "Label: Phone", "default": "Phone (optional)" },
+
+    { "type": "checkbox", "id": "show_reason", "label": "Show reason field", "default": true },
+    { "type": "checkbox", "id": "reason_required", "label": "Make reason field required", "default": true },
+
     { "type": "text", "id": "label_reason", "label": "Label: Reason", "default": "Reason for contacting*" },
     { "type": "text", "id": "reason_placeholder", "label": "Reason placeholder", "default": "Choose a reason" },
     { "type": "text", "id": "label_message", "label": "Label: Message", "default": "Message (optional)" },
-    
 
     { "type": "text", "id": "btn_label", "label": "Button label", "default": "Send enquiry" },
     { "type": "text", "id": "success_text", "label": "Success message", "default": "Thanks! Your message has been sent." }

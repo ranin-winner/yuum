@@ -1,0 +1,59 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {
+        "text": "The page you are looking for does not exist or has been moved. Try another page or go to the main page.",
+        "button_label": "Go to Home"
+      }
+    },
+    "text_kicker_description_3zQzAH": {
+      "type": "text-kicker-description",
+      "name": "Text Kicker & Description",
+      "settings": {
+        "kicker": "",
+        "align_left": false,
+        "title_bigger": false,
+        "title": "Delivery & Returns",
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<p>Order your favourite products and fragrances for your home.<br/>We ship orders the same day!</p>",
+        "border_visible": false
+      }
+    },
+    "contact_form_8dCfym": {
+      "type": "contact-form",
+      "name": "Contact form (native)",
+      "settings": {
+        "title": "Do you have any questions?",
+        "subtitle": "",
+        "mt_desktop": "80px",
+        "mt_mobile": "40px",
+        "show_phone": false,
+        "label_name": "Your Name*",
+        "label_email": "Email*",
+        "label_phone": "Phone (optional)",
+        "label_reason": "Reason for contacting*",
+        "reason_placeholder": "Choose a reason",
+        "label_message": "Message (optional)",
+        "btn_label": "Send enquiry",
+        "success_text": "Thanks! Your message has been sent."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "text_kicker_description_3zQzAH",
+    "contact_form_8dCfym"
+  ]
+}

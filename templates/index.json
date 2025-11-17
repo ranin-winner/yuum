@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "c_hero_banner_bhLXqh": {
@@ -9,10 +18,10 @@
         "enable_title_fill": false,
         "subtitle": "Dive into the world of Yuum with our most popular products",
         "baner_button": "Shop Now",
-        "baner_button_link": "shopify:\/\/collections",
+        "baner_button_link": "shopify://collections/build-your-bundle",
         "baner_button2": "Our locations",
-        "baner_button_link2": "shopify:\/\/pages\/contact",
-        "image_bg": "shopify:\/\/shop_images\/Image_8bd6a1e1-8d75-495a-b8df-0ab0884fc8ed.png",
+        "baner_button_link2": "shopify://pages/contact",
+        "image_bg": "shopify://shop_images/Image_8bd6a1e1-8d75-495a-b8df-0ab0884fc8ed.png",
         "bg_color": "#ffffff",
         "bg_size": "cover",
         "image_alignment_x": "center",
@@ -42,7 +51,7 @@
         "feature_YMW43f": {
           "type": "feature",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Icon_advantages_1.png",
+            "image": "shopify://shop_images/Icon_advantages_1.png",
             "icon_w": 120,
             "title": "Unique products from all over the world",
             "text": "Exclusive collections of products from different cultures around the world",
@@ -52,7 +61,7 @@
         "feature_EgrYfF": {
           "type": "feature",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Icon_advantages_1_abf21488-84d5-4800-bab4-d0e96192576a.png",
+            "image": "shopify://shop_images/Icon_advantages_1_abf21488-84d5-4800-bab4-d0e96192576a.png",
             "icon_w": 120,
             "title": "14 conceptual boutique cafes",
             "text": "Each location is filled with high-class design and service",
@@ -62,7 +71,7 @@
         "feature_6Wzz7V": {
           "type": "feature",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Icon_advantages_3.png",
+            "image": "shopify://shop_images/Icon_advantages_3.png",
             "icon_w": 120,
             "title": "Delivering gastronomic pleasure",
             "text": "As a gift or to create an atmosphere at home or in the office",
@@ -96,8 +105,8 @@
           "lite-bundle-mochi"
         ],
         "simple_hover": true,
-        "title": "<p>Seasonal bestsellers<\/p>",
-        "subtitle": "<p>Dive into the world of Yuum with our most popular products<\/p>",
+        "title": "<p>Seasonal bestsellers</p>",
+        "subtitle": "<p>Dive into the world of Yuum with our most popular products</p>",
         "section_text_1": "",
         "section_badge_icon": "",
         "section_badge_text": "",
@@ -113,7 +122,7 @@
         "item_nXNwRE": {
           "type": "item",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Sauce-Black-406x80.png_1.png",
+            "image": "shopify://shop_images/Sauce-Black-406x80.png_1.png",
             "alt": "",
             "text": "“Yuum are the only Japanese-made mochi in the UK. And they have nailed the whole mochi thing.”",
             "text_size": 16,
@@ -126,7 +135,7 @@
         "item_9Hrtdm": {
           "type": "item",
           "settings": {
-            "image": "shopify:\/\/shop_images\/image_8.png",
+            "image": "shopify://shop_images/image_8.png",
             "alt": "",
             "text": "“Forget what you think you know about mochi, this is The Real Mochi by Yuum. These bestselling bites are only the start of what this brand offers.”",
             "text_size": 16,
@@ -139,7 +148,7 @@
         "item_ghCBMx": {
           "type": "item",
           "settings": {
-            "image": "shopify:\/\/shop_images\/image_10.png",
+            "image": "shopify://shop_images/image_10.png",
             "alt": "",
             "text": "“Yuum believes in the power of authentic flavours, and their mochi is a testament to this philosophy.”",
             "text_size": 16,
@@ -152,7 +161,7 @@
         "item_ztReGY": {
           "type": "item",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Sauce-Black-406x80.png_1.png",
+            "image": "shopify://shop_images/Sauce-Black-406x80.png_1.png",
             "alt": "",
             "text": "“Yuum are the only Japanese-made mochi in the UK. And they have nailed the whole mochi thing.”",
             "text_size": 16,
@@ -192,10 +201,10 @@
         "enable_title_fill": true,
         "subtitle": "",
         "baner_button": "ABOUT US",
-        "baner_button_link": "shopify:\/\/pages\/about-us",
+        "baner_button_link": "shopify://pages/about-us",
         "baner_button2": "",
         "baner_button_link2": "",
-        "image_bg": "shopify:\/\/shop_images\/Image_1.png",
+        "image_bg": "shopify://shop_images/Image_1.png",
         "bg_color": "#ffffff",
         "bg_size": "cover",
         "image_alignment_x": "center",
@@ -234,8 +243,8 @@
         ],
         "margins_top_bottom": "60",
         "simple_hover": true,
-        "title": "<p>Pre-packed bundles<\/p>",
-        "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. <\/p>",
+        "title": "<p>Pre-packed bundles</p>",
+        "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. </p>",
         "section_text_1": "",
         "section_badge_icon": "",
         "section_badge_text": "",
@@ -278,13 +287,13 @@
         "padding_y_desktop": 96,
         "bg_color": "bg-[#9B9B9D]",
         "bg_tint": "",
-        "bg_image_desktop": "shopify:\/\/shop_images\/Frame_7938_97062921-49bc-4a9e-afc9-11edf4a1fec2.png",
-        "bg_image_mobile": "shopify:\/\/shop_images\/Frame_6949_2.png",
+        "bg_image_desktop": "shopify://shop_images/Frame_7938_97062921-49bc-4a9e-afc9-11edf4a1fec2.png",
+        "bg_image_mobile": "shopify://shop_images/Frame_6949_2.png",
         "phone_image_alt": "Build your own bundle – preview",
         "side_image_alt": "Product box",
         "show_badge": true,
         "badge_text": "New",
-        "bird_image": "shopify:\/\/shop_images\/2.png",
+        "bird_image": "shopify://shop_images/2.png",
         "bird_alt": "Decorative bird",
         "bird_width_mobile": 80,
         "bird_width_desktop": 140,
@@ -317,12 +326,12 @@
         "title": "Visit us",
         "text": "A boutique café is a place where you will be prepared and served a product in its original form, revealing the correct understanding of its taste.",
         "btn_label": "Our locations",
-        "btn_url": "shopify:\/\/pages\/locations",
+        "btn_url": "shopify://pages/locations",
         "button_bg_color": "#ffffff",
         "button_text_color": "#1a1a1a",
-        "image_left": "shopify:\/\/shop_images\/Image_1_1.png",
+        "image_left": "shopify://shop_images/Image_1_1.png",
         "image_left_alt": "",
-        "image_right": "shopify:\/\/shop_images\/Image_2_1.png",
+        "image_right": "shopify://shop_images/Image_2_1.png",
         "image_right_alt": ""
       }
     },
@@ -330,7 +339,7 @@
       "type": "apps",
       "blocks": {
         "instafeed_app_block_GxYyfp": {
-          "type": "shopify:\/\/apps\/instafeed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
           "settings": {
             "title": "Follow us on Instagram",
             "title_color": "",
@@ -371,7 +380,7 @@
         "title": "",
         "text": "",
         "btn_label": "@YUUM",
-        "btn_url": "https:\/\/www.instagram.com\/yuum.uk\/",
+        "btn_url": "https://www.instagram.com/yuum.uk/",
         "button_bg_color": "#ffffff",
         "button_text_color": "#1a1a1a",
         "image_left_alt": "",
