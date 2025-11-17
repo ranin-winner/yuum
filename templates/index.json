@@ -241,7 +241,8 @@
         "section_badge_text": "",
         "section_text_2": "",
         "section_button_text": "Shop Now",
-        "section_button_link": ""
+        "section_button_link": "",
+        "text_btn_alignment": "items-end"
       }
     },
     "build_your_bundle_GgVk8X": {
@@ -304,7 +305,7 @@
       "name": "Visit block",
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
-        "pad_top": 120,
+        "pad_top": 0,
         "pad_bottom": 0,
         "inner_gap": 24,
         "text_gap": 12,
@@ -371,7 +372,7 @@
         "right_opacity": 100,
         "title": "",
         "text": "",
-        "btn_label": "@YUUM",
+        "btn_label": "@yuum.uk",
         "btn_url": "https:\/\/www.instagram.com\/yuum.uk\/",
         "button_bg_color": "#ffffff",
         "button_text_color": "#1a1a1a",
