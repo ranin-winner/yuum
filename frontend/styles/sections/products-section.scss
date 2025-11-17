@@ -25,7 +25,12 @@
         &--text-and-btn {
             display: flex;
             justify-content: center;
-            .text:not(:has(~ .text)) {
+
+          @media (max-width: 767px) {
+            align-items: flex-start;
+          }
+
+          .text:not(:has(~ .text)) {
                 margin-bottom: 10px;
             }
         }

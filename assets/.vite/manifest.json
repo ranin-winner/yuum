@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-ET2fUNjy.css",
+    "file": "main-BRkH_rBE.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/about-universal.scss": {
-    "file": "about-universal-CKkXf3hr.css",
+    "file": "about-universal-CR1mLJTd.css",
     "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
@@ -169,7 +169,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-Bhr3Uu3p.css",
+    "file": "products-section-eBUZrYta.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
