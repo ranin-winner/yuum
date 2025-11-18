@@ -914,20 +914,20 @@ body.overflow-hidden {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1366px) {
   .b-header__mobile-menu {
     display: none;
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1365px) {
   .b-header__mobile-menu {
     display: block;
   }
 }
 
 
-@media (max-width: 1199px) {
+@media (max-width: 1365px) {
   .b-header__nav-left,
   .b-header__nav-right,
   .b-header__account {
@@ -935,7 +935,7 @@ body.overflow-hidden {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1366px) {
   .b-header__nav-left,
   .b-header__nav-right,
   .b-header__account {
@@ -943,13 +943,13 @@ body.overflow-hidden {
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1365px) {
   .group[x-data="megamenu"] {
     display: none;
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1366px) {
   .group[x-data="megamenu"] {
     display: block;
   }
