@@ -28,14 +28,25 @@
 {% endcapture %}
 
 {% if settings.show_promo %}
-  <div class="b-header__promo relative w-full overflow-hidden bg-black py-4 text-center text-white-content tracking-[0.1rem]">
+  <div class="b-header__promo relative w-full bg-black py-4 text-white-content tracking-[0.1rem]">
     {% assign has_list = settings.promo_text contains '<li' %}
     {% if has_list %}
-      <ul class="b-promo-hslider js-promo-hslider relative h-[1.6em]">
-        {{ settings.promo_text }}
-      </ul>
+      <div class="swiper promo-swiper">
+        <div class="swiper-wrapper">
+          {% assign list_items = settings.promo_text | split: '<li>' %}
+          {% for item in list_items %}
+            {% unless forloop.first %}
+              <div class="swiper-slide">
+                <div class="promo-slide-content text-center">
+                  {{ item | replace: '</li>', '' | strip }}
+                </div>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
     {% else %}
-      <div class="b-header__promo-single">
+      <div class="text-center">
         {% if settings.show_promo_link != blank %}
           <a href="{{ settings.show_promo_link }}" target="_blank" class="inline-flex items-center gap-2">
             {{ settings.promo_text }}
@@ -47,122 +58,60 @@
       </div>
     {% endif %}
   </div>
+
   <style>
-    /* Контейнер — одна лінія висоти */
-    .b-promo-hslider {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      position: relative;
-      height: 1.6em;
-      line-height: 1.6em;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    /* Базовий стан: елемент поза екраном СПРАВА */
-    .b-promo-hslider li {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .promo-swiper {
       width: 100%;
+      height: 1.6em;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .promo-slide-content {
       white-space: nowrap;
-      transform: translateX(100%);
-      opacity: 0;
-      transition: transform 1200ms ease, opacity 300ms ease;
-    }
-
-    /* Активний у центрі */
-    .b-promo-hslider li.is-active {
-      transform: translateX(0%);
-      opacity: 1;
-    }
-
-    /* Вихід ВЛІВО */
-    .b-promo-hslider li.is-prev {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-
-    /* Заготовка СПРАВА (поза екраном) */
-    .b-promo-hslider li.is-next {
-      transform: translateX(100%);
-      opacity: 0;
+      width: 100%;
     }
   </style>
 
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const slider = document.querySelector('.js-promo-hslider');
-      if (!slider) return;
+      const swiperEl = document.querySelector('.promo-swiper');
+      if (!swiperEl) return;
 
-      const items = Array.from(slider.querySelectorAll('li'));
-      if (items.length === 0) return;
-
-      // Якщо лише один – просто показуємо, без анімації
-      if (items.length === 1) {
-        items[0].classList.add('is-active');
+      // Перевіряємо чи є слайди
+      const slides = swiperEl.querySelectorAll('.swiper-slide');
+      if (slides.length <= 1) {
+        console.log('Not enough slides for swiper');
         return;
       }
 
-      const DURATION = 1200;   // має збігатися з CSS transition (transform)
-      const HOLD = 2400;      // пауза між слайдами
-      let index = 0;
+      if (typeof Swiper === 'undefined') {
+        console.error('Swiper library not loaded');
+        return;
+      }
 
-      // Ініціалізація: перший активний, решта – "is-next" (готові СПРАВА)
-      items.forEach((li, i) => {
-        li.classList.remove('is-active', 'is-prev', 'is-next');
-        if (i === 0) {
-          li.classList.add('is-active');
-        } else {
-          li.classList.add('is-next'); // тепер справа
-        }
+      const swiper = new Swiper(swiperEl, {
+        loop: true,
+        autoplay: {
+          delay: 1000,
+          disableOnInteraction: false,
+        },
+        speed: 800,
+        grabCursor: true,
+        slidesPerView: 1,
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
       });
-
-      function resetToRightInstant(el) {
-        // Повертаємо елемент миттєво СПРАВА (без анімації)
-        el.style.transition = 'none';
-        el.classList.remove('is-active', 'is-prev');
-        el.classList.add('is-next'); // translateX(100%) - справа
-        // force reflow
-        void el.offsetWidth;
-        // Повертаємо transition назад
-        el.style.transition = '';
-      }
-
-      function nextSlide() {
-        const current = items[index];
-        const nextIdx = (index + 1) % items.length;
-        const next = items[nextIdx];
-
-        // Гарантуємо: "next" підготовлений СПРАВА
-        next.classList.remove('is-active', 'is-prev');
-        next.classList.add('is-next');
-
-        // Запускаємо анімацію:
-        // current: центр (is-active) -> ВЛІВО (is-prev)
-        // next: СПРАВА (is-next) -> центр (is-active)
-        current.classList.remove('is-active');
-        current.classList.add('is-prev');
-
-        // Невелика мікрозатримка, щоб браузер застосував клас до current
-        requestAnimationFrame(() => {
-          next.classList.remove('is-next');
-          next.classList.add('is-active');
-        });
-
-        // Після завершення анімації transform у current — повертаємо його миттєво СПРАВА (is-next)
-        const onEnd = (e) => {
-          if (e.propertyName !== 'transform') return;
-          current.removeEventListener('transitionend', onEnd);
-          resetToRightInstant(current);
-          index = nextIdx;
-        };
-        current.addEventListener('transitionend', onEnd);
-      }
-
-      // Крутимо цикл
-      setInterval(nextSlide, HOLD + DURATION);
+      swiper.autoplay.start();
     });
   </script>
 {% endif %}
@@ -286,46 +235,6 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const promoBlock = document.querySelector(".b-header__promo");
-    if (!promoBlock) return;
-
-    const desktopUl = promoBlock.querySelector(".promo-desktop");
-    const mobileEl  = promoBlock.querySelector(".mobile-promo");
-
-    // Fix: Get all nested li elements from the structure
-    const items = Array.from(desktopUl.querySelectorAll("li li"))
-      .map(li => li.textContent.trim())
-      .filter(Boolean);
-
-    if (!items.length) return;
-
-    let idx = 0;
-    const fadeDur = 700;   // має збігатися з duration-700 (ms)
-    const pause   = 5000;  // 5 секунд між змінами
-
-    function showNext() {
-      // фейд-аут
-      mobileEl.classList.add("opacity-0");
-
-      // міняємо текст після фейдауту, потім фейд-ін
-      setTimeout(() => {
-        mobileEl.textContent = items[idx];
-        mobileEl.classList.remove("opacity-0");
-        idx = (idx + 1) % items.length;
-      }, fadeDur);
-    }
-
-    // чисто на старті переконаємось, що спан порожній
-    mobileEl.textContent = "";
-
-    // перший показ і цикл
-    showNext();
-    setInterval(showNext, pause);
-  });
-</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
