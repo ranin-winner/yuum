@@ -307,7 +307,7 @@
       isOpened: false,
       isLoading: false,
       hoverTimer: null,
-      isDesktop: window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1024,
+      isDesktop: window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1366,
 
       init() {
         this.$watch('isOpened', (value) => {
@@ -327,7 +327,7 @@
       },
 
       handleResize() {
-        this.isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1024;
+        this.isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1366;
         if (!this.isDesktop) this.closeMegamenu();
       },
 

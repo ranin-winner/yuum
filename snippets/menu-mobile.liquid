@@ -1,6 +1,6 @@
 <div
   x-data="menuMobile"
-  class="b-header__mobile-menu md:hidden"
+  class="b-header__mobile-menu"
   @resize.debounce.window="handleResize">
 
   <button
@@ -144,7 +144,7 @@
       isLoading: false,
 
       handleResize() {
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= 1366) {
           this.closeMobileMenu();
         }
       },
