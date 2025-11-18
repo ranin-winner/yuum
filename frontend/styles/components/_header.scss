@@ -312,7 +312,11 @@
 
     &-panel {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: calc(100% - 40px);
+      max-width: 728px;
       z-index: 1000;
       background: #e7e7e7;
       display: flex;
@@ -331,6 +335,7 @@
       border-bottom: 1px solid #ADB0B0;
       background: #E7E7E7;
       min-height: 60px;
+      border-top-right-radius: 20px;
     }
 
     &-spacer {
