@@ -753,57 +753,68 @@
     }
 }
 
-// whosale
-// .careers-section
-// .careers-content
-// .careers-image-wrapper,
-// .careers-section
-// .careers-content
-// .careers-person-wrapper {
-//     @media (max-width: 1439px) {
-
-//     }
-//     border-bottom: 1px solid #ADAEB0;
-// }
-
 
 // bundle layout styles
 .m-product-ushopaid-mix-match-2 .shopify-section:first-child + .shopify-section {
     padding-bottom: 20px;
   }
 
+  .m-product-ushopaid-mix-match-2 {
+    .l-product .b-product__gallery {
+        max-height: 520px;
+    }
+  }
+
 // bundle styles
-.cOnQpd {
-    border-top-right-radius: 32px;
-    border-top-left-radius: 32px;
+.m-product-ushopaid-mix-match-2 .b-product__gallery picture img {
+    height: auto;
+    max-height: 520px;
 }
 
-.dtWOIU .ush-product-quantity {
+.ush-product-quantity {
     border: none!important;
+}
+
+[class^="ProductItem__Wrapper"] {
+    border-radius: 12px!important;
+    background: #EEEEEE!important;
 }
 
 .ush-quantity-plus,
 .ush-quantity-minus {
-    width: 40px!important;
-    height: 40px!important;
+    width: 35px!important;
+    height: 35px!important;
     border: 1px solid #474747;
     border-radius: 50%;
+
+    @media screen and (min-width: 420px) {
+        width: 40px!important;
+        height: 40px!important;
+    }
 }
 
-.dtWOIU .ush-product-item {
+.ush-product-item {
     gap: 16px;
     flex-direction: row!important;
     border-radius: 12px!important;
     border: 1px solid #E0E0E0;
 }
 
-.dtWOIU .ush-product-img {
+.ush-product-img {
     max-width: 162px;
     max-height: 162px;
 }
 
-.dtWOIU {
-    border-radius: 12px!important;
+.ush-bf-next-btn {
+    &:hover {
+        background-color: #474747!important;
+    }
+}
+
+.ush-bf-operate {
+    flex-direction: row!important;
+    justify-content: end;
+    gap: 16px!important;
 }
 
 .ush-product-img-shadow {
@@ -812,48 +823,55 @@
 
 // styles for modal (porduct description)
 .ush-info-title {
-    @apply heading-4;
-    font-size: 48px!important;
+    font-family: var(--font-heading, 'WT Monarch Nova'), system-ui, -apple-system, Arial, sans-serif;
+    font-size: 36px!important;
     font-weight: 400!important;
+
+    @media screen and (min-width: 1024px) {
+        font-size: 48px!important;
+    }
 }
 
-.fWaXZd .ush-info-quantity .ush-qty-cont {
+.ush-info-quantity .ush-qty-cont {
     border: none!important;
     height: 40px!important;
 }
 
 // styles for modal content
-.fWaXZd .ushopaid-variant-selector-content {
+.ushopaid-variant-selector-content {
     background-color: #E7E7E7!important;
     border-radius: 32px !important;
     flex-direction: column !important;
     align-items: center !important;
     width: auto!important;
     max-width: 660px!important;
-    padding: 60px 40px !important;
+    padding: 32px 16px !important;
+    @media screen and (min-width: 1024px) {
+        padding: 60px 40px !important;
+    }
 }
 
-.fWaXZd .ush-vs-right {
+.ush-vs-right {
     width: 100%!important;
     padding: 16px 0px 0px 0px!important;
 }
 
-.fWaXZd .ush-info-desc {
+.ush-info-desc {
     max-width: 100%!important;
     font-size: 16px!important;
 }
 
 
-.fWaXZd .ush-vs-left {
+.ush-vs-left {
     display: none!important;
 }
 
-.fWaXZd .ush-scroll-area {
+.ush-scroll-area {
     max-height: 100% !important;
 }
 
 // modal close btn
-.fWaXZd .ush-vs-close {
+.ush-vs-close {
     background-color: transparent !important;
 }
 
@@ -866,11 +884,11 @@
     background-color: #E7E7E7!important;
 }
 
-.hWnQcO .ush-info-quantity .ush-qty-cont {
+.ush-info-quantity .ush-qty-cont {
     border: none!important;
 }
 
-.hWnQcO .ush-vs-close-button {
+.ush-vs-close-button {
     top: 0;
     left: 100%!important;
     transform: translateX(-100%) !important;
@@ -901,9 +919,14 @@
     }
 }
 
-.hWnQcO .ush-info-title {
-    margin-top: 40px!important;
+.ush-vs-content-center {
+    margin-top: 0!important;
+    max-height: calc(100% - 13.87vw)!important;
 }
+
+// .ush-info-title {
+//     margin-top: 40px!important;
+// }
 
 .ProductRating__Wrapper-sc-1l4gexz-0.iwgPnw.ush-bundle-rating-wrapper {
     display: none!important;
