@@ -9,6 +9,7 @@
 <section
   id="feature-brick-{{ section.id }}"
   class="feature-brick palette-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="container">
     <div class="feature-brick__inner flex md:flex-row flex-col">
@@ -16,9 +17,9 @@
             <h1 class="feature-brick__main-title feature-brick__main-title-sm">{{ section.settings.main_title }}</h1>
         {% endif %}
         {%- assign cards = section.blocks -%}
-        
+
         <div class="feature-brick__cards-wrapper w-full">
-          <div 
+          <div
             id="feature-brick-swiper-{{ section.id }}"
             class="feature-brick__cards swiper"
           >
@@ -28,8 +29,8 @@
                 {%- assign img_mobile  = block.settings.image_mobile | default: img_desktop -%}
                 <article class="swiper-slide">
                   <div class="relative pb-[24px]">
-                    {%- comment -%} 
-                    Обгортка робить усі мобільні картинки 328×328, а на md+ повертає auto 
+                    {%- comment -%}
+                    Обгортка робить усі мобільні картинки 328×328, а на md+ повертає auto
                     {%- endcomment -%}
                     <div class="feature-brick__image-inner rounded-[20px] overflow-hidden md:w-auto md:h-auto">
                       <picture>
@@ -58,7 +59,7 @@
                     {%- endif -%}
                     <div class="flex flex-wrap gap-[12px]">
                       {%- if block.settings.primary_label != blank and block.settings.primary_url != blank -%}
-                        
+
                         <a  href="{{ block.settings.primary_url }}"
                           class="btn btn-primary btn-primary-mini"
                         >
@@ -66,7 +67,7 @@
                         </a>
                       {%- endif -%}
                       {%- if block.settings.secondary_label != blank and block.settings.secondary_url != blank -%}
-                        
+
                         <a  href="{{ block.settings.secondary_url }}"
                           class="btn btn-secondary btn-secondary-mini"
                         >
@@ -95,20 +96,20 @@
       display: none;
     }
   }
-  
+
   /* На десктопі робимо grid замість слайдера */
   @media (min-width: 768px) {
     #feature-brick-{{ section.id }} .feature-brick__cards.swiper {
       overflow: visible;
     }
-    
+
     #feature-brick-{{ section.id }} .swiper-wrapper {
       display: grid;
       grid-template-columns: repeat({{ cards.size | at_least: 1 | at_most: 3 }}, 1fr);
       gap: 1rem;
       transform: none !important;
     }
-    
+
     #feature-brick-{{ section.id }} .swiper-slide {
       width: auto !important;
       height: auto !important;
@@ -126,7 +127,7 @@
       slidesPerView: 1,
       spaceBetween: 16,
       centeredSlides: true,
-      
+
       pagination: {
         el: `${sectionSel} .swiper-pagination`,
         type: 'progressbar',
@@ -138,17 +139,17 @@
           slidesPerView: 1,
           centeredSlides: true,
           spaceBetween: 16,
-          pagination: { 
-            enabled: true, 
-            type: 'progressbar' 
+          pagination: {
+            enabled: true,
+            type: 'progressbar'
           }
         },
         768: {
           slidesPerView: {{ cards.size | at_least: 1 | at_most: 3 }},
           centeredSlides: false,
           spaceBetween: 16,
-          pagination: { 
-            enabled: false 
+          pagination: {
+            enabled: false
           },
           allowTouchMove: false
         }
@@ -177,6 +178,26 @@
       "type": "text",
       "label": "Main section title",
       "id": "main_title"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
     }
   ],
   "blocks": [

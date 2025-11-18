@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "c_hero_banner_kcLePK": {
@@ -14,6 +5,7 @@
       "name": "Hero Banner",
       "settings": {
         "title": "Mochi",
+        "title_mb": "12",
         "enable_title_fill": false,
         "subtitle": "A traditional Japanese dessert known for its unique texture, rich history and unique taste.",
         "baner_button": "",
@@ -144,6 +136,7 @@
           "all-flavours-discovery-mochi-bundle",
           "sakura-mochi"
         ],
+        "margins_top_bottom": "0",
         "simple_hover": false,
         "title": "<p>Collection “Vegan Cream Ice” (Lactose free)<\/p>",
         "subtitle": "<p>These collections not only brings together every delicious flavour in our range but also allows you to explore a variety of unique tastes. <\/p>",
@@ -152,7 +145,8 @@
         "section_badge_text": "Important information",
         "section_text_2": "<p>Use Mochi Premium Collection after 10 minutes to enjoy the original taste of Japanese cream ice cream. To experience the unique taste of Japanese cream dessert, consume after 40 minutes. Store at a temperature of +2 - +4C. Do not heat treat or re-freeze. Consume within 24 hours<\/p>",
         "section_button_text": "Shop Now",
-        "section_button_link": "shopify:\/\/collections\/all"
+        "section_button_link": "shopify:\/\/collections\/all",
+        "text_btn_alignment": "items-start"
       }
     },
     "build_your_bundle_8pxK7L": {
@@ -221,9 +215,9 @@
             "image_desktop": "shopify:\/\/shop_images\/Rectangle_1615_f7ed33d8-e784-435a-9692-d0adcd767de5.png",
             "image_alt": "",
             "primary_label": "Read more",
-            "primary_url": "",
+            "primary_url": "shopify:\/\/pages\/about-product-mochi",
             "secondary_label": "To catalogue",
-            "secondary_url": ""
+            "secondary_url": "shopify:\/\/products\/matcha-mochi"
           }
         },
         "tile_p8rrXr": {
@@ -249,7 +243,7 @@
             "primary_label": "Read more",
             "primary_url": "",
             "secondary_label": "To catalogue",
-            "secondary_url": ""
+            "secondary_url": "shopify:\/\/products\/yuzu-mochi"
           }
         }
       },
@@ -261,7 +255,9 @@
       "name": "Feature brick slider",
       "settings": {
         "color_scheme": "default",
-        "main_title": "Other products"
+        "main_title": "Other products",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "main": {

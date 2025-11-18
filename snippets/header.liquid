@@ -176,7 +176,7 @@
 
     {% render 'menu-mobile', menuItems: settings.header_menu_1.links %}
     <!-- Mobile Left Section - Hamburger & Search -->
-    <div class="b-header__mobile-left md:hidden flex items-center gap-4">
+    <div class="b-header__mobile-left md:hidden flex items-center gap-4 flex-1 justify-start">
       <button class="b-header__search-toggle" @click="$store.search.open()" aria-label="Open search">
         {{ searchIcon }}
       </button>

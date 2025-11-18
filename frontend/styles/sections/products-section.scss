@@ -22,13 +22,41 @@
             gap: 10px;
         }
 
-        &--text-and-btn {
-            display: flex;
-            justify-content: center;
-            .text:not(:has(~ .text)) {
-                margin-bottom: 10px;
-            }
+      &--text-and-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: auto;
+
+        // Default alignment classes
+        &.items-start {
+          align-items: flex-start;
+
+          @media (max-width: 767px) {
+            align-items: flex-start;
+          }
         }
+
+        &.items-center {
+          align-items: center;
+
+          @media (max-width: 767px) {
+            align-items: center;
+          }
+        }
+
+        &.items-end {
+          align-items: flex-end;
+
+          @media (max-width: 767px) {
+            align-items: center;
+          }
+        }
+
+        .text:not(:has(~ .text)) {
+          margin-bottom: 10px;
+        }
+      }
 
         .text,
         .badge {
