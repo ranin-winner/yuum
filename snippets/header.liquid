@@ -91,10 +91,10 @@
       const swiper = new Swiper(swiperEl, {
         loop: true,
         autoplay: {
-          delay: 3000,
+          delay: 4000,
           disableOnInteraction: true
         },
-        speed: 800,
+        speed: 400,
         grabCursor: true,
         slidesPerView: 1,
         effect: 'fade',
@@ -105,7 +105,7 @@
 
       setInterval(() => {
         swiper.slideNext();
-      }, 3000);
+      }, 4000);
     });
   </script>
 {% endif %}
