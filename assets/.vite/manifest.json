@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CyvGOdld.css",
+    "file": "main-DCzzk5p4.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -70,6 +70,11 @@
   "frontend/styles/sections/build-your-bundle.scss": {
     "file": "build-your-bundle-ohpSltwa.css",
     "src": "frontend/styles/sections/build-your-bundle.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/bundle-chips.scss": {
+    "file": "bundle-chips-DJwhVZjz.css",
+    "src": "frontend/styles/sections/bundle-chips.scss",
     "isEntry": true
   },
   "frontend/styles/sections/bundle-product-slider.scss": {
