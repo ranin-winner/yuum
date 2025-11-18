@@ -18,7 +18,7 @@
         "enable_title_fill": false,
         "subtitle": "Dive into the world of Yuum with our most popular products",
         "baner_button": "Shop Now",
-        "baner_button_link": "shopify://collections/build-your-bundle",
+        "baner_button_link": "shopify://collections",
         "baner_button2": "Our locations",
         "baner_button_link2": "shopify://pages/contact",
         "image_bg": "shopify://shop_images/Image_8bd6a1e1-8d75-495a-b8df-0ab0884fc8ed.png",
@@ -112,7 +112,7 @@
         "section_badge_text": "",
         "section_text_2": "",
         "section_button_text": "Shop Now",
-        "section_button_link": "",
+        "section_button_link": "shopify://collections/build-your-bundle",
         "flow_bg_enabled": true
       }
     },
@@ -201,7 +201,7 @@
         "enable_title_fill": true,
         "subtitle": "",
         "baner_button": "ABOUT US",
-        "baner_button_link": "shopify://pages/about-us",
+        "baner_button_link": "shopify://pages/about-us-new",
         "baner_button2": "",
         "baner_button_link2": "",
         "image_bg": "shopify://shop_images/Image_1.png",
@@ -239,7 +239,8 @@
           "caramel-almond-mochi",
           "chestnut-mochi",
           "choco-banana-mochi",
-          "choco-mochi"
+          "choco-mochi",
+          "gift-card"
         ],
         "margins_top_bottom": "60",
         "simple_hover": true,
@@ -250,7 +251,8 @@
         "section_badge_text": "",
         "section_text_2": "",
         "section_button_text": "Shop Now",
-        "section_button_link": ""
+        "section_button_link": "shopify://collections/mochi-taster-packs",
+        "text_btn_alignment": "items-end"
       }
     },
     "build_your_bundle_GgVk8X": {
@@ -305,7 +307,7 @@
         "title": "Build your own bundle",
         "text": "Create a completely individual itis.box set and combine products from all collections to your liking!",
         "btn_label": "Build bundle",
-        "btn_link": ""
+        "btn_link": "shopify://products/new-mix-match-bundle"
       }
     },
     "visit_block_aNkWgG": {
@@ -313,8 +315,8 @@
       "name": "Visit block",
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
-        "pad_top": 120,
-        "pad_bottom": 120,
+        "pad_top": 0,
+        "pad_bottom": 0,
         "inner_gap": 24,
         "text_gap": 12,
         "title_color": "#474747",
@@ -360,15 +362,16 @@
       "block_order": [
         "instafeed_app_block_GxYyfp"
       ],
+      "custom_css": [],
       "settings": {}
     },
     "visit_block_PKmpbF": {
       "type": "visit-block",
       "name": "Visit block",
       "settings": {
-        "bg_color": "#eeeeee",
-        "pad_top": 48,
-        "pad_bottom": 48,
+        "bg_color": "#e7e7e7",
+        "pad_top": 0,
+        "pad_bottom": 0,
         "inner_gap": 24,
         "text_gap": 16,
         "title_color": "#1a1a1a",
@@ -379,7 +382,7 @@
         "right_opacity": 100,
         "title": "",
         "text": "",
-        "btn_label": "@YUUM",
+        "btn_label": "@yuum.uk",
         "btn_url": "https://www.instagram.com/yuum.uk/",
         "button_bg_color": "#ffffff",
         "button_text_color": "#1a1a1a",

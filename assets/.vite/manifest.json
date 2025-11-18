@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CJriDEmj.css",
+    "file": "main-BljEyi4y.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/about-universal.scss": {
-    "file": "about-universal-CKkXf3hr.css",
+    "file": "about-universal-CdVSCk-1.css",
     "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
@@ -128,7 +128,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/image-tips-card.scss": {
-    "file": "image-tips-card-C2XOImyZ.css",
+    "file": "image-tips-card-DcE7y2LK.css",
     "src": "frontend/styles/sections/image-tips-card.scss",
     "isEntry": true
   },
@@ -169,7 +169,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-Bhr3Uu3p.css",
+    "file": "products-section-DQFL35bL.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
