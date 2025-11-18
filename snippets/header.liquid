@@ -85,23 +85,14 @@
       const swiperEl = document.querySelector('.promo-swiper');
       if (!swiperEl) return;
 
-      // Перевіряємо чи є слайди
       const slides = swiperEl.querySelectorAll('.swiper-slide');
-      if (slides.length <= 1) {
-        console.log('Not enough slides for swiper');
-        return;
-      }
-
-      if (typeof Swiper === 'undefined') {
-        console.error('Swiper library not loaded');
-        return;
-      }
+      if (slides.length <= 1) return;
 
       const swiper = new Swiper(swiperEl, {
         loop: true,
         autoplay: {
-          delay: 1000,
-          disableOnInteraction: false,
+          delay: 3000,
+          disableOnInteraction: true
         },
         speed: 800,
         grabCursor: true,
@@ -111,7 +102,10 @@
           crossFade: true
         },
       });
-      swiper.autoplay.start();
+
+      setInterval(() => {
+        swiper.slideNext();
+      }, 3000);
     });
   </script>
 {% endif %}
