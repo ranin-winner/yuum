@@ -11,6 +11,7 @@
 <section
   id="visit-{{ section.id }}"
   class="w-full"
+  data-anim-trigger
   style="
   {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
   {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
@@ -19,12 +20,10 @@
 >
   <div class="container">
     <div class="visit-grid-{{ section.id }}">
-      {%- comment -%} img1 = велике зображення {%- endcomment -%}
       {% if section.settings.image_left != blank %}
         <div class="visit-img-left"
              data-anim="scroll-slide"
-             data-anim-distance="40"
-             anim-distance-mob="40">
+             data-anim-distance="60">
           <img
             src="{{ section.settings.image_left | image_url: width: 1600 }}"
             alt="{{ section.settings.image_left_alt | escape }}"
@@ -35,12 +34,11 @@
         </div>
       {% endif %}
 
-      {%- comment -%} text {%- endcomment -%}
       <div class="visit-text flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px; color: {{ section.settings.text_color }};">
         {% if section.settings.title != blank %}
           <h2 class="m-0 heading-2"
               style="color: {{ section.settings.title_color }};">
-            <span class="split-text-reveal">{{ section.settings.title }}</span>
+            {{ section.settings.title }}
           </h2>
         {% endif %}
 
@@ -59,12 +57,10 @@
         {% endif %}
       </div>
 
-      {%- comment -%} img2 = менше зображення {%- endcomment -%}
       {% if section.settings.image_right != blank %}
         <div class="visit-img-right"
              data-anim="scroll-slide"
-             data-anim-distance="40"
-             anim-distance-mob="40"
+             data-anim-distance="60"
              data-anim-dir="reverse">
           <img
             src="{{ section.settings.image_right | image_url: width: 1200 }}"
@@ -79,7 +75,6 @@
   </div>
 
   <style>
-    /* базова (mobile): дві колонки для зображень по 50%, потім текст */
     #visit-{{ section.id }} .visit-grid-{{ section.id }}{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -102,7 +97,6 @@
       }
     }
 
-    /* desktop: img1 ліворуч на дві стрічки, праворуч зверху текст, знизу img2 */
     @media (min-width:1024px){
       #visit-{{ section.id }} .visit-grid-{{ section.id }}{
         grid-template-columns: 1fr 1fr;
@@ -129,7 +123,6 @@
       }
     }
 
-    /* Мобільне центрування кнопки */
     @media (max-width: 1023px) {
       .center-grid {
         gap: 0 !important;
@@ -146,124 +139,75 @@
       }
     }
 
-    /* АНІМАЦІЇ ЯК НА WATCHHOUSE.COM */
-    .split-text-reveal {
-      display: inline-block;
-      overflow: hidden;
-    }
-
-    .split-text-reveal span {
-      display: inline-block;
-      transform: translateY(100%);
-      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .animated .split-text-reveal span {
-      transform: translateY(0);
-    }
-
     [data-anim="scroll-slide"] {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(60px);
     }
 
     [data-anim="scroll-slide"][data-anim-dir="reverse"] {
-      transform: translateY(-40px);
-    }
-
-    [data-anim="scroll-slide"].animated {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Оптимізація */
-    [data-anim], .split-text-reveal {
-      will-change: transform, opacity;
+      transform: translateY(-60px);
     }
   </style>
 
   <script>
-    // Додаємо клас для центрування коли немає тексту
-    document.addEventListener('DOMContentLoaded', function() {
+    function getAnimTrigger(element) {
+      return element.hasAttribute("data-anim-trigger-self") ?
+        element :
+        element.closest("[data-anim-trigger]") ||
+        element;
+    }
+
+    function initVisitAnimations() {
       const visitSection = document.getElementById('visit-{{ section.id }}');
-      if (!visitSection) return;
+      if (!visitSection || !window.gsap || !window.ScrollTrigger) {
+        setTimeout(initVisitAnimations, 100);
+        return;
+      }
+
+      const { gsap } = window;
 
       const visitText = visitSection.querySelector('.visit-text');
-
-      // Перевіряємо чи є заголовок або текст
       const hasTitle = visitText.querySelector('h2');
       const hasText = visitText.querySelector('p');
 
-      // Якщо немає заголовка і тексту - додаємо клас
       if (!hasTitle && !hasText) {
         visitText.classList.add('center-button');
         visitSection.querySelector('.visit-grid-{{ section.id }}').classList.add('center-grid');
       }
 
-      // Split text reveal для заголовка - ФІКС: додаємо span тільки для тексту всередині існуючого span
-      const titleElement = visitText.querySelector('.split-text-reveal');
-      if (titleElement) {
-        const originalText = titleElement.textContent;
-        titleElement.innerHTML = '';
+      visitSection.querySelectorAll('[data-anim="scroll-slide"]').forEach(element => {
+        const trigger = getAnimTrigger(element);
+        const distance = parseInt(element.dataset.animDistance) || 60;
+        const isReverse = element.hasAttribute('data-anim-dir');
 
-        // Розбиваємо текст на слова та символи
-        const words = originalText.split(' ');
-        words.forEach((word, wordIndex) => {
-          const wordSpan = document.createElement('span');
-          wordSpan.style.display = 'inline-block';
-          wordSpan.style.whiteSpace = 'nowrap';
+        gsap.set(element, {
+          y: isReverse ? -distance : distance
+        });
 
-          // Розбиваємо слово на букви
-          for (let i = 0; i < word.length; i++) {
-            const charSpan = document.createElement('span');
-            charSpan.textContent = word[i];
-            charSpan.style.display = 'inline-block';
-            wordSpan.appendChild(charSpan);
-          }
-
-          titleElement.appendChild(wordSpan);
-
-          // Додаємо пробіл між словами (крім останнього)
-          if (wordIndex < words.length - 1) {
-            const spaceSpan = document.createElement('span');
-            spaceSpan.innerHTML = '&nbsp;';
-            spaceSpan.style.display = 'inline-block';
-            titleElement.appendChild(spaceSpan);
+        gsap.to(element, {
+          y: 0,
+          scrollTrigger: {
+            trigger: trigger,
+            start: "top 85%",
+            end: "bottom 40%",
+            scrub: 2.5,
+            invalidateOnRefresh: true
           }
         });
-      }
-
-      // Ініціалізація анімацій
-      const animatedElements = visitSection.querySelectorAll('[data-anim]');
-      const textElement = visitText.querySelector('.split-text-reveal') ? visitText : null;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target.hasAttribute('data-anim')) {
-              entry.target.classList.add('animated');
-            }
-            // Для текстового блоку додаємо клас до батьківського елемента
-            if (textElement && entry.target === textElement) {
-              textElement.classList.add('animated');
-            }
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -30px 0px'
       });
 
-      // Спостерігаємо за всіма елементами
-      animatedElements.forEach(el => {
-        observer.observe(el);
-      });
-      if (textElement) {
-        observer.observe(textElement);
-      }
-    });
+      ScrollTrigger.refresh();
+    }
+
+    if (window.gsap && window.ScrollTrigger) {
+      document.addEventListener('DOMContentLoaded', initVisitAnimations);
+    } else {
+      const checkGSAP = setInterval(() => {
+        if (window.gsap && window.ScrollTrigger) {
+          clearInterval(checkGSAP);
+          document.addEventListener('DOMContentLoaded', initVisitAnimations);
+        }
+      }, 100);
+    }
   </script>
 </section>
 
