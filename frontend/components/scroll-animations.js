@@ -111,19 +111,14 @@ function initHeroTextAnimation(root = document) {
 
       // Create animations for each line
       element.split.lines.forEach((line, index) => {
-        // Set initial state - ВИПРАВЛЕНА ВЕРСІЯ
+        // Set initial state - 40% OPACITY
         gsap.set(line, {
-          backgroundImage: 'linear-gradient(90deg, currentColor 50%, transparent 50%)',
-          backgroundSize: '200% 100%',
-          backgroundPositionX: '100%',
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
+          opacity: 0.4 // 👈 ПО ДЕФОЛТУ 40% OPACITY
         });
 
-        // Create scroll animation
+        // Create scroll animation - ЗБІЛЬШУЄМО ДО 100% OPACITY
         element.anim = gsap.to(line, {
-          backgroundPositionX: 0,
+          opacity: 1, // 👈 ПРИ СКРОЛІ 100% OPACITY
           ease: "none",
           delay: 0.1 * index,
           scrollTrigger: {
