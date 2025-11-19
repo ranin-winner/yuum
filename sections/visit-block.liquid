@@ -130,8 +130,10 @@
       }
     }
 
+    /* ФІКС: запобігаємо початковому стрибку */
     [data-anim="scroll-slide"] {
       transform: translateY(60px);
+      will-change: transform;
     }
 
     [data-anim="scroll-slide"][data-anim-dir="reverse"] {
@@ -203,9 +205,8 @@
         gsap.to(titleElement.querySelectorAll('.split-char'), {
           y: 0,
           opacity: 1,
-          duration: 1,
+          duration: 0.8,
           ease: "circ.out",
-          stagger: 0.02,
           scrollTrigger: {
             trigger: trigger,
             start: "top 75%",
