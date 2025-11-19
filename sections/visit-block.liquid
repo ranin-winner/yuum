@@ -27,14 +27,16 @@
       <div class="visit-text flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px; color: {{ section.settings.text_color }};">
         {% if section.settings.title != blank %}
           <h2 class="m-0 heading-2"
-              data-anim="split-text-reveal"
+              data-anim="fade-in-slide-up"
               style="color: {{ section.settings.title_color }};">
             {{ section.settings.title }}
           </h2>
         {% endif %}
 
         {% if section.settings.text != blank %}
-          <p class="m-0 mb-[16px]">
+          <p class="m-0 mb-[16px]"
+             data-anim="fade-in-slide-up"
+             data-anim-delay="0.1">
             {{ section.settings.text }}
           </p>
         {% endif %}
@@ -42,6 +44,8 @@
         {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
           <a href="{{ section.settings.btn_url }}"
              class="btn btn-light"
+             data-anim="fade-in-slide-up"
+             data-anim-delay="0.2"
              style="column-gap:10px; border-color: currentColor; color: {{ section.settings.button_text_color }}; background-color: {{ section.settings.button_bg_color }};">
             {{ section.settings.btn_label }}
           </a>
@@ -130,37 +134,31 @@
       }
     }
 
-    /* ФІКС: запобігаємо початковому стрибку */
+    /* Початковий стан для fade-in-slide-up */
+    [data-anim="fade-in-slide-up"] {
+      opacity: 0;
+      -webkit-transform: translateY(40px);
+      transform: translateY(40px);
+      will-change: transform;
+    }
+
     [data-anim="scroll-slide"] {
       transform: translateY(60px);
+      opacity: 1;
       will-change: transform;
     }
 
     [data-anim="scroll-slide"][data-anim-dir="reverse"] {
       transform: translateY(-60px);
     }
-
-    [data-anim="split-text-reveal"] {
-      opacity: 0;
-    }
-
-    .split-char {
-      display: inline-block;
-      transform: translateY(100%);
-    }
   </style>
 
   <script>
-    function getAnimTrigger(element) {
-      return element.hasAttribute("data-anim-trigger-self") ?
-        element :
-        element.closest("[data-anim-trigger]") ||
-        element;
-    }
-
     function initVisitAnimations() {
       const visitSection = document.getElementById('visit-{{ section.id }}');
-      if (!visitSection || !window.gsap || !window.ScrollTrigger) {
+      if (!visitSection) return;
+
+      if (!window.gsap || !window.ScrollTrigger) {
         setTimeout(initVisitAnimations, 100);
         return;
       }
@@ -176,49 +174,26 @@
         visitSection.querySelector('.visit-grid-{{ section.id }}').classList.add('center-grid');
       }
 
-      // Split text reveal для заголовка
-      const titleElement = visitText.querySelector('[data-anim="split-text-reveal"]');
-      if (titleElement) {
-        const trigger = getAnimTrigger(titleElement);
+      // Fade-in-slide-up для текстового контенту
+      visitSection.querySelectorAll('[data-anim="fade-in-slide-up"]').forEach((element) => {
+        const delay = parseFloat(element.dataset.animDelay) || 0;
 
-        const text = titleElement.textContent;
-        titleElement.innerHTML = '';
-
-        for (let i = 0; i < text.length; i++) {
-          const charSpan = document.createElement('span');
-          charSpan.className = 'split-char';
-          charSpan.textContent = text[i];
-          charSpan.style.display = 'inline-block';
-          titleElement.appendChild(charSpan);
-        }
-
-        gsap.to(titleElement, {
+        gsap.to(element, {
           opacity: 1,
-          scrollTrigger: {
-            trigger: trigger,
-            start: "top 75%",
-            toggleActions: "play none none none",
-            invalidateOnRefresh: true
-          }
-        });
-
-        gsap.to(titleElement.querySelectorAll('.split-char'), {
           y: 0,
-          opacity: 1,
           duration: 0.8,
-          ease: "circ.out",
+          delay: delay,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: trigger,
-            start: "top 75%",
-            toggleActions: "play none none none",
-            invalidateOnRefresh: true
+            trigger: element,
+            start: "top 85%",
+            toggleActions: "play none none none"
           }
         });
-      }
+      });
 
       // Scroll slide для зображень
       visitSection.querySelectorAll('[data-anim="scroll-slide"]').forEach(element => {
-        const trigger = getAnimTrigger(element);
         const distance = parseInt(element.dataset.animDistance) || 60;
         const isReverse = element.hasAttribute('data-anim-dir');
 
@@ -228,11 +203,13 @@
 
         gsap.to(element, {
           y: 0,
+          duration: 1.2,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: trigger,
-            start: "top 85%",
-            end: "bottom 40%",
-            scrub: 2.5,
+            trigger: element,
+            start: "top 90%",
+            end: "bottom 50%",
+            scrub: 1.5,
             invalidateOnRefresh: true
           }
         });
@@ -241,15 +218,10 @@
       ScrollTrigger.refresh();
     }
 
-    if (window.gsap && window.ScrollTrigger) {
+    if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initVisitAnimations);
     } else {
-      const checkGSAP = setInterval(() => {
-        if (window.gsap && window.ScrollTrigger) {
-          clearInterval(checkGSAP);
-          document.addEventListener('DOMContentLoaded', initVisitAnimations);
-        }
-      }, 100);
+      initVisitAnimations();
     }
   </script>
 </section>
