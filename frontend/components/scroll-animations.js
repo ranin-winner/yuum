@@ -1,8 +1,8 @@
 // frontend/components/scroll-animations.js
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// Використовуємо глобальний GSAP
+const gsap = window.gsap;
+const ScrollTrigger = window.ScrollTrigger;
 
 // ---- Tunables
 const EASE = 'power2.out';
@@ -18,6 +18,8 @@ function setOnceFlag(node, key) {
 
 // ---- [1] Reveal-in animations (fade+up)
 function initReveal(root = document) {
+  if (!gsap) return;
+
   gsap.utils.toArray(root.querySelectorAll('[data-reveal]')).forEach((el) => {
     if (!setOnceFlag(el, '__whReveal')) return;
 
@@ -33,6 +35,8 @@ function initReveal(root = document) {
 
 // ---- [2] Parallax wrappers
 function initParallax(root = document) {
+  if (!gsap) return;
+
   gsap.utils.toArray(root.querySelectorAll('[data-parallax]')).forEach((wrap) => {
     if (!setOnceFlag(wrap, '__whParallax')) return;
 
@@ -53,13 +57,12 @@ function initParallax(root = document) {
 }
 
 // ---- [3] Title fill-on-scroll (left → right)
-// Працює тільки для елементів з атрибутом [data-fill-title].
-// CSS має містити ::after з clip-path, а color береться через --title-color.
 function initFillTitles(root = document) {
+  if (!gsap) return;
+
   gsap.utils.toArray(root.querySelectorAll('[data-fill-title]')).forEach((el) => {
     if (!setOnceFlag(el, '__whFill')) return;
 
-    // Початково повністю “закрито” (правий відступ 100%).
     el.style.setProperty('--clip-right', '100%');
 
     const st = ScrollTrigger.create({
@@ -76,40 +79,124 @@ function initFillTitles(root = document) {
       }
     });
 
-    // Якщо елемент уже в межах viewport під час ініціалізації — одразу виставляємо прогрес
-    // після першого refresh.
     st.refresh();
+  });
+}
+
+// ---- [4] Visit block animations
+function initVisitAnimations(root = document) {
+  if (!gsap) return;
+
+  // Знаходимо всі visit секції
+  gsap.utils.toArray(root.querySelectorAll('[id^="visit-"]')).forEach((visitSection) => {
+    if (!setOnceFlag(visitSection, '__visitAnimations')) return;
+
+    // Логіка центрування
+    const visitText = visitSection.querySelector('.visit-text');
+    if (visitText) {
+      const hasTitle = visitText.querySelector('h2');
+      const hasText = visitText.querySelector('p');
+
+      if (!hasTitle && !hasText) {
+        visitText.classList.add('center-button');
+        const gridClass = 'visit-grid-' + visitSection.id.replace('visit-', '');
+        visitSection.querySelector('.' + gridClass)?.classList.add('center-grid');
+      }
+    }
+
+    // Fade-in-slide-up для текстового контенту
+    gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="fade-in-slide-up"]')).forEach((element) => {
+      if (!setOnceFlag(element, '__visitFadeUp')) return;
+
+      const delay = parseFloat(element.dataset.animDelay) || 0;
+
+      gsap.to(element, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: delay,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    // Scroll slide для зображень
+    gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="scroll-slide"]')).forEach(element => {
+      if (!setOnceFlag(element, '__visitScrollSlide')) return;
+
+      const distance = parseInt(element.dataset.animDistance) || 60;
+      const isReverse = element.hasAttribute('data-anim-dir');
+
+      gsap.set(element, {
+        y: isReverse ? -distance : distance
+      });
+
+      gsap.to(element, {
+        y: 0,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 90%",
+          end: "bottom 50%",
+          scrub: 1.5,
+          invalidateOnRefresh: true
+        }
+      });
+    });
   });
 }
 
 /** Ініціалізація для всієї сторінки або для щойно вставленої секції */
 export function initScrollAnimations(root = document) {
   if (!root) root = document;
+
+  // Чекаємо на GSAP
+  if (!gsap || !ScrollTrigger) {
+    setTimeout(() => initScrollAnimations(root), 100);
+    return;
+  }
+
   initReveal(root);
   initParallax(root);
   initFillTitles(root);
+  initVisitAnimations(root);
 }
 
 /** Мʼяке оновлення тригерів при зміні DOM/розміру */
 export function scrollAnimationsRefresh() {
-  try { ScrollTrigger.refresh(); } catch (_) {}
+  if (!ScrollTrigger) return;
+
+  try {
+    ScrollTrigger.refresh();
+  } catch (error) {
+    console.error('ScrollTrigger refresh error:', error);
+  }
 }
 
-// ---- Автоінтеграція з твоїми lazy-sections
-// Коли секція довантажилась — ініціалізуємо анімації лише в її межах.
+// ---- Автоінтеграція з lazy-sections
 if (typeof document !== 'undefined') {
   document.addEventListener('lazy:section:loaded', (e) => {
     const root = e?.target || document;
     initScrollAnimations(root);
-    // Невелика затримка для коректних розрахунків висот
-    setTimeout(() => ScrollTrigger.refresh(), 50);
+    setTimeout(() => {
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 50);
   });
 
-  // На всяк випадок — при зміні розміру вікна
   window.addEventListener('resize', () => {
-    // debounce через rAF
     let raf;
     cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => ScrollTrigger.refresh());
+    raf = requestAnimationFrame(() => {
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    });
   });
 }
