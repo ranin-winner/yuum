@@ -12,34 +12,35 @@
   id="visit-{{ section.id }}"
   class="w-full"
   style="
-    {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
-    {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
+  {% if section.settings.bg_color %}background-color: {{ section.settings.bg_color }};{% endif %}
+  {% if section.settings.bg_image != blank %}background-image:url({{ section.settings.bg_image | image_url }}); background-size:cover; background-position:center;{% endif %}
     padding-top: {{ section.settings.pad_top }}px;
     padding-bottom: {{ section.settings.pad_bottom }}px;"
-  data-reveal
 >
   <div class="container">
     <div class="visit-grid-{{ section.id }}">
       {%- comment -%} img1 = велике зображення {%- endcomment -%}
       {% if section.settings.image_left != blank %}
-        <div class="visit-img-left" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+        <div class="visit-img-left"
+             data-anim="scroll-slide"
+             data-anim-distance="40"
+             anim-distance-mob="40">
           <img
             src="{{ section.settings.image_left | image_url: width: 1600 }}"
             alt="{{ section.settings.image_left_alt | escape }}"
             class="block w-full h-auto object-cover md:min-h-[900px]"
             style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.left_opacity | divided_by: 100.0 }};"
             loading="lazy"
-            {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
           >
         </div>
       {% endif %}
 
       {%- comment -%} text {%- endcomment -%}
-      <div class="visit-text flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px; color: {{ section.settings.text_color }};" data-reveal>
+      <div class="visit-text flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px; color: {{ section.settings.text_color }};">
         {% if section.settings.title != blank %}
           <h2 class="m-0 heading-2"
               style="color: {{ section.settings.title_color }};">
-            {{ section.settings.title }}
+            <span class="split-text-reveal">{{ section.settings.title }}</span>
           </h2>
         {% endif %}
 
@@ -60,25 +61,22 @@
 
       {%- comment -%} img2 = менше зображення {%- endcomment -%}
       {% if section.settings.image_right != blank %}
-        <div class="visit-img-right" {% if section.settings.enable_parallax %}data-parallax{% endif %}>
+        <div class="visit-img-right"
+             data-anim="scroll-slide"
+             data-anim-distance="40"
+             anim-distance-mob="40"
+             data-anim-dir="reverse">
           <img
             src="{{ section.settings.image_right | image_url: width: 1200 }}"
             alt="{{ section.settings.image_right_alt | escape }}"
             class="block w-full h-auto object-cover md:max-h-[516px]"
             style="border-radius: {{ section.settings.radius }}px; opacity: {{ section.settings.right_opacity | divided_by: 100.0 }};"
             loading="lazy"
-            {% if section.settings.enable_parallax %}data-parallax-item{% endif %}
           >
         </div>
       {% endif %}
     </div>
   </div>
-
-  <script>
-    if (window.initScrollAnimations) {
-      window.initScrollAnimations(document.getElementById('visit-{{ section.id }}'));
-    }
-  </script>
 
   <style>
     /* базова (mobile): дві колонки для зображень по 50%, потім текст */
@@ -96,11 +94,9 @@
     #visit-{{ section.id }} .visit-text      { grid-area: text; }
 
     @media (max-width:1024px){
-
       #visit-{{ section.id }} .visit-img-right {
         margin-top: 130px;
       }
-
       #visit-{{ section.id }} .visit-grid-{{ section.id }}{
         align-items: start;
       }
@@ -150,25 +146,127 @@
       }
     }
 
-  </style>
-</section>
-<script>
-  // Додаємо клас для центрування коли немає тексту
-  document.addEventListener('DOMContentLoaded', function() {
-    const visitSection = document.getElementById('visit-{{ section.id }}');
-    const visitText = visitSection.querySelector('.visit-text');
-
-    // Перевіряємо чи є заголовок або текст
-    const hasTitle = visitText.querySelector('h2');
-    const hasText = visitText.querySelector('p');
-
-    // Якщо немає заголовка і тексту - додаємо клас
-    if (!hasTitle && !hasText) {
-      visitText.classList.add('center-button');
-      visitSection.querySelector('.visit-grid-{{ section.id }}').classList.add('center-grid');
+    /* АНІМАЦІЇ ЯК НА WATCHHOUSE.COM */
+    .split-text-reveal {
+      display: inline-block;
+      overflow: hidden;
     }
-  });
-</script>
+
+    .split-text-reveal span {
+      display: inline-block;
+      transform: translateY(100%);
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .animated .split-text-reveal span {
+      transform: translateY(0);
+    }
+
+    [data-anim="scroll-slide"] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    [data-anim="scroll-slide"][data-anim-dir="reverse"] {
+      transform: translateY(-40px);
+    }
+
+    [data-anim="scroll-slide"].animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Оптимізація */
+    [data-anim], .split-text-reveal {
+      will-change: transform, opacity;
+    }
+  </style>
+
+  <script>
+    // Додаємо клас для центрування коли немає тексту
+    document.addEventListener('DOMContentLoaded', function() {
+      const visitSection = document.getElementById('visit-{{ section.id }}');
+      if (!visitSection) return;
+
+      const visitText = visitSection.querySelector('.visit-text');
+
+      // Перевіряємо чи є заголовок або текст
+      const hasTitle = visitText.querySelector('h2');
+      const hasText = visitText.querySelector('p');
+
+      // Якщо немає заголовка і тексту - додаємо клас
+      if (!hasTitle && !hasText) {
+        visitText.classList.add('center-button');
+        visitSection.querySelector('.visit-grid-{{ section.id }}').classList.add('center-grid');
+      }
+
+      // Split text reveal для заголовка - ФІКС: додаємо span тільки для тексту всередині існуючого span
+      const titleElement = visitText.querySelector('.split-text-reveal');
+      if (titleElement) {
+        const originalText = titleElement.textContent;
+        titleElement.innerHTML = '';
+
+        // Розбиваємо текст на слова та символи
+        const words = originalText.split(' ');
+        words.forEach((word, wordIndex) => {
+          const wordSpan = document.createElement('span');
+          wordSpan.style.display = 'inline-block';
+          wordSpan.style.whiteSpace = 'nowrap';
+
+          // Розбиваємо слово на букви
+          for (let i = 0; i < word.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.textContent = word[i];
+            charSpan.style.display = 'inline-block';
+            wordSpan.appendChild(charSpan);
+          }
+
+          titleElement.appendChild(wordSpan);
+
+          // Додаємо пробіл між словами (крім останнього)
+          if (wordIndex < words.length - 1) {
+            const spaceSpan = document.createElement('span');
+            spaceSpan.innerHTML = '&nbsp;';
+            spaceSpan.style.display = 'inline-block';
+            titleElement.appendChild(spaceSpan);
+          }
+        });
+      }
+
+      // Ініціалізація анімацій
+      const animatedElements = visitSection.querySelectorAll('[data-anim]');
+      const textElement = visitText.querySelector('.split-text-reveal') ? visitText : null;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (entry.target.hasAttribute('data-anim')) {
+              entry.target.classList.add('animated');
+            }
+            // Для текстового блоку додаємо клас до батьківського елемента
+            if (textElement && entry.target === textElement) {
+              textElement.classList.add('animated');
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      // Спостерігаємо за всіма елементами
+      animatedElements.forEach(el => {
+        observer.observe(el);
+      });
+      if (textElement) {
+        observer.observe(textElement);
+      }
+    });
+  </script>
+</section>
+
 {% schema %}
 {
   "name": "Visit block",
