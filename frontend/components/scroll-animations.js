@@ -4,9 +4,12 @@
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
 
+// Імпортуємо тільки SplitText
+import { SplitText } from 'gsap/SplitText';
+
 // ---- Tunables
 const EASE = 'power2.out';
-const DURATION_IN  = 0.65; // 0.55–0.75
+const DURATION_IN  = 0.65;
 const DURATION_OUT = 0.45;
 
 // ---- Helpers
@@ -83,7 +86,63 @@ function initFillTitles(root = document) {
   });
 }
 
-// ---- [4] Visit block animations
+// ---- [4] НОВА АНІМАЦІЯ ДЛЯ HERO ТЕКСТУ (split text)
+function initHeroTextAnimation(root = document) {
+  if (!gsap || !SplitText) return;
+
+  const elements = root.querySelectorAll('[data-fill-title]');
+  if (!elements.length) return;
+
+  elements.forEach((element) => {
+    if (!setOnceFlag(element, '__whHeroText')) return;
+
+    // Cleanup previous animations
+    if (element.anim) {
+      element.anim.progress(1).kill();
+      element.split?.revert();
+    }
+
+    try {
+      // Initialize SplitText
+      element.split = new SplitText(element, {
+        type: "lines",
+        linesClass: "split-line"
+      });
+
+      // Create animations for each line
+      element.split.lines.forEach((line, index) => {
+        // Set initial state - ВИПРАВЛЕНА ВЕРСІЯ
+        gsap.set(line, {
+          backgroundImage: 'linear-gradient(90deg, currentColor 50%, transparent 50%)',
+          backgroundSize: '200% 100%',
+          backgroundPositionX: '100%',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        });
+
+        // Create scroll animation
+        element.anim = gsap.to(line, {
+          backgroundPositionX: 0,
+          ease: "none",
+          delay: 0.1 * index,
+          scrollTrigger: {
+            trigger: line,
+            scrub: 0.3,
+            start: "top center",
+            end: "bottom center",
+            invalidateOnRefresh: true
+          }
+        });
+      });
+
+    } catch (error) {
+      console.error('Hero text animation error:', error);
+    }
+  });
+}
+
+// ---- [5] Visit block animations
 function initVisitAnimations(root = document) {
   if (!gsap) return;
 
@@ -151,6 +210,8 @@ function initVisitAnimations(root = document) {
   });
 }
 
+
+
 /** Ініціалізація для всієї сторінки або для щойно вставленої секції */
 export function initScrollAnimations(root = document) {
   if (!root) root = document;
@@ -164,6 +225,7 @@ export function initScrollAnimations(root = document) {
   initReveal(root);
   initParallax(root);
   initFillTitles(root);
+  initHeroTextAnimation(root); // 👈 ДОДАЄМО НОВУ АНІМАЦІЮ
   initVisitAnimations(root);
 }
 

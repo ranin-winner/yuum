@@ -153,6 +153,23 @@
       transform: translateY(-10px); /* Трохи вище центру */
     }
   }
+
+  .split-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  /* ВИПРАВЛЕНІ СТИЛІ */
+  [data-fill-title] {
+    color: inherit; /* Забезпечує видимість тексту */
+  }
+
+  .split-line {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #FFFFFF;
+    color: #fff;
+  }
 </style>
 
 
