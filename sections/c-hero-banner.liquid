@@ -9,12 +9,10 @@
           <h1
             class="b-hero-banner__title heading-1"
             {% if section.settings.enable_title_fill %}
-              data-fill-title
-              data-fill-text="{{ section.settings.title | escape }}"
+              data-anim="text-color-fill"
             {% endif %}
             style="--title-color: {{ section.settings.title_color }};
-                margin-bottom: {{ section.settings.title_mb }}px;
-            "
+              margin-bottom: {{ section.settings.title_mb }}px;"
           >
             {{ section.settings.title }}
           </h1>
@@ -156,19 +154,8 @@
 
   .split-line {
     display: block;
-    overflow: hidden;
-  }
-
-  /* ВИПРАВЛЕНІ СТИЛІ */
-  [data-fill-title] {
-    color: inherit; /* Забезпечує видимість тексту */
-  }
-
-  .split-line {
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: #FFFFFF;
-    color: #fff;
+    opacity: 0.4; /* 👈 40% OPACITY ПО ДЕФОЛТУ */
+    transition: opacity 0.3s ease; /* Опціонально для плавності */
   }
 </style>
 

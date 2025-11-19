@@ -9,7 +9,7 @@ import { SplitText } from 'gsap/SplitText';
 
 // ---- Tunables
 const EASE = 'power2.out';
-const DURATION_IN  = 0.65;
+const DURATION_IN = 0.65;
 const DURATION_OUT = 0.45;
 
 // ---- Helpers
@@ -30,7 +30,7 @@ function initReveal(root = document) {
     ScrollTrigger.create({
       trigger: el,
       start: 'top 85%',
-      onEnter:     () => gsap.to(el, { y: 0,  opacity: 1, duration: DURATION_IN,  ease: EASE }),
+      onEnter: () => gsap.to(el, { y: 0, opacity: 1, duration: DURATION_IN, ease: EASE }),
       onLeaveBack: () => gsap.to(el, { y: 24, opacity: 0, duration: DURATION_OUT, ease: EASE })
     });
   });
@@ -59,11 +59,13 @@ function initParallax(root = document) {
   });
 }
 
-// ---- [3] Title fill-on-scroll (left → right)
+// ---- [3] Title fill-on-scroll (left → right) - для звичайних тайтлів
 function initFillTitles(root = document) {
   if (!gsap) return;
 
   gsap.utils.toArray(root.querySelectorAll('[data-fill-title]')).forEach((el) => {
+    // Пропускаємо елементи з text-color-fill анімацією
+    if (el.hasAttribute('data-anim') && el.getAttribute('data-anim') === 'text-color-fill') return;
     if (!setOnceFlag(el, '__whFill')) return;
 
     el.style.setProperty('--clip-right', '100%');
@@ -86,62 +88,73 @@ function initFillTitles(root = document) {
   });
 }
 
-// ---- [4] НОВА АНІМАЦІЯ ДЛЯ HERO ТЕКСТУ (split text)
-function initHeroTextAnimation(root = document) {
-  if (!gsap || !SplitText) return;
+// ---- [4] TEXT COLOR FILL ANIMATION (як на WatchHouse)
+// ---- [4] TEXT OPACITY ANIMATION (40% → 100%)
+function initTextColorFill(root = document) {
+  if (!gsap || !ScrollTrigger || !SplitText) return;
 
-  const elements = root.querySelectorAll('[data-fill-title]');
+  const elements = root.querySelectorAll('[data-anim="text-color-fill"]');
   if (!elements.length) return;
 
-  elements.forEach((element) => {
-    if (!setOnceFlag(element, '__whHeroText')) return;
+  // Реєструємо SplitText як плагін
+  if (!gsap.plugins.splitText) {
+    gsap.registerPlugin(SplitText);
+  }
 
-    // Cleanup previous animations
-    if (element.anim) {
-      element.anim.progress(1).kill();
-      element.split?.revert();
-    }
+  function setupAnimation() {
+    elements.forEach((element) => {
+      if (!setOnceFlag(element, '__whTextColorFill')) return;
 
-    try {
-      // Initialize SplitText
-      element.split = new SplitText(element, {
-        type: "lines",
-        linesClass: "split-line"
-      });
+      // Cleanup previous animations
+      if (element.anim) {
+        element.anim.progress(1).kill();
+        element.split?.revert();
+      }
 
-      // Create animations for each line
-      element.split.lines.forEach((line, index) => {
-        // Set initial state - 40% OPACITY
-        gsap.set(line, {
-          opacity: 0.4 // 👈 ПО ДЕФОЛТУ 40% OPACITY
+      try {
+        // Initialize SplitText
+        element.split = new SplitText(element, {
+          type: "lines",
+          linesClass: "split-line"
         });
 
-        // Create scroll animation - ЗБІЛЬШУЄМО ДО 100% OPACITY
-        element.anim = gsap.to(line, {
-          opacity: 1, // 👈 ПРИ СКРОЛІ 100% OPACITY
-          ease: "none",
-          delay: 0.1 * index,
-          scrollTrigger: {
-            trigger: line,
-            scrub: 0.3,
-            start: "top center",
-            end: "bottom center",
-            invalidateOnRefresh: true
-          }
+        // Set initial state - 40% opacity
+        element.split.lines.forEach((line) => {
+          gsap.set(line, {
+            opacity: 0.4 // 👈 40% OPACITY ПО ДЕФОЛТУ
+          });
         });
-      });
 
-    } catch (error) {
-      console.error('Hero text animation error:', error);
-    }
-  });
+        // Create scroll animation - opacity до 100%
+        element.split.lines.forEach((line, index) => {
+          element.anim = gsap.to(line, {
+            opacity: 1, // 👈 100% OPACITY ПРИ СКРОЛІ
+            ease: "none",
+            delay: 0.1 * index,
+            scrollTrigger: {
+              trigger: line,
+              scrub: 0.3,
+              start: "top center",
+              end: "bottom center",
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
+      } catch (error) {
+        console.error('Text opacity animation error:', error);
+      }
+    });
+  }
+
+  setupAnimation();
+  ScrollTrigger.addEventListener('refresh', setupAnimation);
 }
 
 // ---- [5] Visit block animations
 function initVisitAnimations(root = document) {
   if (!gsap) return;
 
-  // Знаходимо всі visit секції
   gsap.utils.toArray(root.querySelectorAll('[id^="visit-"]')).forEach((visitSection) => {
     if (!setOnceFlag(visitSection, '__visitAnimations')) return;
 
@@ -205,8 +218,6 @@ function initVisitAnimations(root = document) {
   });
 }
 
-
-
 /** Ініціалізація для всієї сторінки або для щойно вставленої секції */
 export function initScrollAnimations(root = document) {
   if (!root) root = document;
@@ -220,8 +231,13 @@ export function initScrollAnimations(root = document) {
   initReveal(root);
   initParallax(root);
   initFillTitles(root);
-  initHeroTextAnimation(root); // 👈 ДОДАЄМО НОВУ АНІМАЦІЮ
+  initTextColorFill(root); // 👈 ВИПРАВЛЕНА АНІМАЦІЯ
   initVisitAnimations(root);
+
+  // Оновлюємо ScrollTrigger
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 50);
 }
 
 /** Мʼяке оновлення тригерів при зміні DOM/розміру */
@@ -237,6 +253,10 @@ export function scrollAnimationsRefresh() {
 
 // ---- Автоінтеграція з lazy-sections
 if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollAnimations();
+  });
+
   document.addEventListener('lazy:section:loaded', (e) => {
     const root = e?.target || document;
     initScrollAnimations(root);
