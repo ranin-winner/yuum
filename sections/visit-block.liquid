@@ -1,13 +1,3 @@
-{% comment %}
-  Visit block — single grid with template areas
-  Mobile:
-    ┌ img1 ┬ img2 ┐
-    └────── text ──────┘
-  Desktop:
-    ┌ img1 ┬  text ┐
-    └ img1 ┴  img2 ┘
-{% endcomment %}
-
 <section
   id="visit-{{ section.id }}"
   class="w-full"
@@ -37,6 +27,7 @@
       <div class="visit-text flex flex-col items-start" style="row-gap: {{ section.settings.text_gap }}px; color: {{ section.settings.text_color }};">
         {% if section.settings.title != blank %}
           <h2 class="m-0 heading-2"
+              data-anim="split-text-reveal"
               style="color: {{ section.settings.title_color }};">
             {{ section.settings.title }}
           </h2>
@@ -146,6 +137,15 @@
     [data-anim="scroll-slide"][data-anim-dir="reverse"] {
       transform: translateY(-60px);
     }
+
+    [data-anim="split-text-reveal"] {
+      opacity: 0;
+    }
+
+    .split-char {
+      display: inline-block;
+      transform: translateY(100%);
+    }
   </style>
 
   <script>
@@ -174,6 +174,48 @@
         visitSection.querySelector('.visit-grid-{{ section.id }}').classList.add('center-grid');
       }
 
+      // Split text reveal для заголовка
+      const titleElement = visitText.querySelector('[data-anim="split-text-reveal"]');
+      if (titleElement) {
+        const trigger = getAnimTrigger(titleElement);
+
+        const text = titleElement.textContent;
+        titleElement.innerHTML = '';
+
+        for (let i = 0; i < text.length; i++) {
+          const charSpan = document.createElement('span');
+          charSpan.className = 'split-char';
+          charSpan.textContent = text[i];
+          charSpan.style.display = 'inline-block';
+          titleElement.appendChild(charSpan);
+        }
+
+        gsap.to(titleElement, {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: trigger,
+            start: "top 75%",
+            toggleActions: "play none none none",
+            invalidateOnRefresh: true
+          }
+        });
+
+        gsap.to(titleElement.querySelectorAll('.split-char'), {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "circ.out",
+          stagger: 0.02,
+          scrollTrigger: {
+            trigger: trigger,
+            start: "top 75%",
+            toggleActions: "play none none none",
+            invalidateOnRefresh: true
+          }
+        });
+      }
+
+      // Scroll slide для зображень
       visitSection.querySelectorAll('[data-anim="scroll-slide"]').forEach(element => {
         const trigger = getAnimTrigger(element);
         const distance = parseInt(element.dataset.animDistance) || 60;
