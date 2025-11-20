@@ -345,7 +345,7 @@
             "link_color": "#000000",
             "background_color": "",
             "feed_id": "",
-            "html_area": ""
+            "html_area": "<style>\n.anim-slide-in-bottom {\n}\n<\/style>\n<script>\ndocument.addEventListener('DOMContentLoaded', function() {\n  setTimeout(function() {\n    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {\n      \n      const customHTMLBlocks = document.querySelectorAll('[id*=\"shopify-section\"]');\n      customHTMLBlocks.forEach(section => {\n        if (section.innerHTML.includes('anim-slide-in-bottom')) {\n          section.classList.add('anim-slide-in-bottom');\n          \n          gsap.set(section, { y: 60, opacity: 0 });\n          \n          ScrollTrigger.create({\n            trigger: section,\n            start: 'top 85%',\n            onEnter: () => {\n              gsap.to(section, {\n                y: 0,\n                opacity: 1,\n                duration: 1.2,\n                ease: 'power2.out'\n              });\n            }\n          });\n        }\n      });\n      \n    }\n  }, 500);\n});\n<\/script>"
           }
         }
       },
