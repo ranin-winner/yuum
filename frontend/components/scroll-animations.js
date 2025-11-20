@@ -122,7 +122,7 @@ function initTextColorFill(root = document) {
           scrollTrigger: {
             trigger: element,
             start: "top 90%",
-            end: "top 30%",
+            end: "top 10%",
             scrub: 1.5,
             toggleActions: "play none none none"
           }
