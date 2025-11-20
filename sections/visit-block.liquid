@@ -102,16 +102,16 @@
       }
     }
 
-    [data-anim="fade-in-slide-up"] {
+    #visit-{{ section.id }} [data-anim="fade-in-slide-up"] {
       opacity: 0;
       transform: translateY(40px);
     }
 
-    [data-anim="scroll-slide"] {
+    #visit-{{ section.id }} [data-anim="scroll-slide"] {
       transform: translateY(60px);
     }
 
-    [data-anim="scroll-slide"][data-anim-dir="reverse"] {
+    #visit-{{ section.id }} [data-anim="scroll-slide"][data-anim-dir="reverse"] {
       transform: translateY(-60px);
     }
 

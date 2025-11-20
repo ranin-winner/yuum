@@ -205,6 +205,107 @@ function initVisitAnimations(root = document) {
   });
 }
 
+// ---- [6] Split Text Reveal Animation
+function initSplitTextReveal(root = document) {
+  if (!gsap || !ScrollTrigger || !SplitText) return;
+
+  const elements = root.querySelectorAll('[data-anim="split-text-reveal"]');
+  if (!elements.length) return;
+
+  if (!gsap.plugins.splitText) {
+    gsap.registerPlugin(SplitText);
+  }
+
+  elements.forEach((element) => {
+    if (!setOnceFlag(element, '__whSplitReveal')) return;
+
+    const split = new SplitText(element, {
+      type: 'chars',
+      charsClass: 'split-char'
+    });
+
+    gsap.set(split.chars, {
+      y: '100%',
+      opacity: 0
+    });
+
+    ScrollTrigger.create({
+      trigger: element,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(split.chars, {
+          y: '0%',
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.02,
+          ease: 'power2.out'
+        });
+      }
+    });
+  });
+}
+
+// ---- [7] Slide In Bottom Animation
+function initSlideInBottom(root = document) {
+  if (!gsap) return;
+
+  gsap.utils.toArray(root.querySelectorAll('.anim-slide-in-bottom')).forEach((el) => {
+    if (!setOnceFlag(el, '__whSlideBottom')) return;
+
+    gsap.set(el, { y: 60, opacity: 0 });
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      onEnter: () => {
+        gsap.to(el, {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power2.out'
+        });
+      }
+    });
+  });
+}
+
+// ---- [8] Product Card Stagger Animation
+function initProductCardStagger(root = document) {
+  if (!gsap) return;
+
+  // Шукаємо всі swiper контейнери замість data-swiper-parent
+  const swiperContainers = root.querySelectorAll('.swiper-container');
+
+  swiperContainers.forEach((container) => {
+    const productCards = container.querySelectorAll('.product-card[data-anim="fade-in-slide-up"]');
+
+    productCards.forEach((card, index) => {
+      if (!setOnceFlag(card, '__whProductStagger')) return;
+
+      gsap.set(card, {
+        y: 30,
+        opacity: 0,
+        scale: 0.98
+      });
+
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.to(card, {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: 'power2.out'
+          });
+        }
+      });
+    });
+  });
+}
+
 export function initScrollAnimations(root = document) {
   if (!root) root = document;
 
@@ -218,6 +319,9 @@ export function initScrollAnimations(root = document) {
   initFillTitles(root);
   initTextColorFill(root);
   initVisitAnimations(root);
+  initSplitTextReveal(root);
+  initSlideInBottom(root);
+  initProductCardStagger(root);
 
   setTimeout(() => {
     ScrollTrigger.refresh();
