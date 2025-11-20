@@ -4,11 +4,6 @@ const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
 import { SplitText } from 'gsap/SplitText';
 
-// ---- Tunables
-const EASE = 'power2.out';
-const DURATION_IN = 0.65;
-const DURATION_OUT = 0.45;
-
 // ---- Helpers
 function setOnceFlag(node, key) {
   if (node[key]) return false;
@@ -16,24 +11,63 @@ function setOnceFlag(node, key) {
   return true;
 }
 
-// ---- [1] Reveal-in animations (fade+up)
-function initReveal(root = document) {
+// ---- [1] Універсальна анімація fade-in-slide-up
+function initFadeInSlideUp(root = document) {
   if (!gsap) return;
 
-  gsap.utils.toArray(root.querySelectorAll('[data-reveal]')).forEach((el) => {
-    if (!setOnceFlag(el, '__whReveal')) return;
+  const selectors = [
+    '[data-reveal]',
+    '[data-anim="fade-in-slide-up"]',
+    '.anim-slide-in-bottom',
+    '.product-card[data-anim="fade-in-slide-up"]'
+  ];
 
-    gsap.set(el, { y: 24, opacity: 0 });
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      onEnter: () => gsap.to(el, { y: 0, opacity: 1, duration: DURATION_IN, ease: EASE }),
-      onLeaveBack: () => gsap.to(el, { y: 24, opacity: 0, duration: DURATION_OUT, ease: EASE })
+  selectors.forEach(selector => {
+    gsap.utils.toArray(root.querySelectorAll(selector)).forEach((el, index) => {
+      if (!setOnceFlag(el, `__fadeInUp_${selector}`)) return;
+
+      const configs = {
+        '[data-reveal]': { y: 24, duration: 0.65 },
+        '[data-anim="fade-in-slide-up"]': { y: 30, duration: 0.8 },
+        '.anim-slide-in-bottom': { y: 60, duration: 1.2 },
+        '.product-card[data-anim="fade-in-slide-up"]': { y: 30, scale: 0.98, duration: 0.6 }
+      };
+
+      const config = configs[selector] || { y: 30, duration: 0.8 };
+
+      gsap.set(el, {
+        y: config.y,
+        opacity: 0,
+        ...(config.scale && { scale: config.scale })
+      });
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.to(el, {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: config.duration,
+            delay: selector.includes('product-card') ? index * 0.1 : 0,
+            ease: 'power2.out'
+          });
+        },
+        ...(selector === '[data-reveal]' && {
+          onLeaveBack: () => gsap.to(el, {
+            y: config.y,
+            opacity: 0,
+            duration: 0.45,
+            ease: 'power2.out'
+          })
+        })
+      });
     });
   });
 }
 
-// ---- [2] Parallax wrappers
+// ---- [2] Паралакс (залишаємо як є)
 function initParallax(root = document) {
   if (!gsap) return;
 
@@ -56,13 +90,43 @@ function initParallax(root = document) {
   });
 }
 
-// ---- [3] Title fill-on-scroll
-function initFillTitles(root = document) {
+// ---- [3] Scroll-slide анімації (об'єднуємо [5] частину)
+function initScrollSlide(root = document) {
   if (!gsap) return;
 
+  gsap.utils.toArray(root.querySelectorAll('[data-anim="scroll-slide"]')).forEach(element => {
+    if (!setOnceFlag(element, '__scrollSlide')) return;
+
+    const distance = parseInt(element.dataset.animDistance) || 60;
+    const isReverse = element.hasAttribute('data-anim-dir');
+
+    gsap.set(element, {
+      y: isReverse ? -distance : distance
+    });
+
+    gsap.to(element, {
+      y: 0,
+      duration: 2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 90%",
+        end: "bottom 50%",
+        scrub: 2.5,
+        invalidateOnRefresh: true
+      }
+    });
+  });
+}
+
+// ---- [4] Текст анімації (об'єднуємо [3] і [4])
+function initTextAnimations(root = document) {
+  if (!gsap || !ScrollTrigger) return;
+
+  // Fill titles
   gsap.utils.toArray(root.querySelectorAll('[data-fill-title]')).forEach((el) => {
     if (el.hasAttribute('data-anim') && el.getAttribute('data-anim') === 'text-color-fill') return;
-    if (!setOnceFlag(el, '__whFill')) return;
+    if (!setOnceFlag(el, '__fillTitle')) return;
 
     el.style.setProperty('--clip-right', '100%');
 
@@ -79,75 +143,96 @@ function initFillTitles(root = document) {
         el.style.setProperty('--clip-right', '100%');
       }
     });
-
     st.refresh();
   });
-}
 
-// ---- [4] TEXT WORD ANIMATION
-function initTextColorFill(root = document) {
-  if (!gsap || !ScrollTrigger || !SplitText) return;
+  // Split text reveal
+  if (!SplitText) return;
 
-  const elements = root.querySelectorAll('[data-anim="text-color-fill"]');
-  if (!elements.length) return;
+  const splitElements = root.querySelectorAll('[data-anim="split-text-reveal"]');
+  if (!splitElements.length) return;
 
   if (!gsap.plugins.splitText) {
     gsap.registerPlugin(SplitText);
   }
 
-  function setupAnimation() {
-    elements.forEach((element) => {
-      if (!setOnceFlag(element, '__whTextColorFill')) return;
+  splitElements.forEach((element) => {
+    if (!setOnceFlag(element, '__splitText')) return;
 
-      if (element.anim) {
-        element.anim.progress(1).kill();
-        element.split?.revert();
-      }
+    try {
+      const split = new SplitText(element, {
+        type: 'chars',
+        charsClass: 'split-char'
+      });
 
-      try {
-        element.split = new SplitText(element, {
-          type: "words",
-          wordsClass: "split-word"
-        });
+      gsap.set(split.chars, {
+        y: '100%',
+        opacity: 0
+      });
 
-        gsap.set(element.split.words, { opacity: 0.4 });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: element,
-            start: "top 90%",
-            end: "top 10%",
-            scrub: 2,
-            toggleActions: "play reverse play reverse"
-          }
-        });
-
-        element.split.words.forEach((word, index) => {
-          tl.to(word, {
+      ScrollTrigger.create({
+        trigger: element,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.to(split.chars, {
+            y: '0%',
             opacity: 1,
-            duration: 10,
-            ease: "power2.out"
-          }, index * 0.85);
-        });
+            duration: 0.8,
+            stagger: 0.02,
+            ease: 'power2.out'
+          });
+        }
+      });
+    } catch (error) {
+      console.warn('SplitText failed:', error);
+    }
+  });
 
-        element.anim = tl;
+  // Text color fill
+  const colorFillElements = root.querySelectorAll('[data-anim="text-color-fill"]');
+  if (!colorFillElements.length) return;
 
-      } catch (error) {
-        console.error('Text word animation error:', error);
-      }
-    });
-  }
+  colorFillElements.forEach((element) => {
+    if (!setOnceFlag(element, '__textColorFill')) return;
 
-  setupAnimation();
-  ScrollTrigger.addEventListener('refresh', setupAnimation);
+    try {
+      const split = new SplitText(element, {
+        type: "words",
+        wordsClass: "split-word"
+      });
+
+      gsap.set(split.words, { opacity: 0.4 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: element,
+          start: "top 90%",
+          end: "top 10%",
+          scrub: 2,
+          toggleActions: "play reverse play reverse"
+        }
+      });
+
+      split.words.forEach((word, index) => {
+        tl.to(word, {
+          opacity: 1,
+          duration: 10,
+          ease: "power2.out"
+        }, index * 0.85);
+      });
+
+    } catch (error) {
+      console.warn('Text color fill failed:', error);
+    }
+  });
 }
 
-// ---- [5] Visit block animations
+// ---- [5] Visit block (спрощена версія)
 function initVisitAnimations(root = document) {
   if (!gsap) return;
 
   gsap.utils.toArray(root.querySelectorAll('[id^="visit-"]')).forEach((visitSection) => {
-    if (!setOnceFlag(visitSection, '__visitAnimations')) return;
+    if (!setOnceFlag(visitSection, '__visitAnim')) return;
 
     const visitText = visitSection.querySelector('.visit-text');
     if (visitText) {
@@ -159,150 +244,6 @@ function initVisitAnimations(root = document) {
         visitSection.querySelector('.' + gridClass)?.classList.add('center-grid');
       }
     }
-
-    gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="fade-in-slide-up"]')).forEach((element) => {
-      if (!setOnceFlag(element, '__visitFadeUp')) return;
-
-      const delay = parseFloat(element.dataset.animDelay) || 0;
-
-      gsap.to(element, {
-        opacity: 1,
-        y: 0,
-        duration: 2,
-        delay: delay,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 85%",
-          toggleActions: "play none none none"
-        }
-      });
-    });
-
-    gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="scroll-slide"]')).forEach(element => {
-      if (!setOnceFlag(element, '__visitScrollSlide')) return;
-
-      const distance = parseInt(element.dataset.animDistance) || 60;
-      const isReverse = element.hasAttribute('data-anim-dir');
-
-      gsap.set(element, {
-        y: isReverse ? -distance : distance
-      });
-
-      gsap.to(element, {
-        y: 0,
-        duration: 2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 90%",
-          end: "bottom 50%",
-          scrub: 2.5,
-          invalidateOnRefresh: true
-        }
-      });
-    });
-  });
-}
-
-// ---- [6] Split Text Reveal Animation
-function initSplitTextReveal(root = document) {
-  if (!gsap || !ScrollTrigger || !SplitText) return;
-
-  const elements = root.querySelectorAll('[data-anim="split-text-reveal"]');
-  if (!elements.length) return;
-
-  if (!gsap.plugins.splitText) {
-    gsap.registerPlugin(SplitText);
-  }
-
-  elements.forEach((element) => {
-    if (!setOnceFlag(element, '__whSplitReveal')) return;
-
-    const split = new SplitText(element, {
-      type: 'chars',
-      charsClass: 'split-char'
-    });
-
-    gsap.set(split.chars, {
-      y: '100%',
-      opacity: 0
-    });
-
-    ScrollTrigger.create({
-      trigger: element,
-      start: 'top 85%',
-      onEnter: () => {
-        gsap.to(split.chars, {
-          y: '0%',
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.02,
-          ease: 'power2.out'
-        });
-      }
-    });
-  });
-}
-
-// ---- [7] Slide In Bottom Animation
-function initSlideInBottom(root = document) {
-  if (!gsap) return;
-
-  gsap.utils.toArray(root.querySelectorAll('.anim-slide-in-bottom')).forEach((el) => {
-    if (!setOnceFlag(el, '__whSlideBottom')) return;
-
-    gsap.set(el, { y: 60, opacity: 0 });
-
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 90%',
-      onEnter: () => {
-        gsap.to(el, {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power2.out'
-        });
-      }
-    });
-  });
-}
-
-// ---- [8] Product Card Stagger Animation
-function initProductCardStagger(root = document) {
-  if (!gsap) return;
-
-  // Шукаємо всі swiper контейнери замість data-swiper-parent
-  const swiperContainers = root.querySelectorAll('.swiper-container');
-
-  swiperContainers.forEach((container) => {
-    const productCards = container.querySelectorAll('.product-card[data-anim="fade-in-slide-up"]');
-
-    productCards.forEach((card, index) => {
-      if (!setOnceFlag(card, '__whProductStagger')) return;
-
-      gsap.set(card, {
-        y: 30,
-        opacity: 0,
-        scale: 0.98
-      });
-
-      ScrollTrigger.create({
-        trigger: container,
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.to(card, {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            delay: index * 0.1,
-            ease: 'power2.out'
-          });
-        }
-      });
-    });
   });
 }
 
@@ -314,14 +255,11 @@ export function initScrollAnimations(root = document) {
     return;
   }
 
-  initReveal(root);
+  initFadeInSlideUp(root);
   initParallax(root);
-  initFillTitles(root);
-  initTextColorFill(root);
+  initScrollSlide(root);
+  initTextAnimations(root);
   initVisitAnimations(root);
-  initSplitTextReveal(root);
-  initSlideInBottom(root);
-  initProductCardStagger(root);
 
   setTimeout(() => {
     ScrollTrigger.refresh();
