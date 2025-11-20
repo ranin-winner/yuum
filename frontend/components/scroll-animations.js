@@ -168,7 +168,7 @@ function initVisitAnimations(root = document) {
       gsap.to(element, {
         opacity: 1,
         y: 0,
-        duration: 5,
+        duration: 2,
         delay: delay,
         ease: "power2.out",
         scrollTrigger: {
@@ -191,7 +191,7 @@ function initVisitAnimations(root = document) {
 
       gsap.to(element, {
         y: 0,
-        duration: 5,
+        duration: 2,
         ease: "power2.out",
         scrollTrigger: {
           trigger: element,
