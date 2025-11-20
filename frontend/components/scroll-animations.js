@@ -1,10 +1,7 @@
 // frontend/components/scroll-animations.js
 
-// Використовуємо глобальний GSAP
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
-
-// Імпортуємо тільки SplitText
 import { SplitText } from 'gsap/SplitText';
 
 // ---- Tunables
@@ -59,12 +56,11 @@ function initParallax(root = document) {
   });
 }
 
-// ---- [3] Title fill-on-scroll (left → right) - для звичайних тайтлів
+// ---- [3] Title fill-on-scroll
 function initFillTitles(root = document) {
   if (!gsap) return;
 
   gsap.utils.toArray(root.querySelectorAll('[data-fill-title]')).forEach((el) => {
-    // Пропускаємо елементи з text-color-fill анімацією
     if (el.hasAttribute('data-anim') && el.getAttribute('data-anim') === 'text-color-fill') return;
     if (!setOnceFlag(el, '__whFill')) return;
 
@@ -74,7 +70,7 @@ function initFillTitles(root = document) {
       trigger: el,
       start: 'top 80%',
       end: 'top 20%',
-      scrub: true,
+      scrub: 2,
       onUpdate: (self) => {
         const right = 100 - (self.progress * 100);
         el.style.setProperty('--clip-right', right.toFixed(2) + '%');
@@ -114,27 +110,24 @@ function initTextColorFill(root = document) {
           wordsClass: "split-word"
         });
 
-        // Встановлюємо початковий стан
         gsap.set(element.split.words, { opacity: 0.4 });
 
-        // Створюємо timeline для всіх слів
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: element,
             start: "top 90%",
             end: "top 10%",
-            scrub: 1.5,
-            toggleActions: "play none none none"
+            scrub: 2,
+            toggleActions: "play reverse play reverse"
           }
         });
 
-        // Додаємо слова в timeline з затримкою
         element.split.words.forEach((word, index) => {
           tl.to(word, {
             opacity: 1,
-            duration: 0.8,
+            duration: 10,
             ease: "power2.out"
-          }, index * 0.15);
+          }, index * 0.85);
         });
 
         element.anim = tl;
@@ -156,12 +149,10 @@ function initVisitAnimations(root = document) {
   gsap.utils.toArray(root.querySelectorAll('[id^="visit-"]')).forEach((visitSection) => {
     if (!setOnceFlag(visitSection, '__visitAnimations')) return;
 
-    // Логіка центрування
     const visitText = visitSection.querySelector('.visit-text');
     if (visitText) {
       const hasTitle = visitText.querySelector('h2');
       const hasText = visitText.querySelector('p');
-
       if (!hasTitle && !hasText) {
         visitText.classList.add('center-button');
         const gridClass = 'visit-grid-' + visitSection.id.replace('visit-', '');
@@ -169,7 +160,6 @@ function initVisitAnimations(root = document) {
       }
     }
 
-    // Fade-in-slide-up для текстового контенту
     gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="fade-in-slide-up"]')).forEach((element) => {
       if (!setOnceFlag(element, '__visitFadeUp')) return;
 
@@ -178,7 +168,7 @@ function initVisitAnimations(root = document) {
       gsap.to(element, {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 5,
         delay: delay,
         ease: "power2.out",
         scrollTrigger: {
@@ -189,7 +179,6 @@ function initVisitAnimations(root = document) {
       });
     });
 
-    // Scroll slide для зображень
     gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="scroll-slide"]')).forEach(element => {
       if (!setOnceFlag(element, '__visitScrollSlide')) return;
 
@@ -202,13 +191,13 @@ function initVisitAnimations(root = document) {
 
       gsap.to(element, {
         y: 0,
-        duration: 1.2,
+        duration: 5,
         ease: "power2.out",
         scrollTrigger: {
           trigger: element,
           start: "top 90%",
           end: "bottom 50%",
-          scrub: 1.5,
+          scrub: 2.5,
           invalidateOnRefresh: true
         }
       });
@@ -216,11 +205,9 @@ function initVisitAnimations(root = document) {
   });
 }
 
-/** Ініціалізація для всієї сторінки або для щойно вставленої секції */
 export function initScrollAnimations(root = document) {
   if (!root) root = document;
 
-  // Чекаємо на GSAP
   if (!gsap || !ScrollTrigger) {
     setTimeout(() => initScrollAnimations(root), 100);
     return;
@@ -229,19 +216,16 @@ export function initScrollAnimations(root = document) {
   initReveal(root);
   initParallax(root);
   initFillTitles(root);
-  initTextColorFill(root); // 👈 ВИПРАВЛЕНА АНІМАЦІЯ
+  initTextColorFill(root);
   initVisitAnimations(root);
 
-  // Оновлюємо ScrollTrigger
   setTimeout(() => {
     ScrollTrigger.refresh();
   }, 50);
 }
 
-/** Мʼяке оновлення тригерів при зміні DOM/розміру */
 export function scrollAnimationsRefresh() {
   if (!ScrollTrigger) return;
-
   try {
     ScrollTrigger.refresh();
   } catch (error) {
@@ -249,7 +233,6 @@ export function scrollAnimationsRefresh() {
   }
 }
 
-// ---- Автоінтеграція з lazy-sections
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
