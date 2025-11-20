@@ -88,8 +88,7 @@ function initFillTitles(root = document) {
   });
 }
 
-// ---- [4] TEXT WORD ANIMATION (правильний реверс)
-// ---- [4] TEXT WORD ANIMATION (простий варіант з scrub)
+// ---- [4] TEXT WORD ANIMATION
 function initTextColorFill(root = document) {
   if (!gsap || !ScrollTrigger || !SplitText) return;
 
@@ -122,9 +121,9 @@ function initTextColorFill(root = document) {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: element,
-            start: "top 85%",
-            end: "top 15%",
-            scrub: 1.5, // 👈 Плавний скрол
+            start: "top 90%",
+            end: "top 30%",
+            scrub: 1.5,
             toggleActions: "play none none none"
           }
         });
@@ -135,7 +134,7 @@ function initTextColorFill(root = document) {
             opacity: 1,
             duration: 0.8,
             ease: "power2.out"
-          }, index * 0.15); // 👈 Затримка між словами
+          }, index * 0.15);
         });
 
         element.anim = tl;
