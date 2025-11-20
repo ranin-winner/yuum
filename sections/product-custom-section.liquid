@@ -2,9 +2,7 @@
 
 {% assign sectionText1 = section.settings.section_text_1 %}
 {% assign sectionText2 = section.settings.section_text_2 %}
-
 {% assign sectionSubtitle = section.settings.subtitle %}
-
 {% assign sectionBadgeText = section.settings.section_badge_text %}
 {% assign sectionButtonText = section.settings.section_button_text %}
 
@@ -12,78 +10,89 @@
 
 <section
   id="productSection-{{ section.id }}"
-  class="products-section products-section mx-auto md:py-[60px] py-[60px]"
+  class="products-section products-section mx-auto md:py-[60px] py-[60px] anim-slide-in-bottom"
 >
-    <div class="container">
-        <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
-            {% if section.settings.title != blank %}
-                <div class="products-section__header--title">
-                    <h2 class="products-section__title heading-3">
-                        {{ section.settings.title | default: "Products" }}
-                    </h2>
-                    {% if sectionSubtitle != blank %}
-                        <p class="products-section__subtitle">{{ sectionSubtitle }}</p>
-                    {% endif %}
-                </div>
-            {% endif %}
-
-          <div class="products-section__header--text-and-btn flex flex-col {{ section.settings.text_btn_alignment }} w-auto">
-                {% if sectionText1 != blank %}
-                    <div class="text">
-                        {{ sectionText1 }}
-                    </div>
-                {% endif %}
-                {% if sectionBadgeText != blank %}
-                    <div class="badge badge--transparent flex items-center gap-[15px] mt-[32px] mb-[12px]">
-                        {{ section.settings.section_badge_icon }} {{ sectionBadgeText }}
-                    </div>
-                {% endif %}
-                {% if sectionText2 != blank %}
-                    <div class="text">
-                        {{ sectionText2 }}
-                    </div>
-                {% endif %}
-
-                {% if sectionButtonText != blank %}
-                    <a href="{{ section.settings.section_button_link }}" class="btn btn-light">{{ sectionButtonText }}</a>
-                {% endif %}
-            </div>
+  <div class="container">
+    <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
+      {% if section.settings.title != blank %}
+        <div class="products-section__header--title">
+          <h2 class="products-section__title heading-3" data-anim="split-text-reveal">
+            {{ section.settings.title | default: "Products" }}
+          </h2>
+          {% if sectionSubtitle != blank %}
+            <p class="products-section__subtitle" data-anim="fade-in-slide-up">
+              {{ sectionSubtitle }}
+            </p>
+          {% endif %}
         </div>
-    </div>
-    <div class="slider-wrapper relative">
-        <div id="productSection-{{ section.id }}" class="swiper-box">
-            {% if section.settings.products_list != blank %}
-            {% assign collection = section.settings.products_list %}
+      {% endif %}
 
-            <div class="swiper-button-next md:block">
-                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
-                </svg>
-            </div>
+      <div class="products-section__header--text-and-btn flex flex-col {{ section.settings.text_btn_alignment }} w-auto" data-anim="fade-in-slide-up">
+        {% if sectionText1 != blank %}
+          <div class="text">
+            {{ sectionText1 }}
+          </div>
+        {% endif %}
+        {% if sectionBadgeText != blank %}
+          <div class="badge badge--transparent flex items-center gap-[15px] mt-[32px] mb-[12px]">
+            {{ section.settings.section_badge_icon }} {{ sectionBadgeText }}
+          </div>
+        {% endif %}
+        {% if sectionText2 != blank %}
+          <div class="text">
+            {{ sectionText2 }}
+          </div>
+        {% endif %}
 
-            <div class="swiper-button-prev md:block">
-                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
-                </svg>
-            </div>
-            <div class="container">
-                <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0">
-                    <div class="swiper-wrapper">
-                    {% for item in collection %}
-                        <div class="swiper-slide">
-                            {% render 'product-card', product: item %}
-                        </div>
-                    {% endfor %}
-                    </div>
-                </div>
-                <div class="swiper-pagination h-[2px] bg-black/10 w-full"></div>
-            </div>
-            {% else %}
-                <p class="col-span-full text-center text-gray-600 py-8">No products selected.</p>
-            {% endif %}
-        </div>
+        {% if sectionButtonText != blank %}
+          <a href="{{ section.settings.section_button_link }}" class="btn btn-light" data-anim="fade-in-slide-up">
+            {{ sectionButtonText }}
+          </a>
+        {% endif %}
       </div>
+    </div>
+  </div>
+  <div class="slider-wrapper relative">
+    <div id="productSection-{{ section.id }}" class="swiper-box">
+      {% if section.settings.products_list != blank %}
+        {% assign collection = section.settings.products_list %}
+
+        <div class="swiper-button-next md:block" data-anim="fade-in-slide-up">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
+          </svg>
+        </div>
+
+        <div class="swiper-button-prev md:block" data-anim="fade-in-slide-up">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="container">
+          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0" data-anim="fade-in-slide-up"> {% comment %} ДОДАВ {% endcomment %}
+            <div class="swiper-wrapper">
+              {% for item in collection %}
+                <div class="swiper-slide">
+                  {% render 'product-card', product: item %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="swiper-pagination h-[2px] bg-black/10 w-full"></div>
+        </div>
+      {% else %}
+        <p class="col-span-full text-center text-gray-600 py-8">No products selected.</p>
+      {% endif %}
+    </div>
+  </div>
 </section>
+
+<style>
+  .split-char {
+    display: inline-block;
+    position: relative;
+  }
+</style>
 
 <script>
   document.addEventListener('alpine:init', () => {
@@ -192,83 +201,83 @@
 
 {% schema %}
 {
-"name": "Products Section",
-"settings": [
-  {
-    "type": "product_list",
-    "id": "products_list",
-    "label": "Products"
-  },
-  {
-    "type": "text",
-    "id": "margins_top_bottom",
-    "label": "Section margin",
-    "default": "0"
-  },
-  {
-    "type": "checkbox",
-    "id": "simple_hover",
-    "label": "Hover effect for product card simplified",
-    "default": false
-  },
-  {
-    "type": "richtext",
-    "id": "title",
-    "label": "Section Title",
-  },
-  {
-    "type": "richtext",
-    "id": "subtitle",
-    "label": "Section subtitle",
-  },
-  {
-    "type": "richtext",
-    "id": "section_text_1",
-    "label": "Section text 1",
-  },
-  {
-    "type": "textarea",
-    "id": "section_badge_icon",
-    "label": "Paste icon for badge",
-  },
-  {
-    "type": "text",
-    "id": "section_badge_text",
-    "label": "Section badge text",
+  "name": "Products Section",
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "products_list",
+      "label": "Products"
+    },
+    {
+      "type": "text",
+      "id": "margins_top_bottom",
+      "label": "Section margin",
+      "default": "0"
+    },
+    {
+      "type": "checkbox",
+      "id": "simple_hover",
+      "label": "Hover effect for product card simplified",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Section Title",
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Section subtitle",
+    },
+    {
+      "type": "richtext",
+      "id": "section_text_1",
+      "label": "Section text 1",
+    },
+    {
+      "type": "textarea",
+      "id": "section_badge_icon",
+      "label": "Paste icon for badge",
+    },
+    {
+      "type": "text",
+      "id": "section_badge_text",
+      "label": "Section badge text",
 
-  },
-  {
-    "type": "richtext",
-    "id": "section_text_2",
-    "label": "Section text 2"
-  },
-  {
-    "type": "text",
-    "label": "Button Text",
-    "id": "section_button_text",
-    "default": "Shop Now"
-  },
-  {
-    "type": "url",
-    "label": "Button Link",
-    "id": "section_button_link"
-  },
-  {
-    "type": "select",
-    "id": "text_btn_alignment",
-    "label": "Text & Button Alignment",
-    "options": [
-      {"value": "items-start", "label": "Left"},
-      {"value": "items-center", "label": "Center"},
-      {"value": "items-end", "label": "Right"}
-    ],
-    "default": "items-end"
-  }
-],
-"presets": [
-  {
-    "name": "Products Section"
-  }
-]
+    },
+    {
+      "type": "richtext",
+      "id": "section_text_2",
+      "label": "Section text 2"
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "section_button_text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "label": "Button Link",
+      "id": "section_button_link"
+    },
+    {
+      "type": "select",
+      "id": "text_btn_alignment",
+      "label": "Text & Button Alignment",
+      "options": [
+        {"value": "items-start", "label": "Left"},
+        {"value": "items-center", "label": "Center"},
+        {"value": "items-end", "label": "Right"}
+      ],
+      "default": "items-end"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Section"
+    }
+  ]
 }
 {% endschema %}
