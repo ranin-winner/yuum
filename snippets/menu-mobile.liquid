@@ -124,7 +124,7 @@
             </svg>
           </a>
         </div>
-
+        {% comment %}
         <div class="b-header__mobile-account">
           <a href="/apps/retextion#/login" class="b-header__mobile-account-link">
             <svg class="b-header__mobile-account-icon" viewBox="0 0 16 21" fill="currentColor">
@@ -133,6 +133,7 @@
             <span class="b-header__mobile-account-text">Account</span>
           </a>
         </div>
+        {% endcomment %}
       </nav>
     </div>
   </div>
@@ -142,6 +143,18 @@
     Alpine.data('menuMobile', () => ({
       isOpened: false,
       isLoading: false,
+
+      init() {
+        this.$watch('isOpened', (value) => {
+          if (value) {
+            document.body.classList.add('overflow-hidden');
+            this.createOverlay();
+          } else {
+            document.body.classList.remove('overflow-hidden');
+            this.removeOverlay();
+          }
+        });
+      },
 
       handleResize() {
         if (window.innerWidth >= 1366) {
@@ -153,12 +166,6 @@
         try {
           this.isLoading = true;
           this.isOpened = !this.isOpened;
-
-          if (this.isOpened) {
-            this.openMobileMenu();
-          } else {
-            this.closeMobileMenu();
-          }
         } catch (error) {
           console.error('Error toggling menu:', error);
         } finally {
@@ -166,14 +173,24 @@
         }
       },
 
-      openMobileMenu() {
-        this.isOpened = true;
-        document.body.classList.add('overflow-hidden');
-      },
-
       closeMobileMenu() {
         this.isOpened = false;
-        document.body.classList.remove('overflow-hidden');
+      },
+
+      createOverlay() {
+        if (!document.querySelector('.mobile-menu-overlay')) {
+          const overlay = document.createElement('div');
+          overlay.className = 'mobile-menu-overlay';
+          overlay.addEventListener('click', () => this.closeMobileMenu());
+          document.body.appendChild(overlay);
+        }
+      },
+
+      removeOverlay() {
+        const overlay = document.querySelector('.mobile-menu-overlay');
+        if (overlay) {
+          overlay.remove();
+        }
       }
     }));
   });

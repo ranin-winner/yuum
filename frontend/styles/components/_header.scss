@@ -312,11 +312,16 @@
 
     &-panel {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: calc(100% - 40px);
+      max-width: 728px;
       z-index: 1000;
       background: #e7e7e7;
       display: flex;
       flex-direction: column;
+      border-radius: 0 20px 20px 0px;
 
       &.x-cloak {
         display: none;
@@ -331,6 +336,7 @@
       border-bottom: 1px solid #ADB0B0;
       background: #E7E7E7;
       min-height: 60px;
+      border-top-right-radius: 20px;
     }
 
     &-spacer {
@@ -622,6 +628,9 @@
 
 body.overflow-hidden {
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 @include cfg.media(max-m) {
@@ -953,5 +962,15 @@ body.overflow-hidden {
   .group[x-data="megamenu"] {
     display: block;
   }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #00000066;
+  z-index: 999;
 }
 

@@ -31,18 +31,20 @@
   <div class="b-header__promo relative w-full bg-black py-4 text-white-content tracking-[0.1rem]">
     {% assign has_list = settings.promo_text contains '<li' %}
     {% if has_list %}
-      <div class="swiper promo-swiper">
-        <div class="swiper-wrapper">
-          {% assign list_items = settings.promo_text | split: '<li>' %}
-          {% for item in list_items %}
-            {% unless forloop.first %}
-              <div class="swiper-slide">
-                <div class="promo-slide-content text-center">
-                  {{ item | replace: '</li>', '' | strip }}
+      <div class="promo-swiper-wrapper">
+        <div class="swiper promo-swiper">
+          <div class="swiper-wrapper">
+            {% assign list_items = settings.promo_text | split: '<li>' %}
+            {% for item in list_items %}
+              {% unless forloop.first %}
+                <div class="swiper-slide">
+                  <div class="promo-slide-content text-center">
+                    {{ item | replace: '</li>', '' | strip }}
+                  </div>
                 </div>
-              </div>
-            {% endunless %}
-          {% endfor %}
+              {% endunless %}
+            {% endfor %}
+          </div>
         </div>
       </div>
     {% else %}
@@ -60,35 +62,42 @@
   </div>
 
   <style>
-    .promo-swiper {
+    .promo-swiper-wrapper .swiper {
       width: 100%;
       height: 1.6em;
     }
 
-    .swiper-slide {
+    .promo-swiper-wrapper .swiper-wrapper {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .promo-swiper-wrapper .swiper-slide {
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       height: 100%;
+      min-width: 100%;
+      flex-shrink: 0;
     }
 
-    .promo-slide-content {
+    .promo-swiper-wrapper .promo-slide-content {
       white-space: nowrap;
       width: 100%;
     }
   </style>
 
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const swiperEl = document.querySelector('.promo-swiper');
-      if (!swiperEl) return;
+      const promoSlider = document.querySelector('.promo-swiper');
+      if (!promoSlider) return;
 
-      const slides = swiperEl.querySelectorAll('.swiper-slide');
+      const slides = promoSlider.querySelectorAll('.swiper-slide');
       if (slides.length <= 1) return;
 
-      const swiper = new Swiper(swiperEl, {
+      const swiper = new Swiper(promoSlider, {
         loop: true,
         autoplay: {
           delay: 4000,

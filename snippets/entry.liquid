@@ -4,9 +4,9 @@
 {% endcomment %}
 {% assign path = entry | replace: '~/', '../../' | replace: '@/', '../' %}
 {% if path == "/frontend/entrypoints/main.scss" or path == "main.scss" %}
-  {{ 'main-DCzzk5p4.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'main-CvFwyrQF.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/entrypoints/main.theme.js" or path == "main.theme.js" %}
-  <script src="{{ 'main.theme-Dao71dim.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  <script src="{{ 'main.theme-CX1CfL5S.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
 {% elsif path == "/frontend/entrypoints/page-pdp.scss" or path == "page-pdp.scss" %}
   {{ 'page-pdp-B_9MXJqC.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/entrypoints/theme.product.js" or path == "theme.product.js" %}
@@ -31,8 +31,6 @@
   {{ 'brand-quote-DsJJb4ur.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/styles/sections/build-your-bundle.scss" or path == "../styles/sections/build-your-bundle.scss" %}
   {{ 'build-your-bundle-ohpSltwa.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
-{% elsif path == "/frontend/styles/sections/bundle-chips.scss" or path == "../styles/sections/bundle-chips.scss" %}
-  {{ 'bundle-chips-DJwhVZjz.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/styles/sections/bundle-product-slider.scss" or path == "../styles/sections/bundle-product-slider.scss" %}
   {{ 'bundle-product-slider-C0D7WlCz.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/styles/sections/careers.scss" or path == "../styles/sections/careers.scss" %}

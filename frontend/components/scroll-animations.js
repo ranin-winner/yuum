@@ -1,12 +1,12 @@
 // frontend/components/scroll-animations.js
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+const gsap = window.gsap;
+const ScrollTrigger = window.ScrollTrigger;
+import { SplitText } from 'gsap/SplitText';
 
 // ---- Tunables
 const EASE = 'power2.out';
-const DURATION_IN  = 0.65; // 0.55–0.75
+const DURATION_IN = 0.65;
 const DURATION_OUT = 0.45;
 
 // ---- Helpers
@@ -18,6 +18,8 @@ function setOnceFlag(node, key) {
 
 // ---- [1] Reveal-in animations (fade+up)
 function initReveal(root = document) {
+  if (!gsap) return;
+
   gsap.utils.toArray(root.querySelectorAll('[data-reveal]')).forEach((el) => {
     if (!setOnceFlag(el, '__whReveal')) return;
 
@@ -25,7 +27,7 @@ function initReveal(root = document) {
     ScrollTrigger.create({
       trigger: el,
       start: 'top 85%',
-      onEnter:     () => gsap.to(el, { y: 0,  opacity: 1, duration: DURATION_IN,  ease: EASE }),
+      onEnter: () => gsap.to(el, { y: 0, opacity: 1, duration: DURATION_IN, ease: EASE }),
       onLeaveBack: () => gsap.to(el, { y: 24, opacity: 0, duration: DURATION_OUT, ease: EASE })
     });
   });
@@ -33,6 +35,8 @@ function initReveal(root = document) {
 
 // ---- [2] Parallax wrappers
 function initParallax(root = document) {
+  if (!gsap) return;
+
   gsap.utils.toArray(root.querySelectorAll('[data-parallax]')).forEach((wrap) => {
     if (!setOnceFlag(wrap, '__whParallax')) return;
 
@@ -52,21 +56,21 @@ function initParallax(root = document) {
   });
 }
 
-// ---- [3] Title fill-on-scroll (left → right)
-// Працює тільки для елементів з атрибутом [data-fill-title].
-// CSS має містити ::after з clip-path, а color береться через --title-color.
+// ---- [3] Title fill-on-scroll
 function initFillTitles(root = document) {
+  if (!gsap) return;
+
   gsap.utils.toArray(root.querySelectorAll('[data-fill-title]')).forEach((el) => {
+    if (el.hasAttribute('data-anim') && el.getAttribute('data-anim') === 'text-color-fill') return;
     if (!setOnceFlag(el, '__whFill')) return;
 
-    // Початково повністю “закрито” (правий відступ 100%).
     el.style.setProperty('--clip-right', '100%');
 
     const st = ScrollTrigger.create({
       trigger: el,
       start: 'top 80%',
       end: 'top 20%',
-      scrub: true,
+      scrub: 2,
       onUpdate: (self) => {
         const right = 100 - (self.progress * 100);
         el.style.setProperty('--clip-right', right.toFixed(2) + '%');
@@ -76,40 +80,181 @@ function initFillTitles(root = document) {
       }
     });
 
-    // Якщо елемент уже в межах viewport під час ініціалізації — одразу виставляємо прогрес
-    // після першого refresh.
     st.refresh();
   });
 }
 
-/** Ініціалізація для всієї сторінки або для щойно вставленої секції */
+// ---- [4] TEXT WORD ANIMATION
+function initTextColorFill(root = document) {
+  if (!gsap || !ScrollTrigger || !SplitText) return;
+
+  const elements = root.querySelectorAll('[data-anim="text-color-fill"]');
+  if (!elements.length) return;
+
+  if (!gsap.plugins.splitText) {
+    gsap.registerPlugin(SplitText);
+  }
+
+  function setupAnimation() {
+    elements.forEach((element) => {
+      if (!setOnceFlag(element, '__whTextColorFill')) return;
+
+      if (element.anim) {
+        element.anim.progress(1).kill();
+        element.split?.revert();
+      }
+
+      try {
+        element.split = new SplitText(element, {
+          type: "words",
+          wordsClass: "split-word"
+        });
+
+        gsap.set(element.split.words, { opacity: 0.4 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: element,
+            start: "top 90%",
+            end: "top 10%",
+            scrub: 2,
+            toggleActions: "play reverse play reverse"
+          }
+        });
+
+        element.split.words.forEach((word, index) => {
+          tl.to(word, {
+            opacity: 1,
+            duration: 10,
+            ease: "power2.out"
+          }, index * 0.85);
+        });
+
+        element.anim = tl;
+
+      } catch (error) {
+        console.error('Text word animation error:', error);
+      }
+    });
+  }
+
+  setupAnimation();
+  ScrollTrigger.addEventListener('refresh', setupAnimation);
+}
+
+// ---- [5] Visit block animations
+function initVisitAnimations(root = document) {
+  if (!gsap) return;
+
+  gsap.utils.toArray(root.querySelectorAll('[id^="visit-"]')).forEach((visitSection) => {
+    if (!setOnceFlag(visitSection, '__visitAnimations')) return;
+
+    const visitText = visitSection.querySelector('.visit-text');
+    if (visitText) {
+      const hasTitle = visitText.querySelector('h2');
+      const hasText = visitText.querySelector('p');
+      if (!hasTitle && !hasText) {
+        visitText.classList.add('center-button');
+        const gridClass = 'visit-grid-' + visitSection.id.replace('visit-', '');
+        visitSection.querySelector('.' + gridClass)?.classList.add('center-grid');
+      }
+    }
+
+    gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="fade-in-slide-up"]')).forEach((element) => {
+      if (!setOnceFlag(element, '__visitFadeUp')) return;
+
+      const delay = parseFloat(element.dataset.animDelay) || 0;
+
+      gsap.to(element, {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        delay: delay,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    gsap.utils.toArray(visitSection.querySelectorAll('[data-anim="scroll-slide"]')).forEach(element => {
+      if (!setOnceFlag(element, '__visitScrollSlide')) return;
+
+      const distance = parseInt(element.dataset.animDistance) || 60;
+      const isReverse = element.hasAttribute('data-anim-dir');
+
+      gsap.set(element, {
+        y: isReverse ? -distance : distance
+      });
+
+      gsap.to(element, {
+        y: 0,
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 90%",
+          end: "bottom 50%",
+          scrub: 2.5,
+          invalidateOnRefresh: true
+        }
+      });
+    });
+  });
+}
+
 export function initScrollAnimations(root = document) {
   if (!root) root = document;
+
+  if (!gsap || !ScrollTrigger) {
+    setTimeout(() => initScrollAnimations(root), 100);
+    return;
+  }
+
   initReveal(root);
   initParallax(root);
   initFillTitles(root);
+  initTextColorFill(root);
+  initVisitAnimations(root);
+
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 50);
 }
 
-/** Мʼяке оновлення тригерів при зміні DOM/розміру */
 export function scrollAnimationsRefresh() {
-  try { ScrollTrigger.refresh(); } catch (_) {}
+  if (!ScrollTrigger) return;
+  try {
+    ScrollTrigger.refresh();
+  } catch (error) {
+    console.error('ScrollTrigger refresh error:', error);
+  }
 }
 
-// ---- Автоінтеграція з твоїми lazy-sections
-// Коли секція довантажилась — ініціалізуємо анімації лише в її межах.
 if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollAnimations();
+  });
+
   document.addEventListener('lazy:section:loaded', (e) => {
     const root = e?.target || document;
     initScrollAnimations(root);
-    // Невелика затримка для коректних розрахунків висот
-    setTimeout(() => ScrollTrigger.refresh(), 50);
+    setTimeout(() => {
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 50);
   });
 
-  // На всяк випадок — при зміні розміру вікна
   window.addEventListener('resize', () => {
-    // debounce через rAF
     let raf;
     cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => ScrollTrigger.refresh());
+    raf = requestAnimationFrame(() => {
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    });
   });
 }
