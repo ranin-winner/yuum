@@ -152,10 +152,14 @@
     }
   }
 
-  .split-line {
-    display: block;
-    opacity: 0.4; /* 👈 40% OPACITY ПО ДЕФОЛТУ */
-    transition: opacity 0.3s ease; /* Опціонально для плавності */
+  .split-word {
+    display: inline-block; /* 👈 Важливо для слів */
+    white-space: nowrap; /* Запобігає переносу слів */
+  }
+
+  /* Початковий стан - 40% opacity */
+  [data-anim="text-color-fill"] .split-word {
+    opacity: 0.4;
   }
 </style>
 

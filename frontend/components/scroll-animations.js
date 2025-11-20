@@ -88,15 +88,14 @@ function initFillTitles(root = document) {
   });
 }
 
-// ---- [4] TEXT COLOR FILL ANIMATION (як на WatchHouse)
-// ---- [4] TEXT OPACITY ANIMATION (40% → 100%)
+// ---- [4] TEXT WORD ANIMATION (правильний реверс)
+// ---- [4] TEXT WORD ANIMATION (простий варіант з scrub)
 function initTextColorFill(root = document) {
   if (!gsap || !ScrollTrigger || !SplitText) return;
 
   const elements = root.querySelectorAll('[data-anim="text-color-fill"]');
   if (!elements.length) return;
 
-  // Реєструємо SplitText як плагін
   if (!gsap.plugins.splitText) {
     gsap.registerPlugin(SplitText);
   }
@@ -105,44 +104,44 @@ function initTextColorFill(root = document) {
     elements.forEach((element) => {
       if (!setOnceFlag(element, '__whTextColorFill')) return;
 
-      // Cleanup previous animations
       if (element.anim) {
         element.anim.progress(1).kill();
         element.split?.revert();
       }
 
       try {
-        // Initialize SplitText
         element.split = new SplitText(element, {
-          type: "lines",
-          linesClass: "split-line"
+          type: "words",
+          wordsClass: "split-word"
         });
 
-        // Set initial state - 40% opacity
-        element.split.lines.forEach((line) => {
-          gsap.set(line, {
-            opacity: 0.4 // 👈 40% OPACITY ПО ДЕФОЛТУ
-          });
+        // Встановлюємо початковий стан
+        gsap.set(element.split.words, { opacity: 0.4 });
+
+        // Створюємо timeline для всіх слів
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: element,
+            start: "top 85%",
+            end: "top 15%",
+            scrub: 1.5, // 👈 Плавний скрол
+            toggleActions: "play none none none"
+          }
         });
 
-        // Create scroll animation - opacity до 100%
-        element.split.lines.forEach((line, index) => {
-          element.anim = gsap.to(line, {
-            opacity: 1, // 👈 100% OPACITY ПРИ СКРОЛІ
-            ease: "none",
-            delay: 0.1 * index,
-            scrollTrigger: {
-              trigger: line,
-              scrub: 0.3,
-              start: "top center",
-              end: "bottom center",
-              invalidateOnRefresh: true
-            }
-          });
+        // Додаємо слова в timeline з затримкою
+        element.split.words.forEach((word, index) => {
+          tl.to(word, {
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out"
+          }, index * 0.15); // 👈 Затримка між словами
         });
+
+        element.anim = tl;
 
       } catch (error) {
-        console.error('Text opacity animation error:', error);
+        console.error('Text word animation error:', error);
       }
     });
   }
