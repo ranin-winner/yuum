@@ -2,61 +2,62 @@
 
 {% assign sectionText1 = section.settings.section_text_1 %}
 {% assign sectionText2 = section.settings.section_text_2 %}
-
 {% assign sectionSubtitle = section.settings.subtitle %}
-
 {% assign sectionBadgeText = section.settings.section_badge_text %}
 {% assign sectionButtonText = section.settings.section_button_text %}
 
 {% assign flow_on  = section.settings.flow_bg_enabled %}
 {% assign flow_img = section.settings.flow_bg_image %}
 {% if flow_img %}
-  {% assign flow_url = flow_img | image_url: width: 2560 %} {# можна 2048/3840 під свої розміри #}
+  {% assign flow_url = flow_img | image_url: width: 2560 %}
 {% endif %}
-
 
 <section
   id="productSection-{{ section.id }}"
-  class="products-section products-section-bg bg-mesh mx-auto md:py-[120px] py-[60px] flow-bg"
+  class="products-section products-section-bg bg-mesh mx-auto md:py-[120px] py-[60px] flow-bg anim-slide-in-bottom" {% comment %} ТІЛЬКИ ЦЕЙ КЛАС {% endcomment %}
   {% if flow_on and flow_img %} data-image="{{ flow_url }}"{% endif %}
+  {% comment %} ВИДАЛИТИ data-swiper-parent="" {% endcomment %}
 >
-  {% comment %} <div class="container m-responsive px-10"> {% endcomment %}
   <div class="container">
     <div class="products-section__header grid grid-cols-1 gap-[24px] mb-[50px]">
       {% if section.settings.title != blank %}
-        <div class="products-section__header--title products-section__header--title-bg ">
-          <h2 class="products-section__title heading-3">
+        <div class="products-section__header--title products-section__header--title-bg">
+          <h2 class="products-section__title heading-3" data-anim="split-text-reveal"> {% comment %} ДОДАЛИ {% endcomment %}
             {{ section.settings.title | default: "Products" }}
           </h2>
           {% if sectionSubtitle != blank %}
-            <p class="products-section__subtitle">{{ sectionSubtitle }}</p>
+            <p class="products-section__subtitle" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
+              {{ sectionSubtitle }}
+            </p>
           {% endif %}
         </div>
       {% endif %}
     </div>
   </div>
+
   <div class="slider-wrapper relative">
     <div id="productSection-{{ section.id }}" class="swiper-box">
       {% if section.settings.products_list != blank %}
         {% assign collection = section.settings.products_list %}
 
-        <div class="swiper-button-next md:block">
+        <div class="swiper-button-next md:block" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
           <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
           </svg>
         </div>
 
-        <div class="swiper-button-prev md:block">
+        <div class="swiper-button-prev md:block" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
           <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
           </svg>
         </div>
+
         <div class="container">
-          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0">
+          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
             <div class="swiper-wrapper">
               {% for item in collection %}
                 <div class="swiper-slide">
-                  {% render 'product-card', product: item %}
+                  {% render 'product-card', product: item, simple_hover: section.settings.simple_hover %}
                 </div>
               {% endfor %}
             </div>
@@ -72,7 +73,9 @@
   <div class="container" style="margin-top: 100px;">
     <div class="flex justify-center">
       {% if sectionButtonText != blank %}
-        <a href="{{ section.settings.section_button_link }}" class="btn btn-light">{{ sectionButtonText }}</a>
+        <a href="{{ section.settings.section_button_link }}" class="btn btn-light" data-anim="fade-in-slide-up">
+          {{ sectionButtonText }}
+        </a>
       {% endif %}
     </div>
   </div>
@@ -87,14 +90,12 @@
   .bg-mesh {
     position: relative;
     overflow: hidden;
-    background-color: #F3F2F1; /* базовий фон */
-
-    /* кілька радіальних плям, складених шарами */
+    background-color: #F3F2F1;
     background-image:
-      radial-gradient(38% 40% at 20% 55%, #EBD2DE 0%, rgba(235,210,222,0) 60%), /* рожевий зліва-поцентру */
-      radial-gradient(48% 44% at 72% 12%, #C8CEC4 0%, rgba(200,206,196,0) 60%), /* зеленуватий зверху */
-      radial-gradient(42% 42% at 86% 86%, #A7C1CD 0%, rgba(167,193,205,0) 58%), /* блакитний праворуч-знизу */
-      radial-gradient(120% 120% at 50% 50%, #E2D0D9 0%, rgba(226,208,217,0) 70%); /* м’яка «пара» у центрі */
+      radial-gradient(38% 40% at 20% 55%, #EBD2DE 0%, rgba(235,210,222,0) 60%),
+      radial-gradient(48% 44% at 72% 12%, #C8CEC4 0%, rgba(200,206,196,0) 60%),
+      radial-gradient(42% 42% at 86% 86%, #A7C1CD 0%, rgba(167,193,205,0) 58%),
+      radial-gradient(120% 120% at 50% 50%, #E2D0D9 0%, rgba(226,208,217,0) 70%);
     background-blend-mode: normal;
     background-size: cover;
   }
@@ -114,6 +115,13 @@
   }
   @media (prefers-reduced-motion: reduce){
     .bg-mesh::after{ animation: none; }
+  }
+
+  .split-char {
+    display: inline-block;
+    position: relative;
+    transform: translateY(100%);
+    opacity: 0;
   }
 </style>
 

@@ -8,7 +8,7 @@
 
 <section
   id="build-your-bundle-{{ section.id }}"
-  class="pt-[40px] md:pt-[60px] build-bundle relative overflow-hidden {{ section.settings.bg_color }} {{ section.settings.additional_classes }}"
+  class="pt-[40px] md:pt-[60px] build-bundle relative overflow-hidden {{ section.settings.bg_color }} {{ section.settings.additional_classes }} anim-slide-in-bottom"
 >
   {%- assign pad_y_mobile = section.settings.padding_y_mobile | default: 40 -%}
   {%- assign pad_y_desktop = section.settings.padding_y_desktop | default: 80 -%}
@@ -16,7 +16,7 @@
   <div class="container mx-auto px-4 md:px-6 py-[{{ pad_y_mobile }}px] md:py-[{{ pad_y_desktop }}px]">
     <div class="flex flex-col md:flex-row items-start">
 
-      <div class="flex-1 relative w-full">
+      <div class="flex-1 relative w-full" data-anim="fade-in-slide-up">
         {%- comment -%} optional decorative bg image (desktop/mobile) {%- endcomment -%}
         {% if section.settings.bg_image_desktop or section.settings.bg_image_mobile %}
           <picture aria-hidden="true" class="pointer-events-none select-none block bundle-img">
@@ -59,9 +59,9 @@
         {% endif %}
       </div>
 
-      <div class="flex-1 build-bundle__text md:ml-[-20px]">
+      <div class="flex-1 build-bundle__text md:ml-[-20px]" data-anim="fade-in-slide-up">
         {%- if section.settings.show_badge -%}
-          <div class="inline-block relative md:mb-[40px] mb-[26px]">
+          <div class="inline-block relative md:mb-[40px] mb-[26px]" data-anim="fade-in-slide-up">
             {% if section.settings.bird_image %}
               {%- assign bird_x_d = section.settings.bird_offset_x_desktop | default: 28 -%}
               {%- assign bird_y_d = section.settings.bird_offset_y_desktop | default: -28 -%}
@@ -83,23 +83,25 @@
         {%- endif -%}
 
         {% if section.settings.kicker != blank %}
-          <p class="text-sm uppercase tracking-[0.2em] opacity-80 mb-2">{{ section.settings.kicker | escape }}</p>
+          <p class="text-sm uppercase tracking-[0.2em] opacity-80 mb-2" data-anim="fade-in-slide-up">
+            {{ section.settings.kicker | escape }}
+          </p>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="build-bundle__title heading-3 text-white">
+          <h2 class="build-bundle__title heading-3 text-white" data-anim="split-text-reveal">
             {{ section.settings.title }}
           </h2>
         {% endif %}
 
         {% if section.settings.text != blank %}
-          <p class="mt-[12px] mb-[24px] text-white/85 text-[16px] md:text-[18px] leading-[24px] max-w-[44ch]">
+          <p class="mt-[12px] mb-[24px] text-white/85 text-[16px] md:text-[18px] leading-[24px] max-w-[44ch]" data-anim="fade-in-slide-up">
             {{ section.settings.text }}
           </p>
         {% endif %}
 
         {%- if section.blocks.size > 0 -%}
-          <ul class="mt-6 space-y-2 md:flex-row flex-col flex justify-between md:items-center gap-[16px] md:gap-[24px] md:max-w-[500px]">
+          <ul class="mt-6 space-y-2 md:flex-row flex-col flex justify-between md:items-center gap-[16px] md:gap-[24px] md:max-w-[500px]" data-anim="fade-in-slide-up">
             {%- for block in section.blocks -%}
               {%- if block.type == 'feature' -%}
                 <li {{ block.shopify_attributes }} class="text-white md:leading-[28px] leading-[24px] font-normal text-[18px] md:text-[24px] flex items-start gap-2">
@@ -114,7 +116,7 @@
         {%- endif -%}
 
         {% if section.settings.btn_label != blank %}
-          <div class="md:mt-[40px] mt-[32px]">
+          <div class="md:mt-[40px] mt-[32px]" data-anim="fade-in-slide-up">
             <a href="{{ section.settings.btn_link | default: '#' }}"
                class="btn btn-light btn-light-no-border !font-normal">
               {{ section.settings.btn_label }}
@@ -129,9 +131,9 @@
 </section>
 
 <style>
-    .build-bundle .bundle-badge {
-        backdrop-filter: saturate(180%) blur(2px);
-    }
+  .build-bundle .bundle-badge {
+    backdrop-filter: saturate(180%) blur(2px);
+  }
 </style>
 
 <script>
