@@ -15,6 +15,7 @@ $accent-hover: #333333;
 // ===== Base Styles =====
 .m-about-universal {
   background: $background-main;
+  margin-top: -40px;
 }
 
 .m-container {
@@ -26,7 +27,7 @@ $accent-hover: #333333;
 // ===== Hero Section =====
 .m-about-hero {
   position: relative;
-  padding: 100px 0 40px 0;
+  padding: 140px 0 40px 0;
   margin-bottom: 40px;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -87,7 +88,7 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    padding: 40px 0 20px 0;
+    padding: 100px 0 20px 0;
     margin-bottom: 20px;
     &__title { @include fonts.font(heading-400, 52px, 1.1); margin-bottom: 24px; }
     &__subtitle { @include fonts.font(body-400, 14px, 1.5); margin-bottom: 32px; }
