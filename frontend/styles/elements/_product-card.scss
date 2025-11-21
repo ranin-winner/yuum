@@ -10,6 +10,7 @@
     flex-direction:column;
     border-radius:12px;
     background:#fff;
+    border: 1px solid #E0E0E0;
     transition: box-shadow .25s ease, transform .2s ease;
 
     &__link{
@@ -80,9 +81,8 @@
 
     &:hover {
         background: #F5F5F5;
-        border-color: #ADAEB0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
+        border: 1px solid #ADAEB0;
     }
 
     /* overlay всередині картки */
@@ -118,7 +118,7 @@
 
 .product-card__btn {
     color: #474747;
-    font-size: 12px;
+    font-size: 14px;
     background-color: #F5F5F5;
     border: 1px solid #474747;
     padding: 8px 16px;
@@ -126,7 +126,7 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     line-height: 16px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 /* ==== Details (overlay/sheet) ==== */
