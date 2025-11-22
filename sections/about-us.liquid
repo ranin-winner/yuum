@@ -3,21 +3,21 @@
 
     <!-- Hero Section -->
     <div class="m-about-hero">
-      <div class="m-about-hero__content">
+      <div class="m-about-hero__content anim-slide-in-bottom">
         <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
         <div class="m-about-hero__subtitle">
           {{ section.settings.hero_subtitle }}
         </div>
       </div>
       {% if section.settings.hero_image != blank %}
-        <div class="m-about-hero__media">
+        <div class="m-about-hero__media anim-slide-in-bottom">
           {% render 'image', image: section.settings.hero_image, class: 'm-about-hero__image' %}
         </div>
       {% endif %}
     </div>
 
     <!-- Flavours Section -->
-    <div class="m-about-flavours">
+    <div class="m-about-flavours anim-slide-in-bottom">
       <h2 class="m-about-flavours__title">{{ section.settings.flavours_title }}</h2>
       <div class="m-about-flavours__intro">
         {{ section.settings.flavours_intro }}
@@ -40,20 +40,20 @@
         {% endfor %}
 
         {% if section.settings.pentagon_final_image != blank %}
-          <div class="m-pentagon-final">
+          <div class="m-pentagon-final anim-slide-in-bottom">
             {% render 'image', image: section.settings.pentagon_final_image, class: 'm-pentagon-final__img' %}
           </div>
         {% endif %}
 
       </div>
 
-      <div class="m-about-flavours__guide">
+      <div class="m-about-flavours__guide anim-slide-in-bottom">
         <p>{{ section.settings.flavours_guide }}</p>
       </div>
     </div>
 
     <!-- Sweet Section -->
-    <div class="m-sweet-section">
+    <div class="m-sweet-section anim-slide-in-bottom">
       <h3 class="m-sweet-section-title">{{ section.settings.sweet_title }}</h3>
       <div class="m-sweet-content">
         <div class="m-sweet-words">
@@ -66,7 +66,7 @@
             {% endif %}
           {% endfor %}
         </div>
-        <div class="m-sweet-slider">
+        <div class="m-sweet-slider anim-slide-in-bottom">
           <button class="m-sweet-arrow m-sweet-arrow-prev">←</button>
           <div class="m-sweet-image-container">
             {% for i in (1..9) %}
@@ -93,7 +93,7 @@
     </div>
 
     <!-- Seasonal Section -->
-    <div class="m-seasonal">
+    <div class="m-seasonal anim-slide-in-bottom">
       <div class="m-seasonal-image">
         {% if section.settings.seasonal_image != blank %}
           {% render 'image', image: section.settings.seasonal_image, class: 'm-seasonal-img' %}
@@ -119,7 +119,7 @@
     </div>
 
     <!-- Universal Design Section -->
-    <div class="m-universal-design">
+    <div class="m-universal-design anim-slide-in-bottom">
       <div class="m-universal-background">
         {% if section.settings.universal_image != blank %}
           {% render 'image', image: section.settings.universal_image, class: 'm-universal-bg-image' %}
