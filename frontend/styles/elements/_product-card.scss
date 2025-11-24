@@ -9,7 +9,7 @@
     display:flex;
     flex-direction:column;
     border-radius:12px;
-    background:#fff;
+    background: #F5F5F5;
     border: 1px solid #E0E0E0;
     transition: box-shadow .25s ease, transform .2s ease;
 
@@ -21,7 +21,6 @@
 
     &__media{
         width:100%;
-        background: #F5F5F5 !important;
         @media (max-width: 767.98px){
             max-width: 328px;
             max-height: 328px;
@@ -81,7 +80,7 @@
     }
 
     &:hover {
-        background: #F5F5F5;
+        background: #EEEEEE;
         transform: translateY(-2px);
         border: 1px solid #ADAEB0;
     }
@@ -118,19 +117,24 @@
 }
 
 .product-card__btn {
-    color: #474747;
-    font-size: 14px;
-    background-color: #F5F5F5;
-    border: 1px solid #474747;
-    padding: 12px 24px;
-    border-radius: 100px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    line-height: 16px;
-    font-weight: 400;
-    @media (max-width: 767.98px){
-      padding: 8px 12px;
-    }
+  color: #474747;
+  font-size: 14px;
+  background-color: transparent !important;
+  border: 1px solid #474747;
+  padding: 12px 24px;
+  border-radius: 100px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  line-height: 16px;
+  font-weight: 400;
+
+  opacity: 1;
+  visibility: visible;
+  display: block;
+
+  @media (max-width: 767.98px){
+    padding: 8px 12px;
+  }
 }
 
 /* ==== Details (overlay/sheet) ==== */
@@ -573,7 +577,6 @@
       right: 16px;
       bottom: 5px;
       z-index: 15;
-
       @media (max-width: 767.98px) {
         bottom: 5px;
       }
@@ -583,41 +586,13 @@
       }
     }
 
-    /* мобайл — кнопка завжди видима */
-    @media (max-width: 767.98px) {
-      .product-card__cta {
-        opacity: 1;
-        transform: none;
-        visibility: visible;
-        pointer-events: auto;
-      }
-    }
-
-    /* десктоп — плавна поява */
-    @media (min-width: 768px) {
-      .product-card__cta {
-        opacity: 1;
-        transform: translateY(8px);
-        visibility: hidden;
-        pointer-events: none;
-        transition:
-          opacity .22s ease,
-          transform .22s ease,
-          visibility 0s linear .22s; /* сховаємо після фейду */
-        will-change: opacity, transform;
-      }
-
-      &:hover .product-card__cta,
-      &:focus-within .product-card__cta {
-        opacity: 1;
-        transform: translateY(0);
-        visibility: visible;
-        pointer-events: auto;
-        transition:
-          opacity .22s ease,
-          transform .22s ease,
-          visibility 0s; /* показати одразу */
-      }
+    .product-card__cta {
+      opacity: 1;
+      transform: none;
+      visibility: visible;
+      pointer-events: auto;
+      display: flex;
+      justify-content: center;
     }
   }
 
