@@ -4,7 +4,7 @@
 {% endcomment %}
 {% assign path = entry | replace: '~/', '../../' | replace: '@/', '../' %}
 {% if path == "/frontend/entrypoints/main.scss" or path == "main.scss" %}
-  {{ 'main-DW5Pdx6l.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'main-RzD-Jeex.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/entrypoints/main.theme.js" or path == "main.theme.js" %}
   <script src="{{ 'main.theme-CXesnA4B.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
 {% elsif path == "/frontend/entrypoints/page-pdp.scss" or path == "page-pdp.scss" %}
@@ -82,7 +82,7 @@
 {% elsif path == "/frontend/styles/sections/text-kicker-description.scss" or path == "../styles/sections/text-kicker-description.scss" %}
   {{ 'text-kicker-description-xACrEBJB.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/styles/sections/trial-faq.scss" or path == "../styles/sections/trial-faq.scss" %}
-  {{ 'trial-faq-DS1iBYem.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'trial-faq-D5sDTsAP.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/frontend/styles/sections/visit-us.scss" or path == "../styles/sections/visit-us.scss" %}
   {{ 'visit-us-NcGiKWtb.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% endif %}
