@@ -138,8 +138,13 @@
       "name": "Text Kicker & Description",
       "settings": {
         "kicker": "ABOUT THE PRODUCT",
+        "align_left": false,
+        "title_bigger": false,
         "title": "Description",
-        "richtext": "<p>Experience the elegance of Japanese springtime with our 40g Sakura Cream Ice Mochi. This flavour captures the delicate sweetness of Sakura cherry blossom. A hint of tartness creates a candy-like taste that invites you back with every bite.<br\/><br\/>As it warms, the chewy rice shell softens to reveal a creamy Sakura-flavoured filling. This mochi doesn’t melt quickly, so you can enjoy its delicate, nuanced taste without rushing. Perfect for those seeking a taste of Japanese tradition, our Sakura Cream Ice Mochi offers a light and captivating flavour. Treat yourself to a refreshing bite of cherry blossom season. It’s an experience that brings the beauty of spring to every bite.<\/p>"
+        "description_width_desk": "100%",
+        "description_width_mob": "100%",
+        "richtext": "<p>Experience the elegance of Japanese springtime with our 40g Sakura Cream Ice Mochi. This flavour captures the delicate sweetness of Sakura cherry blossom. A hint of tartness creates a candy-like taste that invites you back with every bite.<br\/><br\/>As it warms, the chewy rice shell softens to reveal a creamy Sakura-flavoured filling. This mochi doesn’t melt quickly, so you can enjoy its delicate, nuanced taste without rushing. Perfect for those seeking a taste of Japanese tradition, our Sakura Cream Ice Mochi offers a light and captivating flavour. Treat yourself to a refreshing bite of cherry blossom season. It’s an experience that brings the beauty of spring to every bite.<\/p>",
+        "border_visible": false
       }
     },
     "image_tips_card_NagFt8": {
@@ -227,6 +232,7 @@
           "matcha-mochi",
           "summer-bundle-mochi-pack"
         ],
+        "margins_top_bottom": "0",
         "simple_hover": false,
         "title": "<p>We think you will also love<\/p>",
         "subtitle": "",
@@ -234,8 +240,9 @@
         "section_badge_icon": "",
         "section_badge_text": "",
         "section_text_2": "",
-        "section_button_text": "Shop Now",
-        "section_button_link": ""
+        "section_button_text": "",
+        "section_button_link": "",
+        "text_btn_alignment": "items-end"
       }
     },
     "17599442408b31d2f4": {
