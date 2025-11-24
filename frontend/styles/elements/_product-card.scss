@@ -21,6 +21,7 @@
 
     &__media{
         width:100%;
+        background: #F5F5F5 !important;
         @media (max-width: 767.98px){
             max-width: 328px;
             max-height: 328px;
@@ -388,7 +389,7 @@
     flex-direction: column;
     border-radius: 12px;
     overflow: visible;
-    background-color: #EEEEEE;
+    background-color: #F5F5F5;
   }
 
   .product-card__link {
@@ -595,7 +596,7 @@
     /* десктоп — плавна поява */
     @media (min-width: 768px) {
       .product-card__cta {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(8px);
         visibility: hidden;
         pointer-events: none;

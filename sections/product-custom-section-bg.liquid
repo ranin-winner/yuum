@@ -14,19 +14,18 @@
 
 <section
   id="productSection-{{ section.id }}"
-  class="products-section products-section-bg bg-mesh mx-auto md:py-[120px] py-[60px] flow-bg anim-slide-in-bottom" {% comment %} ТІЛЬКИ ЦЕЙ КЛАС {% endcomment %}
+  class="products-section products-section-bg mx-auto md:py-[120px] py-[60px] flow-bg anim-slide-in-bottom"
   {% if flow_on and flow_img %} data-image="{{ flow_url }}"{% endif %}
-  {% comment %} ВИДАЛИТИ data-swiper-parent="" {% endcomment %}
 >
   <div class="container">
     <div class="products-section__header grid grid-cols-1 gap-[24px] mb-[50px]">
       {% if section.settings.title != blank %}
         <div class="products-section__header--title products-section__header--title-bg">
-          <h2 class="products-section__title heading-3" data-anim="split-text-reveal"> {% comment %} ДОДАЛИ {% endcomment %}
+          <h2 class="products-section__title heading-3" data-anim="split-text-reveal">
             {{ section.settings.title | default: "Products" }}
           </h2>
           {% if sectionSubtitle != blank %}
-            <p class="products-section__subtitle" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
+            <p class="products-section__subtitle" data-anim="fade-in-slide-up">
               {{ sectionSubtitle }}
             </p>
           {% endif %}
@@ -40,20 +39,20 @@
       {% if section.settings.products_list != blank %}
         {% assign collection = section.settings.products_list %}
 
-        <div class="swiper-button-next md:block" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
+        <div class="swiper-button-next md:block" data-anim="fade-in-slide-up">
           <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.2343 1.08621L11.6871 1.63336C11.5497 1.77077 11.5497 1.99354 11.6871 2.13094L16.8175 7.26112H0.851838C0.657523 7.26112 0.5 7.41864 0.5 7.61296V8.38692C0.5 8.58123 0.657523 8.73876 0.851838 8.73876H16.8175L11.6871 13.8691C11.5497 14.0065 11.5497 14.2293 11.6871 14.3667L12.2343 14.9138C12.3717 15.0512 12.5944 15.0512 12.7318 14.9138L19.3969 8.24873C19.5344 8.11133 19.5344 7.88855 19.3969 7.75115L12.7318 1.0862C12.5944 0.948804 12.3717 0.948805 12.2343 1.08621Z" fill="currentColor"></path>
           </svg>
         </div>
 
-        <div class="swiper-button-prev md:block" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
+        <div class="swiper-button-prev md:block" data-anim="fade-in-slide-up">
           <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.76574 1.08621L8.3129 1.63336C8.4503 1.77077 8.4503 1.99354 8.31289 2.13094L3.18254 7.26112H19.1482C19.3425 7.26112 19.5 7.41864 19.5 7.61296V8.38692C19.5 8.58123 19.3425 8.73876 19.1482 8.73876H3.18254L8.3129 13.8691C8.4503 14.0065 8.4503 14.2293 8.3129 14.3667L7.76574 14.9138C7.62834 15.0512 7.40557 15.0512 7.26817 14.9138L0.603052 8.24873C0.465647 8.11133 0.465649 7.88855 0.603054 7.75115L7.26817 1.0862C7.40557 0.948804 7.62834 0.948805 7.76574 1.08621Z" fill="currentColor"></path>
           </svg>
         </div>
 
         <div class="container">
-          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0" data-anim="fade-in-slide-up"> {% comment %} ДОДАЛИ {% endcomment %}
+          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0" data-anim="fade-in-slide-up">
             <div class="swiper-wrapper">
               {% for item in collection %}
                 <div class="swiper-slide">
@@ -73,7 +72,7 @@
   <div class="container" style="margin-top: 100px;">
     <div class="flex justify-center">
       {% if sectionButtonText != blank %}
-        <a href="{{ section.settings.section_button_link }}" class="btn btn-light" data-anim="fade-in-slide-up">
+        <a href="{{ section.settings.section_button_link }}" class="btn btn-light">
           {{ sectionButtonText }}
         </a>
       {% endif %}
@@ -82,15 +81,15 @@
 </section>
 
 <style>
-  .flow-bg{ position: relative; }
-  .flow-bg > *{ position: relative; z-index: 1; }
-  .shopify-section:has(#productSection-{{ section.id }}) {
-    padding-bottom: 0;
-  }
-</style>
-
-<style>
-  .bg-mesh {
+  .flow-bg{
+    position: relative;
+  {% if section.settings.background_image %}
+    background-image: url('{{ section.settings.background_image | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  {% else %}
+    /* Fallback to gradient background */
     position: relative;
     overflow: hidden;
     background-color: #F3F2F1;
@@ -101,8 +100,11 @@
       radial-gradient(120% 120% at 50% 50%, #E2D0D9 0%, rgba(226,208,217,0) 70%);
     background-blend-mode: normal;
     background-size: cover;
+  {% endif %}
   }
-  .bg-mesh::after{
+
+  {% unless section.settings.background_image %}
+  .flow-bg::after{
     content:""; position:absolute; inset:-12%; pointer-events:none; z-index:0;
     background:
       radial-gradient(46% 46% at 24% 58%, rgba(235,210,222,0.6) 0%, rgba(235,210,222,0) 65%),
@@ -117,7 +119,13 @@
     100% { transform: translate3d(-2%, -2%, 0) scale(1.05); opacity:.58; }
   }
   @media (prefers-reduced-motion: reduce){
-    .bg-mesh::after{ animation: none; }
+    .flow-bg::after{ animation: none; }
+  }
+  {% endunless %}
+
+  .flow-bg > *{ position: relative; z-index: 1; }
+  .shopify-section:has(#productSection-{{ section.id }}) {
+    padding-bottom: 0;
   }
 
   .split-char {
@@ -232,9 +240,6 @@
   })
 </script>
 
-
-
-
 {% schema %}
 {
   "name": "Products Section Bg",
@@ -274,7 +279,6 @@
       "type": "text",
       "id": "section_badge_text",
       "label": "Section badge text",
-
     },
     {
       "type": "richtext",
@@ -292,9 +296,31 @@
       "label": "Button Link",
       "id": "section_button_link"
     },
-    { "type": "header", "content": "Flow background" },
-    { "type": "checkbox", "id": "flow_bg_enabled", "label": "Enable flow background", "default": true },
-    { "type": "image_picker", "id": "flow_bg_image", "label": "Background image" }
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Upload your background image here (replaces gradient)"
+    },
+    {
+      "type": "header",
+      "content": "Flow background"
+    },
+    {
+      "type": "checkbox",
+      "id": "flow_bg_enabled",
+      "label": "Enable flow background",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "flow_bg_image",
+      "label": "Background image"
+    }
   ],
   "presets": [
     {

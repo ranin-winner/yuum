@@ -104,7 +104,8 @@
         "section_text_2": "",
         "section_button_text": "Shop Now",
         "section_button_link": "shopify:\/\/collections\/build-your-bundle",
-        "flow_bg_enabled": true
+        "background_image": "shopify:\/\/shop_images\/2025-04-03_21.34.09_1_34ba06eb-a577-46aa-a4df-f6d5d9f2ccdc.png",
+        "flow_bg_enabled": false
       }
     },
     "marquee_loop_piFPj6": {
