@@ -127,6 +127,9 @@
     text-transform: uppercase;
     line-height: 16px;
     font-weight: 400;
+    @media (max-width: 767.98px){
+      padding: 8px 12px;
+    }
 }
 
 /* ==== Details (overlay/sheet) ==== */
