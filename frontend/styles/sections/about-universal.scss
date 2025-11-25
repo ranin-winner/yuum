@@ -597,7 +597,7 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    @include fonts.font(heading-400, 40px, 1.1);
+    @include fonts.font(heading-400, 52px, 1.1);
     margin: 10px 0 10px 0;
   }
 }
@@ -661,14 +661,14 @@ $accent-hover: #333333;
   position: relative;
   margin: 0 auto;
   width: 100%;
-  padding: 100px 0; // Vertical padding only on desktop
+  padding: 100px 0;
 
   @include cfg.media(max-m) {
-    padding: 0; // Remove side padding, keep vertical
+    padding: 0;
   }
 
   @include cfg.media(max-xs) {
-    padding: 0; // Reduced vertical padding for mobile
+    padding: 0;
   }
 }
 
@@ -694,8 +694,8 @@ $accent-hover: #333333;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  max-width: 1360px; // Respect container max-width
-  margin: 0 auto; // Center the content
+  max-width: 1360px;
+  margin: 0 auto;
 
   @include cfg.media(max-m) {
     padding: 0;
@@ -714,11 +714,11 @@ $accent-hover: #333333;
     @include fonts.font(heading-400, 56px, 1.1);
     color: $text-white;
     @include fonts.font-smoothing;
-    max-width: none; // Remove max-width constraint
-    margin: 0 auto; // Center with auto margins
-    padding: 40px 0; // Vertical padding only
+    max-width: none;
+    margin: 0 auto;
+    padding: 40px 0;
     box-sizing: border-box;
-    width: 100%; // Take full width of container
+    width: 100%;
 
     @include cfg.media(max-m) {
       @include fonts.font(heading-400, 42px, 1.1);
