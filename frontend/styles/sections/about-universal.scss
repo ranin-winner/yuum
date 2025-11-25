@@ -105,6 +105,10 @@ $accent-hover: #333333;
     @include fonts.font(heading-400, 76px);
     color: $text-primary;
     @include fonts.font-smoothing;
+
+    @include cfg.media(max-m) {
+      @include fonts.font(heading-400, 44px);
+    }
   }
 
   &__intro {
@@ -150,6 +154,11 @@ $accent-hover: #333333;
     visibility: hidden;
     transition: all 0.5s ease 0.8s;
     z-index: 1;
+
+    @include cfg.media(max-m) {
+      width: 180px;
+      height: 180px;
+    }
 
     .m-pentagon-final__img {
       width: 100%;
@@ -253,40 +262,40 @@ $accent-hover: #333333;
   }
 
   .m-flavour-item {
-    width: 150px;
-    height: 150px;
+    width: 112px;
+    height: 112px;
 
-    &:nth-child(1) { left: 10%; }
-    &:nth-child(2) { left: 30%; }
-    &:nth-child(3) { left: 50%; }
-    &:nth-child(4) { left: 70%; }
-    &:nth-child(5) { left: 80%; }
+    &:nth-child(1) { left: 10%; }    // 10%
+    &:nth-child(2) { left: 30%; }    // 20% gap
+    &:nth-child(3) { left: 50%; }    // 20% gap
+    &:nth-child(4) { left: 70%; }    // 20% gap
+    &:nth-child(5) { left: 90%; }    // 20% gap
   }
 
   .m-flavours-animation-container:hover {
     .m-flavour-item {
-      width: 150px !important;
-      height: 150px !important;
+      width: 112px;
+      height: 112px;
     }
   }
 }
 
 @include cfg.media(max-xs) {
   .m-flavour-item {
-    width: 120px;
-    height: 120px;
+    width: 56px;
+    height: 48px;
 
-    &:nth-child(1) { top: 20%; left: 20%; }
-    &:nth-child(2) { top: 20%; left: 80%; }
-    &:nth-child(3) { top: 50%; left: 50%; }
-    &:nth-child(4) { top: 80%; left: 20%; }
-    &:nth-child(5) { top: 80%; left: 80%; }
+    &:nth-child(1) { left: 10%; }    // 10%
+    &:nth-child(2) { left: 30%; margin-left: 5px}    // 20% gap
+    &:nth-child(3) { left: 50%; margin-left: 5px}    // 20% gap
+    &:nth-child(4) { left: 70%; }    // 20% gap
+    &:nth-child(5) { left: 90%; }    // 20% gap
   }
 
   .m-flavours-animation-container:hover {
     .m-flavour-item {
-      width: 120px !important;
-      height: 120px !important;
+      width: 56px;
+      height: 48px;
     }
   }
 }
