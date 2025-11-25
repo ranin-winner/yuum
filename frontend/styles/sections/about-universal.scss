@@ -661,14 +661,14 @@ $accent-hover: #333333;
   position: relative;
   margin: 0 auto;
   width: 100%;
-  padding: 0;
+  padding: 100px 0; // Vertical padding only on desktop
 
   @include cfg.media(max-m) {
-    padding: 60px 16px;
+    padding: 0; // Remove side padding, keep vertical
   }
 
   @include cfg.media(max-xs) {
-    padding: 60px 16px;
+    padding: 0; // Reduced vertical padding for mobile
   }
 }
 
@@ -694,13 +694,15 @@ $accent-hover: #333333;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  max-width: 1360px; // Respect container max-width
+  margin: 0 auto; // Center the content
 
   @include cfg.media(max-m) {
-    align-items: center;
+    padding: 0;
   }
 
   @include cfg.media(max-xs) {
-    align-items: center;
+    padding: 0;
   }
 }
 
@@ -712,21 +714,20 @@ $accent-hover: #333333;
     @include fonts.font(heading-400, 56px, 1.1);
     color: $text-white;
     @include fonts.font-smoothing;
-    max-width: 80%;
+    max-width: none; // Remove max-width constraint
     margin: 0 auto; // Center with auto margins
-    padding: 40px 20px; // Use padding for spacing
+    padding: 40px 0; // Vertical padding only
     box-sizing: border-box;
+    width: 100%; // Take full width of container
 
     @include cfg.media(max-m) {
       @include fonts.font(heading-400, 42px, 1.1);
-      max-width: 85%;
-      padding: 30px 15px;
+      padding: 64px 0px;
     }
 
     @include cfg.media(max-xs) {
-      @include fonts.font(heading-400, 36px, 1.2); // Your desired 36px
-      max-width: 95%;
-      padding: 20px 10px;
+      @include fonts.font(heading-400, 36px, 1.2);
+      padding: 64px 0;
     }
   }
 }
@@ -742,10 +743,9 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    @include fonts.font(heading-400, 36px, 1.2); // Match 36px
+    @include fonts.font(heading-400, 36px, 1.2);
   }
 }
-
 // ===== Global Overflow Prevention =====
 .m-about-universal,
 .m-about-hero,
