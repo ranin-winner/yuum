@@ -1,8 +1,7 @@
 <section class="m-about-universal">
-  <div class="m-container">
-
-    <!-- Hero Section -->
-    <div class="m-about-hero">
+  <!-- Hero Section - Full width with inner container -->
+  <div class="m-about-hero">
+    <div class="m-container">
       <div class="m-about-hero__content anim-slide-in-bottom">
         <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
         <div class="m-about-hero__subtitle">
@@ -15,6 +14,10 @@
         </div>
       {% endif %}
     </div>
+  </div>
+
+  <!-- Main Container for Regular Sections -->
+  <div class="m-container">
 
     <!-- Flavours Section -->
     <div class="m-about-flavours anim-slide-in-bottom">
@@ -44,7 +47,6 @@
             {% render 'image', image: section.settings.pentagon_final_image, class: 'm-pentagon-final__img' %}
           </div>
         {% endif %}
-
       </div>
 
       <div class="m-about-flavours__guide anim-slide-in-bottom">
@@ -92,12 +94,15 @@
       {% endif %}
     </div>
 
-    <!-- Seasonal Section -->
-    <div class="m-seasonal anim-slide-in-bottom">
-      <div class="m-seasonal-image">
-        {% if section.settings.seasonal_image != blank %}
-          {% render 'image', image: section.settings.seasonal_image, class: 'm-seasonal-img' %}
-        {% endif %}
+  </div> <!-- End of main container -->
+
+  <!-- Seasonal Section - Full width with inner container -->
+  <div class="m-seasonal anim-slide-in-bottom">
+    <div class="m-seasonal-image">
+      {% if section.settings.seasonal_image != blank %}
+        {% render 'image', image: section.settings.seasonal_image, class: 'm-seasonal-img' %}
+      {% endif %}
+      <div class="m-container">
         <div class="m-seasonal-content">
           <h2 class="m-seasonal-title">{{ section.settings.seasonal_title }}</h2>
           <div class="m-seasonal-intro">
@@ -117,21 +122,22 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Universal Design Section -->
-    <div class="m-universal-design anim-slide-in-bottom">
-      <div class="m-universal-background">
-        {% if section.settings.universal_image != blank %}
-          {% render 'image', image: section.settings.universal_image, class: 'm-universal-bg-image' %}
-        {% endif %}
-      </div>
+  <!-- Universal Design Section - Full width with inner container -->
+  <div class="m-universal-design anim-slide-in-bottom">
+    <div class="m-universal-background">
+      {% if section.settings.universal_image != blank %}
+        {% render 'image', image: section.settings.universal_image, class: 'm-universal-bg-image' %}
+      {% endif %}
+    </div>
+    <div class="m-container">
       <div class="m-universal-content">
         <div class="m-universal-text">
           <p class="m-universal-description">{{ section.settings.universal_text }}</p>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 

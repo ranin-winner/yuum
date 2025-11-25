@@ -15,13 +15,17 @@ $accent-hover: #333333;
 // ===== Base Styles =====
 .m-about-universal {
   background: $background-main;
-  margin-top: -40px;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .m-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 // ===== Hero Section =====
@@ -29,9 +33,8 @@ $accent-hover: #333333;
   position: relative;
   padding: 140px 0 40px 0;
   margin-bottom: 40px;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
+  box-sizing: border-box;
 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1686' viewBox='0 0 1920 1686' fill='none'%3E%3Cg filter='url(%23filter0_f)'%3E%3Cpath d='M613 642L847 637L1044 740L1064 1004L1292 1385L768 1265L528 1181L165 827L514 934L716 939L609 830L613 642Z' fill='%239CBCE1'/%3E%3C/g%3E%3Cg filter='url(%23filter1_f)'%3E%3Cpath d='M1127 747L1411 633L1522 989L1649 1132L1365 1180L1356 1349L1089 1246L913 1024L1091 1086L817 773L1068 626L1127 747Z' fill='%23B3D5A1'/%3E%3C/g%3E%3Cg filter='url(%23filter2_f)'%3E%3Cpath d='M1068 427L850 300L514 335L215 770L531 825L650 853L996 906L1210 735L1029 754L873 670L1016 590L1068 427Z' fill='%23F4D7E5'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f' x='-134' y='337' width='1726' height='1348' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter1_f' x='517' y='326' width='1431' height='1323' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter2_f' x='-84' y='0' width='1594' height='1206' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
   background-size: cover;
@@ -96,8 +99,11 @@ $accent-hover: #333333;
   }
 }
 
+// ===== Flavours Section =====
 .m-about-flavours {
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 
   &__title {
     @include fonts.font(heading-400, 48px);
@@ -127,6 +133,7 @@ $accent-hover: #333333;
     }
   }
 }
+
 .m-flavours-animation-container {
   position: relative;
   max-width: 1200px;
@@ -135,8 +142,8 @@ $accent-hover: #333333;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 
-  // Фінальна картинка пентагона
   .m-pentagon-final {
     position: absolute;
     top: 50%;
@@ -163,7 +170,7 @@ $accent-hover: #333333;
       transform: translate(-50%, -50%) !important;
       width: 200px !important;
       height: 200px !important;
-      opacity: 0; // Додаємо зникнення
+      opacity: 0;
     }
 
     .m-pentagon-final {
@@ -295,6 +302,8 @@ $accent-hover: #333333;
   padding: 40px;
   text-align: center;
   max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
     padding: 32px 24px;
@@ -320,6 +329,7 @@ $accent-hover: #333333;
   align-items: center;
   gap: 40px;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .m-sweet-slider {
@@ -330,6 +340,7 @@ $accent-hover: #333333;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
     max-width: 100%;
@@ -343,6 +354,7 @@ $accent-hover: #333333;
   height: 300px;
   position: relative;
   margin: 0 auto;
+  overflow: hidden;
 
   @include cfg.media(max-m) {
     max-width: 300px;
@@ -405,6 +417,7 @@ $accent-hover: #333333;
   gap: 12px;
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 
   .m-sweet-word {
     padding: 8px 15px;
@@ -419,6 +432,7 @@ $accent-hover: #333333;
     white-space: nowrap;
     background: transparent;
     flex-shrink: 0;
+    box-sizing: border-box;
   }
 
   @include cfg.media(max-m) {
@@ -438,6 +452,7 @@ $accent-hover: #333333;
 
 .m-sweet-explore {
   margin: 32px 0;
+  width: 100%;
 
   &-title {
     @include fonts.font(heading-400, 56px, 1.5);
@@ -486,9 +501,7 @@ $accent-hover: #333333;
   position: relative;
   height: 600px;
   overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
 
   @include cfg.media(max-m) {
     height: 500px;
@@ -587,6 +600,7 @@ $accent-hover: #333333;
   max-width: 600px;
   margin-top: auto;
   padding-bottom: 100px;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
     gap: 20px;
@@ -610,6 +624,7 @@ $accent-hover: #333333;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
+  box-sizing: border-box;
 
   &.active {
     border-bottom: 2px solid $text-white;
@@ -632,15 +647,12 @@ $accent-hover: #333333;
 }
 
 // ===== Universal Design Section =====
-// ===== Universal Design Section =====
 .m-universal-design {
   position: relative;
   margin: 0 auto;
   height: 600px;
   overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
   padding-bottom: 0;
 
   @include cfg.media(max-m) {
@@ -701,6 +713,7 @@ $accent-hover: #333333;
     margin: auto;
     padding: 20px;
     text-align: center;
+    box-sizing: border-box;
 
     @include cfg.media(max-m) {
       @include fonts.font(heading-400, 42px, 1.1);
