@@ -50,7 +50,6 @@ $accent-hover: #333333;
     text-align: center;
     max-width: 960px;
     margin: 0 auto;
-    padding: 0 20px;
     position: relative;
     z-index: 1;
   }
@@ -66,7 +65,8 @@ $accent-hover: #333333;
   &__subtitle {
     @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
-    margin: 0 0 80px;
+    max-width: 676px;
+    margin: 0 auto 80px;
     @include fonts.font-smoothing;
   }
 
@@ -660,23 +660,25 @@ $accent-hover: #333333;
 .m-universal-design {
   position: relative;
   margin: 0 auto;
-  height: 600px;
-  overflow: hidden;
   width: 100%;
-  padding-bottom: 0;
+  padding: 0;
 
   @include cfg.media(max-m) {
-    height: 500px;
+    padding: 60px 16px;
   }
 
   @include cfg.media(max-xs) {
-    height: 500px;
+    padding: 60px 16px;
   }
 }
 
 .m-universal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
 }
 
 .m-universal-bg-image {
@@ -686,55 +688,45 @@ $accent-hover: #333333;
 }
 
 .m-universal-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
   box-sizing: border-box;
 
   @include cfg.media(max-m) {
-    padding: 30px 16px;
+    align-items: center;
   }
 
   @include cfg.media(max-xs) {
-    padding: 20px 12px;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
   }
 }
 
 .m-universal-text {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 
   p {
     @include fonts.font(heading-400, 56px, 1.1);
     color: $text-white;
     @include fonts.font-smoothing;
     max-width: 80%;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
+    margin: 0 auto; // Center with auto margins
+    padding: 40px 20px; // Use padding for spacing
     box-sizing: border-box;
 
     @include cfg.media(max-m) {
       @include fonts.font(heading-400, 42px, 1.1);
       max-width: 85%;
-      padding: 15px;
+      padding: 30px 15px;
     }
 
     @include cfg.media(max-xs) {
-      @include fonts.font(heading-400, 28px, 1.1);
+      @include fonts.font(heading-400, 36px, 1.2); // Your desired 36px
       max-width: 95%;
-      padding: 10px;
-      line-height: 1.2;
+      padding: 20px 10px;
     }
   }
 }
@@ -750,8 +742,7 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    @include fonts.font(heading-400, 28px, 1.1);
-    line-height: 1.2;
+    @include fonts.font(heading-400, 36px, 1.2); // Match 36px
   }
 }
 
