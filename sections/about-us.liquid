@@ -1,31 +1,37 @@
 <section class="m-about-universal">
-  <!-- Hero Section - Full width with inner container -->
-  <div class="m-about-hero">
-    <div class="m-container">
-      <div class="m-about-hero__content anim-slide-in-bottom">
-        <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
-        <div class="m-about-hero__subtitle">
-          {{ section.settings.hero_subtitle }}
+  <!-- Shared Background Container for Hero and Flavours Intro Only -->
+  <div class="bg-common">
+    <!-- Hero Section -->
+    <div class="m-about-hero">
+      <div class="m-container">
+        <div class="m-about-hero__content anim-slide-in-bottom">
+          <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
+          <div class="m-about-hero__subtitle">
+            {{ section.settings.hero_subtitle }}
+          </div>
         </div>
+        {% if section.settings.hero_image != blank %}
+          <div class="m-about-hero__media anim-slide-in-bottom">
+            {% render 'image', image: section.settings.hero_image, class: 'm-about-hero__image' %}
+          </div>
+        {% endif %}
       </div>
-      {% if section.settings.hero_image != blank %}
-        <div class="m-about-hero__media anim-slide-in-bottom">
-          {% render 'image', image: section.settings.hero_image, class: 'm-about-hero__image' %}
-        </div>
-      {% endif %}
     </div>
-  </div>
 
-  <!-- Main Container for Regular Sections -->
-  <div class="m-container">
-
-    <!-- Flavours Section -->
-    <div class="m-about-flavours anim-slide-in-bottom">
-      <h2 class="m-about-flavours__title">{{ section.settings.flavours_title }}</h2>
-      <div class="m-about-flavours__intro">
-        {{ section.settings.flavours_intro }}
+    <!-- Flavours Intro Only (inside shared background) -->
+    <div class="m-container">
+      <div class="m-about-flavours anim-slide-in-bottom">
+        <h2 class="m-about-flavours__title">{{ section.settings.flavours_title }}</h2>
+        <div class="m-about-flavours__intro">
+          {{ section.settings.flavours_intro }}
+        </div>
       </div>
+    </div>
+  </div> <!-- End of shared background -->
 
+  <!-- Rest of Flavours Section (outside shared background) -->
+  <div class="m-container">
+    <div class="m-about-flavours">
       <div class="m-flavours-animation-container">
         {% for i in (1..5) %}
           {% assign flavour_key = 'flavour_' | append: i %}
@@ -53,8 +59,10 @@
         <p>{{ section.settings.flavours_guide }}</p>
       </div>
     </div>
+  </div>
 
-    <!-- Sweet Section -->
+  <!-- Sweet Section (Outside shared background) -->
+  <div class="m-container">
     <div class="m-sweet-section anim-slide-in-bottom">
       <h3 class="m-sweet-section-title">{{ section.settings.sweet_title }}</h3>
       <div class="m-sweet-content">
@@ -93,8 +101,7 @@
         </a>
       {% endif %}
     </div>
-
-  </div> <!-- End of main container -->
+  </div>
 
   <!-- Seasonal Section - Full width with inner container -->
   <div class="m-seasonal anim-slide-in-bottom">
