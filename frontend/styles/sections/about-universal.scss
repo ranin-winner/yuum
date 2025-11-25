@@ -82,16 +82,22 @@ $accent-hover: #333333;
     margin-bottom: 60px;
     &__title { @include fonts.font(heading-400, 52px, 1.1); }
     &__subtitle { @include fonts.font(body-400, 16px, 1.5); margin-bottom: 40px; }
-    &__image { max-height: 300px; padding: 20px}
+    &__image { max-height: 300px;}
   }
 
   @include cfg.media(max-xs) {
-    padding: 110px 0 20px 0;
-    margin-bottom: 20px;
+    padding: 110px 0 20px 0; // Reduced padding
     &__title { @include fonts.font(heading-400, 52px, 1.1); margin-bottom: 24px; }
     &__subtitle { @include fonts.font(body-400, 14px, 1.5); margin-bottom: 32px; }
-    &__image { max-height: 250px; }
+    &__image {
+      object-fit: cover;
+      max-height: 260px;
+      width: 100%;
+      height: 260px;
+      opacity: 1;
+    }
   }
+
 }
 
 // ===== Flavours Section =====
@@ -114,7 +120,7 @@ $accent-hover: #333333;
   &__intro {
     @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
-    margin: 40px auto;
+    margin: 24px auto 40px auto;
     max-width: 900px;
     @include fonts.font-smoothing;
   }
