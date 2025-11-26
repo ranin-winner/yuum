@@ -304,8 +304,8 @@
     }
 
     &-icon {
-      width: 20px;
-      height: 16px;
+      width: 24px;
+      height: 24px;
       color: #474747;
       display: block;
     }
@@ -646,7 +646,7 @@ body.overflow-hidden {
 
     &-icon {
       width: 24px;
-      height: 20px;
+      height: 24px;
     }
 
     &-close {
@@ -973,3 +973,6 @@ body.overflow-hidden {
   z-index: 999;
 }
 
+.b-header.search-open {
+  z-index: 1000
+}
