@@ -2,7 +2,7 @@
 
 <footer
   class="text-white px-4 py-8 lg:px-6 lg:py-16 b-footer"
-  style="background-color: {{ settingsFooterBg }}; border-top-left-radius: {{ settings.footer_corner_radius | default: 16 }}px; border-top-right-radius: {{ settings.footer_corner_radius | default: 16 }}px;"
+  style="background-color: {{ settingsFooterBg }}; border-top-left-radius: {{ settings.footer_corner_radius | default: 32 }}px; border-top-right-radius: {{ settings.footer_corner_radius | default: 32 }}px;"
 >
   <div class="container mx-auto max-w-screen-xl">
     {%- comment -%} Top row: logo + (optional) socials on the right {%- endcomment -%}
@@ -136,7 +136,7 @@
         <img
           src="{{ settings.footer_tagline_image | image_url: width: 1600 }}"
           alt="{{ settings.footer_tagline | default: shop.name }}"
-          class="max-w-full h-auto opacity-20"
+          class="max-w-full h-auto"
           style="max-height: {{ settings.footer_tagline_height | default: 240 }}px;"
           loading="lazy"
         >

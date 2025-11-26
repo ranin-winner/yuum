@@ -15,51 +15,49 @@ $accent-hover: #333333;
 // ===== Base Styles =====
 .m-about-universal {
   background: $background-main;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100vh;
+  margin-top: -40px;
 }
 
 .m-container {
-  max-width: 1200px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.bg-common {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1686' viewBox='0 0 1920 1686' fill='none'%3E%3Cg filter='url(%23filter0_f)'%3E%3Cpath d='M613 642L847 637L1044 740L1064 1004L1292 1385L768 1265L528 1181L165 827L514 934L716 939L609 830L613 642Z' fill='%239CBCE1'/%3E%3C/g%3E%3Cg filter='url(%23filter1_f)'%3E%3Cpath d='M1127 747L1411 633L1522 989L1649 1132L1365 1180L1356 1349L1089 1246L913 1024L1091 1086L817 773L1068 626L1127 747Z' fill='%23B3D5A1'/%3E%3C/g%3E%3Cg filter='url(%23filter2_f)'%3E%3Cpath d='M1068 427L850 300L514 335L215 770L531 825L650 853L996 906L1210 735L1029 754L873 670L1016 590L1068 427Z' fill='%23F4D7E5'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f' x='-134' y='337' width='1726' height='1348' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter1_f' x='517' y='326' width='1431' height='1323' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter2_f' x='-84' y='0' width='1594' height='1206' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
 }
 
 // ===== Hero Section =====
 .m-about-hero {
   position: relative;
-  padding: 100px 0 40px 0;
-  margin-bottom: 40px;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1686' viewBox='0 0 1920 1686' fill='none'%3E%3Cg filter='url(%23filter0_f)'%3E%3Cpath d='M613 642L847 637L1044 740L1064 1004L1292 1385L768 1265L528 1181L165 827L514 934L716 939L609 830L613 642Z' fill='%239CBCE1'/%3E%3C/g%3E%3Cg filter='url(%23filter1_f)'%3E%3Cpath d='M1127 747L1411 633L1522 989L1649 1132L1365 1180L1356 1349L1089 1246L913 1024L1091 1086L817 773L1068 626L1127 747Z' fill='%23B3D5A1'/%3E%3C/g%3E%3Cg filter='url(%23filter2_f)'%3E%3Cpath d='M1068 427L850 300L514 335L215 770L531 825L650 853L996 906L1210 735L1029 754L873 670L1016 590L1068 427Z' fill='%23F4D7E5'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f' x='-134' y='337' width='1726' height='1348' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter1_f' x='517' y='326' width='1431' height='1323' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3Cfilter id='filter2_f' x='-84' y='0' width='1594' height='1206' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='150'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-  }
+  padding: 155px 0 40px 0;
+  margin-bottom: 120px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: fit-content;
 
   &__content {
     text-align: center;
-    max-width: 800px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 0 20px;
     position: relative;
     z-index: 1;
   }
 
   &__title {
-    @include fonts.font(heading-400, 64px, 1.1);
+    display: inline;
+    @include fonts.font(heading-400, 100px, 1.1);
     color: $text-primary;
-    margin: 0 0 32px;
     letter-spacing: -0.02em;
     @include fonts.font-smoothing;
   }
@@ -67,48 +65,62 @@ $accent-hover: #333333;
   &__subtitle {
     @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
-    margin: 0 0 60px;
+    max-width: 676px;
+    margin: 40px auto 80px;
     @include fonts.font-smoothing;
   }
 
   &__image {
     width: 100%;
     height: auto;
-    max-height: 500px;
+    max-height: 660px;
     object-fit: contain;
   }
 
   @include cfg.media(max-m) {
-    padding: 60px 0 30px 0;
+    padding: 110px 0 30px 0;
     margin-bottom: 60px;
-    &__title { @include fonts.font(heading-400, 48px, 1.1); }
-    &__subtitle { @include fonts.font(body-400, 15px, 1.5); margin-bottom: 40px; }
-    &__image { max-height: 300px; padding: 20px}
+    &__title { @include fonts.font(heading-400, 52px, 1.1); }
+    &__subtitle { @include fonts.font(body-400, 16px, 1.5); margin-bottom: 40px; }
+    &__image { max-height: 300px;}
   }
 
   @include cfg.media(max-xs) {
-    padding: 40px 0 20px 0;
-    margin-bottom: 20px;
+    padding: 110px 0 20px 0;
     &__title { @include fonts.font(heading-400, 52px, 1.1); margin-bottom: 24px; }
     &__subtitle { @include fonts.font(body-400, 14px, 1.5); margin-bottom: 32px; }
-    &__image { max-height: 250px; }
+    &__image {
+      object-fit: cover;
+      max-height: 260px;
+      width: 100%;
+      height: 260px;
+      opacity: 1;
+    }
   }
+
 }
 
+// ===== Flavours Section =====
 .m-about-flavours {
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 
   &__title {
-    @include fonts.font(heading-400, 48px);
+    display: inline;
+    @include fonts.font(heading-400, 76px);
     color: $text-primary;
-    margin: 0 0 32px;
     @include fonts.font-smoothing;
+
+    @include cfg.media(max-m) {
+      @include fonts.font(heading-400, 44px);
+    }
   }
 
   &__intro {
     @include fonts.font(body-400, 16px, 1.5);
     color: $text-primary;
-    margin: 0 auto 48px;
+    margin: 24px auto 40px auto;
     max-width: 900px;
     @include fonts.font-smoothing;
   }
@@ -117,7 +129,7 @@ $accent-hover: #333333;
     @include fonts.font(heading-400, 56px, 1.1);
     color: $text-primary;
     margin: 48px auto;
-    max-width: 1200px;
+    max-width: 1360px;
     @include fonts.font-smoothing;
 
     @include cfg.media(max-m) {
@@ -126,16 +138,17 @@ $accent-hover: #333333;
     }
   }
 }
+
 .m-flavours-animation-container {
   position: relative;
-  max-width: 1200px;
+  max-width: 1360px;
   margin: 0 auto 48px;
   min-height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 
-  // Фінальна картинка пентагона
   .m-pentagon-final {
     position: absolute;
     top: 50%;
@@ -147,6 +160,11 @@ $accent-hover: #333333;
     visibility: hidden;
     transition: all 0.5s ease 0.8s;
     z-index: 1;
+
+    @include cfg.media(max-m) {
+      width: 180px;
+      height: 180px;
+    }
 
     .m-pentagon-final__img {
       width: 100%;
@@ -162,7 +180,7 @@ $accent-hover: #333333;
       transform: translate(-50%, -50%) !important;
       width: 200px !important;
       height: 200px !important;
-      opacity: 0; // Додаємо зникнення
+      opacity: 0;
     }
 
     .m-pentagon-final {
@@ -250,40 +268,40 @@ $accent-hover: #333333;
   }
 
   .m-flavour-item {
-    width: 150px;
-    height: 150px;
+    width: 112px;
+    height: 112px;
 
-    &:nth-child(1) { left: 10%; }
-    &:nth-child(2) { left: 30%; }
-    &:nth-child(3) { left: 50%; }
-    &:nth-child(4) { left: 70%; }
-    &:nth-child(5) { left: 80%; }
+    &:nth-child(1) { left: 10%; }    // 10%
+    &:nth-child(2) { left: 30%; }    // 20% gap
+    &:nth-child(3) { left: 50%; }    // 20% gap
+    &:nth-child(4) { left: 70%; }    // 20% gap
+    &:nth-child(5) { left: 90%; }    // 20% gap
   }
 
   .m-flavours-animation-container:hover {
     .m-flavour-item {
-      width: 150px !important;
-      height: 150px !important;
+      width: 112px;
+      height: 112px;
     }
   }
 }
 
 @include cfg.media(max-xs) {
   .m-flavour-item {
-    width: 120px;
-    height: 120px;
+    width: 56px;
+    height: 48px;
 
-    &:nth-child(1) { top: 20%; left: 20%; }
-    &:nth-child(2) { top: 20%; left: 80%; }
-    &:nth-child(3) { top: 50%; left: 50%; }
-    &:nth-child(4) { top: 80%; left: 20%; }
-    &:nth-child(5) { top: 80%; left: 80%; }
+    &:nth-child(1) { left: 10%; }    // 10%
+    &:nth-child(2) { left: 30%; margin-left: 5px}    // 20% gap
+    &:nth-child(3) { left: 50%; margin-left: 5px}    // 20% gap
+    &:nth-child(4) { left: 70%; }    // 20% gap
+    &:nth-child(5) { left: 90%; }    // 20% gap
   }
 
   .m-flavours-animation-container:hover {
     .m-flavour-item {
-      width: 120px !important;
-      height: 120px !important;
+      width: 56px;
+      height: 48px;
     }
   }
 }
@@ -293,10 +311,12 @@ $accent-hover: #333333;
   margin: 0 auto 80px;
   padding: 40px;
   text-align: center;
-  max-width: 1200px;
+  max-width: 1360px;
+  width: 100%;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
-    padding: 32px 24px;
+    padding: 32px 0;
     margin: 0 auto 60px;
   }
 
@@ -318,7 +338,7 @@ $accent-hover: #333333;
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  margin-bottom: 32px;
+  width: 100%;
 }
 
 .m-sweet-slider {
@@ -329,10 +349,34 @@ $accent-hover: #333333;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
     max-width: 100%;
-    gap: 10px;
+    gap: 16px;
+
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+
+    .m-sweet-image-container {
+      grid-row: 1;
+      grid-column: 1;
+      width: 100%;
+    }
+
+    .m-sweet-arrow-prev {
+      grid-row: 2;
+      grid-column: 1;
+      justify-self: center;
+      transform: translateX(-32px);
+    }
+
+    .m-sweet-arrow-next {
+      grid-row: 2;
+      grid-column: 1;
+      justify-self: center;
+      transform: translateX(32px);
+    }
   }
 }
 
@@ -342,6 +386,7 @@ $accent-hover: #333333;
   height: 300px;
   position: relative;
   margin: 0 auto;
+  overflow: hidden;
 
   @include cfg.media(max-m) {
     max-width: 300px;
@@ -404,6 +449,7 @@ $accent-hover: #333333;
   gap: 12px;
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 
   .m-sweet-word {
     padding: 8px 15px;
@@ -418,6 +464,7 @@ $accent-hover: #333333;
     white-space: nowrap;
     background: transparent;
     flex-shrink: 0;
+    box-sizing: border-box;
   }
 
   @include cfg.media(max-m) {
@@ -436,12 +483,17 @@ $accent-hover: #333333;
 }
 
 .m-sweet-explore {
-  margin: 32px 0;
+  padding: 120px 0 32px 0;
+  width: 100%;
+
+  @include cfg.media(max-m) {
+    padding: 60px 0 32px 0;
+  }
 
   &-title {
-    @include fonts.font(heading-400, 56px, 1.5);
+    @include fonts.font(heading-400, 56px, 1.2);
     color: $text-primary;
-    max-width: 80%;
+    max-width: 900px;
     margin: auto;
     @include fonts.font-smoothing;
 
@@ -485,9 +537,7 @@ $accent-hover: #333333;
   position: relative;
   height: 600px;
   overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
 
   @include cfg.media(max-m) {
     height: 500px;
@@ -502,6 +552,7 @@ $accent-hover: #333333;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 0px;
 }
 
 .m-seasonal-content {
@@ -573,7 +624,7 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    @include fonts.font(heading-400, 40px, 1.1);
+    @include fonts.font(heading-400, 52px, 1.1);
     margin: 10px 0 10px 0;
   }
 }
@@ -586,6 +637,7 @@ $accent-hover: #333333;
   max-width: 600px;
   margin-top: auto;
   padding-bottom: 100px;
+  box-sizing: border-box;
 
   @include cfg.media(max-m) {
     gap: 20px;
@@ -609,6 +661,7 @@ $accent-hover: #333333;
   cursor: pointer;
   transition: all 0.3s ease;
   @include fonts.font-smoothing;
+  box-sizing: border-box;
 
   &.active {
     border-bottom: 2px solid $text-white;
@@ -631,87 +684,78 @@ $accent-hover: #333333;
 }
 
 // ===== Universal Design Section =====
-// ===== Universal Design Section =====
 .m-universal-design {
   position: relative;
   margin: 0 auto;
-  height: 600px;
-  overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  padding-bottom: 0;
+  width: 100%;
+  padding: 100px 0;
 
   @include cfg.media(max-m) {
-    height: 500px;
+    padding: 0;
   }
 
   @include cfg.media(max-xs) {
-    height: 500px;
+    padding: 0;
   }
 }
 
 .m-universal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
 }
 
 .m-universal-bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 0px;
 }
 
 .m-universal-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
   box-sizing: border-box;
+  max-width: 1360px;
+  margin: 0 auto;
 
   @include cfg.media(max-m) {
-    padding: 30px 16px;
+    padding: 0;
   }
 
   @include cfg.media(max-xs) {
-    padding: 20px 12px;
-    align-items: flex-start;
-    justify-content: center;
-    overflow-y: auto;
+    padding: 0;
   }
 }
 
 .m-universal-text {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 
   p {
     @include fonts.font(heading-400, 56px, 1.1);
     color: $text-white;
     @include fonts.font-smoothing;
-    max-width: 80%;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
+    max-width: none;
+    margin: 0 auto;
+    padding: 40px 0;
+    box-sizing: border-box;
+    width: 100%;
 
     @include cfg.media(max-m) {
       @include fonts.font(heading-400, 42px, 1.1);
-      max-width: 85%;
-      padding: 15px;
+      padding: 64px 0px;
     }
 
     @include cfg.media(max-xs) {
-      @include fonts.font(heading-400, 28px, 1.1);
-      max-width: 95%;
-      padding: 10px;
-      line-height: 1.2;
+      @include fonts.font(heading-400, 36px, 1.2);
+      padding: 64px 0;
     }
   }
 }
@@ -727,7 +771,23 @@ $accent-hover: #333333;
   }
 
   @include cfg.media(max-xs) {
-    @include fonts.font(heading-400, 28px, 1.1);
-    line-height: 1.2;
+    @include fonts.font(heading-400, 36px, 1.2);
   }
+}
+// ===== Global Overflow Prevention =====
+.m-about-universal,
+.m-about-hero,
+.m-container,
+.m-about-flavours,
+.m-sweet-section,
+.m-seasonal,
+.m-universal-design {
+  overflow: visible !important;
+}
+
+// Ensure no horizontal scroll
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }

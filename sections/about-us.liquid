@@ -1,28 +1,37 @@
 <section class="m-about-universal">
-  <div class="m-container">
-
+  <!-- Shared Background Container for Hero and Flavours Intro Only -->
+  <div class="bg-common">
     <!-- Hero Section -->
     <div class="m-about-hero">
-      <div class="m-about-hero__content">
-        <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
-        <div class="m-about-hero__subtitle">
-          {{ section.settings.hero_subtitle }}
+      <div class="m-container">
+        <div class="m-about-hero__content anim-slide-in-bottom">
+          <h1 class="m-about-hero__title">{{ section.settings.hero_title }}</h1>
+          <div class="m-about-hero__subtitle">
+            {{ section.settings.hero_subtitle }}
+          </div>
         </div>
+        {% if section.settings.hero_image != blank %}
+          <div class="m-about-hero__media anim-slide-in-bottom">
+            {% render 'image', image: section.settings.hero_image, class: 'm-about-hero__image' %}
+          </div>
+        {% endif %}
       </div>
-      {% if section.settings.hero_image != blank %}
-        <div class="m-about-hero__media">
-          {% render 'image', image: section.settings.hero_image, class: 'm-about-hero__image' %}
-        </div>
-      {% endif %}
     </div>
 
-    <!-- Flavours Section -->
-    <div class="m-about-flavours">
-      <h2 class="m-about-flavours__title">{{ section.settings.flavours_title }}</h2>
-      <div class="m-about-flavours__intro">
-        {{ section.settings.flavours_intro }}
+    <!-- Flavours Intro Only (inside shared background) -->
+    <div class="m-container">
+      <div class="m-about-flavours anim-slide-in-bottom">
+        <h2 class="m-about-flavours__title">{{ section.settings.flavours_title }}</h2>
+        <div class="m-about-flavours__intro">
+          {{ section.settings.flavours_intro }}
+        </div>
       </div>
+    </div>
+  </div> <!-- End of shared background -->
 
+  <!-- Rest of Flavours Section (outside shared background) -->
+  <div class="m-container">
+    <div class="m-about-flavours">
       <div class="m-flavours-animation-container">
         {% for i in (1..5) %}
           {% assign flavour_key = 'flavour_' | append: i %}
@@ -40,20 +49,21 @@
         {% endfor %}
 
         {% if section.settings.pentagon_final_image != blank %}
-          <div class="m-pentagon-final">
+          <div class="m-pentagon-final anim-slide-in-bottom">
             {% render 'image', image: section.settings.pentagon_final_image, class: 'm-pentagon-final__img' %}
           </div>
         {% endif %}
-
       </div>
 
-      <div class="m-about-flavours__guide">
+      <div class="m-about-flavours__guide anim-slide-in-bottom">
         <p>{{ section.settings.flavours_guide }}</p>
       </div>
     </div>
+  </div>
 
-    <!-- Sweet Section -->
-    <div class="m-sweet-section">
+  <!-- Sweet Section (Outside shared background) -->
+  <div class="m-container">
+    <div class="m-sweet-section anim-slide-in-bottom">
       <h3 class="m-sweet-section-title">{{ section.settings.sweet_title }}</h3>
       <div class="m-sweet-content">
         <div class="m-sweet-words">
@@ -66,7 +76,7 @@
             {% endif %}
           {% endfor %}
         </div>
-        <div class="m-sweet-slider">
+        <div class="m-sweet-slider anim-slide-in-bottom">
           <button class="m-sweet-arrow m-sweet-arrow-prev">←</button>
           <div class="m-sweet-image-container">
             {% for i in (1..9) %}
@@ -91,13 +101,15 @@
         </a>
       {% endif %}
     </div>
+  </div>
 
-    <!-- Seasonal Section -->
-    <div class="m-seasonal">
-      <div class="m-seasonal-image">
-        {% if section.settings.seasonal_image != blank %}
-          {% render 'image', image: section.settings.seasonal_image, class: 'm-seasonal-img' %}
-        {% endif %}
+  <!-- Seasonal Section - Full width with inner container -->
+  <div class="m-seasonal anim-slide-in-bottom">
+    <div class="m-seasonal-image">
+      {% if section.settings.seasonal_image != blank %}
+        {% render 'image', image: section.settings.seasonal_image, class: 'm-seasonal-img' %}
+      {% endif %}
+      <div class="m-container">
         <div class="m-seasonal-content">
           <h2 class="m-seasonal-title">{{ section.settings.seasonal_title }}</h2>
           <div class="m-seasonal-intro">
@@ -117,30 +129,24 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Universal Design Section -->
-    <div class="m-universal-design">
-      <div class="m-universal-background">
-        {% if section.settings.universal_image != blank %}
-          {% render 'image', image: section.settings.universal_image, class: 'm-universal-bg-image' %}
-        {% endif %}
-      </div>
+  <!-- Universal Design Section - Full width with inner container -->
+  <div class="m-universal-design anim-slide-in-bottom">
+    <div class="m-universal-background">
+      {% if section.settings.universal_image != blank %}
+        {% render 'image', image: section.settings.universal_image, class: 'm-universal-bg-image' %}
+      {% endif %}
+    </div>
+    <div class="m-container">
       <div class="m-universal-content">
         <div class="m-universal-text">
-          <p class="m-universal-description">{{ section.settings.universal_text }}</p>
+          <div class="m-universal-description">{{ section.settings.universal_text }}</div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.body.classList.replace('transparent-header', 'no-transparent-header');
-  });
-</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

@@ -1,19 +1,10 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "about_us_cmtAjh": {
       "type": "about-us",
       "name": "About Us Universal",
       "settings": {
-        "hero_title": "Here at Yuum we'reborn dreamers",
+        "hero_title": "Here at Yuum we’re born dreamers",
         "hero_subtitle": "<p>We fantasise about flavour. We're passionate about purpose. And we have a constant, insatiable craving for curiosity that's fuelled by our restless appetite for adventure and authenticity. When we're not creating delicious new sensory combinations, we spend our days scouting the world. Seeking out exhilarating new tastes and textures to help connect with the iconic cultural flavours we believe are just done better, when they're done right. We hope you love them as much as we do.<\/p>",
         "hero_image": "shopify:\/\/shop_images\/Image_7.png",
         "flavours_title": "Flavours",
@@ -69,16 +60,12 @@
       "name": "Visit block",
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
-        "pad_top": 120,
+        "pad_top": 0,
         "pad_bottom": 120,
-        "container": "xl",
-        "col_gap": 72,
         "inner_gap": 24,
         "text_gap": 12,
         "title_color": "#474747",
         "text_color": "#5b5b5b",
-        "title_size": 76,
-        "text_size": 16,
         "enable_parallax": false,
         "radius": 20,
         "left_opacity": 100,

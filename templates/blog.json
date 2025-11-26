@@ -12,7 +12,7 @@
     "c_blog_post_list_XPrixg": {
       "type": "c-blog-post-list",
       "settings": {
-        "blog": "news",
+        "blog": "articles",
         "posts_limit": 9,
         "blog_title": "Journal",
         "blog_subtitle": "Journal",

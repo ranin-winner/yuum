@@ -3,9 +3,11 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 100px;
+        padding-top: 60px;
         @media (max-width: 1250px) {
             grid-template-columns: 1fr;
             gap: 60px;
+            padding-top: 40px;
         }
     }
 

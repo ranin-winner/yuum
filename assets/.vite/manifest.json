@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CJ3pKlEM.css",
+    "file": "main-VlJVmaju.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -28,8 +28,13 @@
     "isEntry": true
   },
   "frontend/styles/sections/about-universal.scss": {
-    "file": "about-universal-CdVSCk-1.css",
+    "file": "about-universal-CcQ7fHxk.css",
     "src": "frontend/styles/sections/about-universal.scss",
+    "isEntry": true
+  },
+  "frontend/styles/sections/accordion.scss": {
+    "file": "accordion-CzCJasWL.css",
+    "src": "frontend/styles/sections/accordion.scss",
     "isEntry": true
   },
   "frontend/styles/sections/account.scss": {
@@ -199,12 +204,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/trial-faq.scss": {
-    "file": "trial-faq-DS1iBYem.css",
+    "file": "trial-faq-BmF6BjES.css",
     "src": "frontend/styles/sections/trial-faq.scss",
     "isEntry": true
   },
   "frontend/styles/sections/visit-us.scss": {
-    "file": "visit-us-AYbo5lLs.css",
+    "file": "visit-us-NcGiKWtb.css",
     "src": "frontend/styles/sections/visit-us.scss",
     "isEntry": true
   }

@@ -982,11 +982,6 @@
 
 
 .m-page-delivery {
-
-    .container {
-        max-width: 980px;
-    }
-
     [id*="build-your-bundle-template"] {
         margin-bottom: 60px;
         @media (min-width: 1024px) {
@@ -1006,18 +1001,18 @@
             @media (min-width: 1024px) {
                 padding-bottom: 80px!important;
             }
-            
+
             .text-kicker-description {
                 .text-kicker-description__title {
                     @media (min-width: 1024px) {
                         margin-bottom: 32px;
                     }
                 }
-        
+
                 .text-kicker-description__desc {
                     @media (min-width: 1024px) {
                         font-size: 18px;
-                    }  
+                    }
                 }
             }
         }
@@ -1027,7 +1022,7 @@
             @media (min-width: 1024px) {
                 padding-bottom: 160px!important;
             }
-            
+
         }
 
         .text-kicker-description {
@@ -1059,6 +1054,6 @@
                 padding: 0 40px 120px 40px;
             }
         }
-        
+
     }
 }

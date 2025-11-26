@@ -77,6 +77,7 @@
   }
 
   &__title {
+    color: #ADAEB0;
     @include cfg.font(body-400, 14px, 1.14);
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -104,16 +105,22 @@
 
   &__copyright,
   &__bottom-link {
+    color: #e7e7e7;
     @include cfg.font(body-400, 14px, 1.14);
     opacity: 0.8;
   }
 
   &__bottom-link {
+    color: #e7e7e7;
     transition: opacity 0.3s ease;
 
     &:hover {
       opacity: 1;
     }
+  }
+
+  &__newsletter-title {
+    @include cfg.font(body-400, 18px, 1.14);
   }
 
   .btn.btn-light {
@@ -137,5 +144,10 @@
     @include cfg.media(max-m) {
       max-width: 100%;
     }
+  }
+
+  .payment-icon {
+    width: 36px;
+    height: 24px;
   }
 }
