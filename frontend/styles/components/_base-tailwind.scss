@@ -57,7 +57,12 @@
     z-index: 998;
     display: none;
 
-    body.no-scroll & {
+    @media (max-width: 1366px) {
+      z-index: 997;
+    }
+
+    body.no-scroll &,
+    body.overflow-hidden & {
       display: block;
     }
   }
