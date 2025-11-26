@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
   transition: all .5s ease-in-out 0ms;
-  z-index: 999;
+  z-index: 998;
   border-bottom: 1px solid #ADB0B0;
 
   > a, > button {
@@ -25,7 +25,7 @@
     left: 0;
     right: 0;
     top: 0;
-    z-index: 999;
+    z-index: 998;
     border-color: rgba(173, 174, 176, 1);
     background: rgba(231, 231, 231, 1);
     transition: all .5s ease-in-out 0ms;
@@ -906,7 +906,7 @@ body.overflow-hidden {
     right: 0;
     background: transparent;
     border-bottom: none;
-    z-index: 1000;
+    z-index: 998;
     border-bottom: 1px solid #FFFFFF;
   }
   .b-header.m-sticky {
@@ -970,9 +970,10 @@ body.overflow-hidden {
   right: 0;
   bottom: 0;
   background: #00000066;
-  z-index: 999;
+  z-index: 997;
 }
 
 .b-header.search-open {
-  z-index: 1000
+  z-index: 1001;
+  background: #E7E7E7;
 }
