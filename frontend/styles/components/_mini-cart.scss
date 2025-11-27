@@ -195,20 +195,24 @@ $padding-l: 40px;
 
   &-item {
     display: flex;
-    gap: $padding-md;
+    flex-direction: column;
     padding: $padding-md 0;
     position: relative;
-    border-bottom: 1px solid $light-grey-1;
 
     &:last-child {
       border-bottom: none;
+    }
+
+    &__upper-section {
+      display: flex;
+      gap: $padding-md;
+      padding-bottom: $padding-sm;
     }
 
     &__left-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: $padding-sm;
       min-width: 80px;
     }
 
@@ -234,7 +238,6 @@ $padding-l: 40px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     &__main-info {
@@ -292,12 +295,23 @@ $padding-l: 40px;
       }
     }
 
-    &__bottom-controls {
+    &__lower-section {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: $padding-sm;
+      border-top: 1px solid $additional-color-2;
       width: 100%;
-      margin-top: auto;
-      padding-bottom: $padding-sm;
+    }
+
+    &__quantity-controls {
+      display: flex;
+      align-items: center;
+    }
+
+    &__remove-controls {
+      display: flex;
+      align-items: center;
     }
 
     &__remove {
@@ -320,46 +334,6 @@ $padding-l: 40px;
   .b-quantity {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: $white;
-    border: 1px solid $light-grey-1;
-    border-radius: $border-radius-sm;
-    padding: 4px;
-    margin: 0;
-
-    &__btn {
-      background: transparent;
-      border: none;
-      width: 14px;
-      height: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: $dark-grey;
-      cursor: pointer;
-      padding: 0;
-      margin: 0;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: $additional-color-5;
-      }
-    }
-
-    &__value {
-      margin: 0 $padding-md;
-      min-width: 20px;
-      text-align: center;
-      @include fonts.font(body-400, 14px, 1);
-      color: $dark-grey;
-    }
-  }
-
-  // Quantity controls - прозорий фон без бордерів
-  .b-quantity {
-    display: flex;
-    align-items: center;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -377,7 +351,7 @@ $padding-l: 40px;
       cursor: pointer;
       padding: 0;
       margin: 0;
-      transition: all 0.2s ease;
+      transition: color 0.2s ease;
 
       &:hover {
         color: $additional-color-5;
@@ -495,90 +469,90 @@ $padding-l: 40px;
       margin-bottom: 0;
     }
 
-  &__image {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    border-radius: $border-radius-sm;
-    overflow: hidden;
-    margin: 0;
-    background: $light-grey-1;
+    &__image {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      border-radius: $border-radius-sm;
+      overflow: hidden;
+      margin: 0;
+      background: $light-grey-1;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: $additional-color-1;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: $additional-color-1;
+      }
     }
-  }
 
-  &__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  &__name {
-    @include fonts.font(heading-400, 16px, 1.2);
-    color: $dark-grey;
-    margin: 0;
-  }
-
-  &__variant {
-    @include fonts.font(body-400, 12px, 1.2);
-    color: $dark-grey;
-    margin: 0;
-  }
-
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 4px;
-  }
-
-  &__price {
-    @include fonts.font(body-400, 14px, 1.4);
-    color: $dark-grey;
-  }
-
-  &__add {
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &.desktop-add {
-      background: $black;
-      color: $white;
-      padding: $padding-md $padding-lg;
-      border-radius: $border-radius-lg;
-      @include fonts.font(body-400, 14px, 1);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      min-width: 100px;
+    &__content {
+      flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
-
-      @include cfg.media(max-m) {
-        display: none;
-      }
-
-      &:hover {
-        background: $additional-color-5;
-      }
+      flex-direction: column;
+      gap: 4px;
     }
 
-    &.mobile-add {
-      display: none;
-      width: 44px;
-      height: 44px;
-      background: $black;
-      color: $white;
-      border-radius: 50%;
-      @include fonts.font(body-500, 20px, 1);
-      font-weight: bold;
+    &__name {
+      @include fonts.font(heading-400, 16px, 1.2);
+      color: $dark-grey;
+      margin: 0;
+    }
+
+    &__variant {
+      @include fonts.font(body-400, 12px, 1.2);
+      color: $dark-grey;
+      margin: 0;
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    &__price {
+      @include fonts.font(body-400, 14px, 1.4);
+      color: $dark-grey;
+    }
+
+    &__add {
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &.desktop-add {
+        background: $black;
+        color: $white;
+        padding: $padding-md $padding-lg;
+        border-radius: $border-radius-lg;
+        @include fonts.font(body-400, 14px, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include cfg.media(max-m) {
+          display: none;
+        }
+
+        &:hover {
+          background: $additional-color-5;
+        }
+      }
+
+      &.mobile-add {
+        display: none;
+        width: 44px;
+        height: 44px;
+        background: $black;
+        color: $white;
+        border-radius: 50%;
+        @include fonts.font(body-500, 20px, 1);
+        font-weight: bold;
 
         &:hover {
           background: $additional-color-5;
@@ -691,12 +665,15 @@ $padding-l: 40px;
     }
 
     &-item {
-      gap: $padding-sm;
       padding: $padding-md 0 $padding-l;
+
+      &__upper-section {
+        gap: $padding-sm;
+        padding-bottom: $padding-sm;
+      }
 
       &__left-section {
         min-width: 60px;
-        gap: 8px;
       }
 
       &__image {
@@ -726,8 +703,8 @@ $padding-l: 40px;
         }
       }
 
-      &__bottom-controls {
-        padding-bottom: 0;
+      &__lower-section {
+        padding-top: $padding-sm;
       }
 
       &__remove {
@@ -738,8 +715,6 @@ $padding-l: 40px;
     }
 
     .b-quantity {
-      padding: 2px;
-
       &__btn {
         width: 14px;
         height: 14px;
