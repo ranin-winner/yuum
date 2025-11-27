@@ -159,7 +159,7 @@
     @mouseleave="onLeavePanel"
   >
     <div class="container mx-auto px-4 py-12">
-      <div class="grid grid-cols-4 gap-8">
+      <div class="grid grid-cols-3 gap-0">
 
         <!-- 1) Ліва колонка — підменю -->
         <div class="col-span-1 megamenu-list">
@@ -177,7 +177,7 @@
         </div>
 
         <!-- 2) Центр — продукт (опціонально) -->
-        <div class="col-span-2">
+        <div class="col-span-1">
           {%- if slot_on and p -%}
             {%- if cats_head != blank -%}
               <div class="text-xs uppercase tracking-wide mb-4 opacity-70">{{ cats_head }}</div>

@@ -173,15 +173,33 @@ document.addEventListener('alpine:init', () => {
     removeFromCart(itemKey) {
       this.updateCart(itemKey, 0);
     },
-
     toggleCart(status) {
       if (status !== undefined) {
         this.isCartOpen = status;
         Alpine.store('shopMainStore').body_no_scroll = status;
-        // console.log('status', this.$store.shopMainStore.body_no_scroll);
       } else {
         this.isCartOpen = !this.isCartOpen;
         Alpine.store('shopMainStore').body_no_scroll = this.isCartOpen;
+      }
+
+      // Close search when cart opens (only when opening, not closing)
+      if (this.isCartOpen) {
+        const header = document.querySelector('.b-header');
+        const wrapper = document.querySelector('.b-header__wrapper');
+        const searchModal = document.querySelector('.c-search-modal, .search-modal, [class*="search-modal"]');
+
+        // Remove header classes
+        if (header) header.classList.remove('search-open');
+        if (wrapper) wrapper.classList.remove('has-search-open');
+
+        // Hide search modal completely
+        if (searchModal) {
+          searchModal.style.display = 'none';
+          searchModal.classList.remove('is-open', 'active', 'open', 'show');
+          searchModal.setAttribute('aria-hidden', 'true');
+        }
+
+        console.log('✅ Closed search modal when opening cart');
       }
     },
 

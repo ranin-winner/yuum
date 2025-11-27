@@ -9,8 +9,10 @@
     class="b-header__mobile-trigger"
     aria-label="Toggle mobile menu"
     :aria-expanded="isOpened">
-    <svg class="b-header__mobile-icon" width="20" height="16" viewBox="0 0 20 16" fill="none">
-      <path d="M0 1H20M0 8H20M0 15H20" stroke="currentColor" stroke-width="2"/>
+    <svg xmlns="http://www.w3.org/2000/svg" class="b-header__mobile-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <rect y="4" width="24" height="2" fill="currentColor" stroke="none"/>
+      <rect y="11" width="24" height="2" fill="currentColor" stroke="none" />
+      <rect y="18" width="24" height="2" fill="currentColor" stroke="none"/>
     </svg>
   </button>
 
@@ -147,10 +149,10 @@
       init() {
         this.$watch('isOpened', (value) => {
           if (value) {
-            document.body.classList.add('overflow-hidden');
+            document.body.classList.add('overflow-hidden', 'no-scroll');
             this.createOverlay();
           } else {
-            document.body.classList.remove('overflow-hidden');
+            document.body.classList.remove('overflow-hidden', 'no-scroll');
             this.removeOverlay();
           }
         });
@@ -178,18 +180,18 @@
       },
 
       createOverlay() {
-        if (!document.querySelector('.mobile-menu-overlay')) {
-          const overlay = document.createElement('div');
-          overlay.className = 'mobile-menu-overlay';
+        const overlay = document.querySelector('.l-overlay');
+        if (overlay) {
+          overlay.style.display = 'block';
           overlay.addEventListener('click', () => this.closeMobileMenu());
-          document.body.appendChild(overlay);
         }
       },
 
       removeOverlay() {
-        const overlay = document.querySelector('.mobile-menu-overlay');
+        const overlay = document.querySelector('.l-overlay');
         if (overlay) {
-          overlay.remove();
+          overlay.style.display = 'none';
+          overlay.removeEventListener('click', () => this.closeMobileMenu());
         }
       }
     }));

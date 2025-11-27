@@ -26,6 +26,7 @@ $padding-md: 16px;
 $padding-lg: 20px;
 $padding-xl: 24px;
 $padding-xxl: 35px;
+$padding-l: 40px;
 
 .b-mini_cart {
   position: fixed;
@@ -35,7 +36,7 @@ $padding-xxl: 35px;
   height: 100vh;
   background: $light-grey-1;
   box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 1001;
   border-top-left-radius: $border-radius-lg;
   border-bottom-left-radius: $border-radius-lg;
   transition: transform 0.3s ease;
@@ -53,7 +54,7 @@ $padding-xxl: 35px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: $padding-xl;
+    padding-top: $padding-l;
   }
 
   &-close {
@@ -78,7 +79,6 @@ $padding-xxl: 35px;
   }
 
   &-header {
-    margin-bottom: $padding-md;
     padding-right: 40px;
   }
 
@@ -94,11 +94,11 @@ $padding-xxl: 35px;
 
   &-shipping {
     margin-bottom: $padding-xl;
-    padding: $padding-sm 0;
+    padding: $padding-md 0 $padding-sm 0;
     border-bottom: 2px solid $dark-grey;
 
     &__text {
-      @include fonts.font(body-400, 14px, 1.4);
+      @include fonts.font(body-400, 16px, 1.375);
       color: $dark-grey;
       margin: 0;
       text-align: left;
@@ -154,7 +154,6 @@ $padding-xxl: 35px;
   &-columns {
     display: flex;
     justify-content: space-between;
-    padding-bottom: $padding-sm;
     border-bottom: 1px solid $dark-grey;
     margin-bottom: $padding-md;
 
@@ -177,7 +176,7 @@ $padding-xxl: 35px;
     padding-right: $padding-sm;
 
     &-border {
-      border-bottom: 1px solid $additional-color-2;
+      border-bottom: 1px solid $dark-grey;
     }
 
     &::-webkit-scrollbar {
@@ -196,20 +195,24 @@ $padding-xxl: 35px;
 
   &-item {
     display: flex;
-    gap: $padding-md;
+    flex-direction: column;
     padding: $padding-md 0;
     position: relative;
-    border-bottom: 1px solid $light-grey-1;
 
     &:last-child {
       border-bottom: none;
+    }
+
+    &__upper-section {
+      display: flex;
+      gap: $padding-md;
+      padding-bottom: $padding-sm;
     }
 
     &__left-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: $padding-sm;
       min-width: 80px;
     }
 
@@ -235,7 +238,6 @@ $padding-xxl: 35px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     &__main-info {
@@ -293,16 +295,27 @@ $padding-xxl: 35px;
       }
     }
 
-    &__bottom-controls {
+    &__lower-section {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: $padding-sm;
+      border-top: 1px solid $additional-color-2;
       width: 100%;
-      margin-top: auto;
-      padding-bottom: $padding-sm;
+    }
+
+    &__quantity-controls {
+      display: flex;
+      align-items: center;
+    }
+
+    &__remove-controls {
+      display: flex;
+      align-items: center;
     }
 
     &__remove {
-      @include fonts.font(body-400, 12px, 1);
+      @include fonts.font(body-400, 14px, 1);
       color: $additional-color-6;
       background: none;
       border: none;
@@ -321,22 +334,24 @@ $padding-xxl: 35px;
   .b-quantity {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: $white;
-    border: 1px solid $light-grey-1;
-    border-radius: $border-radius-sm;
-    padding: 4px;
-    margin: 0;
+    justify-content: space-between;
+    height: 44px;
+    width: 100%;
+    max-width: 120px;
+    min-width: 120px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 
     &__btn {
       background: transparent;
       border: none;
-      width: 28px;
-      height: 28px;
+      width: 14px;
+      height: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 24px;
       color: $dark-grey;
       cursor: pointer;
       padding: 0;
@@ -352,44 +367,7 @@ $padding-xxl: 35px;
       margin: 0 $padding-md;
       min-width: 20px;
       text-align: center;
-      @include fonts.font(body-400, 14px, 1);
-      color: $dark-grey;
-    }
-  }
-
-  // Quantity controls - прозорий фон без бордерів
-  .b-quantity {
-    display: flex;
-    align-items: center;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-
-    &__btn {
-      background: transparent;
-      border: none;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: $dark-grey;
-      cursor: pointer;
-      padding: 0;
-      margin: 0;
-      transition: all 0.2s ease;
-
-      &:hover {
-        color: $additional-color-5;
-      }
-    }
-
-    &__value {
-      margin: 0 $padding-md;
-      min-width: 20px;
-      text-align: center;
-      @include fonts.font(body-400, 14px, 1);
+      @include fonts.font(body-400, 18px, 1);
       color: $dark-grey;
     }
   }
@@ -496,90 +474,90 @@ $padding-xxl: 35px;
       margin-bottom: 0;
     }
 
-  &__image {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    border-radius: $border-radius-sm;
-    overflow: hidden;
-    margin: 0;
-    background: $light-grey-1;
+    &__image {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      border-radius: $border-radius-sm;
+      overflow: hidden;
+      margin: 0;
+      background: $light-grey-1;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: $additional-color-1;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: $additional-color-1;
+      }
     }
-  }
 
-  &__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  &__name {
-    @include fonts.font(heading-400, 16px, 1.2);
-    color: $dark-grey;
-    margin: 0;
-  }
-
-  &__variant {
-    @include fonts.font(body-400, 12px, 1.2);
-    color: $dark-grey;
-    margin: 0;
-  }
-
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 4px;
-  }
-
-  &__price {
-    @include fonts.font(body-400, 14px, 1.4);
-    color: $dark-grey;
-  }
-
-  &__add {
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &.desktop-add {
-      background: $black;
-      color: $white;
-      padding: $padding-md $padding-lg;
-      border-radius: $border-radius-lg;
-      @include fonts.font(body-400, 14px, 1);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      min-width: 100px;
+    &__content {
+      flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
-
-      @include cfg.media(max-m) {
-        display: none;
-      }
-
-      &:hover {
-        background: $additional-color-5;
-      }
+      flex-direction: column;
+      gap: 4px;
     }
 
-    &.mobile-add {
-      display: none;
-      width: 44px;
-      height: 44px;
-      background: $black;
-      color: $white;
-      border-radius: 50%;
-      @include fonts.font(body-500, 20px, 1);
-      font-weight: bold;
+    &__name {
+      @include fonts.font(heading-400, 16px, 1.2);
+      color: $dark-grey;
+      margin: 0;
+    }
+
+    &__variant {
+      @include fonts.font(body-400, 12px, 1.2);
+      color: $dark-grey;
+      margin: 0;
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    &__price {
+      @include fonts.font(body-400, 14px, 1.4);
+      color: $dark-grey;
+    }
+
+    &__add {
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &.desktop-add {
+        background: $black;
+        color: $white;
+        padding: $padding-md $padding-lg;
+        border-radius: $border-radius-lg;
+        @include fonts.font(body-400, 14px, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include cfg.media(max-m) {
+          display: none;
+        }
+
+        &:hover {
+          background: $additional-color-5;
+        }
+      }
+
+      &.mobile-add {
+        display: none;
+        width: 44px;
+        height: 44px;
+        background: $black;
+        color: $white;
+        border-radius: 50%;
+        @include fonts.font(body-500, 20px, 1);
+        font-weight: bold;
 
         &:hover {
           background: $additional-color-5;
@@ -588,10 +566,18 @@ $padding-xxl: 35px;
     }
   }
 
-  &-total {
+  &-total-wrapper {
+    background: $white;
+    margin-left: -$padding-xl;
+    margin-right: -$padding-xl;
+    margin-bottom: -$padding-xl;
+    padding: $padding-lg $padding-xl $padding-xl;
     border-top: 1px solid $light-grey-1;
-    padding-top: $padding-lg;
     margin-top: $padding-lg;
+    border-bottom-left-radius: $border-radius-lg;
+  }
+
+  &-total {
     flex-shrink: 0;
 
     &__row {
@@ -641,26 +627,25 @@ $padding-xxl: 35px;
 }
 
 // Мобільні стилі окремо (без вкладеності)
-@include cfg.media(max-m) {
+@include cfg.media(max-xs) {
   .b-mini_cart {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    padding: 0 $padding-sm $padding-sm $padding-sm;
+    padding: 0 $padding-md $padding-sm $padding-md;
 
     &__inner {
-      padding-top: $padding-lg;
+      padding-top: $padding-xl;
     }
 
     &-close {
-      top: $padding-md;
+      top: $padding-xl;
       right: $padding-sm;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
 
     &-header {
-      margin-bottom: $padding-sm;
       padding-right: 50px;
     }
 
@@ -689,21 +674,24 @@ $padding-xxl: 35px;
     }
 
     &-columns {
-      display: none;
+      margin-bottom: 0;
     }
 
     &-item {
-      gap: $padding-sm;
-      padding: $padding-sm 0;
+      padding: $padding-md 0 $padding-l;
+
+      &__upper-section {
+        gap: $padding-sm;
+        padding-bottom: $padding-sm;
+      }
 
       &__left-section {
         min-width: 60px;
-        gap: 8px;
       }
 
       &__image {
-        width: 60px;
-        height: 60px;
+        width: 90px;
+        height: 90px;
       }
 
       &__name {
@@ -728,29 +716,31 @@ $padding-xxl: 35px;
         }
       }
 
-      &__bottom-controls {
-        padding-bottom: 0;
+      &__lower-section {
+        padding-top: $padding-sm;
       }
 
       &__remove {
-        @include fonts.font(body-400, 11px, 1);
+        @include fonts.font(body-400, 14px, 1);
         letter-spacing: 2px;
         color: $additional-color-4;
       }
     }
 
     .b-quantity {
-      padding: 2px;
+      max-width: 104px;
+      min-width: 104px;
+      height: 40px;
 
       &__btn {
-        width: 24px;
-        height: 24px;
-        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        font-size: 24px;
       }
 
       &__value {
         margin: 0 10px;
-        @include fonts.font(body-400, 13px, 1);
+        @include fonts.font(body-400, 18px, 1);
       }
     }
 
@@ -794,8 +784,8 @@ $padding-xxl: 35px;
       gap: 10px;
 
       &__image {
-        width: 50px;
-        height: 50px;
+        width: 90px;
+        height: 90px;
       }
 
       &__content {
@@ -832,9 +822,17 @@ $padding-xxl: 35px;
       }
     }
 
+    // Mobile styles for total wrapper
+    .b-mini_cart-total-wrapper {
+      margin-left: -$padding-md;
+      margin-right: -$padding-md;
+      margin-bottom: -$padding-sm;
+      padding: $padding-md $padding-md $padding-sm;
+    }
+
     &-total {
-      padding-top: $padding-md;
-      margin-top: $padding-md;
+      padding-top: 0;
+      margin-top: 0;
 
       &__row {
         margin-bottom: $padding-md;

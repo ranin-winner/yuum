@@ -120,10 +120,7 @@
 {% endif %}
 
 <div
-  class="relative b-header__wrapper"
-{% if settingsHeaderBg %}
-  style="background-color: {{ settingsHeaderBg }};"
-  {% endif %}>
+  class="relative b-header__wrapper">
   <div class="b-header__inner container m-responsive md:py-8 mx-auto m-{{settings.header_layout}} {% if shop.customer_accounts_enabled %} header--has-account{% endif %}">
 
     {% render 'menu-mobile', menuItems: settings.header_menu_1.links %}
@@ -264,6 +261,32 @@
           console.log('✅ Added has-search-open class to wrapper');
         }
       });
+    });
+
+    // Close button handler
+    document.querySelectorAll('.c-search-modal__close').forEach(closeBtn => {
+      closeBtn.addEventListener('click', function() {
+        const header = document.querySelector('.b-header');
+        const wrapper = document.querySelector('.b-header__wrapper');
+
+        if (header) header.classList.remove('search-open');
+        if (wrapper) wrapper.classList.remove('has-search-open');
+
+        console.log('✅ Closed search via close button');
+      });
+    });
+
+    // Escape key handler
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const header = document.querySelector('.b-header');
+        const wrapper = document.querySelector('.b-header__wrapper');
+
+        if (header) header.classList.remove('search-open');
+        if (wrapper) wrapper.classList.remove('has-search-open');
+
+        console.log('✅ Closed search via Escape key');
+      }
     });
 
     // Optional: Close search when clicking outside (remove if you don't want this)
