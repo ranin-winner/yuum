@@ -176,7 +176,7 @@ $padding-l: 40px;
     padding-right: $padding-sm;
 
     &-border {
-      border-bottom: 1px solid $additional-color-2;
+      border-bottom: 1px solid $dark-grey;
     }
 
     &::-webkit-scrollbar {
@@ -315,7 +315,7 @@ $padding-l: 40px;
     }
 
     &__remove {
-      @include fonts.font(body-400, 12px, 1);
+      @include fonts.font(body-400, 14px, 1);
       color: $additional-color-6;
       background: none;
       border: none;
@@ -334,6 +334,11 @@ $padding-l: 40px;
   .b-quantity {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    width: 100%;
+    max-width: 120px;
+    min-width: 120px;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -561,10 +566,18 @@ $padding-l: 40px;
     }
   }
 
-  &-total {
+  &-total-wrapper {
+    background: $white;
+    margin-left: -$padding-xl;
+    margin-right: -$padding-xl;
+    margin-bottom: -$padding-xl;
+    padding: $padding-lg $padding-xl $padding-xl;
     border-top: 1px solid $light-grey-1;
-    padding-top: $padding-lg;
     margin-top: $padding-lg;
+    border-bottom-left-radius: $border-radius-lg;
+  }
+
+  &-total {
     flex-shrink: 0;
 
     &__row {
@@ -715,6 +728,10 @@ $padding-l: 40px;
     }
 
     .b-quantity {
+      max-width: 104px;
+      min-width: 104px;
+      height: 40px;
+
       &__btn {
         width: 14px;
         height: 14px;
@@ -805,9 +822,17 @@ $padding-l: 40px;
       }
     }
 
+    // Mobile styles for total wrapper
+    .b-mini_cart-total-wrapper {
+      margin-left: -$padding-md;
+      margin-right: -$padding-md;
+      margin-bottom: -$padding-sm;
+      padding: $padding-md $padding-md $padding-sm;
+    }
+
     &-total {
-      padding-top: $padding-md;
-      margin-top: $padding-md;
+      padding-top: 0;
+      margin-top: 0;
 
       &__row {
         margin-bottom: $padding-md;

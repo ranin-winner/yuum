@@ -6,8 +6,8 @@
   justify-content: space-between;
   height: 44px;
   width: 100%;
-  max-width: 120px;
-  min-width: 120px;
+  max-width: 142px;
+  min-width: 142px;
   border: 2px solid var(--secondary-color, #181818);
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(0,0,0, 0.2);
@@ -30,12 +30,5 @@
     @include cfg.font(regular, 18px, 1.2em);
 
     color: var(--secondary-color);
-  }
-}
-
-@include cfg.media(max-xs) {
-  .b-quantity {
-    max-width: 104px;
-    min-width: 104px;
   }
 }
