@@ -21,6 +21,7 @@ import { initFeaturesSlider } from '../components/features-slider';
 
 
 
+
 window.Alpine = Alpine;
 window.Swiper = Swiper;
 Swiper.use([Navigation, Pagination]);
@@ -62,3 +63,53 @@ smoothRefresh();
 document.addEventListener('product:variant:changed', smoothRefresh);
 document.addEventListener('carousel:init', smoothRefresh);
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.location.pathname.includes('a/wishlist-hero/wishlist')) return;
+  
+    function waitForElement(selector, callback) {
+      const el = document.querySelector(selector);
+      if (el) {
+        callback(el);
+        return;
+      }
+  
+      const observer = new MutationObserver(() => {
+        const el = document.querySelector(selector);
+        if (el) {
+          observer.disconnect();
+          callback(el);
+        }
+      });
+  
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+  
+    waitForElement('#wishlist-hero-shared-list-view', (target) => {
+      const html = `
+        <aside class="account-nav">
+          <nav aria-label="Account navigation">
+            <ul class="account-nav__list">
+              <li>
+                <a class="heading-5 account-nav__link is-active" href="/account/login">My Account</a>
+              </li>
+              <li>
+                <a class="heading-5 account-nav__link" href="/collections/all">Wishlist</a>
+              </li>
+              <li>
+                <a class="heading-5 account-nav__link" href="/account/login">My Orders</a>
+              </li>
+              <li>
+                <a class="heading-5 account-nav__link" href="/account/logout">Logout</a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+      `;
+  
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html.trim();
+  
+      target.parentNode.insertBefore(wrapper.firstElementChild, target);
+    });
+  });

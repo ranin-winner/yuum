@@ -138,6 +138,7 @@
     </div>
   </div>
 </div>
+
 <script>
   document.addEventListener('alpine:init', () => {
     Alpine.data('menuMobile', () => ({
@@ -145,53 +146,39 @@
       isLoading: false,
 
       init() {
+        // На всяк випадок очищаємо стани при ініціалізації
+        document.body.classList.remove('no-scroll', 'overflow-hidden')
+
         this.$watch('isOpened', (value) => {
           if (value) {
-            document.body.classList.add('overflow-hidden');
-            this.createOverlay();
+            document.body.classList.add('no-scroll', 'overflow-hidden')
           } else {
-            document.body.classList.remove('overflow-hidden');
-            this.removeOverlay();
+            document.body.classList.remove('no-scroll', 'overflow-hidden')
           }
-        });
+        })
       },
 
       handleResize() {
         if (window.innerWidth >= 1366) {
-          this.closeMobileMenu();
+          this.closeMobileMenu()
         }
       },
 
       async toggleMobileMenu() {
         try {
-          this.isLoading = true;
-          this.isOpened = !this.isOpened;
+          this.isLoading = true
+          this.isOpened = !this.isOpened
         } catch (error) {
-          console.error('Error toggling menu:', error);
+          console.error('Error toggling menu:', error)
         } finally {
-          this.isLoading = false;
+          this.isLoading = false
         }
       },
 
       closeMobileMenu() {
-        this.isOpened = false;
-      },
-
-      createOverlay() {
-        if (!document.querySelector('.mobile-menu-overlay')) {
-          const overlay = document.createElement('div');
-          overlay.className = 'mobile-menu-overlay';
-          overlay.addEventListener('click', () => this.closeMobileMenu());
-          document.body.appendChild(overlay);
-        }
-      },
-
-      removeOverlay() {
-        const overlay = document.querySelector('.mobile-menu-overlay');
-        if (overlay) {
-          overlay.remove();
-        }
+        this.isOpened = false
       }
-    }));
-  });
+    }))
+  })
 </script>
+

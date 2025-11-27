@@ -1104,7 +1104,7 @@
 
 // wishlist page 
 .wishlist-hero-page-header {
-    padding-top: 60px;
+    // padding-top: 60px;
     padding-bottom: 16px;
 
     svg {
@@ -1184,4 +1184,25 @@
    
 .wishlist-hero-list-header  {
     display: none!important;
+}
+
+#__next {
+    padding: 60px 40px 60px 40px;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: 250px 1fr;
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        padding: 60px 16px 60px 16px;
+
+        #wishlist-hero-shared-list-view {
+            padding-left: 0!important;
+            padding-right: 0!important;
+        }
+    }
+    .account-nav__list {
+        li {
+            padding-bottom: 16px;
+        }
+    }
 }
