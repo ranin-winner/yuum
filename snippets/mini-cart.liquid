@@ -193,15 +193,17 @@
     {% endif %}
 
     <!-- Total -->
-    <div class="b-mini_cart-total" x-show="$store.cart.items.length > 0">
-      <div class="b-mini_cart-total__row">
-        <span class="b-mini_cart-total__label">Subtotal</span>
-        <span class="b-mini_cart-total__value" x-text="'{{ cart.currency.symbol }}' + $store.cart.totalPrice"></span>
+    <div class="b-mini_cart-total-wrapper" x-show="$store.cart.items.length > 0">
+      <div class="b-mini_cart-total">
+        <div class="b-mini_cart-total__row">
+          <span class="b-mini_cart-total__label">Subtotal</span>
+          <span class="b-mini_cart-total__value" x-text="'{{ cart.currency.symbol }}' + $store.cart.totalPrice"></span>
+        </div>
+        <button class="b-mini_cart-checkout" @click="window.location.href='/checkout'">
+          GO TO CHECKOUT
+        </button>
+        <p class="b-mini_cart-tax">Tax included. Shipping calculated at checkout.</p>
       </div>
-      <button class="b-mini_cart-checkout" @click="window.location.href='/checkout'">
-        GO TO CHECKOUT
-      </button>
-      <p class="b-mini_cart-tax">Tax included. Shipping calculated at checkout.</p>
     </div>
   </div>
 </section>

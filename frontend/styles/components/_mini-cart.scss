@@ -362,7 +362,7 @@ $padding-l: 40px;
       margin: 0 $padding-md;
       min-width: 20px;
       text-align: center;
-      @include fonts.font(body-400, 14px, 1);
+      @include fonts.font(body-400, 18px, 1);
       color: $dark-grey;
     }
   }
