@@ -26,6 +26,7 @@ $padding-md: 16px;
 $padding-lg: 20px;
 $padding-xl: 24px;
 $padding-xxl: 35px;
+$padding-l: 40px;
 
 .b-mini_cart {
   position: fixed;
@@ -53,7 +54,7 @@ $padding-xxl: 35px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: $padding-xl;
+    padding-top: $padding-l;
   }
 
   &-close {
@@ -78,7 +79,6 @@ $padding-xxl: 35px;
   }
 
   &-header {
-    margin-bottom: $padding-md;
     padding-right: 40px;
   }
 
@@ -94,11 +94,11 @@ $padding-xxl: 35px;
 
   &-shipping {
     margin-bottom: $padding-xl;
-    padding: $padding-sm 0;
+    padding: $padding-md 0 $padding-sm 0;
     border-bottom: 2px solid $dark-grey;
 
     &__text {
-      @include fonts.font(body-400, 14px, 1.4);
+      @include fonts.font(body-400, 16px, 1.375);
       color: $dark-grey;
       margin: 0;
       text-align: left;
@@ -154,7 +154,6 @@ $padding-xxl: 35px;
   &-columns {
     display: flex;
     justify-content: space-between;
-    padding-bottom: $padding-sm;
     border-bottom: 1px solid $dark-grey;
     margin-bottom: $padding-md;
 
@@ -331,12 +330,12 @@ $padding-xxl: 35px;
     &__btn {
       background: transparent;
       border: none;
-      width: 28px;
-      height: 28px;
+      width: 14px;
+      height: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 24px;
       color: $dark-grey;
       cursor: pointer;
       padding: 0;
@@ -368,12 +367,12 @@ $padding-xxl: 35px;
     &__btn {
       background: transparent;
       border: none;
-      width: 24px;
-      height: 24px;
+      width: 14px;
+      height: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 24px;
       color: $dark-grey;
       cursor: pointer;
       padding: 0;
@@ -641,26 +640,25 @@ $padding-xxl: 35px;
 }
 
 // Мобільні стилі окремо (без вкладеності)
-@include cfg.media(max-m) {
+@include cfg.media(max-xs) {
   .b-mini_cart {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    padding: 0 $padding-sm $padding-sm $padding-sm;
+    padding: 0 $padding-md $padding-sm $padding-md;
 
     &__inner {
-      padding-top: $padding-lg;
+      padding-top: $padding-xl;
     }
 
     &-close {
-      top: $padding-md;
+      top: $padding-xl;
       right: $padding-sm;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
 
     &-header {
-      margin-bottom: $padding-sm;
       padding-right: 50px;
     }
 
@@ -689,12 +687,12 @@ $padding-xxl: 35px;
     }
 
     &-columns {
-      display: none;
+      margin-bottom: 0;
     }
 
     &-item {
       gap: $padding-sm;
-      padding: $padding-sm 0;
+      padding: $padding-md 0 $padding-l;
 
       &__left-section {
         min-width: 60px;
@@ -702,8 +700,8 @@ $padding-xxl: 35px;
       }
 
       &__image {
-        width: 60px;
-        height: 60px;
+        width: 90px;
+        height: 90px;
       }
 
       &__name {
@@ -743,9 +741,9 @@ $padding-xxl: 35px;
       padding: 2px;
 
       &__btn {
-        width: 24px;
-        height: 24px;
-        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        font-size: 24px;
       }
 
       &__value {
