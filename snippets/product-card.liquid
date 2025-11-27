@@ -21,21 +21,26 @@
   data-tags="{{ p.tags | join: ' ' | downcase }}"
 >
   <a class="product-card__link" href="{{ p.url }}" aria-label="{{ p.title | escape }}"></a>
-
-  <div class="product-card__media">
-    <div class="product-card__badge-and-btn absolute top-0 left-0 w-full flex justify-between p-[16px]">
+  <div class="product-card__badge-and-btn z-[2] absolute top-0 left-0 w-full flex justify-between p-[16px]">
       <div class="badges">
         {% render 'product-badges', product: product, location: 'pdp' %}
       </div>
-      <div>
-        <button type="button" class="md:hidden" aria-label="Add to wishlist" data-action="wish">
+      <div class="wishlist-btn-inner">
+        {% render 'wishlisthero-collection-product' with product: product %}
+        {% comment %} <button
+          type="button"
+          aria-label="Add to wishlist"
+          data-action="wish"
+          @click.stop.prevent="toggleWish"
+        >
           <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
-        </button>
+        </button> {% endcomment %}
       </div>
     </div>
 
+  <div class="product-card__media">
     {%- assign _img = p.featured_media.preview_image | default: p.featured_image -%}
     {%- render 'image',
       image: _img,
