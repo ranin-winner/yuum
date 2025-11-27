@@ -723,7 +723,7 @@ $padding-l: 40px;
 
       &__value {
         margin: 0 10px;
-        @include fonts.font(body-400, 13px, 1);
+        @include fonts.font(body-400, 18px, 1);
       }
     }
 
