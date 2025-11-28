@@ -112,8 +112,8 @@
 
   @media (max-width: 767px) {
     #hero-{{ section.id }}.b-hero-banner {
-      height: 100vh;
-      min-height: 100vh;
+      min-height: 75vh;
+      max-height: 90vh;
       padding: {{ section.settings.padding_mobile }}px;
       margin-top: {{ section.settings.margin_top_mobile }}px; /* може бути від’ємним */
     }
@@ -141,9 +141,9 @@
   /* Додайте цей код в mobile media query */
   @media (max-width: 767px) {
     #hero-{{ section.id }}.b-hero-banner {
-      height: calc(100vh - 60px); /* Відступ 60px від хідера */
-      min-height: calc(100vh - 60px);
-      padding: {{ section.settings.padding_mobile }}px;
+      min-height: 75vh;
+      max-height: 90vh;
+      padding: 0 {{ section.settings.padding_mobile }}px;
     }
 
     /* Центрування контенту */
