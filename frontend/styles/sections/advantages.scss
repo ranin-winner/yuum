@@ -2,6 +2,14 @@
 
 .advantages {
 
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @include cfg.media(min-t) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
   &__inner {
     @include cfg.media(min-t) {
       display: grid;
@@ -18,18 +26,16 @@
       text-align: left;
       max-width: 350px;
       transform: none;
-      // Дозволяємо картинці налазити
       position: relative;
-      z-index: 1;
+      z-index: 10;
     }
   }
 
   &__media {
     @include cfg.media(min-t) {
       max-width: 400px;
-      margin-left: -100px;
+      margin-left: -80px;
       position: relative;
-      z-index: 2;
     }
   }
 
@@ -37,7 +43,7 @@
     column-gap: 80px;
 
     p {
-      font-size: 14px;
+      font-size: 16px;
       color: #474747;
     }
 

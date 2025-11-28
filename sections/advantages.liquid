@@ -2,7 +2,7 @@
 
 <section
   id="advantages-{{ section.id }}"
-  class="advantages palette-{{ section.settings.color_scheme }} py-[{{ section.settings.padding_top }}px] md:py-[{{ section.settings.padding_top }}px] pb-[{{ section.settings.padding_bottom }}px]"
+  class="advantages palette-{{ section.settings.color_scheme }}"
 >
   <div class="container">
 
@@ -48,7 +48,7 @@
       {%- assign items = section.blocks | where: 'type', 'advantage' -%}
       {% if items.size > 0 %}
         <ol class="advantages__list grid grid-cols-2 sm:grid-cols-2 gap-6 md:gap-[32px] counter-reset">
-          {% for block in items %}  
+          {% for block in items %}
             {%- assign num_str = forloop.index | prepend: '0' -%}
             <li class="advantages__item flex gap-[4px] flex-col" {{ block.shopify_attributes }}>
               <div class="advantages__num shrink-0">
@@ -75,10 +75,6 @@
       { "type": "image_picker", "id": "image_desktop", "label": "Desktop image" },
       { "type": "image_picker", "id": "image_mobile", "label": "Mobile image (optional)" },
       { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Advantages image" },
-
-      { "type": "range", "id": "padding_top", "label": "Padding (top/bottom)", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 },
-      { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 },
-
       { "type": "select", "id": "color_scheme", "label": "Color scheme", "default": "default",
         "options": [
           { "value": "default", "label": "Default" },
@@ -92,15 +88,15 @@
         "name": "Advantage item",
         "settings": [
         {
-            "type": "text", 
+            "type": "text",
             "id": "list_item_number",
             "label": "Item number"
         },
-        { 
-            "type": "textarea", 
-            "id": "text", 
-            "label": "Description", 
-            "default": "Short supporting line goes here." 
+        {
+            "type": "textarea",
+            "id": "text",
+            "label": "Description",
+            "default": "Short supporting line goes here."
         }
         ]
       }
