@@ -16,7 +16,7 @@
     <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
       {% if section.settings.title != blank %}
         <div class="products-section__header--title">
-          <h2 class="products-section__title heading-3" data-anim="split-text-reveal">
+          <h2 class="products-section__title heading-3">
             {{ section.settings.title | default: "Products" }}
           </h2>
           {% if sectionSubtitle != blank %}

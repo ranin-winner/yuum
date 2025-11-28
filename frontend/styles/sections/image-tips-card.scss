@@ -1,3 +1,12 @@
+#benefits {
+  .container {
+    @media (max-width: 767px) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+}
+
 .image-tips-card {
 
     &__wrap {
@@ -14,7 +23,7 @@
     }
 
     &__img {
-        @apply rounded-tl-[20px] rounded-bl-[20px] overflow-hidden md:mr-[-30px] z-[1];
+        @apply rounded-tl-[20px] rounded-bl-[20px] overflow-hidden z-[1];
 
       @media (max-width: 1200px) {
         @apply mr-[0px] mb-[-30px] rounded-t-[20px] rounded-bl-none;
@@ -22,7 +31,7 @@
     }
 
     &__card {
-        @apply rounded-tr-[20px] rounded-br-[20px] md:px-[130px] px-[16px] md:py-[60px] py-[40px];
+        @apply rounded-tr-[20px] rounded-br-[20px] md:px-[100px] px-[16px] md:py-[60px] py-[40px];
         background-color: #ADAEB0;
         color: #fff;
 
