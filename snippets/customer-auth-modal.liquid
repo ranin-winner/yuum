@@ -53,17 +53,19 @@
         @transitionend.window="$store.auth.afterTransition()"
       >
         <h3 class="heading-5 mb-[10px]">Login or Sign up</h3>
-        {% form 'customer_login' %}
-            {{ form.errors | default_errors }}
-            <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
-            <input type="password" name="customer[password]" placeholder="Password" required>
-            <input type="hidden" name="return_to" value="{{ request.path }}">
-            <button type="submit">Sign in</button>
-
-            {%- if form.errors -%}
-              <input type="hidden" data-auth-flag="login-has-errors" value="1">
-            {%- endif -%}
-          {% endform %}
+            {% form 'customer_login' %}
+                {{ form.errors | default_errors }}
+                <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
+                <input type="password" name="customer[password]" placeholder="Password" required>
+            
+                <input type="hidden" name="return_to" value="{{ routes.account_login_url }}#dashboard">
+            
+                <button type="submit">Sign in</button>
+            
+                {%- if form.errors -%}
+                <input type="hidden" data-auth-flag="login-has-errors" value="1">
+                {%- endif -%}
+            {% endform %}
         <div class="auth-panel__links">
           <button class="link-like" @click="$store.auth.switch('recover','forward')">Forgot password?</button>
           <button class="link-like" @click="$store.auth.switch('register','forward')">Create account</button>
@@ -112,18 +114,21 @@
         @transitionend.window="$store.auth.afterTransition()"
       >
         <h3 class="heading-5 mb-[10px]">Create account</h3>
-        {% form 'create_customer' %}
-            {{ form.errors | default_errors }}
-            <input name="customer[first_name]" placeholder="First name" value="{{ form.first_name }}">
-            <input name="customer[last_name]"  placeholder="Last name"  value="{{ form.last_name }}">
-            <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
-            <input type="password" name="customer[password]" placeholder="Password" required>
-            <button type="submit">Sign up</button>
-
-            {%- if form.errors -%}
-              <input type="hidden" data-auth-flag="register-has-errors" value="1">
-            {%- endif -%}
-        {% endform %}
+            {% form 'create_customer' %}
+                {{ form.errors | default_errors }}
+                <input name="customer[first_name]" placeholder="First name" value="{{ form.first_name }}">
+                <input name="customer[last_name]"  placeholder="Last name"  value="{{ form.last_name }}">
+                <input type="email" name="customer[email]" placeholder="Email" value="{{ form.email }}" required>
+                <input type="password" name="customer[password]" placeholder="Password" required>
+            
+                <input type="hidden" name="return_to" value="{{ routes.account_login_url }}#dashboard">
+            
+                <button type="submit">Sign up</button>
+            
+                {%- if form.errors -%}
+                <input type="hidden" data-auth-flag="register-has-errors" value="1">
+                {%- endif -%}
+            {% endform %}
         <button class="link-like" @click="$store.auth.switch('login','back')">I have an account</button>
       </div>
     </div>

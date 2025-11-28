@@ -203,14 +203,15 @@
 
       {%- if shop.customer_accounts_enabled -%}
         <a
-          href="{{ routes.account_login_url }}"
-          class="b-header__account flex"
-          x-data
-          @click.prevent.stop="$store.auth.open('login')"
-        >
-
-          {{ accountIcon }}
-        </a>
+            href="{% if customer %}{{ routes.account_login_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+            class="b-header__account flex"
+            x-data
+            {% unless customer %}
+                @click.prevent.stop="$store.auth.open('login')"
+            {% endunless %}
+            >
+            {{ accountIcon }}
+            </a>
       {%- endif -%}
 
       <div class="b-header_wishlist text-[#474747]">

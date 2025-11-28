@@ -1062,3 +1062,152 @@
 
     }
 }
+
+
+// wishlist
+.wishlist-hero-header-icon {
+    svg {
+        font-size: 18px!important;
+    }
+}
+
+.wishlisthero-product-in-wishlist {
+    opacity: 1!important;
+}
+
+.site-header__icon span.wishlist-hero-items-count {
+    position: absolute;
+    background-color: #474747;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    width: 20px!important;
+    height: 20px!important;
+    right: -18px;
+    top: -16px;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 600;
+    font-family: "Neue Haas Grotesk Display Pro", "system-ui", "-apple-system", "Arial", "sans-serif";
+}
+
+#wishlisthero-product-page-button-container {
+    padding-top: 0px!important;
+
+    button {
+        opacity: 1!important;
+    }
+}
+
+#wishlist-hero-product-page-button svg {
+    color: #fff!important;
+    width: 20px!important;
+    height: 20px!important;
+}
+
+// wishlist page 
+.wishlist-hero-page-header {
+    // padding-top: 60px;
+    padding-bottom: 16px;
+
+    svg {
+        display: none;
+    }
+}
+
+.wishlist-hero-list-footer {
+    padding-bottom: 50px;
+}
+
+.wishlist-hero-page-actions-bar {
+    display: none;
+}
+
+.wishlist-hero-list-card-header-added-on {
+    display: none;
+}
+
+.MuiPaper-rounded {
+    border-radius: 12px!important;
+    border: 1px solid #E0E0E0!important;
+    background-color: #EEEEEE!important;
+    box-shadow: none !important;
+    position: relative!important;
+}
+
+.MuiButtonGroup-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.MuiButtonGroup-groupedOutlinedHorizontal:not(:last-child) {
+    background-color: transparent!important;
+    border: 1px solid #474747!important;
+    border-radius: 32px!important;
+    color: #474747!important;
+    font-size: 12px!important;
+    box-shadow: none!important;
+    transition: all 0.3s ease!important;
+    &:hover { 
+        background-color: #474747!important;
+        color: #fff!important;  
+    }
+}
+
+.MuiButtonGroup-groupedOutlinedHorizontal:not(:first-child) {
+    position: absolute!important;
+    top: 10px!important;
+    right: 0px!important;
+}
+
+.jss20 {
+    padding-top: 85%!important;
+}
+
+.MuiCardActions-root {
+    padding: 20px!important;
+}
+
+.MuiButton-label {
+    font-weight: 400;
+}
+
+.MuiCardContent-root {
+
+    p {
+        font-weight: 400!important;
+    }
+}
+
+.jss18 {
+    padding: 0px!important;
+}
+   
+.wishlist-hero-list-header  {
+    display: none!important;
+}
+
+#__next {
+    padding: 60px 40px 60px 40px;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: 250px 1fr;
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        padding: 60px 16px 60px 16px;
+
+        #wishlist-hero-shared-list-view {
+            padding-left: 0!important;
+            padding-right: 0!important;
+        }
+    }
+    .account-nav__list {
+        li {
+            padding-bottom: 16px;
+        }
+    }
+}

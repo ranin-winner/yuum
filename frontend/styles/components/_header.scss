@@ -187,6 +187,9 @@
     text-align: center;
     width: 20px;
     height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @include ft.font(body-600, 12px, 1.5);
   }
 
