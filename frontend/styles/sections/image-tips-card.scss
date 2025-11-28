@@ -14,7 +14,7 @@
     }
 
     &__img {
-        @apply rounded-tl-[20px] rounded-bl-[20px] overflow-hidden md:mr-[-30px] z-[1];
+        @apply rounded-tl-[20px] rounded-bl-[20px] overflow-hidden z-[1];
 
       @media (max-width: 1200px) {
         @apply mr-[0px] mb-[-30px] rounded-t-[20px] rounded-bl-none;
