@@ -9,7 +9,7 @@
     display:flex;
     flex-direction:column;
     border-radius:12px;
-    background: #F5F5F5;
+    background: #EEEEEE;
     border: 1px solid #E0E0E0;
     transition: box-shadow .25s ease, transform .2s ease;
 
@@ -80,7 +80,7 @@
     }
 
     &:hover {
-        background: #EEEEEE;
+        background: #F5F5F5;
         transform: translateY(-2px);
         border: 1px solid #ADAEB0;
     }
@@ -89,7 +89,7 @@
     &__hover {
         position:absolute;
         inset:8px;
-        background:#fff;
+        background:#F5F5F5;
         border-radius:12px;
         padding:16px;
         opacity:0;
@@ -393,7 +393,7 @@
     flex-direction: column;
     border-radius: 12px;
     overflow: visible;
-    background-color: #F5F5F5;
+    background-color: #EEEEEE;
   }
 
   .product-card__link {

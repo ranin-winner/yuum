@@ -106,7 +106,7 @@
   &__copyright,
   &__bottom-link {
     color: #e7e7e7;
-    @include cfg.font(body-400, 14px, 1.14);
+    @include cfg.font(body-400, 13px, 1.14);
     opacity: 0.8;
   }
 
@@ -149,5 +149,11 @@
   .payment-icon {
     width: 36px;
     height: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .b-footer.custom-padding {
+    padding: 60px 0;
   }
 }

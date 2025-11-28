@@ -173,7 +173,7 @@
       "name": "Marquee — Loop Row",
       "settings": {
         "bg_color": "#e7e7e7",
-        "pad_top": 64,
+        "pad_top": 67,
         "pad_bottom": 64,
         "items_gap": 48,
         "inner_gap": 24,

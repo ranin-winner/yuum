@@ -1,10 +1,10 @@
 {% assign settingsFooterBg = settings.footer_bg %}
 
 <footer
-  class="text-white px-4 py-8 lg:px-6 lg:py-16 b-footer"
+  class="text-white px-4 py-8 lg:px-6 lg:py-16 b-footer custom-padding"
   style="background-color: {{ settingsFooterBg }}; border-top-left-radius: {{ settings.footer_corner_radius | default: 32 }}px; border-top-right-radius: {{ settings.footer_corner_radius | default: 32 }}px;"
 >
-  <div class="container mx-auto max-w-screen-xl">
+  <div class="container">
     {%- comment -%} Top row: logo + (optional) socials on the right {%- endcomment -%}
     <div class="b-footer-top flex items-start justify-between gap-6">
       <div class="flex items-center gap-4">
