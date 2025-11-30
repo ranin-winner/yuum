@@ -1,16 +1,17 @@
 .text-kicker-description {
-    
-    &__kicker { 
-        @apply text-center 
-        uppercase 
-        text-xs tracking-[4px]  
+
+    &__kicker {
+        font-size: 14px;
+        @apply text-center
+        uppercase
+        tracking-[4px]
         mb-[40px] md:mb-[60px]
         pb-[16px] md:pb-[20px]
-        border-b border-b-[#ADAEB0]; 
+        border-b border-b-[#ADAEB0];
     }
-  
-    &__text { 
-        @apply max-w-[903px] mx-auto; 
+
+    &__text {
+        @apply max-w-[903px] mx-auto;
         &--left {
             max-width: 100%;
 
@@ -27,21 +28,21 @@
             }
         }
     }
-  
-    &__title {  
-        @apply 
-        text-center 
-        text-[36px] 
-        md:text-[56px] 
-        leading-[1.2] text-[#474747] 
+
+    &__title {
+        @apply
+        text-center
+        text-[36px]
+        md:text-[56px]
+        leading-[1.2] text-[#474747]
         mb-[24px];
 
         &--bigger {
             @apply md:text-[100px] text-[52px];
         }
     }
-  
-    &__desc { 
+
+    &__desc {
         @apply text-center text-[16px] leading-[150%] text-[#6b6b6b];
         width: 100%;
         max-width: var(--desc-w-m, 100%);
@@ -50,4 +51,3 @@
         }
     }
 }
-  

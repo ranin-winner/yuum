@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-YNEAaEnX.css",
+    "file": "main-KzQJupZa.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -199,12 +199,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-xACrEBJB.css",
+    "file": "text-kicker-description-D2rKuXRQ.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },
   "frontend/styles/sections/trial-faq.scss": {
-    "file": "trial-faq-BmF6BjES.css",
+    "file": "trial-faq-B2Vbpmps.css",
     "src": "frontend/styles/sections/trial-faq.scss",
     "isEntry": true
   },
