@@ -735,8 +735,12 @@ body.overflow-hidden {
 }
 
 #id_header {
+  .custom-margin {
+    margin-left: 20px;
+  }
+
   .custom-megamenu-padding {
-    padding: 40px 0 60px;
+    padding: 40px 40px 60px 40px;
     & li {
       margin-top: 0;
       margin-bottom: 0;
