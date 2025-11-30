@@ -132,7 +132,7 @@
 
     {%- comment -%} Big tagline row {%- endcomment -%}
     {% if settings.footer_tagline_image != blank %}
-      <div class="mt-20 lg:mt-24 flex justify-center">
+      <div class="mt-20 lg:mt-24 flex justify-center footer-space-l">
         <img
           src="{{ settings.footer_tagline_image | image_url: width: 1600 }}"
           alt="{{ settings.footer_tagline | default: shop.name }}"

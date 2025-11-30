@@ -139,6 +139,13 @@
     min-width: 100%;
   }
 
+  .footer-space-l {
+    margin-top: 100px;
+    @include cfg.media(max-m)  {
+      margin-top: 80px;
+    }
+  }
+
   .footer-space {
     max-width: 90%;
     @include cfg.media(max-m) {
@@ -151,6 +158,13 @@
     height: 24px;
   }
 }
+
+@media (max-width: 767px) {
+  .b-footer.custom-padding {
+    padding-top: 60px;
+  }
+}
+
 
 @media (min-width: 768px) {
   .b-footer.custom-padding {
