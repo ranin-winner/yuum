@@ -40,9 +40,9 @@
               </h3>
               <div class="m-blog-post__excerpt">
                 {%- if article.excerpt != blank -%}
-                  {{ article.excerpt | strip_html | truncatewords: 25 }}
+                  {{ article.excerpt | strip_html | truncatewords: 22 }}
                 {%- else -%}
-                  {{ article.content | strip_html | truncatewords: 25 }}
+                  {{ article.content | strip_html | truncatewords: 22 }}
                 {%- endif -%}
               </div>
               <a href="{{ article.url }}" class="m-blog-post__link">READ MORE</a>
@@ -119,9 +119,9 @@
               </h3>
               <div class="m-blog-post__excerpt">
                 {%- if article.excerpt != blank -%}
-                  {{ article.excerpt | strip_html | truncatewords: 20 }}
+                  {{ article.excerpt | strip_html | truncatewords: 35 }}
                 {%- else -%}
-                  {{ article.content | strip_html | truncatewords: 20 }}
+                  {{ article.content | strip_html | truncatewords: 35 }}
                 {%- endif -%}
               </div>
               <a href="{{ article.url }}" class="m-blog-post__link">READ MORE</a>
