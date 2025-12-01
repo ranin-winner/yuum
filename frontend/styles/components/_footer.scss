@@ -107,6 +107,9 @@
   &__bottom-link {
     color: #e7e7e7;
     @include cfg.font(body-400, 13px, 1.14);
+    @include cfg.media(max-xs) {
+      font-size: 8px;
+    }
     opacity: 0.8;
   }
 
@@ -139,6 +142,13 @@
     min-width: 100%;
   }
 
+  .footer-space-l {
+    margin-top: 100px;
+    @include cfg.media(max-m)  {
+      margin-top: 80px;
+    }
+  }
+
   .footer-space {
     max-width: 90%;
     @include cfg.media(max-m) {
@@ -152,8 +162,20 @@
   }
 }
 
+@media (max-width: 767px) {
+  #footer .container {
+      padding: 0 6px !important;
+  }
+
+  .b-footer.custom-padding {
+    padding-top: 60px;
+    padding-bottom: 0;
+  }
+}
+
+
 @media (min-width: 768px) {
   .b-footer.custom-padding {
-    padding: 60px 0;
+    padding: 60px 0 0 0;
   }
 }

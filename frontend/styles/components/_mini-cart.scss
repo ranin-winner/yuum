@@ -23,6 +23,7 @@ $border-radius-xl: 100px;
 
 $padding-sm: 12px;
 $padding-md: 16px;
+$padding-md-mid: 18px;
 $padding-lg: 20px;
 $padding-xl: 24px;
 $padding-xxl: 35px;
@@ -40,7 +41,7 @@ $padding-l: 40px;
   border-top-left-radius: $border-radius-lg;
   border-bottom-left-radius: $border-radius-lg;
   transition: transform 0.3s ease;
-  padding: 0 $padding-xl $padding-xl $padding-xl;
+  padding: 0 $padding-l $padding-md $padding-l;
 
   &.is-open {
     transform: translateX(0);
@@ -375,10 +376,10 @@ $padding-l: 40px;
   &-recommendations {
     background: $lightest-grey-3;
     border-radius: $border-radius-mid;
-    padding: $padding-lg;
+    padding: 25px 40px 18px;
     margin-top: $padding-xl;
-    margin-left: -24px;
-    margin-right: -24px;
+    margin-left: -$padding-l;
+    margin-right: -$padding-l;
     border: 1px solid $light-grey-1;
 
     &__header {
@@ -394,7 +395,6 @@ $padding-l: 40px;
       text-transform: uppercase;
       color: $dark-grey;
       margin: 0;
-      opacity: 0.8;
     }
 
     &__controls {
@@ -451,7 +451,7 @@ $padding-l: 40px;
     height: 3px;
     background: rgba($dark-grey, 0.1);
     border-radius: 2px;
-    margin: $padding-sm auto 0 auto;
+    margin: 0 auto 0 auto;
     overflow: hidden;
 
     .swiper-pagination-progressbar-fill {
@@ -465,7 +465,7 @@ $padding-l: 40px;
     display: flex;
     gap: $padding-sm;
     align-items: center;
-    padding: $padding-md;
+    padding: 8px 0 20px;
     background: $lightest-grey-3;
     border-radius: $border-radius-md;
     margin-bottom: $padding-sm;
@@ -528,7 +528,7 @@ $padding-l: 40px;
       transition: all 0.2s;
 
       &.desktop-add {
-        background: $black;
+        background: $dark-grey;
         color: $white;
         padding: $padding-md $padding-lg;
         border-radius: $border-radius-lg;
@@ -553,7 +553,7 @@ $padding-l: 40px;
         display: none;
         width: 44px;
         height: 44px;
-        background: $black;
+        background: $dark-grey;
         color: $white;
         border-radius: 50%;
         @include fonts.font(body-500, 20px, 1);
@@ -568,10 +568,10 @@ $padding-l: 40px;
 
   &-total-wrapper {
     background: $white;
-    margin-left: -$padding-xl;
-    margin-right: -$padding-xl;
+    margin-left: -$padding-l;
+    margin-right: -$padding-l;
     margin-bottom: -$padding-xl;
-    padding: $padding-lg $padding-xl $padding-xl;
+    padding: 24px 40px 16px;
     border-top: 1px solid $light-grey-1;
     margin-top: $padding-lg;
     border-bottom-left-radius: $border-radius-lg;
@@ -603,7 +603,7 @@ $padding-l: 40px;
       letter-spacing: 4px;
       text-transform: uppercase;
       width: 100%;
-      background: $black;
+      background: $dark-grey;
       color: $white;
       border: none;
       padding: $padding-md $padding-xl;
@@ -632,7 +632,7 @@ $padding-l: 40px;
     width: 100%;
     height: 100%;
     border-radius: 0;
-    padding: 0 $padding-md $padding-sm $padding-md;
+    padding: 0 $padding-md $padding-md $padding-md;
 
     &__inner {
       padding-top: $padding-xl;
@@ -690,8 +690,8 @@ $padding-l: 40px;
       }
 
       &__image {
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
       }
 
       &__name {
@@ -721,7 +721,7 @@ $padding-l: 40px;
       }
 
       &__remove {
-        @include fonts.font(body-400, 14px, 1);
+        @include fonts.font(body-400, 16px, 1);
         letter-spacing: 2px;
         color: $additional-color-4;
       }
@@ -745,10 +745,10 @@ $padding-l: 40px;
     }
 
     &-recommendations {
-      padding: $padding-sm;
+      padding: 16px;
       margin-top: $padding-md;
-      margin-left: -$padding-sm;
-      margin-right: -$padding-sm;
+      margin-left: -$padding-md;
+      margin-right: -$padding-md;
       border-radius: $border-radius-md;
 
       &__header {
@@ -756,7 +756,7 @@ $padding-l: 40px;
       }
 
       &__title {
-        @include fonts.font(body-400, 12px, 16px);
+        @include fonts.font(body-400, 16px, 1.375);
         letter-spacing: 2px;
       }
 
@@ -779,13 +779,13 @@ $padding-l: 40px;
     }
 
     .b-recommendation-item {
-      padding: $padding-sm;
+      padding: $padding-md 0 $padding-md-mid;
       margin-bottom: 8px;
       gap: 10px;
 
       &__image {
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
       }
 
       &__content {
@@ -827,7 +827,7 @@ $padding-l: 40px;
       margin-left: -$padding-md;
       margin-right: -$padding-md;
       margin-bottom: -$padding-sm;
-      padding: $padding-md $padding-md $padding-sm;
+      padding: $padding-xl $padding-md $padding-sm;
     }
 
     &-total {

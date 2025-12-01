@@ -158,7 +158,7 @@
     @mouseenter="onEnterPanel"
     @mouseleave="onLeavePanel"
   >
-    <div class="container mx-auto px-4 py-12">
+    <div class="container mx-auto custom-megamenu-padding">
       <div class="grid grid-cols-3 gap-0">
 
         <!-- 1) Ліва колонка — підменю -->
@@ -229,13 +229,13 @@
         </div>
 
         <!-- 3) Права колонка — СПИСОК КОЛЕКЦІЙ -->
-        <div class="col-span-1">
+        <div class="col-span-1 custom-margin">
           {%- if coll_list and coll_list.size > 0 -%}
             {%- if cats_head != blank -%}
               <div class="text-xs uppercase tracking-wide mb-4 opacity-70">{{ cats_head }}</div>
             {%- endif -%}
 
-            <div class="space-y-5">
+            <div class="space-y-5 megamenu-list-right">
               {%- for c in coll_list -%}
                 {%- liquid
                   assign _co = nil
@@ -261,7 +261,7 @@
 
                 {%- if _co and _co.url -%}
                   <div class="group/item menu-collection">
-                    <div class="flex items-start gap-5 no-underline">
+                    <div class="flex items-start gap-[24px] no-underline">
                       {%- assign _img = _co.image -%}
                       {%- if _img == blank and _co.featured_image -%}
                         {%- assign _img = _co.featured_image -%}
@@ -279,7 +279,7 @@
                         <span class="block text-sm whitespace-nowrap">{{ _co.title }}</span>
                         {%- if _co.description != blank -%}
                           <div class="menu-collection_description-text">
-                            {{ _co.description | strip_html | truncate: 50 }}
+                            {{ _co.description | strip_html | truncate: 60 }}
                           </div>
                         {%- endif -%}
 

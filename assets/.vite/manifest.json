@@ -1,11 +1,11 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-D803fmXO.css",
+    "file": "main-B4nb4FmV.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-COUbp-ke.js",
+    "file": "main.theme-o79q8VQT.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
@@ -179,7 +179,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-DQFL35bL.css",
+    "file": "products-section-BcxQ6zBG.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
@@ -199,12 +199,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-xACrEBJB.css",
+    "file": "text-kicker-description-D2rKuXRQ.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },
   "frontend/styles/sections/trial-faq.scss": {
-    "file": "trial-faq-BmF6BjES.css",
+    "file": "trial-faq-B2Vbpmps.css",
     "src": "frontend/styles/sections/trial-faq.scss",
     "isEntry": true
   },
