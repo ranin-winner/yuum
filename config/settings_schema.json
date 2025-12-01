@@ -712,6 +712,13 @@
         "type": "product_list",
         "id": "cart_products",
         "label": "Cart Products Carousel"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": 50,
+        "info": "Minimum order amount for free shipping (in store currency)"
       }
     ]
   },

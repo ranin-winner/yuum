@@ -1,4 +1,7 @@
 document.addEventListener('alpine:init', () => {
+
+  const shippingThreshold = window.freeShippingThreshold || 50;
+
   Alpine.store('cart', {
     items: [],
     itemsCount: 0,
@@ -6,17 +9,23 @@ document.addEventListener('alpine:init', () => {
     isCartOpen: false,
     isLoading: false,
     errorMessage: '',
-    shippingDiscount: {
-      shippingProgress: 0,
-      shippingPrice: 35,
-      shippingLeft: 35,
-      isFreeShippingUnlocked: false,
+
+    get remainingForFreeShipping() {
+      const total = parseFloat(this.totalPrice);
+      const remaining = shippingThreshold - total;
+
+      if (remaining <= 0) return '0.00';
+
+      return remaining.toFixed(2);
+    },
+
+    get isFreeShippingUnlocked() {
+      return parseFloat(this.totalPrice) >= shippingThreshold;
     },
 
     loadCart() {
       this.isLoading = true;
       this.errorMessage = '';
-      console.log('Test');
       fetch('/cart.js')
         .then((response) => response.json())
         .then((data) => {
@@ -160,12 +169,7 @@ document.addEventListener('alpine:init', () => {
     },
 
     updateTotalPrice() {
-      this.totalPrice = this.items.reduce((total, item) => total + (item.price * item.quantity) / 100, 0).toFixed(2);
-
-      const total = parseFloat(this.totalPrice);
-      this.shippingDiscount.isFreeShippingUnlocked = total >= this.shippingDiscount.shippingPrice;
-      this.shippingDiscount.shippingLeft = (this.shippingDiscount.shippingPrice - total).toFixed(2);
-      this.shippingDiscount.shippingProgress = Math.min(100, (total / this.shippingDiscount.shippingPrice) * 100);
+      this.totalPrice = (this.items.reduce((total, item) => total + (item.price * item.quantity), 0) / 100).toFixed(2);
     },
   });
 

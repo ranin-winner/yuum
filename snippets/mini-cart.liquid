@@ -1,3 +1,9 @@
+{% assign free_shipping_threshold = settings.free_shipping_threshold | default: 50 %}
+
+<script>
+  window.freeShippingThreshold = {{ free_shipping_threshold }};
+</script>
+
 <section
   class="b-mini_cart"
   x-cloak
@@ -18,15 +24,18 @@
 
     <!-- Delivery message -->
     <div class="b-mini_cart-shipping" x-show="$store.cart.items.length > 0">
-      <p class="b-mini_cart-shipping__text">
-        Spend <span class="b-mini_cart-shipping__amount" x-text="'{{ cart.currency.symbol }}' + ($store.cart.remainingForFreeShipping || 0)"></span> more to get free mainland UK delivery
+      <p class="b-mini_cart-shipping__text" x-show="parseFloat($store.cart.totalPrice) < {{ free_shipping_threshold }}">
+        You're only <span class="b-mini_cart-shipping__amount" x-text="'{{ cart.currency.symbol }}' + ({{ free_shipping_threshold }} - parseFloat($store.cart.totalPrice)).toFixed(2)"></span> away from free UK shipping
+      </p>
+      <p class="b-mini_cart-shipping__text" x-show="parseFloat($store.cart.totalPrice) >= {{ free_shipping_threshold }}">
+        🎉 You've qualified for free UK shipping!
       </p>
     </div>
 
     <!-- Empty cart message -->
     <div class="b-mini_cart-shipping" x-show="$store.cart.items.length === 0">
       <p class="b-mini_cart-shipping__text">
-        FREE mainland UK delivery for orders over £50
+        FREE mainland UK delivery for orders over {{ cart.currency.symbol }}{{ free_shipping_threshold }}
       </p>
     </div>
 
