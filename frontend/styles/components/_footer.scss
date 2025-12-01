@@ -107,6 +107,9 @@
   &__bottom-link {
     color: #e7e7e7;
     @include cfg.font(body-400, 13px, 1.14);
+    @include cfg.media(max-xs) {
+      font-size: 8px;
+    }
     opacity: 0.8;
   }
 
@@ -160,8 +163,13 @@
 }
 
 @media (max-width: 767px) {
+  #footer .container {
+      padding: 0 6px !important;
+  }
+
   .b-footer.custom-padding {
     padding-top: 60px;
+    padding-bottom: 0;
   }
 }
 
