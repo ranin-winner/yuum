@@ -23,6 +23,16 @@ document.addEventListener('alpine:init', () => {
       return parseFloat(this.totalPrice) >= shippingThreshold;
     },
 
+    get freeShippingProgress() {
+      const total = parseFloat(this.totalPrice);
+      const threshold = shippingThreshold;
+
+      if (total <= 0) return 0;
+
+      const progress = (total / threshold) * 100;
+      return Math.min(Math.max(progress, 0), 100);
+    },
+
     loadCart() {
       this.isLoading = true;
       this.errorMessage = '';
@@ -55,10 +65,6 @@ document.addEventListener('alpine:init', () => {
           this.loadCart();
           this.toggleCart();
         })
-        // .then(response => {
-        //   console.log(response.json());
-        //   return response.json();
-        // })
         .catch(() => {
           this.errorMessage = 'Failed to add the product. Please try again.';
         })
