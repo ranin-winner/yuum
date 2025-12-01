@@ -34,10 +34,10 @@
 
     <!-- Progress bar with fallback -->
     <div class="b-mini_cart-progress"
-         x-show="$store.cart.items.length > 0 && parseFloat($store.cart.totalPrice) < {{ free_shipping_threshold }}">
+         x-show="$store.cart.items.length > 0">
       <div class="b-mini_cart-progress__bar">
         <div class="b-mini_cart-progress__fill"
-             :style="'width: ' + (Math.min((parseFloat($store.cart.totalPrice || 0) / {{ free_shipping_threshold }}) * 100, 100) || 0) + '%;'">
+             :style="'width: ' + Math.min((parseFloat($store.cart.totalPrice) / {{ free_shipping_threshold }}) * 100, 100) + '%;'">
         </div>
       </div>
     </div>
