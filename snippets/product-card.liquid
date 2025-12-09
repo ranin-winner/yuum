@@ -1,16 +1,17 @@
 {%- assign p = product | default: item -%}
 {%- if p == blank -%}{% break %}{%- endif -%}
 
-{%- assign use_simple_hover =
-  simple_hover
-  | default: section.settings.simple_hover
-  | default: false
+{%- liquid
+  assign hover_metafield = p.metafields.custom.multy_step_hover_effect
+  assign hover_mode = 'simple'
+  if hover_metafield and hover_metafield.value == true
+    assign hover_mode = 'full'
+  endif
 -%}
-{%- assign hover_mode = use_simple_hover | default: false | stringify -%}
 
 <article
   class="product-card"
-  data-hover="{% if use_simple_hover %}simple{% else %}full{% endif %}"
+  data-hover="{{ hover_mode }}"
   data-anim="fade-in-slide-up"
   x-data="productCard({
     variantId: '{{ p.first_available_variant.id }}',
