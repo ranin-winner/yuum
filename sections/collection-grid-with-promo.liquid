@@ -58,7 +58,7 @@
       {%- assign alpha = section.settings.banner_overlay_opacity | times: 0.01 -%}
       {%- assign overlay = section.settings.banner_overlay_color | color_modify: 'alpha', alpha -%}
       <div class="promo-banner relative rounded-[16px] overflow-hidden md:mb-[0] mb-[20px]">
-        <a class="block group" {%- if section.settings.banner_link != blank -%} href="{{ section.settings.banner_link }}"{%- endif -%}>
+        <a class="block group h-full" {%- if section.settings.banner_link != blank -%} href="{{ section.settings.banner_link }}"{%- endif -%}>
           <picture>
             {%- if mob != blank -%}
               <source media="(max-width: 767px)" srcset="{{ mob | image_url: width: 750 }}">
@@ -109,7 +109,7 @@
           {%- assign idx0 = forloop.index0 -%}
 
           {%- if section.settings.show_banner and banner_pos > 0 and idx0 == banner_index0 -%}
-            <div class="md:col-span-1 col-span-2 collection-grid__inner--row">
+            <div class="md:col-span-1 col-span-2 p-0 collection-grid__inner--row">
               {{ promo_banner }}
             </div>
           {%- endif -%}

@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-OzXWs3WT.css",
+    "file": "main-X9U1V3g8.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -98,7 +98,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/collections-switcher.scss": {
-    "file": "collections-switcher-BKwlGVMR.css",
+    "file": "collections-switcher-Caj93kVN.css",
     "src": "frontend/styles/sections/collections-switcher.scss",
     "isEntry": true
   },
@@ -194,7 +194,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/search.scss": {
-    "file": "search-8eDxtZ47.css",
+    "file": "search-CviKVRU4.css",
     "src": "frontend/styles/sections/search.scss",
     "isEntry": true
   },

@@ -10,96 +10,158 @@
 {%- assign _pad_bot = padding_bottom | default: 16 -%}
 {%- assign _sep = separator | default: '|' -%}
 
+{%- comment -%}
+  Вираховуємо заголовок колекції для хлібних крихт:
+  - за замовчуванням: collection.title
+  - якщо snippet рендериться всередині секції з блоками:
+      * активний блок шукаємо по manual_url / col.handle
+      * якщо є block.settings.heading — беремо його
+      * інакше block.settings.display_text
+      * інакше col.title
+  Це покриває:
+    - твою стару Collections Switcher (heading + collection)
+    - поточну Collection Filters (display_text + manual_url)
+{%- endcomment -%}
+
+{%- assign breadcrumbs_collection_title = collection.title -%}
+
+{%- if template == 'collection' and collection and section and section.blocks and section.blocks.size > 0 -%}
+  {%- assign current_handle = collection.handle | default: '' -%}
+
+  {%- for block in section.blocks -%}
+    {%- assign col         = block.settings.collection -%}
+    {%- assign manual_url  = block.settings.manual_url -%}
+    {%- assign display_txt = block.settings.display_text -%}
+
+    {%- if manual_url == blank and col == blank -%}{% continue %}{%- endif -%}
+
+    {%- assign href = manual_url | default: col.url -%}
+
+    {%- comment -%} Нормалізуємо шлях як у Collection Filters {%- endcomment -%}
+    {%- assign href_path = href
+      | remove: shop.url
+      | remove: shop.secure_url
+      | split: '?' | first
+      | split: '#' | first
+    -%}
+    {%- assign href_path_slash = href_path | append: '/' -%}
+
+    {%- assign is_active_block = false -%}
+
+    {%- if col and col.handle == current_handle -%}
+      {%- assign is_active_block = true -%}
+    {%- elsif manual_url != blank -%}
+      {%- if request.path == href_path
+      or request.path == href_path_slash
+      or href == request.path
+      or href == request.url -%}
+        {%- assign is_active_block = true -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if is_active_block -%}
+      {%- if block.settings.heading != blank -%}
+        {%- assign breadcrumbs_collection_title = block.settings.heading -%}
+      {%- elsif display_txt != blank -%}
+        {%- assign breadcrumbs_collection_title = display_txt -%}
+      {%- elsif col and col.title != blank -%}
+        {%- assign breadcrumbs_collection_title = col.title -%}
+      {%- endif -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
 <section class="breadcrumbs-section breadcrumbs-section--snippet" style="padding-top: {{ _pad_top }}px; padding-bottom: {{ _pad_bot }}px;">
-  {% comment %} <div class="container mx-auto"> {% endcomment %}
-    <nav aria-label="Breadcrumb" class="breadcrumbs-nav">
-      <ol class="breadcrumbs-list">
-        <!-- Home -->
+  <nav aria-label="Breadcrumb" class="breadcrumbs-nav">
+    <ol class="breadcrumbs-list">
+      <!-- Home -->
+      <li class="breadcrumbs-item">
+        <a href="{{ routes.root_url }}" class="breadcrumb-link">Home</a>
+      </li>
+
+      {%- comment -%} Collection page {%- endcomment -%}
+      {%- if template == 'collection' and collection -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
         <li class="breadcrumbs-item">
-          <a href="{{ routes.root_url }}" class="breadcrumb-link">Home</a>
+          <span class="breadcrumbs-link current-page">
+            {{ breadcrumbs_collection_title }}
+          </span>
         </li>
+      {%- endif -%}
 
-        {%- comment -%} Collection page {%- endcomment -%}
-        {%- if template == 'collection' and collection -%}
+      {%- comment -%} Product page {%- endcomment -%}
+      {%- if template contains 'product' and product -%}
+        {%- assign bc_collection = nil -%}
+        {%- if collection -%}
+          {%- assign bc_collection = collection -%}
+        {%- elsif product.collections.size > 0 -%}
+          {%- assign bc_collection = product.collections.first -%}
+        {%- endif -%}
+
+        {%- if bc_collection -%}
           <li class="breadcrumbs-separator">{{ _sep }}</li>
           <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">{{ collection.title }}</span>
+            <a href="{{ bc_collection.url }}" class="breadcrumbs-link">{{ bc_collection.title }}</a>
           </li>
         {%- endif -%}
 
-        {%- comment -%} Product page {%- endcomment -%}
-        {%- if template contains 'product' and product -%}
-          {%- assign bc_collection = nil -%}
-          {%- if collection -%}
-            {%- assign bc_collection = collection -%}
-          {%- elsif product.collections.size > 0 -%}
-            {%- assign bc_collection = product.collections.first -%}
-          {%- endif -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">{{ product.title }}</span>
+        </li>
+      {%- endif -%}
 
-          {%- if bc_collection -%}
-            <li class="breadcrumbs-separator">{{ _sep }}</li>
-            <li class="breadcrumbs-item">
-              <a href="{{ bc_collection.url }}" class="breadcrumbs-link">{{ bc_collection.title }}</a>
-            </li>
-          {%- endif -%}
+      {%- comment -%} Static page {%- endcomment -%}
+      {%- if template contains 'page' and page -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">{{ page.title }}</span>
+        </li>
+      {%- endif -%}
 
+      {%- comment -%} Blog / Article {%- endcomment -%}
+      {%- if template contains 'blog' and blog -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">{{ blog.title }}</span>
+        </li>
+      {%- endif -%}
+
+      {%- if template contains 'article' and article -%}
+        {%- if blog -%}
           <li class="breadcrumbs-separator">{{ _sep }}</li>
           <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">{{ product.title }}</span>
+            <a href="{{ blog.url }}" class="breadcrumbs-link">{{ blog.title }}</a>
           </li>
         {%- endif -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">{{ article.title }}</span>
+        </li>
+      {%- endif -%}
 
-        {%- comment -%} Static page {%- endcomment -%}
-        {%- if template contains 'page' and page -%}
-          <li class="breadcrumbs-separator">{{ _sep }}</li>
-          <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">{{ page.title }}</span>
-          </li>
-        {%- endif -%}
+      {%- comment -%} Utility templates {%- endcomment -%}
+      {%- if template contains 'search' -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">Search</span>
+        </li>
+      {%- endif -%}
 
-        {%- comment -%} Blog / Article {%- endcomment -%}
-        {%- if template contains 'blog' and blog -%}
-          <li class="breadcrumbs-separator">{{ _sep }}</li>
-          <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">{{ blog.title }}</span>
-          </li>
-        {%- endif -%}
+      {%- if template contains 'cart' -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">Cart</span>
+        </li>
+      {%- endif -%}
 
-        {%- if template contains 'article' and article -%}
-          {%- if blog -%}
-            <li class="breadcrumbs-separator">{{ _sep }}</li>
-            <li class="breadcrumbs-item">
-              <a href="{{ blog.url }}" class="breadcrumbs-link">{{ blog.title }}</a>
-            </li>
-          {%- endif -%}
-          <li class="breadcrumbs-separator">{{ _sep }}</li>
-          <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">{{ article.title }}</span>
-          </li>
-        {%- endif -%}
-
-        {%- comment -%} Utility templates {%- endcomment -%}
-        {%- if template contains 'search' -%}
-          <li class="breadcrumbs-separator">{{ _sep }}</li>
-          <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">Search</span>
-          </li>
-        {%- endif -%}
-
-        {%- if template contains 'cart' -%}
-          <li class="breadcrumbs-separator">{{ _sep }}</li>
-          <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">Cart</span>
-          </li>
-        {%- endif -%}
-
-        {%- if template contains 'account' -%}
-          <li class="breadcrumbs-separator">{{ _sep }}</li>
-          <li class="breadcrumbs-item">
-            <span class="breadcrumbs-link current-page">Account</span>
-          </li>
-        {%- endif -%}
-      </ol>
-    </nav>
-  {% comment %} </div> {% endcomment %}
+      {%- if template contains 'account' -%}
+        <li class="breadcrumbs-separator">{{ _sep }}</li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link current-page">Account</span>
+        </li>
+      {%- endif -%}
+    </ol>
+  </nav>
 </section>
