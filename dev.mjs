@@ -1,13 +1,16 @@
 // tools/dev.mjs
 import { spawn } from 'child_process';
 
-const STORE = 'yuumuk.myshopify.com';
+const STORE = 'yuumuk.myshopify.com'; // тут постав правильний myshopify-домен, у тебе зараз yuumuk ✅
 const HOST  = 'http://127.0.0.1:9292';
 
 const CMD = `shopify theme dev --store ${STORE} --host 127.0.0.1 --port 9292`;
 
-// Використовуємо shell, щоб Windows сам знайшов shopify(.cmd)
-const child = spawn(CMD, { shell: true });
+// Головне: stdin = 'inherit', щоб CLI бачив інтерактивний термінал
+const child = spawn(CMD, {
+  shell: true,
+  stdio: ['inherit', 'pipe', 'pipe'], // [stdin, stdout, stderr]
+});
 
 let printed = false;
 

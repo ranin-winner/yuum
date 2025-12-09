@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "clear": "rimraf node_modules/.vite",
-    "shopify:dev": "node dev.mjs",
+    "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --",
+    "shopify:dev": "shopify theme dev --store=yuumuk.myshopify.com",
     "vite:dev": "vite",
-    "dev": "npm-run-all -p shopify:dev vite:dev",
     "check": "shopify theme check",
     "pull": "shopify theme pull -d -o sections/*.json templates/*.json templates/customers/*.json config/settings_data.json",
     "build": "vite build",
@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@by-association-only/vite-plugin-shopify-clean": "^2.0.0",
-    "@shopify/cli": "^3.65.3",
+    "@shopify/cli": "3.65.3",
     "@shopify/prettier-plugin-liquid": "^1.5.0",
     "@shopify/theme": "^3.58.2",
     "autoprefixer": "^10.4.20",

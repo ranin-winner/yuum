@@ -310,12 +310,29 @@
       isDesktop: window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.innerWidth >= 1366,
 
       init() {
+        // помітимо кореневий елемент інстансу
+        if (this.$root) {
+          this.$root.dataset.megamenuRoot = 'true';
+        }
+
         this.$watch('isOpened', (value) => {
           const header = document.querySelector('.b-header');
           const wrapper = document.querySelector('.b-header__wrapper');
 
-          if (header && wrapper) {
+          // фіксуємо статус поточного інстансу в data-атрибуті
+          if (this.$root) {
             if (value) {
+              this.$root.dataset.megamenuOpen = 'true';
+            } else {
+              delete this.$root.dataset.megamenuOpen;
+            }
+          }
+
+          // перевіряємо, чи є ХОЧ ОДИН відкритий мегаменю в усьому документі
+          const anyOpen = !!document.querySelector('[data-megamenu-open="true"]');
+
+          if (header && wrapper) {
+            if (anyOpen) {
               header.classList.add('megamenu-open');
               wrapper.classList.add('has-megamenu-open');
             } else {
@@ -324,6 +341,9 @@
             }
           }
         });
+
+        // не забудь слухати ресайз (якщо не підключено в розмітці окремо)
+        window.addEventListener('resize', () => this.handleResize());
       },
 
       handleResize() {
@@ -338,23 +358,34 @@
           this.isLoading = true;
           this.isOpened = !this.isOpened;
           if (this.isOpened) this.openMegamenu(); else this.closeMegamenu();
-        } catch (e) { console.error('Error toggling megamenu:', e); }
-        finally { this.isLoading = false; }
+        } catch (e) {
+          console.error('Error toggling megamenu:', e);
+        } finally {
+          this.isLoading = false;
+        }
       },
 
       // Desktop / hover
-      onEnterRoot(){ if (this.isDesktop) this.clearHoverTimer(); },
-      onLeaveRoot(){ if (this.isDesktop) this.startHoverCloseTimer(); },
-      onEnterButton(){ if (this.isDesktop) { this.clearHoverTimer(); this.openMegamenu(); } },
-      onEnterPanel(){ if (this.isDesktop) this.clearHoverTimer(); },
-      onLeavePanel(){ if (this.isDesktop) this.startHoverCloseTimer(); },
+      onEnterRoot() { if (this.isDesktop) this.clearHoverTimer(); },
+      onLeaveRoot() { if (this.isDesktop) this.startHoverCloseTimer(); },
+      onEnterButton() {
+        if (this.isDesktop) {
+          this.clearHoverTimer();
+          this.openMegamenu();
+        }
+      },
+      onEnterPanel() { if (this.isDesktop) this.clearHoverTimer(); },
+      onLeavePanel() { if (this.isDesktop) this.startHoverCloseTimer(); },
 
       startHoverCloseTimer() {
         this.clearHoverTimer();
         this.hoverTimer = setTimeout(() => this.closeMegamenu(), 120);
       },
       clearHoverTimer() {
-        if (this.hoverTimer) { clearTimeout(this.hoverTimer); this.hoverTimer = null; }
+        if (this.hoverTimer) {
+          clearTimeout(this.hoverTimer);
+          this.hoverTimer = null;
+        }
       },
 
       openMegamenu() {
@@ -369,3 +400,4 @@
     }));
   });
 </script>
+

@@ -4,7 +4,7 @@
 $white: #FFFFFF;
 $lightest-grey-3: #F5F5F5;
 $lighter-grey-2: #EEEEEE;
-$light-grey-1: #E7E7E7;
+$light-grey-1: rgba(238, 238, 238, 1);
 $grey: #ADAEB0;
 $dark-grey: #474747;
 $additional-color-1: #E0E0E0;
@@ -87,10 +87,14 @@ $padding-l: 40px;
     @include fonts.font(heading-400, 32px, 38px);
     color: $dark-grey;
     margin: 0;
+    display: inline-flex;
+    align-items: flex-start;
   }
 
   &-count {
-    opacity: 0.5;
+    //opacity: 0.5;
+    @include fonts.font(heading-400, 16px, 22px);
+    margin-left: 12px;
   }
 
   &-shipping {
@@ -144,10 +148,11 @@ $padding-l: 40px;
   }
 
   &-content {
-    flex: 1;
+    //flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    max-height: 235px;
   }
 
   &-columns {
@@ -222,13 +227,13 @@ $padding-l: 40px;
       border-radius: $border-radius-sm;
       overflow: hidden;
       margin: 0;
-      background: $white;
+      background: $light-grey-1;
+      border: 1px solid rgba(224, 224, 224, 1);
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        background: $white;
         display: block;
       }
     }
@@ -372,10 +377,10 @@ $padding-l: 40px;
   }
 
   &-recommendations {
-    background: $lightest-grey-3;
+    background: rgba(245, 245, 245, 1);
     border-radius: $border-radius-mid;
     padding: 25px 40px 18px;
-    margin-top: $padding-xl;
+    margin-top: $padding-l;
     margin-left: -$padding-l;
     margin-right: -$padding-l;
     border: 1px solid $light-grey-1;
@@ -480,12 +485,12 @@ $padding-l: 40px;
       overflow: hidden;
       margin: 0;
       background: $light-grey-1;
+      border: 1px solid rgba(224, 224, 224, 1);
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        background: $additional-color-1;
       }
     }
 
@@ -532,7 +537,7 @@ $padding-l: 40px;
         border-radius: $border-radius-lg;
         @include fonts.font(body-400, 14px, 1);
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 4px;
         min-width: 100px;
         display: flex;
         align-items: center;
@@ -571,7 +576,7 @@ $padding-l: 40px;
     margin-bottom: -$padding-xl;
     padding: 24px 40px 16px;
     border-top: 1px solid $light-grey-1;
-    margin-top: $padding-lg;
+    margin-top: auto;
     border-bottom-left-radius: $border-radius-lg;
   }
 
@@ -880,3 +885,5 @@ $padding-l: 40px;
   left: 0;
   top: 0;
 }
+
+

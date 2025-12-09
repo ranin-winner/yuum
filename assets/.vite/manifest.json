@@ -1,11 +1,11 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CSNKcSkj.css",
+    "file": "main-OzXWs3WT.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-COUbp-ke.js",
+    "file": "main.theme-Cpsu95KS.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
@@ -68,7 +68,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/brand-quote.scss": {
-    "file": "brand-quote-DsJJb4ur.css",
+    "file": "brand-quote-CxEcvoz_.css",
     "src": "frontend/styles/sections/brand-quote.scss",
     "isEntry": true
   },
@@ -88,7 +88,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/careers.scss": {
-    "file": "careers-D3tYhkWc.css",
+    "file": "careers-BJKfPVop.css",
     "src": "frontend/styles/sections/careers.scss",
     "isEntry": true
   },
@@ -98,7 +98,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/collections-switcher.scss": {
-    "file": "collections-switcher-uMuHGXpY.css",
+    "file": "collections-switcher-BKwlGVMR.css",
     "src": "frontend/styles/sections/collections-switcher.scss",
     "isEntry": true
   },
@@ -179,7 +179,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-BcxQ6zBG.css",
+    "file": "products-section-D4L5FAVL.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
