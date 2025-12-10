@@ -666,6 +666,14 @@
   }
 }
 
+.b-header__cartlogin {
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .products-section__header--title-bg {
   color: #fff !important;
   text-align: center;

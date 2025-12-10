@@ -1,4 +1,4 @@
-
+@use '../config/all-config' as cfg;
 
     .join-us-card {
         gap: 40px;
@@ -13,7 +13,7 @@
             display: flex;
             flex-direction: column-reverse;
         }
-        
+
         @media (min-width: 1024px) {
             display: grid;
             gap: 126px;
@@ -69,7 +69,7 @@
                 line-height: 16px;
             }
         }
-    
+
     }
 
     .join-us-content {
@@ -77,7 +77,7 @@
         flex-direction: column;
         justify-content: flex-start;
     }
- 
+
     .join-us-text {
         max-width: 334px;
         color: #474747;
@@ -109,8 +109,8 @@
 
     .join-us-image-wrapper {
         position: relative;
-        
-        
+
+
         img {
             max-height: 543px;
             border-radius: 20px;
@@ -129,3 +129,34 @@
         object-fit: cover;
         border-radius: 20px;
     }
+
+.join-us-section {
+  .button-input {
+    margin-top: 20px;
+  }
+
+  .form-control,
+  input,
+  textarea {
+    border-bottom: 1px solid rgba(71, 71, 71, 1)!important;
+    padding: 0!important;
+    font-size: 16px!important;
+    background: transparent!important;
+    width: 100%!important;
+    height: 40px!important;
+    position: relative!important;
+    border-top: none!important;
+    border-left: none!important;
+    border-right: none!important;
+    letter-spacing: 0.6px !important;
+
+    &::placeholder { color: rgba(148, 149, 151, 1)!important; }
+    &:focus {
+      outline: none!important;
+      border-bottom: 1px solid #78B956!important;
+      box-shadow: none!important;
+    }
+
+    @include cfg.autofill-fix(#EEEEEE, #1a1a1a, #474747);
+  }
+}

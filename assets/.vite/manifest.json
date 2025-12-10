@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CpHrb0uU.css",
+    "file": "main-DjQDa1mB.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -148,7 +148,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/join-us.scss": {
-    "file": "join-us-Lg17JpO6.css",
+    "file": "join-us-Ci5Bc7VF.css",
     "src": "frontend/styles/sections/join-us.scss",
     "isEntry": true
   },
