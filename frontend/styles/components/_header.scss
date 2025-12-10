@@ -165,7 +165,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 23px;
+    gap: 20px;
 
     .b-header__inner.m-left &,
     .b-header__inner.m-above & {
@@ -207,7 +207,7 @@
     @include ft.font(heading-400, null, 1);
 
     @include cfg.media(max-t) {
-      width: 150px;
+      width: 106px;
     }
 
     @include cfg.media(max-m) {
@@ -234,7 +234,7 @@
   }
 
   &__list {
-    gap: 41px;
+    gap: 28px;
 
     @include cfg.media(max-t) {
       gap: 20px;
@@ -269,7 +269,7 @@
       bottom: -1px;
       width: 0;
       height: 1px;
-      background-color: #FFFFFF;
+      background-color: #474747;
       transition: width 0.3s;
     }
 
@@ -940,12 +940,22 @@ body.overflow-hidden {
     position: fixed;
     background: #E7E7E7;
     border-bottom: 1px solid #ADAEB0;
+
+    .b-header__list-link::before,
+    .b-header__list-link::after {
+      background-color: #474747 !important;
+    }
   }
 
   .b-hero-banner {
     margin-top: 0;
     position: relative;
     z-index: 1;
+  }
+
+  .b-header__list-link::before,
+  .b-header__list-link::after {
+    background-color: #fff !important;
   }
 }
 
