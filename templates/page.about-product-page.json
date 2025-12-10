@@ -285,9 +285,9 @@
             "image_desktop": "shopify://shop_images/Rectangle_1615_b4f6daa9-4e4c-4a66-a8f1-cf4780bd2994.png",
             "image_alt": "",
             "primary_label": "Read more",
-            "primary_url": "",
+            "primary_url": "shopify://blogs/articles/complete-guide-to-japanese-desserts",
             "secondary_label": "To catalogue",
-            "secondary_url": ""
+            "secondary_url": "shopify://collections/the-real-mochi-collection"
           }
         },
         "tile_XC4dJi": {
@@ -298,7 +298,7 @@
             "image_desktop": "shopify://shop_images/Rectangle_1615_506f0688-c333-489b-b7d6-ba0f09df4229.png",
             "image_alt": "",
             "primary_label": "Read more",
-            "primary_url": "",
+            "primary_url": "shopify://blogs/articles/complete-guide-to-japanese-desserts",
             "secondary_label": "To catalogue",
             "secondary_url": "shopify://products/yuzu-mochi"
           }
