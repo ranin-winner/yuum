@@ -194,9 +194,9 @@
   }
 
   &__account {
-    @include cfg.media(max-m) {
-      display: none;
-    }
+    //@include cfg.media(max-m) {
+    //  display: none;
+    //}
   }
 
   &__logo {
@@ -987,8 +987,7 @@ body:not(.body--hero-first) {
 
 @media (max-width: 1365px) {
   .b-header__nav-left,
-  .b-header__nav-right,
-  .b-header__account {
+  .b-header__nav-right {
     display: none;
   }
 }

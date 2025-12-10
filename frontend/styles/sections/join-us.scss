@@ -131,10 +131,6 @@
     }
 
 .join-us-section {
-  .button-input {
-    margin-top: 20px;
-  }
-
   .form-control,
   input,
   textarea {
@@ -158,5 +154,21 @@
     }
 
     @include cfg.autofill-fix(#EEEEEE, #1a1a1a, #474747);
+  }
+
+  .button-input {
+    margin-top: 20px;
+  }
+
+  select.form-control {
+    padding-left: 0 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 9.05322L0 1.06069L1.06069 0L8 6.94678L14.9393 0L16 1.06069L8 9.05322Z' fill='%23474747'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0 center !important;
+    background-size: 16px 10px !important;
+    padding-right: 36px !important;
   }
 }
