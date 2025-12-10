@@ -64,10 +64,14 @@ $border-medium: #ADAEB0;
   }
 
   &__title {
-    @include font(heading-400, 3.5rem, 1.1);
+    @include font(heading-400, 56px, 1.1);
     color: $text-primary;
     @include font-smoothing;
     margin: 0;
+
+    @media (max-width: 768px) {
+      @include font(heading-400, 36px, 1.1);
+    }
   }
 
   &__bottom-container {
@@ -127,6 +131,16 @@ $border-medium: #ADAEB0;
     color: $text-primary;
     max-width: 800px;
     margin: 0 auto;
+
+    h4 {
+      @include font(heading-400, 32px, 1.2);
+      @include font-smoothing;
+      margin-bottom: 16px;
+
+      @media (max-width: 768px) {
+        @include font(heading-400, 24px, 1.1);
+      }
+    }
 
     p {
       margin-bottom: 24px;

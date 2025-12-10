@@ -1,6 +1,6 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-X9U1V3g8.css",
+    "file": "main-BLqC7kEj.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
@@ -28,7 +28,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/about-universal.scss": {
-    "file": "about-universal-CcQ7fHxk.css",
+    "file": "about-universal-BawO9G4H.css",
     "src": "frontend/styles/sections/about-universal.scss",
     "isEntry": true
   },
@@ -58,12 +58,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-list.scss": {
-    "file": "blog-post-list-DcJQw4UN.css",
+    "file": "blog-post-list-D9M1JZeQ.css",
     "src": "frontend/styles/sections/blog-post-list.scss",
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-singe.scss": {
-    "file": "blog-post-singe-C9Yk6tEJ.css",
+    "file": "blog-post-singe-D2GA1JXq.css",
     "src": "frontend/styles/sections/blog-post-singe.scss",
     "isEntry": true
   },
@@ -199,7 +199,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/text-kicker-description.scss": {
-    "file": "text-kicker-description-D2rKuXRQ.css",
+    "file": "text-kicker-description-DMUX0hZD.css",
     "src": "frontend/styles/sections/text-kicker-description.scss",
     "isEntry": true
   },

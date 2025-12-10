@@ -114,7 +114,7 @@
                                 :class="{ 'is-active': Number(currentVariantId) === {{ variant.id }} }"
                                 @click="selectVariant({ id: {{ variant.id }}, priceCents: {{ variant.price }} })"
                                 >
-                                {{ variant.price | money }}
+                                {{ variant.price | money |  money_without_trailing_zeros  }}
                                 </button>
                             {% endfor %}
                         </div>
@@ -309,7 +309,7 @@
                                  <span class="separator">-</span>
                                 <span> Add to cart</span>
                               </button>
-   
+
                                 <!-- Wishlist Hero Button -->
                                     <div id="wishlist-hero-product-page-button" class="inline-flex shrink-0 items-center justify-center md:w-[48px] md:h-[48px]
                                     w-[40px] h-[40px]

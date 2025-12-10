@@ -434,15 +434,14 @@
 }
 
 /* Прозорий хедер для головної та сторінок з класом .transparent-header */
-.template-index,
-.template-page.transparent-header:not(.no-transparent-header) {
+.body--hero-first {
   .b-header {
     &:not(.m-sticky) {
-      .b-header__list-link, .group button, .b-header__list-link.m-active {
+      .b-header__list-link, .group a, .b-header__list-link.m-active {
         color: #fff;
       }
 
-      .group button svg path {
+      .group a svg path {
         fill: #fff;
       }
 
@@ -464,11 +463,11 @@
 
     &.megamenu-open:not(.m-sticky),
     &.search-open:not(.m-sticky) {
-      .b-header__list-link, .group button, .b-header__list-link.m-active {
+      .b-header__list-link, .group a, .b-header__list-link.m-active {
         color: #474747;
       }
 
-      .group button svg path {
+      .group a svg path {
         fill: #474747;
       }
 
@@ -489,7 +488,7 @@
     }
 
     &.m-sticky {
-      .b-header__list-link, .group button, .b-header__list-link.m-active {
+      .b-header__list-link, .group a, .b-header__list-link.m-active {
         color: #474747;
       }
 
