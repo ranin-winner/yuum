@@ -167,59 +167,88 @@
 
   <script>
     (function() {
-      const HEADER_SELECTOR = '.b-header'; // заміни на свій, якщо потрібно (наприклад, '.b-header')
+      const HEADER_SELECTOR = '.b-header';
       const HERO_SELECTOR = '.b-hero-banner';
+      const INFO_BANNER_SELECTOR = '.info-banner';
+
       const HERO_FIRST_CLASS = 'hero--is-first';
+      const BODY_HERO_FIRST_CLASS = 'body--hero-first';
+      const BODY_INFO_BANNER_FIRST_CLASS = 'body--info-banner-first';
 
       const header = document.querySelector(HEADER_SELECTOR);
       if (!header) return;
 
-      // 1) Знаходимо ПЕРШУ видиму контентну секцію після хедера
+      // 1) Знаходимо першу видиму секцію
       const sections = document.querySelectorAll('.shopify-section');
       let firstSection = null;
+
       for (const sec of sections) {
-        const visible = sec.offsetParent !== null || getComputedStyle(sec).display !== 'none';
+        const visible =
+          sec.offsetParent !== null ||
+          getComputedStyle(sec).display !== 'none';
+
         if (visible && sec.childElementCount > 0) {
           firstSection = sec;
           break;
         }
       }
-      if (!firstSection) return;
 
-      // 2) Перевіряємо, чи в першій секції є hero
-      //    ВАЖЛИВО: клас додаємо ЛИШЕ на цей конкретний hero у першій секції
-      const firstHero = firstSection.querySelector(HERO_SELECTOR);
-      if (!firstHero) {
-        // якщо перша секція не hero — гарантуємо сірий стан, і все
+      // Скидання глобальних класів
+      document.body.classList.remove(
+        BODY_HERO_FIRST_CLASS,
+        BODY_INFO_BANNER_FIRST_CLASS
+      );
+
+      if (!firstSection) {
         header.classList.remove('header--over-hero');
         return;
       }
 
-      // 2.1) Позначаємо цей hero як "перший"
-      firstHero.classList.add(HERO_FIRST_CLASS);
+      // 2) Визначаємо таргет (hero або info-banner)
+      const heroEl = firstSection.querySelector(HERO_SELECTOR);
+      const infoEl = firstSection.querySelector(INFO_BANNER_SELECTOR);
 
-      // 3) Логіка перемикання стану хедера (залишена, як просив)
+      let targetEl = null;
+      let isInfoBanner = false;
+
+      if (heroEl) {
+        targetEl = heroEl;
+      } else if (infoEl) {
+        targetEl = infoEl;
+        isInfoBanner = true;
+      } else {
+        header.classList.remove('header--over-hero');
+        return;
+      }
+
+      // 3) Спільна логіка класів (hero-first ДЛЯ ОБОХ)
+      targetEl.classList.add(HERO_FIRST_CLASS);
+      document.body.classList.add(BODY_HERO_FIRST_CLASS);
+
+      // 3.1) Додатковий клас лише для info-banner
+      if (isInfoBanner) {
+        document.body.classList.add(BODY_INFO_BANNER_FIRST_CLASS);
+      }
+
+      // 4) IntersectionObserver — спільний
       function setupObserver() {
         const headerH = header.offsetHeight || 80;
 
-        // Початковий стан (на випадок перезавантаження не з самого верху)
-        header.classList.toggle('header--over-hero', firstHero.getBoundingClientRect().top < headerH);
+        header.classList.toggle(
+          'header--over-hero',
+          targetEl.getBoundingClientRect().top < headerH
+        );
 
         const io = new IntersectionObserver(([entry]) => {
-          if (entry.isIntersecting) {
-            header.classList.add('header--over-hero');   // білий (поверх hero)
-          } else {
-            header.classList.remove('header--over-hero'); // сірий
-          }
+          header.classList.toggle('header--over-hero', entry.isIntersecting);
         }, {
           root: null,
           rootMargin: `-${headerH}px 0px 0px 0px`,
           threshold: 0
         });
 
-        io.observe(firstHero);
+        io.observe(targetEl);
 
-        // Перебудова при зміні розмірів (висота хедера/ресайз)
         window.addEventListener('resize', debounce(() => {
           io.disconnect();
           setupObserver();
@@ -228,7 +257,10 @@
 
       function debounce(fn, ms) {
         let t;
-        return function() { clearTimeout(t); t = setTimeout(fn, ms); };
+        return function() {
+          clearTimeout(t);
+          t = setTimeout(fn, ms);
+        };
       }
 
       if (document.readyState === 'loading') {

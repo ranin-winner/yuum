@@ -127,9 +127,10 @@
   @mouseleave="onLeaveRoot"
 >
   <!-- Тригер -->
-  <button
-    type="button"
-    @click="toggleMegamenu"
+  <!-- Тригер -->
+  <a
+    href="{{ link.url }}"
+    @click="onRootClick($event)"
     @mouseenter="onEnterButton"
     @focusin="onEnterButton"
     class="transition-colors duration-300 relative pr-8"
@@ -142,7 +143,7 @@
          :class="{ 'rotate-180': isOpened }">
       <path d="M5.99953 6.20502L0.644531 0.85502L1.35453 0.14502L5.99953 4.79502L10.6445 0.14502L11.3545 0.85502L5.99953 6.20502Z" fill="#474747"/>
     </svg>
-  </button>
+  </a>
 
   <!-- Панель -->
   <div

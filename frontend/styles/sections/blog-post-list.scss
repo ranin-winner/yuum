@@ -53,8 +53,8 @@ $border-medium: #ADAEB0;
   &__small-posts {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    flex: 0 0 50%;
+    gap: 24px;
+    flex: 0 0 calc(50% - 12px);
   }
 }
 
@@ -65,7 +65,7 @@ $border-medium: #ADAEB0;
   overflow: hidden;
 
   &--large {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - 12px);
     display: flex;
     flex-direction: column;
   }

@@ -925,8 +925,7 @@ body.overflow-hidden {
   margin: 0;
 }
 
-.template-index,
-.template-page {
+.body--hero-first {
   .b-header {
     position: fixed;
     top: 0;
@@ -947,6 +946,29 @@ body.overflow-hidden {
     margin-top: 0;
     position: relative;
     z-index: 1;
+  }
+}
+
+body:not(.body--hero-first) {
+  .b-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  main {
+    padding-top: 138px;
+
+    @media (max-width: 975px) {
+      padding-top: 106px;
+    }
+  }
+
+  .b-header.m-sticky {
+    position: fixed;
+    background: #E7E7E7;
+    border-bottom: 1px solid #ADAEB0;
   }
 }
 

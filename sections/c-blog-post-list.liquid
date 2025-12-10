@@ -1,5 +1,5 @@
 <section class="m-blog-modern anim-slide-in-bottom">
-  <div class="m-blog-modern__container">
+  <div class="container">
     <div class="m-blog-modern__header">
       <h1 class="m-blog-modern__main-title">{{ section.settings.blog_title | default: 'Journal' }}</h1>
     </div>
@@ -119,9 +119,9 @@
               </h3>
               <div class="m-blog-post__excerpt">
                 {%- if article.excerpt != blank -%}
-                  {{ article.excerpt | strip_html | truncatewords: 35 }}
+                  {{ article.excerpt | strip_html | truncatewords: 20 }}
                 {%- else -%}
-                  {{ article.content | strip_html | truncatewords: 35 }}
+                  {{ article.content | strip_html | truncatewords: 20 }}
                 {%- endif -%}
               </div>
               <a href="{{ article.url }}" class="m-blog-post__link">READ MORE</a>
