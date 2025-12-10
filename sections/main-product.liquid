@@ -421,7 +421,7 @@
                     {{ product.title }}
                     </h4>
                     <button type="button"
-                        @click="scrollToBuy"
+                        @click.prevent="scrollToBuy()"
                         class="md:w-[320px] w-full inline-flex items-center justify-center px-4 py-[8px] rounded-full
                                 bg-[#474747] text-white text-[12px] leading-4 tracking-[3px] uppercase
                                 transition hover:opacity-90 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
@@ -459,82 +459,194 @@
 
 
 <script>
-document.addEventListener('alpine:init', () => {
-  Alpine.data('toastBackToBuy', (targetSelector, opts = {}) => ({
-    visible: false,
-    threshold: 300,
-    io: null,
-    headerOffset: 0,
-    ro: null,
-    showOnDesktop: opts.showOnDesktop !== false, // за замовчуванням true
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('toastBackToBuy', (targetSelector, opts = {}) => ({
+      visible: false,
+      threshold: 300,
+      io: null,
+      headerOffset: 0,
+      ro: null,
+      onResize: null,
+      onScroll: null,
+      showOnDesktop: opts.showOnDesktop !== false,
 
-    init() {
-      const target = document.querySelector(targetSelector)
-      if (!target) return
+      scrollRaf: null,
+      scrollLocked: false,
+      _prevOverflow: '',
+      _wheelHandler: null,
+      _touchHandler: null,
+      _keyHandler: null,
 
-      const selHeader = '#id_header, .m-sticky, header, .site-header'
-      const selAnnounce = '[data-announcement-bar], .announcement-bar'
+      computeOffset() {
+        const selHeader = '#id_header, .m-sticky, header, .site-header';
+        const selAnnounce = '[data-announcement-bar], .announcement-bar';
 
-      const getTotalHeight = (selector) => {
-        let total = 0
-        document.querySelectorAll(selector).forEach(el => {
-          if (!el) return
-          const style = getComputedStyle(el)
-          if (style.display === 'none' || style.visibility === 'hidden') return
-          total += el.getBoundingClientRect().height
-        })
-        return total
-      }
+        const getTotalHeight = (selector) => {
+          let total = 0;
+          document.querySelectorAll(selector).forEach(el => {
+            if (!el) return;
+            const style = getComputedStyle(el);
+            if (style.display === 'none' || style.visibility === 'hidden') return;
+            total += el.getBoundingClientRect().height;
+          });
+          return total;
+        };
 
-      const computeOffset = () => {
-        const extra = 12
+        const extra = 12;
         this.headerOffset =
-          (opts.offsetPx ?? 0) + getTotalHeight(selHeader) + getTotalHeight(selAnnounce) + extra
+          (opts.offsetPx ?? 0) +
+          getTotalHeight(selHeader) +
+          getTotalHeight(selAnnounce) +
+          extra;
+      },
+
+      init() {
+        const target = document.querySelector(targetSelector);
+        if (!target) return;
+
+        this.computeOffset();
+
+        this.ro = new ResizeObserver(() => this.computeOffset());
+        const selHeader = '#id_header, .m-sticky, header, .site-header';
+        const selAnnounce = '[data-announcement-bar], .announcement-bar';
+        document
+          .querySelectorAll(selHeader + ',' + selAnnounce)
+          .forEach(el => this.ro.observe(el));
+
+        this.onResize = () => this.computeOffset();
+        window.addEventListener('resize', this.onResize);
+
+        const makeObserver = () => {
+          if (this.io) this.io.disconnect();
+          this.io = new IntersectionObserver((entries) => {
+            const e = entries[0];
+            const away = !e.isIntersecting;
+            this.updateVisibility(away);
+          }, {
+            rootMargin: `-${this.headerOffset}px 0px -40% 0px`,
+            threshold: [0, 1]
+          });
+          this.io.observe(target);
+        };
+
+        makeObserver();
+        setTimeout(makeObserver, 0);
+
+        this.onScroll = () => {
+          if (window.scrollY < this.threshold) this.visible = false;
+        };
+        window.addEventListener('scroll', this.onScroll, { passive: true });
+      },
+
+      updateVisibility(away) {
+        const widthOk = this.showOnDesktop || window.innerWidth < 768;
+        this.visible = away && widthOk && window.scrollY > this.threshold;
+      },
+
+      // ---- LOCK / UNLOCK SCROLL ----
+      lockScroll() {
+        if (this.scrollLocked) return;
+        this.scrollLocked = true;
+
+        this._prevOverflow = document.body.style.overflow || '';
+        document.body.style.overflow = 'hidden';
+
+        this._wheelHandler = (e) => {
+          e.preventDefault();
+        };
+        this._touchHandler = (e) => {
+          e.preventDefault();
+        };
+        this._keyHandler = (e) => {
+          const keys = [32, 33, 34, 35, 36, 38, 40]; // space, PgUp, PgDn, End, Home, up, down
+          if (keys.includes(e.keyCode)) {
+            e.preventDefault();
+          }
+        };
+
+        window.addEventListener('wheel', this._wheelHandler, { passive: false });
+        window.addEventListener('touchmove', this._touchHandler, { passive: false });
+        window.addEventListener('keydown', this._keyHandler);
+      },
+
+      unlockScroll() {
+        if (!this.scrollLocked) return;
+        document.body.style.overflow = this._prevOverflow;
+
+        if (this._wheelHandler) {
+          window.removeEventListener('wheel', this._wheelHandler);
+          this._wheelHandler = null;
+        }
+        if (this._touchHandler) {
+          window.removeEventListener('touchmove', this._touchHandler);
+          this._touchHandler = null;
+        }
+        if (this._keyHandler) {
+          window.removeEventListener('keydown', this._keyHandler);
+          this._keyHandler = null;
+        }
+
+        this.scrollLocked = false;
+      },
+
+      // 🔥 ПОВІЛЬНИЙ СКРОЛ ТІЛЬКИ ВГОРУ ДО ТОПУ
+      scrollToBuy() {
+        this.visible = false;
+
+        // якщо вже була наша анімація – скасовуємо
+        if (this.scrollRaf) {
+          cancelAnimationFrame(this.scrollRaf);
+          this.scrollRaf = null;
+        }
+
+        const startY = window.scrollY || window.pageYOffset;
+        if (startY <= 0) return;
+
+        // лочимо скрол, щоб не "добивало" вниз
+        this.lockScroll();
+
+        const duration = 1800; // мc – повільніший скрол
+        const startTime = performance.now();
+
+        const animate = (now) => {
+          const elapsed = now - startTime;
+          const t = Math.min(1, elapsed / duration);
+
+          // easeOut (аналог power2.out)
+          const eased = 1 - Math.pow(1 - t, 2);
+
+          const y = startY * (1 - eased); // завжди рух від startY до 0 → тільки вгору
+
+          window.scrollTo(0, y);
+
+          if (t < 1) {
+            this.scrollRaf = requestAnimationFrame(animate);
+          } else {
+            this.scrollRaf = null;
+            window.scrollTo(0, 0);
+
+            // ще трохи потримаємо lock, щоб інерція точно "померла"
+            setTimeout(() => {
+              this.unlockScroll();
+            }, 400);
+          }
+        };
+
+        this.scrollRaf = requestAnimationFrame(animate);
+      },
+
+      destroy() {
+        if (this.io) this.io.disconnect();
+        if (this.ro) this.ro.disconnect();
+        if (this.onResize) window.removeEventListener('resize', this.onResize);
+        if (this.onScroll) window.removeEventListener('scroll', this.onScroll);
+        if (this.scrollRaf) cancelAnimationFrame(this.scrollRaf);
+        this.unlockScroll();
       }
-
-      computeOffset()
-      this.ro = new ResizeObserver(() => computeOffset())
-      document.querySelectorAll(selHeader + ',' + selAnnounce).forEach(el => this.ro.observe(el))
-      window.addEventListener('resize', computeOffset)
-
-      const makeObserver = () => {
-        if (this.io) this.io.disconnect()
-        this.io = new IntersectionObserver((entries) => {
-          const e = entries[0]
-          const away = !e.isIntersecting
-          this.updateVisibility(away)
-        }, { rootMargin: `-${this.headerOffset}px 0px -40% 0px`, threshold: [0, 1] })
-        this.io.observe(target)
-      }
-      makeObserver()
-      setTimeout(makeObserver, 0)
-
-      this.onScroll = () => { if (window.scrollY < this.threshold) this.visible = false }
-      window.addEventListener('scroll', this.onScroll, { passive: true })
-    },
-
-    updateVisibility(away) {
-      // було: this.visible = away && window.innerWidth < 768 && window.scrollY > this.threshold
-      const widthOk = this.showOnDesktop || window.innerWidth < 768
-      this.visible = away && widthOk && window.scrollY > this.threshold
-    },
-
-    scrollToBuy() {
-      const target = document.querySelector(targetSelector)
-      if (!target) return
-      const top = target.getBoundingClientRect().top + window.pageYOffset - this.headerOffset
-      window.scrollTo({ top, behavior: 'smooth' })
-    },
-
-    destroy() {
-      if (this.io) this.io.disconnect()
-      if (this.ro) this.ro.disconnect()
-      window.removeEventListener('resize', this.computeOffset)
-      window.removeEventListener('scroll', this.onScroll)
-    }
-  }))
-})
+    }));
+  });
 </script>
+
 <script>
     // smooth-anchors.js
     document.addEventListener('click', (e) => {

@@ -169,7 +169,9 @@
           <div class="m-blog-modern__group {% if is_mirror_group == 1 %}m-blog-modern__group--reverse{% endif %}">
           <article class="m-blog-post m-blog-post--large">
             <div class="m-blog-post__image">
-              {%- if section.settings.default_image -%}
+              {%- if section.settings.demo_image_1 -%}
+                <img src="{{ section.settings.demo_image_1 | img_url: '600x400', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
+              {%- elsif section.settings.default_image -%}
                 <img src="{{ section.settings.default_image | img_url: '600x400', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
               {%- else -%}
                 <div class="m-blog-post__placeholder">
@@ -189,7 +191,9 @@
           <article class="m-blog-post m-blog-post--small {% if is_mirror_group == 1 %}m-blog-post--reverse{% endif %}">
             {%- if is_mirror_group == 1 -%}
               <div class="m-blog-post__image">
-                {%- if section.settings.default_image -%}
+                {%- if section.settings.demo_image_2 -%}
+                  <img src="{{ section.settings.demo_image_2 | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
+                {%- elsif section.settings.default_image -%}
                   <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
                 {%- else -%}
                   <div class="m-blog-post__placeholder">
@@ -205,7 +209,9 @@
             </div>
             {%- if is_mirror_group == 0 -%}
               <div class="m-blog-post__image">
-                {%- if section.settings.default_image -%}
+                {%- if section.settings.demo_image_2 -%}
+                  <img src="{{ section.settings.demo_image_2 | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
+                {%- elsif section.settings.default_image -%}
                   <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
                 {%- else -%}
                   <div class="m-blog-post__placeholder">
@@ -219,7 +225,9 @@
           <article class="m-blog-post m-blog-post--small {% if is_mirror_group == 0 %}m-blog-post--reverse{% endif %}">
             {%- if is_mirror_group == 0 -%}
               <div class="m-blog-post__image">
-                {%- if section.settings.default_image -%}
+                {%- if section.settings.demo_image_3 -%}
+                  <img src="{{ section.settings.demo_image_3 | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
+                {%- elsif section.settings.default_image -%}
                   <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
                 {%- else -%}
                   <div class="m-blog-post__placeholder">
@@ -235,7 +243,9 @@
             </div>
             {%- if is_mirror_group == 1 -%}
               <div class="m-blog-post__image">
-                {%- if section.settings.default_image -%}
+                {%- if section.settings.demo_image_3 -%}
+                  <img src="{{ section.settings.demo_image_3 | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
+                {%- elsif section.settings.default_image -%}
                   <img src="{{ section.settings.default_image | img_url: '300x250', crop: 'center' }}" alt="{{ demo_title | strip }}" class="m-blog-post__img">
                 {%- else -%}
                   <div class="m-blog-post__placeholder">
@@ -287,6 +297,25 @@
       "type": "image_picker",
       "id": "default_image",
       "label": "Default Post Image"
+    },
+    {
+      "type": "header",
+      "content": "Demo images (when blog is empty)"
+    },
+    {
+      "type": "image_picker",
+      "id": "demo_image_1",
+      "label": "Demo image — large post"
+    },
+    {
+      "type": "image_picker",
+      "id": "demo_image_2",
+      "label": "Demo image — small post #1"
+    },
+    {
+      "type": "image_picker",
+      "id": "demo_image_3",
+      "label": "Demo image — small post #2"
     }
   ],
   "presets": [
