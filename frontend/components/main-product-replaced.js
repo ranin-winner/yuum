@@ -145,6 +145,9 @@ document.addEventListener('alpine:init', () => {
     get totalPriceCents() {
       return (this.unitPriceCents || 0) * (Number(this.quantity) || 1);
     },
+    get unitPrice() {
+      return formatMoney(this.unitPriceCents, this.moneyFormat);
+    },
     get totalPrice() {
       return formatMoney(this.totalPriceCents, this.moneyFormat);
     },

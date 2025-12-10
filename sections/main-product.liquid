@@ -15,9 +15,7 @@
                 {{ currentVariant.compare_at_price | money }}
             </span>
             {%- endif -%}
-            <span>
-            {{ currentVariant.price | money }}
-            </span>
+            <span x-text="unitPrice">{{ currentVariant.price | money }}</span>
             {% if productSubtitle != blank %}
             <span class="font-Aksen font-bold text-color_1 text-base mb-2 b-product__info-subtitle">
                 – {{ product.metafields.custom.subtitle.value }}
@@ -30,6 +28,7 @@
   x-data="productPDP($el)"
   data-section-id="{{ section.id }}"
   @pdp:add.window="addToCartPDP($event.detail.qty)"
+  @pdp:set-qty.window="quantity = Number($event.detail.qty) || 1"
   data-first-variant="{{ currentVariant.id }}"
 >
   <section
@@ -114,7 +113,7 @@
                                 :class="{ 'is-active': Number(currentVariantId) === {{ variant.id }} }"
                                 @click="selectVariant({ id: {{ variant.id }}, priceCents: {{ variant.price }} })"
                                 >
-                                {{ variant.price | money |  money_without_trailing_zeros  }}
+                                {{ variant.price | money_without_trailing_zeros }}
                                 </button>
                             {% endfor %}
                         </div>
@@ -209,9 +208,7 @@
                           {{ currentVariant.compare_at_price | money }}
                         </span>
                       {%- endif -%}
-                      <span>
-                        {{ currentVariant.price | money }}
-                      </span>
+                      <span x-text="unitPrice">{{ currentVariant.price | money }}</span>
                       {% if productSubtitle != blank %}
                         <span class="font-Aksen font-bold text-color_1 text-base mb-2 b-product__info-subtitle">
                           – {{ product.metafields.custom.subtitle.value }}
@@ -238,6 +235,7 @@
                                 min: {{ currentVariant.quantity_rule.min | default: 1 }},
                                 max: {% if currentVariant.quantity_rule.max != null %}{{ currentVariant.quantity_rule.max }}{% else %}null{% endif %}
                               }"
+                              x-effect="$dispatch('pdp:set-qty', { qty: quantity })"
                               @keydown.enter.prevent
                               class="w-full mb-[24px] md:mb-[32px]">
                           <div class="flex flex-col w-full items-center gap-[24px] md:gap-[32px]  mb-8">
@@ -303,7 +301,7 @@
                                    text-[14px] leading-4 tracking-[4px] uppercase
                                    transition hover:opacity-90 active:opacity-80
                                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10 gap-2">
-                                <span class="product-price">
+                                <span class="product-price" x-text="totalPrice">
                                   {{ currentVariant.price | money }}
                                 </span>
                                  <span class="separator">-</span>
