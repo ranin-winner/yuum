@@ -37,19 +37,35 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🟢 Visit Us init');
-
   const mapEl = document.getElementById('mapboxContainer-{{ section.id }}');
   const token = mapEl.dataset.token;
   const style = mapEl.dataset.style || 'mapbox://styles/mapbox/streets-v12';
-  const defaultCenter = [-0.1276, 51.5072];
+  const defaultCenter = [
+    parseFloat('{{ section.settings.default_lng | default: "-0.1276" }}'),
+    parseFloat('{{ section.settings.default_lat | default: "51.5072" }}')
+  ];
+  const defaultZoom = Number('{{ section.settings.default_zoom | default: 10 }}') || 10;
+
+  const customLocations = [
+    {% for block in section.blocks %}
+      {
+        id: {{ block.id | json }},
+        title: {{ block.settings.title | json }},
+        address: {{ block.settings.address | json }},
+        phone: {{ block.settings.phone | json }},
+        hours: {{ block.settings.hours | json }},
+        lat: {{ block.settings.lat | json }},
+        lng: {{ block.settings.lng | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
 
   mapboxgl.accessToken = token;
   const map = new mapboxgl.Map({
     container: mapEl,
     style: style,
     center: defaultCenter,
-    zoom: 9
+    zoom: defaultZoom
   });
   map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
@@ -66,22 +82,144 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault(); // блокує захоплення тач-свайпу картою
     }, { passive: false });
 
-  let activeMarker = null;
-
   const input = document.getElementById('visit-input-{{ section.id }}');
   const list  = document.getElementById('visit-suggestions-{{ section.id }}');
   const button = document.getElementById('visit-confirm-{{ section.id }}');
 
-  const phone = '{{ section.settings.location_phone }}';
-  const hours = '{{ section.settings.location_hours }}';
-
+  const markersById = new Map();
+  let activeSelectionMarker = null;
+  let searchMarker = null;
   let controller = null;
+
+  const buildMarkerElement = (titleText) => {
+    const markerEl = document.createElement('div');
+    markerEl.className = 'yuum-marker';
+    markerEl.innerHTML = `
+    <div class="yuum-marker__label">${titleText || 'YUUM CAFÉ'}</div>
+      <div class="yuum-marker__pin">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="24" fill="#474747"/>
+            <path d="M24.001 13.0996C28.8175 13.0996 32.7292 17.0107 32.7295 21.8271C32.7295 24.803 31.3657 27.5004 29.665 29.6826C28.4132 31.2896 27.0004 32.595 25.8975 33.5C25.3469 33.9518 24.8754 34.3025 24.543 34.5391C24.3768 34.6573 24.2453 34.747 24.1562 34.8066C24.1119 34.8363 24.078 34.8585 24.0557 34.873C24.0445 34.8803 24.0356 34.8862 24.0303 34.8896L24.001 34.8994C23.9952 34.8993 23.9853 34.8973 23.9746 34.8906C23.9739 34.8902 23.9726 34.8893 23.9717 34.8887C23.9664 34.8852 23.9581 34.8801 23.9473 34.873C23.9249 34.8585 23.891 34.8363 23.8467 34.8066C23.7577 34.747 23.6261 34.6572 23.46 34.5391C23.1274 34.3026 22.6558 33.9523 22.1055 33.501H22.1064C21.0034 32.594 19.5906 31.2906 18.3389 29.6826H18.3379C16.6373 27.5004 15.2734 24.8031 15.2734 21.8271C15.2737 17.0109 19.1847 13.0999 24.001 13.0996ZM24.001 17.5283C21.6276 17.5286 19.7024 19.4538 19.7021 21.8271C19.7021 24.2003 21.627 26.1287 24.001 26.1289C26.3751 26.1289 28.3008 24.2005 28.3008 21.8271C28.3005 19.4536 26.3746 17.5283 24.001 17.5283Z" stroke="white"/>
+        </svg>
+      </div>
+    `;
+    return markerEl;
+  };
+
+  const createMarker = (loc, lngLat) => {
+    const marker = new mapboxgl.Marker({ element: buildMarkerElement(loc.title), anchor: 'bottom' })
+      .setLngLat(lngLat)
+      .setPopup(new mapboxgl.Popup({ offset: 35, closeButton: false })
+        .setHTML(`
+          <div class="yuum-popup">
+            <strong>${loc.title || 'YUUM CAFÉ'}</strong>
+            <p>${loc.hours || ''}</p>
+            <p>${loc.phone || ''}</p>
+          </div>
+        `))
+      .addTo(map);
+
+    marker.getElement().addEventListener('click', () => {
+      activeSelectionMarker = marker;
+    });
+
+    return marker;
+  };
+
+  const geocodeLocation = async (query) => {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?limit=1&country=gb&access_token=${token}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data?.features?.[0]?.center;
+  };
+
+  const ensureMarkerForLocation = async (loc) => {
+    if (markersById.has(loc.id)) return markersById.get(loc.id);
+
+    let lng = parseFloat(loc.lng);
+    let lat = parseFloat(loc.lat);
+
+    if (Number.isNaN(lng) || Number.isNaN(lat)) {
+      const coords = await geocodeLocation(loc.address);
+      if (!coords) return null;
+      [lng, lat] = coords;
+      loc.lng = lng;
+      loc.lat = lat;
+    }
+
+    const marker = createMarker(loc, [lng, lat]);
+    markersById.set(loc.id, marker);
+    return marker;
+  };
+
+  const initCustomMarkers = async () => {
+    const bounds = new mapboxgl.LngLatBounds();
+
+    for (const loc of customLocations) {
+      const marker = await ensureMarkerForLocation(loc);
+      if (marker) bounds.extend(marker.getLngLat());
+    }
+
+    if (!bounds.isEmpty()) {
+      map.fitBounds(bounds, { padding: 60, maxZoom: 14 });
+    }
+  };
+
+  const buildCustomSuggestionMarkup = (loc) => `
+    <li class="p-2 hover:bg-gray-100 cursor-pointer"
+        data-type="custom"
+        data-id="${loc.id}">
+        ${loc.title ? `<strong>${loc.title}</strong><br>` : ''}${loc.address}
+    </li>
+  `;
+
+  const renderSuggestions = (customItems = [], mapboxItems = []) => {
+    if (!customItems.length && !mapboxItems.length) {
+      list.innerHTML = '';
+      list.classList.add('hidden');
+      return;
+    }
+
+    const customHtml = customItems.map(buildCustomSuggestionMarkup).join('');
+    const mapboxHtml = mapboxItems.map(f => `
+      <li class="p-2 hover:bg-gray-100 cursor-pointer"
+          data-type="mapbox"
+          data-lng="${f.center[0]}"
+          data-lat="${f.center[1]}"
+          data-name="${f.place_name.replace(/"/g, '&quot;')}">
+          ${f.place_name}
+      </li>
+    `).join('');
+
+    list.innerHTML = customHtml + mapboxHtml;
+    list.classList.remove('hidden');
+  };
+
+  const filterCustomSuggestions = (query) => {
+    if (!query) return customLocations;
+    const q = query.toLowerCase();
+    return customLocations.filter(loc =>
+      (loc.address && loc.address.toLowerCase().includes(q)) ||
+      (loc.title && loc.title.toLowerCase().includes(q))
+    );
+  };
+
+  input.addEventListener('focus', () => {
+    const customItems = filterCustomSuggestions(input.value.trim());
+    renderSuggestions(customItems);
+  });
+
+  input.addEventListener('blur', () => {
+    setTimeout(() => list.classList.add('hidden'), 120);
+  });
 
   input.addEventListener('input', async () => {
     const query = input.value.trim();
+    const customItems = filterCustomSuggestions(query);
+
     if (query.length < 3) {
-      list.innerHTML = '';
-      list.classList.add('hidden');
+      renderSuggestions(customItems);
+      if (controller) controller.abort();
       return;
     }
 
@@ -94,79 +232,59 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch(url, { signal: controller.signal });
       const data = await res.json();
-      console.log('📍 Suggestions:', data.features);
-
-      if (!data.features.length) {
-        list.innerHTML = '';
-        list.classList.add('hidden');
-        return;
-      }
-
-      list.innerHTML = data.features.map(f =>
-        `<li class="p-2 hover:bg-gray-100 cursor-pointer"
-             data-lng="${f.center[0]}"
-             data-lat="${f.center[1]}"
-             data-name="${f.place_name.replace(/"/g, '&quot;')}">
-             ${f.place_name}
-         </li>`
-      ).join('');
-      list.classList.remove('hidden');
+      renderSuggestions(customItems, data.features || []);
     } catch (error) {
       if (error.name === 'AbortError') return;
       console.error('❌ Geocoding error:', error);
     }
   });
 
-  list.addEventListener('click', (e) => {
+  list.addEventListener('click', async (e) => {
     const li = e.target.closest('li');
     if (!li) return;
 
-    const lng = parseFloat(li.dataset.lng);
-    const lat = parseFloat(li.dataset.lat);
-    const name = li.dataset.name;
-
-    input.value = name;
     list.classList.add('hidden');
 
-    console.log('✅ Selected suggestion:', name, { lng, lat });
+    if (li.dataset.type === 'custom') {
+      const loc = customLocations.find(item => String(item.id) === li.dataset.id);
+      if (!loc) return;
 
-    if (activeMarker) activeMarker.remove();
+      input.value = loc.address;
+      const marker = await ensureMarkerForLocation(loc);
+      if (!marker) return;
 
-    // === кастомний HTML-маркер ===
-    const markerEl = document.createElement('div');
-    markerEl.className = 'yuum-marker';
-    markerEl.innerHTML = `
-    <div class="yuum-marker__label">YUUM CAFÉ</div>
-      <div class="yuum-marker__pin">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="24" fill="#474747"/>
-            <path d="M24.001 13.0996C28.8175 13.0996 32.7292 17.0107 32.7295 21.8271C32.7295 24.803 31.3657 27.5004 29.665 29.6826C28.4132 31.2896 27.0004 32.595 25.8975 33.5C25.3469 33.9518 24.8754 34.3025 24.543 34.5391C24.3768 34.6573 24.2453 34.747 24.1562 34.8066C24.1119 34.8363 24.078 34.8585 24.0557 34.873C24.0445 34.8803 24.0356 34.8862 24.0303 34.8896L24.001 34.8994C23.9952 34.8993 23.9853 34.8973 23.9746 34.8906C23.9739 34.8902 23.9726 34.8893 23.9717 34.8887C23.9664 34.8852 23.9581 34.8801 23.9473 34.873C23.9249 34.8585 23.891 34.8363 23.8467 34.8066C23.7577 34.747 23.6261 34.6572 23.46 34.5391C23.1274 34.3026 22.6558 33.9523 22.1055 33.501H22.1064C21.0034 32.594 19.5906 31.2906 18.3389 29.6826H18.3379C16.6373 27.5004 15.2734 24.8031 15.2734 21.8271C15.2737 17.0109 19.1847 13.0999 24.001 13.0996ZM24.001 17.5283C21.6276 17.5286 19.7024 19.4538 19.7021 21.8271C19.7021 24.2003 21.627 26.1287 24.001 26.1289C26.3751 26.1289 28.3008 24.2005 28.3008 21.8271C28.3005 19.4536 26.3746 17.5283 24.001 17.5283Z" stroke="white"/>
-        </svg>
-      </div>
-    `;
+      activeSelectionMarker = marker;
+      map.flyTo({ center: marker.getLngLat(), zoom: 13 });
+      marker.togglePopup();
+      return;
+    }
 
-    activeMarker = new mapboxgl.Marker({ element: markerEl, anchor: 'bottom' })
-      .setLngLat([lng, lat])
-      .setPopup(new mapboxgl.Popup({ offset: 35, closeButton: false })
-        .setHTML(`
-          <div class="yuum-popup">
-            <strong>${name}</strong>
-            <p>${hours}</p>
-            <p>${phone}</p>
-          </div>
-        `))
-      .addTo(map);
+    if (li.dataset.type === 'mapbox') {
+      const lng = parseFloat(li.dataset.lng);
+      const lat = parseFloat(li.dataset.lat);
+      const name = li.dataset.name;
 
-    map.flyTo({ center: [lng, lat], zoom: 13 });
+      input.value = name;
+
+      if (searchMarker) searchMarker.remove();
+      searchMarker = new mapboxgl.Marker({ element: buildMarkerElement('Found spot'), anchor: 'bottom' })
+        .setLngLat([lng, lat])
+        .addTo(map);
+
+      activeSelectionMarker = searchMarker;
+      map.flyTo({ center: [lng, lat], zoom: 13 });
+    }
   });
 
   button.addEventListener('click', () => {
-    if (activeMarker) {
-      activeMarker.togglePopup();
+    if (activeSelectionMarker) {
+      activeSelectionMarker.togglePopup();
     } else {
       alert('Please select a location from the list first.');
     }
   });
+
+  initCustomMarkers();
 });
 </script>
 
@@ -243,11 +361,32 @@ document.addEventListener('DOMContentLoaded', () => {
     { "type":"text","id":"default_lat","label":"Default latitude","default":"51.5072" },
     { "type":"text","id":"default_lng","label":"Default longitude","default":"-0.1276" },
     { "type":"range","id":"default_zoom","label":"Default zoom","min":3,"max":16,"step":1,"default":10 },
-    { "type":"text","id":"location_title","label":"Location title","default":"Our Location" },
-    { "type":"text","id":"location_info","label":"Location info HTML","default":"<p>Hours | 7:30am – 6:00pm</p><p>Contact | +44 7000 000000</p>" },
-    { "type":"text","id":"location_phone","label":"Phone number","default":"+44 7000 000000" },
-    { "type":"text","id":"location_hours","label":"Opening hours","default":"7:30am – 6:00pm" }
+    { "type":"header","content":"Markers (managed via blocks below)" }
   ],
-  "presets":[{ "name":"Visit Us","category":"Contact" }]
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Location",
+      "settings": [
+        { "type":"text","id":"title","label":"Location name","default":"YUUM Café" },
+        { "type":"text","id":"address","label":"Address","default":"19 Air Street, London W1B 5AG, United Kingdom" },
+        { "type":"text","id":"hours","label":"Working hours","default":"Mon–Sat 8:00–18:00" },
+        { "type":"text","id":"phone","label":"Phone","default":"+44 20 7946 0000" },
+        { "type":"text","id":"lat","label":"Latitude (optional)","info":"If empty, the address will be geocoded automatically." },
+        { "type":"text","id":"lng","label":"Longitude (optional)","info":"If empty, the address will be geocoded automatically." }
+      ]
+    }
+  ],
+  "presets":[
+    {
+      "name":"Visit Us",
+      "category":"Contact",
+      "blocks":[
+        { "type":"location","settings":{"title":"YUUM Café","address":"19 Air Street, London W1B 5AG, United Kingdom","hours":"Mon–Sat 8:00–18:00","phone":"+44 20 7946 0000"} },
+        { "type":"location","settings":{"title":"YUUM Soho","address":"43 Carnaby St, London W1F 7EA, United Kingdom","hours":"Daily 9:00–19:00","phone":"+44 20 7946 0001"} },
+        { "type":"location","settings":{"title":"YUUM Shoreditch","address":"3 Holywell Ln, London EC2A 3ET, United Kingdom","hours":"Mon–Fri 7:30–17:30","phone":"+44 20 7946 0002"} }
+      ]
+    }
+  ]
 }
 {% endschema %}
