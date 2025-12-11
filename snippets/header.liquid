@@ -238,70 +238,152 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Add click event to all search buttons
-    const searchButtons = document.querySelectorAll('.b-header__search-toggle, .b-header_search button');
+  (function() {
+    const LOCK_CLASS = 'scroll-locked';
+    const ALLOW_SELECTOR = '.c-search-modal .predictive-grid';
 
-    searchButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        console.log('🔍 Search button clicked');
+    let lockCount = 0;
+    let wheelHandler = null;
+    let touchHandler = null;
+    let keyHandler = null;
 
+    function isInsideAllowed(target) {
+      if (!target) return false;
+      return !!target.closest(ALLOW_SELECTOR);
+    }
+
+    function onWheel(e) {
+      if (isInsideAllowed(e.target)) return; // дозволяємо скрол всередині пошуку
+      e.preventDefault();
+    }
+
+    function onTouchMove(e) {
+      if (isInsideAllowed(e.target)) return;
+      e.preventDefault();
+    }
+
+    function onKeyDown(e) {
+      // клавіші, що скролять
+      const keys = [32, 33, 34, 35, 36, 38, 40]; // Space, PgUp, PgDn, End, Home, Up, Down
+      if (!keys.includes(e.keyCode)) return;
+
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (['input', 'textarea', 'select'].includes(tag)) return;
+      if (isInsideAllowed(e.target)) return;
+
+      e.preventDefault();
+    }
+
+    function lockScroll() {
+      if (lockCount === 0) {
+        document.documentElement.classList.add(LOCK_CLASS);
+        document.body.classList.add(LOCK_CLASS);
+
+        wheelHandler = onWheel;
+        touchHandler = onTouchMove;
+        keyHandler = onKeyDown;
+
+        window.addEventListener('wheel', wheelHandler, { passive: false });
+        window.addEventListener('touchmove', touchHandler, { passive: false });
+        window.addEventListener('keydown', keyHandler);
+      }
+      lockCount++;
+    }
+
+    function unlockScroll() {
+      if (lockCount <= 0) return;
+
+      lockCount--;
+      if (lockCount > 0) return; // ще є інші модалки — не розлочуємо
+
+      document.documentElement.classList.remove(LOCK_CLASS);
+      document.body.classList.remove(LOCK_CLASS);
+
+      if (wheelHandler) {
+        window.removeEventListener('wheel', wheelHandler);
+        wheelHandler = null;
+      }
+      if (touchHandler) {
+        window.removeEventListener('touchmove', touchHandler);
+        touchHandler = null;
+      }
+      if (keyHandler) {
+        window.removeEventListener('keydown', keyHandler);
+        keyHandler = null;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchButtons = document.querySelectorAll('.b-header__search-toggle, .b-header_search button');
+
+      function openSearchUI() {
         const header = document.querySelector('.b-header');
         const wrapper = document.querySelector('.b-header__wrapper');
 
-        console.log('Header found:', header);
-        console.log('Wrapper found:', wrapper);
+        if (header) header.classList.add('search-open');
+        if (wrapper) wrapper.classList.add('has-search-open');
 
-        if (header) {
-          header.classList.add('search-open');
-          console.log('✅ Added search-open class to header');
+        // 🔒 блокуємо скрол сторінки
+        lockScroll();
+      }
+
+      function closeSearchUI() {
+        const header = document.querySelector('.b-header');
+        const wrapper = document.querySelector('.b-header__wrapper');
+
+        if (header) header.classList.remove('search-open');
+        if (wrapper) wrapper.classList.remove('has-search-open');
+
+        // 🔓 повертаємо скрол
+        unlockScroll();
+      }
+
+      // Кнопки відкриття
+      searchButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          console.log('🔍 Search button clicked');
+          openSearchUI();
+        });
+      });
+
+      // Close button handler
+      document.querySelectorAll('.c-search-modal__close').forEach(closeBtn => {
+        closeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          closeSearchUI();
+          console.log('✅ Closed search via close button');
+        });
+      });
+
+      // Escape key handler
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const header = document.querySelector('.b-header');
+          if (header && header.classList.contains('search-open')) {
+            closeSearchUI();
+            console.log('✅ Closed search via Escape key');
+          }
         }
+      });
 
-        if (wrapper) {
-          wrapper.classList.add('has-search-open');
-          console.log('✅ Added has-search-open class to wrapper');
+      // Клік поза модалкою — закриваємо (якщо потрібно)
+      document.addEventListener('click', function(e) {
+        const isSearchButton =
+          e.target.closest('.b-header__search-toggle') ||
+          e.target.closest('.b-header_search button');
+
+        const isModal = e.target.closest('.c-search-modal');
+
+        // якщо клік усередині модалки або по кнопці — нічого не робимо
+        if (isSearchButton || isModal) return;
+
+        const header = document.querySelector('.b-header');
+        if (header && header.classList.contains('search-open')) {
+          closeSearchUI();
+          console.log('✅ Closed search via outside click');
         }
       });
     });
-
-    // Close button handler
-    document.querySelectorAll('.c-search-modal__close').forEach(closeBtn => {
-      closeBtn.addEventListener('click', function() {
-        const header = document.querySelector('.b-header');
-        const wrapper = document.querySelector('.b-header__wrapper');
-
-        if (header) header.classList.remove('search-open');
-        if (wrapper) wrapper.classList.remove('has-search-open');
-
-        console.log('✅ Closed search via close button');
-      });
-    });
-
-    // Escape key handler
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        const header = document.querySelector('.b-header');
-        const wrapper = document.querySelector('.b-header__wrapper');
-
-        if (header) header.classList.remove('search-open');
-        if (wrapper) wrapper.classList.remove('has-search-open');
-
-        console.log('✅ Closed search via Escape key');
-      }
-    });
-
-    // Optional: Close search when clicking outside (remove if you don't want this)
-    document.addEventListener('click', function(e) {
-      const isSearchButton = e.target.closest('.b-header__search-toggle') ||
-        e.target.closest('.b-header_search button');
-
-      if (!isSearchButton) {
-        const header = document.querySelector('.b-header');
-        const wrapper = document.querySelector('.b-header__wrapper');
-
-        if (header) header.classList.remove('search-open');
-        if (wrapper) wrapper.classList.remove('has-search-open');
-      }
-    });
-  });
+  })();
 </script>
+

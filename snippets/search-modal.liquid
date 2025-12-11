@@ -5,7 +5,7 @@
   x-init="$watch('$store.search.isOpen', v => { if (!v) $store.search.query = '' })"
   @keydown.escape.window="$store.search.close()">
 
-  
+
   <!-- Modal -->
   <div
     class="c-search-modal"
@@ -35,7 +35,7 @@
               x-model="$store.search.query"
               @input="$store.search.onInput()"
               style="flex:1; height:40px; border:0; border-bottom:1px solid #CFCFCF; background:transparent; outline:none;">
-            
+
           </form>
           <div class="flex justify-between w-full md:w-auto items-end">
             <p class="md:hidden text-[14px] uppercase text-[#474747] leading-[16px] tracking-[5px]">Search</p>
@@ -52,7 +52,7 @@
         </template>
 
         <!-- Predictive results HTML from section -->
-        <div class="c-search-modal__results">
+        <div class="c-search-modal__results" data-lenis-prevent>
 
             {%- comment -%} POPULAR: видно лише коли запит порожній {%- endcomment -%}
             <div x-show="!$store.search.query">
@@ -81,11 +81,11 @@
                     <div class="ps-col flex justify-end">
                         <div class="flex flex-col max-w-[504px]">
                             <p class="ps-heading">Popular products</p>
-                        
+
                             {%- assign col_handle = settings.popular_products_collection -%}
                             {%- assign pop_limit  = settings.popular_products_limit | default: 6 -%}
                             {%- assign pop_col    = collections[col_handle] -%}
-                        
+
                             {%- if pop_col and pop_col.products_count > 0 -%}
                             <div class="predictive-grid pre-search-grid">
                                 {%- for product in pop_col.products limit: pop_limit -%}

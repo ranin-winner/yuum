@@ -1230,3 +1230,10 @@ body.body--info-banner-first main {
     padding-top: 60px;
   }
 }
+
+html.scroll-locked,
+body.scroll-locked {
+  overflow: hidden;
+  overscroll-behavior: none;
+  height: 100%;
+}
