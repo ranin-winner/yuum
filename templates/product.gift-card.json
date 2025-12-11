@@ -156,47 +156,18 @@
         "title": "Description",
         "description_width_desk": "100%",
         "description_width_mob": "100%",
-        "richtext": "<p>Since it’s digital, there’s no waiting for shipping and no physical card to keep track of. The recipient receives it instantly, making it ideal for last-minute gifts or reaching friends and family afar. They can browse our full range of treats and select their favorites whenever they’re ready.<br/><br/>Please note: <br/>This gift card is an electronic delivery via email, not a physical item. Whether your recipient is a seasoned mochi lover or new to our flavors, the Yuum Gift Card offers a unique journey into deliciousness—courtesy of your thoughtful gesture.</p>",
+        "richtext": "<p>Since it’s digital, there’s no waiting for shipping and no physical card to keep track of. The recipient receives it instantly, making it ideal for last-minute gifts or reaching friends and family afar. They can browse our full range of treats and select their favorites whenever they’re ready.<br/><br/><strong>Please note: </strong><br/>This gift card is an electronic delivery via email, not a physical item. Whether your recipient is a seasoned mochi lover or new to our flavors, the Yuum Gift Card offers a unique journey into deliciousness—courtesy of your thoughtful gesture.</p>",
         "border_visible": false
       }
     },
     "image_tips_card_NagFt8": {
       "type": "image-tips-card",
-      "blocks": {
-        "tip_p3fmqH": {
-          "type": "tip",
-          "settings": {
-            "tip_title": "Complete defrosting",
-            "tip_text": "<p>Allow mochi to defrost completely at room temperature before enjoying the dessert. This takes approximately 2-3 hours.</p>"
-          }
-        },
-        "tip_KWTGd4": {
-          "type": "tip",
-          "settings": {
-            "tip_title": "Cooling before serving",
-            "tip_text": "<p>To achieve the perfect texture and flavour, after defrosting, place the Mochi in the refrigerator at +4°C for 40 minutes. This will ensure a gentle and slow defrosting process, keeping the dessert tender and fresh.</p>"
-          }
-        },
-        "tip_K674X4": {
-          "type": "tip",
-          "settings": {
-            "tip_title": "Term of use",
-            "tip_text": "<p>It is recommended to consume the dessert within 24 hours after it has been completely defrosted to enjoy its original taste.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "tip_p3fmqH",
-        "tip_KWTGd4",
-        "tip_K674X4"
-      ],
-      "disabled": true,
       "name": "Image & Tips Card",
       "settings": {
-        "image": "shopify://shop_images/Rectangle_1612.png",
+        "image": "shopify://shop_images/Rectangle_1612_18737478-bbf2-423c-a497-0f01c290cbfe.png",
         "image_alt": "",
         "card_title": "How to enjoy moti better Mochi:",
-        "card_text": ""
+        "card_text": "<p>How often have you mastered your “Oh, I absolutely love it!” face… only to quietly queue up for a return later? <br/><br/>Gift-giving can be a right pickle, but we’re here to make it a piece of cake or should we say a mochi moment? Introducing YUUM Digital Gift Cards.<br/><br/>Give the gift of choice and flavour: a world of mochi magic waiting to be enjoyed at your recipient’s pace. No faff with shipping, no need to panic buy—it’s instant joy delivered straight to their inbox.  <br/><br/>Recommended for your anime-mad mate or that tricky-to-please relative.  Sorted for gifts that won’t go back to the shop?</p>"
       }
     },
     "trial_faq_Yyqc9p": {
