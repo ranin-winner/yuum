@@ -19,22 +19,46 @@
     },
     "visit_us_tpWtFt": {
       "type": "visit-us",
+      "blocks": {
+        "location_6pTj7b": {
+          "type": "location",
+          "settings": {
+            "title": "YUUM Café",
+            "address": "19 Air Street, London W1B 5AG, United Kingdom",
+            "hours": "Mon–Sat 8:00–18:00",
+            "phone": "+44 20 7946 0000",
+            "lat": "51.5120",
+            "lng": "0.1280"
+          }
+        },
+        "location_pGQpCR": {
+          "type": "location",
+          "settings": {
+            "title": "YUUM Café",
+            "address": "19 Air Street, London W1B 5AG, United Kingdom",
+            "hours": "Mon–Sat 8:00–18:00",
+            "phone": "+44 20 7946 0000",
+            "lat": "51.5074",
+            "lng": "0.1278"
+          }
+        }
+      },
+      "block_order": [
+        "location_6pTj7b",
+        "location_pGQpCR"
+      ],
       "name": "Visit Us",
       "settings": {
         "title": "Visit Us",
-        "subtitle": "<p>YUUM is a combination of modern design and technology with high quality and original taste of natural authentic products from different cultures with quality service.<\/p>",
+        "subtitle": "<p>YUUM is a combination of modern design and technology with high quality and original taste of natural authentic products from different cultures with quality service.</p>",
         "input_label": "Enter Postcode or City",
         "input_placeholder": "Enter Postcode",
         "button_label": "CONFIRM",
         "mapbox_public_token": "pk.eyJ1IjoieXV1bSIsImEiOiJjbWhlbjdjY2MwMTdsMnFwaWdnY211ZXgxIn0.tH0y8CuBWZZWKwF0THdK7g",
-        "mapbox_style": "mapbox:\/\/styles\/mapbox\/streets-v12",
+        "mapbox_style": "mapbox://styles/mapbox/streets-v12",
         "default_lat": "51.5072",
         "default_lng": "-0.1276",
-        "default_zoom": 10,
-        "location_title": "Our Location",
-        "location_info": "Hours | 7:30am – 6:00pmContact | +44 7000 000000",
-        "location_phone": "+44 7000 000000",
-        "location_hours": "7:30am – 6:00pm"
+        "default_zoom": 10
       }
     },
     "locations_slider_iTxmz4": {
@@ -43,21 +67,21 @@
         "location_rkVRTc": {
           "type": "location",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
+            "image": "shopify://shop_images/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
             "title": "48 Berwick Street, London W1F 8SJ",
             "subtitle": "View directions",
             "hours": "7:30am - 6:00pm",
             "phone": "+44 7000 000000",
             "badge": "London",
-            "link_page": "",
-            "link_url": "shopify:\/\/products\/all-flavours-discovery-mochi-bundle",
+            "link_page": "location-1",
+            "link_url": "shopify://products/all-flavours-discovery-mochi-bundle",
             "link_label": "More info"
           }
         },
         "location_xTxRd6": {
           "type": "location",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
+            "image": "shopify://shop_images/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
             "title": "Kyiv, Downtown",
             "subtitle": "",
             "hours": "",
@@ -71,7 +95,7 @@
         "location_zVFaMx": {
           "type": "location",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
+            "image": "shopify://shop_images/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
             "title": "Kyiv, Downtown",
             "subtitle": "",
             "hours": "",
@@ -85,7 +109,7 @@
         "location_kB7aqH": {
           "type": "location",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
+            "image": "shopify://shop_images/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
             "title": "Kyiv, Downtown",
             "subtitle": "",
             "hours": "",
@@ -99,7 +123,7 @@
         "location_hGmJtW": {
           "type": "location",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
+            "image": "shopify://shop_images/Image_13fc2955-3a7a-4012-b316-d7a521c026cb.png",
             "title": "Kyiv, Downtown",
             "subtitle": "",
             "hours": "",
@@ -120,9 +144,9 @@
       ],
       "name": "Locations slider",
       "settings": {
-        "title": "<p>Locations<\/p>",
+        "title": "<p>Locations</p>",
         "subtitle": "",
-        "section_text_1": "<p>In the cafe you can try both the main collection of authentic products and unusual seasonal novelties, turning every day of life into a holiday. A specially selected music collection, purity of style and high-quality service make each new visit desirable... With benefit for yourself!<\/p>",
+        "section_text_1": "<p>In the cafe you can try both the main collection of authentic products and unusual seasonal novelties, turning every day of life into a holiday. A specially selected music collection, purity of style and high-quality service make each new visit desirable... With benefit for yourself!</p>",
         "section_badge_icon": "",
         "section_badge_text": "",
         "section_text_2": "",
