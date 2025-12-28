@@ -1,21 +1,27 @@
 {%- assign p = product | default: item -%}
 {%- if p == blank -%}{% break %}{%- endif -%}
 
-{%- assign use_simple_hover =
-  simple_hover
-  | default: section.settings.simple_hover
-  | default: false
+{%- liquid
+  assign hover_metafield = p.metafields.custom.multy_step_hover_effect
+  assign hover_mode = 'simple'
+  if hover_metafield and hover_metafield.value == true
+    assign hover_mode = 'full'
+  endif
+  assign wishlist_top_classes = ''
+  if hover_mode == 'full'
+    assign wishlist_top_classes = 'md:hidden'
+  endif
 -%}
-{%- assign hover_mode = use_simple_hover | default: false | stringify -%}
 
 <article
   class="product-card"
-  data-hover="{% if use_simple_hover %}simple{% else %}full{% endif %}"
+  data-hover="{{ hover_mode }}"
   data-anim="fade-in-slide-up"
   x-data="productCard({
     variantId: '{{ p.first_available_variant.id }}',
     productUrl: '{{ p.url }}',
-    priceCents: {{ p.price }}
+    priceCents: {{ p.price }},
+    hoverMode: '{{ hover_mode }}'
   })"
   data-money-format="{{ shop.money_format | escape | strip_newlines }}"
   data-tags="{{ p.tags | join: ' ' | downcase }}"
@@ -25,18 +31,8 @@
       <div class="badges">
         {% render 'product-badges', product: product, location: 'pdp' %}
       </div>
-      <div class="wishlist-btn-inner">
+      <div class="wishlist-btn-inner {{ wishlist_top_classes }}">
         {% render 'wishlisthero-collection-product' with product: product %}
-        {% comment %} <button
-          type="button"
-          aria-label="Add to wishlist"
-          data-action="wish"
-          @click.stop.prevent="toggleWish"
-        >
-          <svg viewBox="0 0 24 24" class="pcd__wish-ic" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
-        </button> {% endcomment %}
       </div>
     </div>
 
@@ -70,7 +66,7 @@
   </div>
 
   {%- comment -%} Повний десктопний overlay залишаємо в DOM, але він буде вимкнений стилями коли simple {%- endcomment -%}
-  <div class="product-card__hover" @click.stop="handleAction($event)">
+  <div class="product-card__hover" @click="handleAction($event)">
     <div class="pcd" x-ref="details">
       <header class="pcd__header">
         <h4 class="pcd__title">{{ p.title }}</h4>
@@ -110,7 +106,11 @@
           <button class="pcd__add btn" data-action="add">
             <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
           </button>
-            {% render 'wishlisthero-collection-product' with product: product %}
+          <template x-if="isDesktopFull">
+            <div class="hidden md:block">
+              {% render 'wishlisthero-collection-product' with product: product %}
+            </div>
+          </template>
         </div>
 
         <div class="pcd__read">
@@ -125,16 +125,47 @@
 
 <script>
 document.addEventListener('alpine:init', () => {
-  Alpine.data('productCard', ({ variantId, productUrl, priceCents }) => ({
+  Alpine.data('productCard', ({ variantId, productUrl, priceCents, hoverMode = 'simple' }) => ({
     // base state
     variantId,
     productUrl,
     priceCents,
     qty: 1,
     wish: false,
+    desktopHoverMode: hoverMode === 'full' ? 'full' : 'simple',
+    isMobile: false,
+    _hoverMql: null,
+    _applyHoverMode: null,
+
+    init(){
+      this.setupHoverModeWatcher()
+    },
+
+    setupHoverModeWatcher(){
+      if (!this.$el) return
+      if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+        this.$el.dataset.hover = this.desktopHoverMode
+        return
+      }
+      this._hoverMql = window.matchMedia('(max-width: 767.98px)')
+      const applyMode = () => {
+        this.isMobile = this._hoverMql.matches
+        const targetMode = this.isMobile ? 'simple' : this.desktopHoverMode
+        this.$el.dataset.hover = targetMode
+      }
+      this._applyHoverMode = applyMode
+      applyMode()
+      this._hoverMql.addEventListener('change', applyMode)
+    },
+    destroyed(){
+      if (this._hoverMql && this._applyHoverMode) {
+        this._hoverMql.removeEventListener('change', this._applyHoverMode)
+      }
+    },
 
     // derived
     get mode() { return (this.$el?.dataset?.hover || 'full'); },
+    get isDesktopFull() { return !this.isMobile && this.desktopHoverMode === 'full' },
 
     // actions
     inc(){ this.qty++ },
@@ -158,6 +189,7 @@ document.addEventListener('alpine:init', () => {
       if (this.mode !== 'full') return
       const btn = e.target.closest('[data-action]')
       if(!btn) return
+      e.stopPropagation()
       const action = btn.dataset.action
       if(action==='inc'){ this.inc() }
       if(action==='dec'){ this.dec() }

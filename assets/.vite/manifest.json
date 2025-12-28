@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-CzR4avFg.css",
+    "file": "main-SzxtUn8q.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-Bwy1_Je9.js",
+    "file": "main.theme-BBE_mDGI.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp-Dw3vRwSu.css",
+    "file": "page-pdp-B_9MXJqC.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -58,17 +58,17 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-list.scss": {
-    "file": "blog-post-list-BBHXd93I.css",
+    "file": "blog-post-list-D9M1JZeQ.css",
     "src": "frontend/styles/sections/blog-post-list.scss",
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-singe.scss": {
-    "file": "blog-post-singe-Cfso60_H.css",
+    "file": "blog-post-singe-D2GA1JXq.css",
     "src": "frontend/styles/sections/blog-post-singe.scss",
     "isEntry": true
   },
   "frontend/styles/sections/brand-quote.scss": {
-    "file": "brand-quote-CxEcvoz_.css",
+    "file": "brand-quote-DsJJb4ur.css",
     "src": "frontend/styles/sections/brand-quote.scss",
     "isEntry": true
   },
@@ -88,7 +88,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/careers.scss": {
-    "file": "careers-BJKfPVop.css",
+    "file": "careers-D3tYhkWc.css",
     "src": "frontend/styles/sections/careers.scss",
     "isEntry": true
   },
@@ -98,7 +98,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/collections-switcher.scss": {
-    "file": "collections-switcher-CpXnaVKo.css",
+    "file": "collections-switcher-Bb9BLD1U.css",
     "src": "frontend/styles/sections/collections-switcher.scss",
     "isEntry": true
   },
@@ -148,7 +148,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/join-us.scss": {
-    "file": "join-us-fGdATl1S.css",
+    "file": "join-us-C31oUx8Q.css",
     "src": "frontend/styles/sections/join-us.scss",
     "isEntry": true
   },
@@ -179,7 +179,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-fdjbix_6.css",
+    "file": "products-section-D4L5FAVL.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
@@ -194,7 +194,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/search.scss": {
-    "file": "search-B97-Ygux.css",
+    "file": "search-DcdtTAAG.css",
     "src": "frontend/styles/sections/search.scss",
     "isEntry": true
   },
@@ -209,7 +209,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/visit-us.scss": {
-    "file": "visit-us-BpwSYZB-.css",
+    "file": "visit-us-NcGiKWtb.css",
     "src": "frontend/styles/sections/visit-us.scss",
     "isEntry": true
   }
