@@ -63,6 +63,7 @@ $border-medium: #ADAEB0;
   border: 1px solid $border-medium;
   border-radius: 20px;
   overflow: hidden;
+  position: relative;
 
   &--large {
     flex: 0 0 calc(50% - 12px);
@@ -74,6 +75,14 @@ $border-medium: #ADAEB0;
     display: flex;
     align-items: stretch;
     flex: 1;
+  }
+
+  &__link-global {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
   }
 
   &__image {

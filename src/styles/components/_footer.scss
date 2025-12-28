@@ -28,6 +28,11 @@ $tablet-resolutions: 976px;
 
   &-btn {
     width: 145px;
+    border: 1px solid transparent;
+
+    &:hover {
+      border-color: #F5F5F5 !important;
+    }
 
     @media (max-width: $tablet-resolutions) {
       width: 100%;

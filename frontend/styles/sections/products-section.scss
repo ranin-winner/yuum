@@ -3,6 +3,10 @@
 .products-section {
     position: relative;
 
+    @media (max-width: 678px) {
+      padding-bottom: 26px;
+    }
+
     &-bg {
         .swiper-box .swiper-pagination-progressbar-fill {
             background: #fff;
@@ -14,9 +18,21 @@
               border: 1px solid #474747;
             }
         }
+
+        .products-section__header {
+          margin-bottom: 50px;
+
+          @media (max-width: 1024px) {
+            margin-bottom: 30px;
+          }
+        }
     }
 
     &__header {
+        @media (max-width: 768px) {
+          gap: 0;
+        }
+
         &--title {
             color: #474747;
             margin-bottom: 12px;
@@ -52,7 +68,7 @@
           align-items: flex-end;
 
           @media (max-width: 767px) {
-            align-items: center;
+            align-items: start;
           }
         }
 
@@ -102,9 +118,9 @@
     }
 
     .swiper-pagination {
-        bottom: -60px;
+        bottom: -40px;
         @media (max-width: 1024px) {
-            bottom: -40px;
+            bottom: -24px;
         }
 
     }

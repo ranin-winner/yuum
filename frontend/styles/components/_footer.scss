@@ -92,8 +92,28 @@
     opacity: 0.9;
     transition: opacity 0.3s ease;
     vertical-align: middle;
-    display: block;
+    display: inline-block;
     margin-bottom: 16px;
+    position: relative;
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      width: 0;
+      height: 1px;
+      background-color: #fff;
+      transition: width 0.3s;
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
 
     &:last-child {
       margin-bottom: 0;
@@ -101,6 +121,11 @@
 
     &:hover {
       opacity: 1;
+
+      &::before,
+      &::after {
+        width: 50%;
+      }
     }
   }
 
@@ -128,6 +153,12 @@
 
   .btn.btn-light {
     min-width: 200px;
+    border: 1px solid transparent;
+
+    &:hover {
+      border-color: #F5F5F5;
+    }
+
     @include cfg.media(max-m) {
       width: 100%;
     }

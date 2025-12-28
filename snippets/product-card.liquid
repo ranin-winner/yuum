@@ -92,9 +92,17 @@
         <div class="pcd__qty">
           <span class="pcd__qty-label">Quantity</span>
           <div class="pcd__qty-box">
-            <button type="button" class="pcd__qty-btn" data-action="dec">−</button>
+            <button type="button" class="pcd__qty-btn" data-action="dec">
+              <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0V1.49736H12V0H0Z" fill="#474747"/>
+              </svg>
+            </button>
             <span class="pcd__qty-val" x-text="qty">1</span>
-            <button type="button" class="pcd__qty-btn" data-action="inc">+</button>
+            <button type="button" class="pcd__qty-btn" data-action="inc">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.74868 5.25132V0H5.25132V5.25132H0V6.74868H5.25132V12H6.74868V6.74868H12V5.25132H6.74868Z" fill="#474747"/>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -102,6 +110,7 @@
           <button class="pcd__add btn" data-action="add">
             <span x-text="totalPrice + ' · ADD TO CART'">{{ p.price | money }} · ADD TO CART</span>
           </button>
+            {% render 'wishlisthero-collection-product' with product: product %}
         </div>
 
         <div class="pcd__read">

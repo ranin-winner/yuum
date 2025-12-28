@@ -10,7 +10,7 @@
 
 <section
   id="productSection-{{ section.id }}"
-  class="products-section mx-auto md:py-[60px] py-[60px] md:pt-0 pt-0 anim-slide-in-bottom"
+  class="products-section mx-auto md:py-[60px] anim-slide-in-bottom"
 >
   <div class="container">
     <div class="products-section__header grid md:grid-cols-2 grid-cols-1 gap-[24px] mb-[50px]">
@@ -69,7 +69,7 @@
           </svg>
         </div>
         <div class="container">
-          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0" data-anim="fade-in-slide-up"> {% comment %} ДОДАВ {% endcomment %}
+          <div id="swiper-container-{{ section.id }}" class="swiper-container md:!pb-0" data-anim="fade-in-slide-up"> {% comment %} ДОДАВ {% endcomment %}
             <div class="swiper-wrapper">
               {% for item in collection %}
                 <div class="swiper-slide">
@@ -147,6 +147,12 @@
           autoHeight: true,
           // на мобайлі логікою не керуємо — стилями сховаєш стрілки
           navigation: { enabled: false },
+          pagination: { enabled: true, type: 'progressbar' }
+        },
+        520: {
+          slidesPerView: 2,
+          autoHeight: true,
+          navigation: { enabled: true },
           pagination: { enabled: true, type: 'progressbar' }
         },
         768: {

@@ -301,6 +301,7 @@
                                    text-[14px] leading-4 tracking-[4px] uppercase
                                    transition hover:opacity-90 active:opacity-80
                                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10 gap-2">
+                                £
                                 <span class="product-price" x-text="totalPrice">
                                   {{ currentVariant.price | money }}
                                 </span>
@@ -414,16 +415,16 @@
         <div x-data="toastBackToBuy('#pdp-buy-buttons')"
         x-show="visible"
         x-transition.opacity.duration.200ms
-        class="fixed inset-x-0 bottom-0 z-50 w-full">
-            <div class="rounded-tl-[20px] rounded-tr-[20px] border border-[#DADADA] bg-white shadow-regular p-[16px]">
+        class="fixed inset-x-0 bottom-0 z-50 w-full product-scroll-top">
+            <div class="rounded-tl-[20px] rounded-tr-[20px] border border-[#DADADA] bg-white shadow-regular p-[30px]">
                 <div class="flex flex-wrap justify-between items-end">
-                    <h4 class="text-[18px] leading-[120%] text-[#474747] truncate md:mb-[0px] mb-[12px]">
+                    <h4 class="text-[38px] leading-[120%] text-[#474747] truncate md:mb-[0px] mb-[12px]">
                     {{ product.title }}
                     </h4>
                     <button type="button"
                         @click.prevent="scrollToBuy()"
-                        class="md:w-[320px] w-full inline-flex items-center justify-center px-4 py-[8px] rounded-full
-                                bg-[#474747] text-white text-[12px] leading-4 tracking-[3px] uppercase
+                        class="md:w-[320px] w-full inline-flex items-center justify-center px-4 py-[16px] rounded-full
+                                bg-[#474747] text-white text-[16px] leading-4 tracking-[3px] uppercase
                                 transition hover:opacity-90 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10">
                     Back to buy
                     </button>

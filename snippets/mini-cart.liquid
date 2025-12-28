@@ -56,11 +56,54 @@
     </div>
 
     <div class="b-mini_cart-content" x-show="$store.cart.items.length > 0">
-
-      <div class="b-mini_cart-columns"></div>
-
       <div class="b-mini_cart-items">
-        <template x-for="(item, index) in $store.cart.items" :key="`${item.id}-${index}`">
+
+        <!-- 1) BUNDLES (one line) -->
+        <template x-for="bundle in $store.cart.bundles" :key="bundle.id">
+          <div class="b-mini_cart-items-border b-mini_cart-bundle">
+            <div class="b-mini_cart-item b-mini_cart-bundle__head">
+
+              <div class="b-mini_cart-item__upper-section">
+                <div class="b-mini_cart-item__left-section">
+                  <figure class="b-mini_cart-item__image">
+                    <img :src="bundle.image" :alt="bundle.title">
+                  </figure>
+                </div>
+
+                <div class="b-mini_cart-item__right-section">
+                  <div class="b-mini_cart-item__main-info">
+                    <div class="b-mini_cart-item__text-content">
+                      <h4 class="b-mini_cart-item__name">
+                        <span x-text="bundle.title"></span>
+                      </h4>
+                      <p class="b-mini_cart-item__variant">
+                        <span x-text="bundle.qty"></span> items
+                      </p>
+                    </div>
+
+                    <div class="b-mini_cart-item__total">
+                <span class="b-mini_cart-item__total-price"
+                      x-text="'{{ cart.currency.symbol }}' + ((bundle.total / 100).toFixed(2))"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="b-mini_cart-item__lower-section">
+                <div class="b-mini_cart-item__remove-controls">
+                  <button class="b-mini_cart-item__remove"
+                          @click="$store.cart.removeBundle(bundle.id)">
+                    Remove
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </template>
+
+        <!-- 2) REGULAR ITEMS (as before) -->
+        <template x-for="(item, index) in $store.cart.nonBundleItems" :key="`${item.key}-${index}`">
           <div class="b-mini_cart-items-border">
             <div class="b-mini_cart-item">
 
@@ -81,37 +124,38 @@
                          x-text="item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title : (item.grams ? item.grams + 'g' : '')">
                       </p>
                       <p class="b-mini_cart-item__price">
-            <span
-              class="b-mini_cart-item__compare-price"
-              x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
-              x-text="'{{ cart.currency.symbol }}' + (((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100).toFixed(2))">
-            </span>
+                  <span class="b-mini_cart-item__compare-price"
+                        x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
+                        x-text="'{{ cart.currency.symbol }}' + (((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100).toFixed(2))">
+                  </span>
                         <span x-text="'{{ cart.currency.symbol }}' + (((item.final_price ?? item.price ?? 0) / 100).toFixed(2))"></span>
                       </p>
                     </div>
 
                     <div class="b-mini_cart-item__total">
-          <span
-            class="b-mini_cart-item__total-compare"
-            x-show="(item.compare_at_price || item.final_compare_at_price || 0) > (item.price || item.final_price || 0)"
-            x-text="'{{ cart.currency.symbol }}' + ((((item.compare_at_price ?? item.final_compare_at_price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))">
-          </span>
-                      <span class="b-mini_cart-item__total-price"
-                            x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))"></span>
+                <span class="b-mini_cart-item__total-price"
+                      x-text="'{{ cart.currency.symbol }}' + ((((item.final_price ?? item.price ?? 0) / 100) * (item.quantity || 1)).toFixed(2))"></span>
                     </div>
                   </div>
                 </div>
               </div>
 
-
               <div class="b-mini_cart-item__lower-section">
                 <div class="b-mini_cart-item__quantity-controls">
                   <div class="b-quantity">
                     <button class="b-quantity__btn b-quantity__btn--minus"
-                            @click="$store.cart.decrementQuantity(item.id, item.quantity)">-</button>
+                            @click="$store.cart.decrementQuantity(item.id, item.quantity)">
+                      <svg width="14" height="2" viewBox="0 0 14 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0V1.74692H14V0H0Z" fill="#474747"/>
+                      </svg>
+                    </button>
                     <div class="b-quantity__value" x-text="item.quantity"></div>
                     <button class="b-quantity__btn b-quantity__btn--plus"
-                            @click="$store.cart.updateCart(item.id, (item.quantity || 1) + 1)">+</button>
+                            @click="$store.cart.updateCart(item.id, (item.quantity || 1) + 1)">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.87346 6.12654V0H6.12654V6.12654H0V7.87346H6.12654V14H7.87346V7.87346H14V6.12654H7.87346Z" fill="#474747"/>
+                      </svg>
+                    </button>
                   </div>
                 </div>
 
@@ -120,10 +164,13 @@
                           @click="$store.cart.removeFromCart(item.key)">Remove</button>
                 </div>
               </div>
+
             </div>
           </div>
         </template>
+
       </div>
+
     </div>
 
     <!-- Recommendations -->
@@ -221,7 +268,7 @@
         <button class="b-mini_cart-checkout" @click="window.location.href='/checkout'">
           GO TO CHECKOUT
         </button>
-        <p class="b-mini_cart-tax">Tax included. Shipping calculated at checkout.</p>
+        <p class="b-mini_cart-tax">Tax included. <a href="/pages/shipping">Shipping</a> calculated at checkout.</p>
       </div>
     </div>
   </div>

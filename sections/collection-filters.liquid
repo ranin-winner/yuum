@@ -9,7 +9,7 @@
 
 <section
   id="collection-filters-{{ section.id }}"
-  class="collection-filters palette-{{ section.settings.color_scheme }} py-6 md:py-10"
+  class="collection-filters palette-{{ section.settings.color_scheme }} py-8 md:py-10"
   x-data="collectionFilters({
     storageKey: 'collection_filters_v1',
     pageKey: '{{ request.path | default: request.url }}',
@@ -36,7 +36,7 @@
           {%- for block in section.blocks -%}
             {%- assign label = block.settings.display_text | default: 'Link' -%}
             {%- assign url   = block.settings.manual_url | default: routes.root_url -%}
-      
+
             {%- comment -%} нормалізуємо шлях без домену/параметрів/якоря {%- endcomment -%}
             {%- assign link_path = url
               | remove: shop.url
@@ -45,12 +45,12 @@
               | split: '#' | first
             -%}
             {%- assign link_path_slash = link_path | append: '/' -%}
-      
+
             {%- assign is_active = false -%}
             {%- if request.path == link_path or request.path == link_path_slash -%}
               {%- assign is_active = true -%}
             {%- endif -%}
-      
+
             <div class="swiper-slide !w-auto md:!w-auto">
               <a
                 href="{{ url }}"
@@ -64,15 +64,15 @@
           {%- endfor -%}
         </div>
       </nav>
-      
+
       </aside>
 
       {%- comment -%} RIGHT: tag chips + clear {%- endcomment -%}
       <div class="text-start md:text-end">
         <div class="pb-[16px] md:pb-[24px]">
-            <span class="breadcrumb-link breadcrumb-link--tag">Tags</span> 
+            <span class="breadcrumb-link breadcrumb-link--tag">Tags</span>
         </div>
-           
+
 
         <div class="flex flex-wrap gap-2 md:justify-end" aria-label="Tags">
           <!-- chips -->
@@ -108,25 +108,25 @@
         storageKey: opts.storageKey,
         pageKey: opts.pageKey,
         rawTags: opts.rawTags,
-  
+
         allTags: [],
         visibleTags: [],
         selected: [],
-  
+
         // mobile swiper (<600px) for .collection-filters__colection-list
         linksSwiper: null,
         linksSwiperMM: null,
-  
+
         init() {
           document.documentElement.classList.remove('hidden');
-  
+
           this.allTags = this.parseTags(this.rawTags);
           this.visibleTags = this.allTags;
-  
+
           const fromUrl = this.readTagsFromUrl();
           const fromLs  = this.readFromStorage();
           this.selected = fromUrl.length ? fromUrl : fromLs;
-  
+
           // init/destroy swiper depending on viewport
           this.linksSwiperMM = window.matchMedia('(max-width: 600px)');
           const applyMM = (e) => (e.matches ? this.enableLinksSwiper() : this.disableLinksSwiper());
@@ -136,12 +136,12 @@
           } else {
             this.linksSwiperMM.addListener(applyMM); // older Safari
           }
-  
+
           this.$nextTick(() => {
             this.apply();
           });
         },
-  
+
         enableLinksSwiper() {
           if (this.linksSwiper || !this.$refs.linksSwiper) return;
           // Swiper is expected to be globally available
@@ -157,7 +157,7 @@
           this.linksSwiper.destroy(true, true);
           this.linksSwiper = null;
         },
-  
+
         // utils
         parseTags(str) {
           if (!str) return [];
@@ -170,7 +170,7 @@
         isSelected(tag) {
           return this.selected.includes(tag);
         },
-  
+
         // selection
         toggle(tag) {
           const i = this.selected.indexOf(tag);
@@ -182,7 +182,7 @@
           this.selected = [];
           this.apply();
         },
-  
+
         // persistence
         persistBeforeNavigate(e) {
           this.writeToStorage();
@@ -219,7 +219,7 @@
           const newUrl = `${window.location.pathname}?${sp.toString()}${window.location.hash || ''}`.replace(/\?$/, '');
           history.replaceState({}, '', newUrl);
         },
-  
+
         // helpers for finding cards & wrappers reliably
         getCardsInSection(sectionEl) {
           return sectionEl.querySelectorAll('.product-card[data-tags]');
@@ -227,27 +227,27 @@
         getWrapperForCard(cardEl) {
           return cardEl.closest('.grid > *') || cardEl.parentElement;
         },
-  
+
         // core
         apply() {
           const selected = this.selected.map(t => t.toLowerCase());
           const sections = document.querySelectorAll('.collection-grid');
-  
+
           sections.forEach(sectionEl => {
             const cards = this.getCardsInSection(sectionEl);
-  
+
             cards.forEach(card => {
               const wrapper = this.getWrapperForCard(card);
               if (!wrapper) {
                 console.warn('Wrapper not found for card:', card);
                 return;
               }
-  
+
               const tagsAttr = (card.dataset.tags || card.getAttribute('data-tags') || '').toLowerCase();
               const productTags = tagsAttr.split(/[\s,;]+/g).filter(Boolean);
-  
+
               const match = !selected.length || selected.every(t => productTags.includes(t));
-  
+
               if (match) {
                 wrapper.classList.remove('hidden');
               } else {
@@ -255,16 +255,16 @@
               }
             });
           });
-  
+
           this.writeToStorage();
           this.updateQueryParam();
         },
       }));
     });
   </script>
-  
-  
-  
+
+
+
 </section>
 
 {% schema %}

@@ -376,3 +376,31 @@
     height: 120px;
   }
 }
+
+.product-scroll-top {
+
+}
+
+.yotpo-review-content .yotpo-read-more-text,
+.yotpo-date-format,
+.yotpo-reviewer-name {
+  font-family: "Neue Haas Grotesk Display Pro", "system-ui", "-apple-system", "Arial", "sans-serif" !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.yotpo-reviewer-name {
+  font-size: 18px !important;
+}
+
+.yotpo-reviewer-image {
+  display: none !important;
+}
+
+.yotpo-reviews-pagination-container {
+  li {
+    display: flex;
+    align-items: center;
+  }
+}

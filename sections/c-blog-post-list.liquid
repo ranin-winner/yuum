@@ -21,6 +21,7 @@
         {%- if position_in_group == 0 -%}
           <div class="m-blog-modern__group {% if is_mirror_group == 1 %}m-blog-modern__group--reverse{% endif %}">
           <article class="m-blog-post m-blog-post--large">
+            <a href="{{ article.url }}" class="m-blog-post__link-global"></a>
             <div class="m-blog-post__image">
               <a href="{{ article.url }}">
                 {%- if article.image -%}
@@ -60,6 +61,7 @@
           <div class="m-blog-modern__small-posts">
         {%- elsif position_in_group == 1 -%}
           <article class="m-blog-post m-blog-post--small {% if is_mirror_group == 1 %}m-blog-post--reverse{% endif %}">
+            <a href="{{ article.url }}" class="m-blog-post__link-global"></a>
             {%- if is_mirror_group == 1 -%}
               <div class="m-blog-post__image">
                 <a href="{{ article.url }}">
@@ -122,6 +124,7 @@
           </article>
         {%- elsif position_in_group == 2 -%}
           <article class="m-blog-post m-blog-post--small {% if is_mirror_group == 0 %}m-blog-post--reverse{% endif %}">
+            <a href="{{ article.url }}" class="m-blog-post__link-global"></a>
             {%- if is_mirror_group == 0 -%}
               <div class="m-blog-post__image">
                 <a href="{{ article.url }}">
@@ -208,6 +211,7 @@
         {%- if position_in_group == 0 -%}
           <div class="m-blog-modern__group {% if is_mirror_group == 1 %}m-blog-modern__group--reverse{% endif %}">
           <article class="m-blog-post m-blog-post--large">
+            <a href="/blogs/articles/complete-guide-to-japanese-desserts" class="m-blog-post__link-global"></a>
             <div class="m-blog-post__image">
               {%- if section.settings.default_image -%}
                 <img
@@ -231,6 +235,7 @@
           <div class="m-blog-modern__small-posts">
         {%- elsif position_in_group == 1 -%}
           <article class="m-blog-post m-blog-post--small {% if is_mirror_group == 1 %}m-blog-post--reverse{% endif %}">
+            <a href="/blogs/articles/complete-guide-to-japanese-desserts" class="m-blog-post__link-global"></a>
             {%- if is_mirror_group == 1 -%}
               <div class="m-blog-post__image">
                 {%- if section.settings.default_image -%}
@@ -269,6 +274,7 @@
           </article>
         {%- elsif position_in_group == 2 -%}
           <article class="m-blog-post m-blog-post--small {% if is_mirror_group == 0 %}m-blog-post--reverse{% endif %}">
+            <a href="/blogs/articles/complete-guide-to-japanese-desserts" class="m-blog-post__link-global"></a>
             {%- if is_mirror_group == 0 -%}
               <div class="m-blog-post__image">
                 {%- if section.settings.default_image -%}

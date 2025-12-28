@@ -81,24 +81,20 @@ document.addEventListener('alpine:init', () => {
       });
     },
 
-    addMultiplyToCart(productsArr) {
+    addMultiplyToCart(productsArr, showCart = true) {
       this.isLoading = true;
       this.errorMessage = '';
 
-      let formData = {
-        items: productsArr,
-      };
+      const formData = { items: productsArr };
 
-      fetch('/cart/add.js', {
+      return fetch('/cart/add.js', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
+        .then(() => this.loadCart())
         .then(() => {
-          this.loadCart();
-          window.location.href = '/checkout';
+          if (showCart) this.toggleCart(true);
         })
         .catch(() => {
           this.errorMessage = 'Failed to add the product. Please try again.';
@@ -106,6 +102,47 @@ document.addEventListener('alpine:init', () => {
         .finally(() => {
           this.isLoading = false;
         });
+    },
+
+    async addBundleToCart({ bundleTitle = 'Bundle', bundleImage = '', items = [] }, showCart = true) {
+      if (!items?.length) return;
+
+      const bundleId = `bndl_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+
+      const payload = {
+        items: items.map(it => ({
+          id: Number(it.variantId),
+          quantity: Number(it.quantity) || 1,
+          properties: {
+            _bundle_id: bundleId,
+            _bundle_title: bundleTitle,
+            _bundle_image: bundleImage
+          }
+        }))
+      };
+
+      this.isLoading = true;
+      this.errorMessage = '';
+
+      try {
+        const res = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('Failed to add bundle');
+
+        await this.loadCart();
+
+        if (showCart) this.toggleCart(true);
+      } catch (e) {
+        console.error(e);
+        this.errorMessage = 'Failed to add the bundle. Please try again.';
+        throw e;
+      } finally {
+        this.isLoading = false;
+      }
     },
 
     updateCart(itemKey, quantity) {
@@ -173,6 +210,69 @@ document.addEventListener('alpine:init', () => {
     removeFromCart(itemKey) {
       this.updateCart(itemKey, 0);
     },
+
+    get bundles() {
+      const map = new Map();
+
+      for (const item of this.items) {
+        const bid = item?.properties?._bundle_id;
+        if (!bid) continue;
+
+        if (!map.has(bid)) {
+          map.set(bid, {
+            id: bid,
+            title: item?.properties?._bundle_title || 'Bundle',
+            image: item?.properties?._bundle_image || item.image, // <= ОЦЕ
+            qty: 0,
+            total: 0
+          });
+        }
+
+        const b = map.get(bid);
+        b.qty += Number(item.quantity) || 0;
+        b.total += Number(item.final_line_price ?? item.line_price ?? 0);
+        // якщо раптом у якихось item нема _bundle_image — підхопимо з інших
+        if (!b.image) b.image = item?.properties?._bundle_image || item.image;
+      }
+
+      return Array.from(map.values());
+    },
+
+    get nonBundleItems() {
+      return this.items.filter(item => !item?.properties?._bundle_id);
+    },
+    removeBundle(bundleId) {
+      if (!bundleId) return;
+
+      this.isLoading = true;
+      this.errorMessage = '';
+
+      const updates = {};
+      for (const item of this.items) {
+        if (item?.properties?._bundle_id === bundleId) {
+          updates[item.key] = 0;
+        }
+      }
+
+      return fetch('/cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ updates }),
+      })
+        .then(res => res.json())
+        .then((data) => {
+          this.items = data.items;
+          this.updateItemsCount();
+          this.updateTotalPrice();
+        })
+        .catch(() => {
+          this.errorMessage = 'Failed to remove bundle.';
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+
     toggleCart(status) {
       if (status !== undefined) {
         this.isCartOpen = status;

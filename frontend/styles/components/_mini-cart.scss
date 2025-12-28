@@ -33,9 +33,9 @@ $padding-l: 40px;
   position: fixed;
   top: 0;
   right: 0;
-  width: 500px;
+  width: 600px;
   height: 100vh;
-  background: $light-grey-1;
+  background: rgba(231, 231, 231, 1);
   box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
   z-index: 1001;
   border-top-left-radius: $border-radius-lg;
@@ -56,6 +56,12 @@ $padding-l: 40px;
     display: flex;
     flex-direction: column;
     padding-top: $padding-l;
+  }
+
+  &-bundle {
+    .b-mini_cart-item__lower-section {
+      justify-content: flex-end;
+    }
   }
 
   &-close {
@@ -93,7 +99,7 @@ $padding-l: 40px;
 
   &-count {
     //opacity: 0.5;
-    @include fonts.font(heading-400, 16px, 22px);
+    @include fonts.font(body-400, 16px, 22px);
     margin-left: 12px;
   }
 
@@ -152,13 +158,12 @@ $padding-l: 40px;
     display: flex;
     flex-direction: column;
     min-height: 0;
-    max-height: 235px;
   }
 
   &-columns {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid $dark-grey;
+    //border-bottom: 1px solid rgba(71, 71, 71, 1);
     margin-bottom: $padding-md;
 
     &__product,
@@ -180,7 +185,7 @@ $padding-l: 40px;
     padding-right: $padding-sm;
 
     &-border {
-      border-bottom: 1px solid $dark-grey;
+      //border-bottom: 1px solid $dark-grey;
     }
 
     &::-webkit-scrollbar {
@@ -202,6 +207,7 @@ $padding-l: 40px;
     flex-direction: column;
     padding: $padding-md 0;
     position: relative;
+    border-top: 1px solid rgb(71, 71, 71);
 
     &:last-child {
       border-bottom: none;
@@ -259,7 +265,7 @@ $padding-l: 40px;
     &__name {
       @include fonts.font(heading-400, 16px, 20px);
       color: $dark-grey;
-      margin: 0 0 4px 0;
+      margin: 0 0 6px 0;
     }
 
     &__variant {
@@ -383,6 +389,7 @@ $padding-l: 40px;
     margin-top: $padding-l;
     margin-left: -$padding-l;
     margin-right: -$padding-l;
+    margin-bottom: 10px;
     border: 1px solid $light-grey-1;
 
     &__header {
@@ -444,7 +451,7 @@ $padding-l: 40px;
       width: 100%;
       position: relative;
       overflow: hidden;
-      border-top: 1px solid $dark-grey;
+      border-top: 1px solid rgba(71, 71, 71, 1);
     }
   }
 
@@ -468,7 +475,7 @@ $padding-l: 40px;
     display: flex;
     gap: $padding-sm;
     align-items: center;
-    padding: 8px 0 20px;
+    padding: 16px 0 20px;
     background: $lightest-grey-3;
     border-radius: $border-radius-md;
     margin-bottom: $padding-sm;
@@ -533,12 +540,12 @@ $padding-l: 40px;
       &.desktop-add {
         background: $dark-grey;
         color: $white;
-        padding: $padding-md $padding-lg;
+        padding: 12px 24px;
         border-radius: $border-radius-lg;
-        @include fonts.font(body-400, 14px, 1);
+        @include fonts.font(body-400, 14px, 16px);
         text-transform: uppercase;
         letter-spacing: 4px;
-        min-width: 100px;
+        min-width: 85px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -591,18 +598,19 @@ $padding-l: 40px;
     }
 
     &__label {
-      @include fonts.font(body-400, 18px, 1.4);
+      @include fonts.font(body-400, 16px, 22px);
+      letter-spacing: 4px;
       text-transform: uppercase;
       color: $dark-grey;
     }
 
     &__value {
-      @include fonts.font(heading-400, 24px, 1.2);
+      @include fonts.font(heading-400, 32px, 38px);
       color: $dark-grey;
     }
 
     .b-mini_cart-checkout {
-      @include fonts.font(body-400, 16px, 1);
+      @include fonts.font(body-400, 14px, 16px);
       letter-spacing: 4px;
       text-transform: uppercase;
       width: 100%;
@@ -625,6 +633,10 @@ $padding-l: 40px;
       color: $additional-color-4;
       text-align: center;
       margin: 0;
+
+      a {
+        text-decoration: underline;
+      }
     }
   }
 }

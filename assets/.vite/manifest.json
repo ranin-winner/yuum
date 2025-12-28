@@ -1,17 +1,17 @@
 {
   "frontend/entrypoints/main.scss": {
-    "file": "main-B3Fzdrc1.css",
+    "file": "main-CzR4avFg.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   },
   "frontend/entrypoints/main.theme.js": {
-    "file": "main.theme-BhOqaPRz.js",
+    "file": "main.theme-Bwy1_Je9.js",
     "name": "main.theme",
     "src": "frontend/entrypoints/main.theme.js",
     "isEntry": true
   },
   "frontend/entrypoints/page-pdp.scss": {
-    "file": "page-pdp-B_9MXJqC.css",
+    "file": "page-pdp-Dw3vRwSu.css",
     "src": "frontend/entrypoints/page-pdp.scss",
     "isEntry": true
   },
@@ -58,12 +58,12 @@
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-list.scss": {
-    "file": "blog-post-list-D9M1JZeQ.css",
+    "file": "blog-post-list-BBHXd93I.css",
     "src": "frontend/styles/sections/blog-post-list.scss",
     "isEntry": true
   },
   "frontend/styles/sections/blog-post-singe.scss": {
-    "file": "blog-post-singe-D2GA1JXq.css",
+    "file": "blog-post-singe-Cfso60_H.css",
     "src": "frontend/styles/sections/blog-post-singe.scss",
     "isEntry": true
   },
@@ -98,7 +98,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/collections-switcher.scss": {
-    "file": "collections-switcher-Caj93kVN.css",
+    "file": "collections-switcher-CpXnaVKo.css",
     "src": "frontend/styles/sections/collections-switcher.scss",
     "isEntry": true
   },
@@ -148,7 +148,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/join-us.scss": {
-    "file": "join-us-C31oUx8Q.css",
+    "file": "join-us-fGdATl1S.css",
     "src": "frontend/styles/sections/join-us.scss",
     "isEntry": true
   },
@@ -179,7 +179,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/products-section.scss": {
-    "file": "products-section-D4L5FAVL.css",
+    "file": "products-section-fdjbix_6.css",
     "src": "frontend/styles/sections/products-section.scss",
     "isEntry": true
   },
@@ -194,7 +194,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/search.scss": {
-    "file": "search-DcdtTAAG.css",
+    "file": "search-B97-Ygux.css",
     "src": "frontend/styles/sections/search.scss",
     "isEntry": true
   },
@@ -209,7 +209,7 @@
     "isEntry": true
   },
   "frontend/styles/sections/visit-us.scss": {
-    "file": "visit-us-NcGiKWtb.css",
+    "file": "visit-us-BpwSYZB-.css",
     "src": "frontend/styles/sections/visit-us.scss",
     "isEntry": true
   }

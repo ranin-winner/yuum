@@ -1,4 +1,8 @@
 .visit-us {
+  margin-top: -139px;
+  @media (max-width: 1250px) {
+    margin-top: -80px;
+  }
     &__inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -21,6 +25,9 @@
 
     &__text-inner {
         padding: 60px 0px 0px 280px;
+        @media (max-width: 1440px) {
+          padding-left: 40px;
+        }
         @media (max-width: 1250px) {
             padding: 40px 16px 0px 16px;
         }

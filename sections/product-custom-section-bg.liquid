@@ -18,7 +18,7 @@
   {% if flow_on and flow_img %} data-image="{{ flow_url }}"{% endif %}
 >
   <div class="container">
-    <div class="products-section__header grid grid-cols-1 gap-[24px] mb-[50px]">
+    <div class="products-section__header grid grid-cols-1 gap-[24px]">
       {% if section.settings.title != blank %}
         <div class="products-section__header--title products-section__header--title-bg">
           <h2 class="products-section__title heading-3" data-anim="split-text-reveal">
@@ -52,7 +52,7 @@
         </div>
 
         <div class="container">
-          <div id="swiper-container-{{ section.id }}" class="swiper-container !pb-[40px] md:!pb-0" data-anim="fade-in-slide-up">
+          <div id="swiper-container-{{ section.id }}" class="swiper-container md:!pb-0" data-anim="fade-in-slide-up">
             <div class="swiper-wrapper">
               {% for item in collection %}
                 <div class="swiper-slide">
@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div class="container" style="margin-top: 100px;">
+  <div class="container product-custom-section-button">
     <div class="flex justify-center">
       {% if sectionButtonText != blank %}
         <a href="{{ section.settings.section_button_link }}" class="btn btn-light">
@@ -190,6 +190,12 @@
           centeredSlides: true,
           autoHeight: true,
           // на мобайлі логікою не керуємо — стилями сховаєш стрілки
+          navigation: { enabled: false },
+          pagination: { enabled: true, type: 'progressbar' }
+        },
+        520: {
+          slidesPerView: 2,
+          autoHeight: true,
           navigation: { enabled: false },
           pagination: { enabled: true, type: 'progressbar' }
         },

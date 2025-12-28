@@ -13,8 +13,26 @@ export function initSmoothScroll() {
   console.log('[Lenis] prefers-reduced-motion =', prefersReduced);
   if (prefersReduced) return { refresh: () => ScrollTrigger.refresh() };
 
+  // ✅ Mobile/tablet: вимикаємо Lenis, залишаємо нативний скрол + ScrollTrigger
+  const isMobile =
+    window.matchMedia('(pointer: coarse)').matches ||
+    window.matchMedia('(max-width: 1024px)').matches;
+
+  if (isMobile) {
+    console.log('[Lenis] mobile detected -> disabled (native scroll)');
+    const refresh = () => ScrollTrigger.refresh();
+
+    window.addEventListener('load', refresh);
+    window.addEventListener('resize', () => {
+      clearTimeout(window.__lenisResizeTO);
+      window.__lenisResizeTO = setTimeout(refresh, 120);
+    });
+
+    return { refresh };
+  }
+
   lenis = new Lenis({
-    lerp: 0.06,
+    lerp: 0.05,
     smoothWheel: true,
     smoothTouch: false,
     wheelMultiplier: 1.05

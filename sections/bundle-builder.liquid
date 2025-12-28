@@ -1,0 +1,878 @@
+{%- comment -%}
+  Bundle Builder (product_list, Alpine-safe)
+  - Product cards: "+" OR counter (- qty +)
+  - No top "Selected" block on page
+  - Modal "Bundle details" shows selected items + qty + remove + subtotal
+  - "Continue" in modal adds bundle to cart via Alpine store (non-Plus friendly)
+  - Passes bundle image from customizer to line item properties (_bundle_image)
+{%- endcomment -%}
+
+<section class="bb" x-data="bundleBuilder($el)" x-init="init()">
+  <script type="application/json" data-bundle-config>
+    {
+      "moneyFormat": {{ shop.money_format | json }},
+      "bundleTitle": {{ section.settings.bundle_title | json }},
+      "bundleImage": {{ section.settings.bundle_image | image_url: width: 240 | json }},
+      "minItems": {{ section.settings.min_items | default: 1 | json }},
+      "clearAfterAdd": {{ section.settings.clear_after_add | default: true | json }},
+
+      "modalTitle": {{ section.settings.modal_title | default: 'Bundle details' | json }},
+      "continueLabel": {{ section.settings.continue_label | default: 'ADD TO CARD' | json }},
+      "removeLabel": {{ section.settings.remove_label | default: 'REMOVE' | json }},
+      "subtotalLabel": {{ section.settings.subtotal_label | default: 'SUBTOTAL' | json }},
+
+      "minSpend": {{ section.settings.min_spend | default: 50 | json }},
+
+      "step1Label": {{ section.settings.step_1_label | default: 'Free delivery' | json }},
+      "step1Amount": {{ section.settings.step_1_amount | default: 0 | json }},
+      "step2Label": {{ section.settings.step_2_label | default: '10% discount' | json }},
+      "step2Amount": {{ section.settings.step_2_amount | default: 0 | json }},
+      "step3Label": {{ section.settings.step_3_label | default: '"Matcha mochi" as a gift' | json }},
+      "step3Amount": {{ section.settings.step_3_amount | default: 0 | json }}
+    }
+  </script>
+
+  {%- assign products = section.settings.products -%}
+
+  <!-- Products grid -->
+  <div class="container">
+    <div class="bb__grid">
+      {%- if products != blank -%}
+        {%- for p in products -%}
+          {%- assign v = p.selected_or_first_available_variant -%}
+          {%- assign img = p.featured_image -%}
+          {%- assign img_url = '' -%}
+          {%- if img -%}
+            {%- assign img_url = img | image_url: width: 420 -%}
+          {%- endif -%}
+
+          <article class="bb__card">
+            <div class="bb__card-media">
+              {%- if img -%}
+                <img src="{{ img_url }}" alt="{{ img.alt | escape }}" loading="lazy">
+              {%- else -%}
+                <div class="bb__media-placeholder"></div>
+              {%- endif -%}
+            </div>
+
+            <div class="bb__card-body">
+              <div class="bb__card-title">{{ p.title }}</div>
+              <div class="bb__card-price">{{ v.price | money }}</div>
+
+              <div class="bb__addwrap"
+                   x-data="{ key: '{{ p.handle | escape }}' }"
+                   data-key="{{ p.handle | escape }}"
+                   data-variant-id="{{ v.id }}"
+                   data-title="{{ p.title | escape }}"
+                   data-price="{{ v.price }}"
+                   data-image="{{ img_url | escape }}">
+
+                <!-- PLUS -->
+                <button type="button"
+                        class="bb__add transition"
+                        x-show="Alpine.$data($el.closest('.bb')).getQty(key) === 0"
+                        @click="Alpine.$data($el.closest('.bb')).addOneFromWrap($el.closest('.bb__addwrap'))"
+                        aria-label="Add">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.87346 6.12654V0H6.12654V6.12654H0V7.87346H6.12654V14H7.87346V7.87346H14V6.12654H7.87346Z" fill="white"/>
+                  </svg>
+                </button>
+
+                <!-- COUNTER -->
+                <div class="bb__counter"
+                     x-show="Alpine.$data($el.closest('.bb')).getQty(key) > 0"
+                     x-cloak>
+                  <button type="button" class="bb__counter-btn transition"
+                          @click="Alpine.$data($el.closest('.bb')).decByKey(key)"
+                          aria-label="Decrease">
+                    <svg width="14" height="2" viewBox="0 0 14 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 0V1.74692H14V0H0Z" fill="#474747"></path>
+                    </svg>
+                  </button>
+
+                  <div class="bb__counter-val"
+                       x-text="Alpine.$data($el.closest('.bb')).getQty(key)"></div>
+
+                  <button type="button" class="bb__counter-btn transition"
+                          @click="Alpine.$data($el.closest('.bb')).incByKey(key)"
+                          aria-label="Increase">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.87346 6.12654V0H6.12654V6.12654H0V7.87346H6.12654V14H7.87346V7.87346H14V6.12654H7.87346Z" fill="#474747"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <a class="bb__readmore" href="{{ p.url }}">
+                {{ section.settings.read_more_label | default: 'READ MORE' }}
+              </a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        <p style="opacity:.7;">{{ section.settings.empty_label | default: 'Please select products in section settings.' }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bb__bar" x-cloak>
+
+    <div class="container">
+      <!-- Steps (absolute over bar) -->
+      <div class="bb__steps" x-show="stepsMaxCents > 0" x-cloak>
+        <div class="bb__steps-track">
+          <span class="bb__steps-track-first"></span>
+          <div class="bb__steps-fill" :style="`width:${stepsProgressPct}%`"></div>
+
+          <template x-for="(s, i) in steps" :key="i">
+            <div class="bb__step" :style="`left:${s.pct}%`">
+              <div class="bb__step-dot" :class="{ 'is-active': totalPrice >= s.amountCents }"></div>
+              <div class="bb__step-label" x-text="s.label"></div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="bb__bar-left">
+        <div class="bb__bar-added">
+          {{ section.settings.added_label | default: 'Added' }}
+          <span>(</span><span x-text="selectedCount"></span><span>)</span>
+        </div>
+
+        <!-- Button: open modal -->
+        <button type="button"
+                class="bb__bar-btn bb__bar-btn--secondary transition"
+                :disabled="loading || selectedCount === 0"
+                @click="openModal()">
+          <span>{{ section.settings.modal_title | default: 'edit Bundle' }}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.77337 10.8994C2.64537 10.8994 2.51763 10.8506 2.41987 10.7529C2.22462 10.5576 2.22462 10.2411 2.41987 10.0459L10.2334 2.23237C10.4284 2.03712 10.7451 2.03712 10.9404 2.23237C11.1356 2.42763 11.1356 2.74413 10.9404 2.93938L3.12688 10.7529C3.02938 10.8504 2.90137 10.8994 2.77337 10.8994Z" fill="#474747"/>
+            <path d="M2.0005 14.5C1.96575 14.5 1.9305 14.4963 1.89525 14.4888C1.62525 14.4308 1.45325 14.165 1.51125 13.895L2.28375 10.2943C2.34175 10.0243 2.60875 9.85277 2.8775 9.91027C3.1475 9.96827 3.3195 10.234 3.2615 10.504L2.489 14.1048C2.43875 14.3395 2.23125 14.5 2.0005 14.5Z" fill="#474747"/>
+            <path d="M5.60931 13.7275C5.48131 13.7275 5.35356 13.6787 5.25581 13.581C5.06056 13.3857 5.06056 13.0692 5.25581 12.874L13.0693 5.06074C13.2643 4.86549 13.5811 4.86549 13.7763 5.06074C13.9716 5.25599 13.9716 5.57249 13.7763 5.76774L5.96306 13.581C5.86531 13.6787 5.73731 13.7275 5.60931 13.7275Z" fill="#474747"/>
+            <path d="M1.99968 14.5001C1.76893 14.5001 1.56168 14.3396 1.51118 14.1048C1.45343 13.8348 1.62518 13.5691 1.89518 13.5111L5.49592 12.7386C5.76617 12.6813 6.03192 12.8528 6.08967 13.1226C6.14742 13.3926 5.97568 13.6583 5.70568 13.7163L2.10493 14.4888C2.06968 14.4966 2.03443 14.5001 1.99968 14.5001Z" fill="#474747"/>
+            <path d="M12.0001 7.32819C11.8721 7.32819 11.7441 7.27944 11.6466 7.18169L8.81831 4.35344C8.62306 4.15819 8.62306 3.84169 8.81831 3.64644C9.01331 3.45119 9.33031 3.45119 9.52531 3.64644L12.3536 6.47469C12.5488 6.66994 12.5488 6.98644 12.3536 7.18169C12.2561 7.27944 12.1281 7.32819 12.0001 7.32819Z" fill="#474747"/>
+            <path d="M13.4224 5.91431C13.2944 5.91431 13.1664 5.86556 13.0687 5.76781C12.8734 5.57256 12.8734 5.25606 13.0687 5.06056C13.3469 4.78231 13.5002 4.40556 13.5002 4.00006C13.5002 3.59456 13.3469 3.21781 13.0687 2.93956C12.7902 2.66106 12.4134 2.50781 12.0079 2.50781C11.6024 2.50781 11.2257 2.66106 10.9474 2.93956C10.7524 3.13481 10.4359 3.13506 10.2402 2.93956C10.0449 2.74431 10.0449 2.42781 10.2402 2.23231C10.7072 1.76506 11.3349 1.50781 12.0079 1.50781C12.6807 1.50781 13.3087 1.76506 13.7757 2.23231C14.2429 2.69931 14.5002 3.32706 14.5002 4.00006C14.5002 4.67306 14.2429 5.30081 13.7757 5.76781C13.6784 5.86531 13.5504 5.91431 13.4224 5.91431Z" fill="#474747"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="bb__bar-right">
+        <div class="bb__bar-right-wrapper-btn">
+          <div class="bb__bar-total" x-text="formatMoney(totalPrice)"></div>
+          <!-- Min spend helper -->
+          <div class="bb__bar-hint" x-show="minSpendCents > 0" x-cloak>
+            <template x-if="canAddToCart">
+              <span class="bb__bar-hint-ok">Ready to add</span>
+            </template>
+
+            <template x-if="!canAddToCart">
+            <span class="bb__bar-hint-need">
+              To continue, add another <span x-text="formatMoney(remainingToMinSpendCents)"></span>
+            </span>
+            </template>
+          </div>
+        </div>
+        <!-- Button: add to cart -->
+        <button type="button"
+                class="bb__bar-btn bb__bar-btn--primary transition"
+                :disabled="loading || !canAddToCart"
+                @click="confirmAndAdd()">
+          <span x-show="!loading">{{ section.settings.continue_label | default: 'ADD TO CART' }}</span>
+          <span x-show="loading">ADDING…</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bundle details modal -->
+  <div class="bbm" x-show="isModalOpen" x-cloak @keydown.escape.window="closeModal()" data-lenis-prevent>
+    <div class="bbm__overlay" @click="closeModal()"></div>
+
+    <div class="bbm__panel" role="dialog" aria-modal="true" :aria-label="modalTitle">
+      <div class="bbm__head">
+        <h3 class="bbm__title" x-text="modalTitle"></h3>
+        <button type="button" class="bbm__close" @click="closeModal()" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 1.57135L18.4286 0L10 8.42897L1.57135 0L0 1.57135L8.42865 10L0 18.4286L1.57135 20L10 11.5714L18.4286 20L20 18.4286L11.5714 10L20 1.57135Z" fill="#474747"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="bbm__list">
+        <template x-for="it in selected" :key="it.key">
+          <div class="bbm__row">
+            <div class="bbm__row-main">
+              <figure class="bbm__img" x-show="it.image">
+                <img :src="it.image" :alt="it.title" loading="lazy">
+              </figure>
+
+              <div class="bbm__info">
+                <div class="bbm__name" x-text="it.title"></div>
+              </div>
+
+              <div class="bbm__price" x-text="formatMoney(it.price * it.qty)"></div>
+            </div>
+
+            <div class="bbm__row-actions">
+              <div class="bbm__qty">
+                <button type="button" class="bbm__qty-btn" @click="decByKey(it.key)">
+                  <svg width="14" height="2" viewBox="0 0 14 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0V1.74692H14V0H0Z" fill="#474747"></path>
+                  </svg>
+                </button>
+                <div class="bbm__qty-val" x-text="it.qty"></div>
+                <button type="button" class="bbm__qty-btn" @click="incByKey(it.key)">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.87346 6.12654V0H6.12654V6.12654H0V7.87346H6.12654V14H7.87346V7.87346H14V6.12654H7.87346Z" fill="#474747"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <button type="button" class="bbm__remove" @click="remove(it.key)" x-text="removeLabel"></button>
+            </div>
+          </div>
+        </template>
+
+        <p class="bbm__empty" x-show="selected.length === 0" x-cloak style="padding:12px 16px; opacity:.7;">
+          No items selected.
+        </p>
+      </div>
+
+      <div class="bbm__foot">
+        <div class="bbm__subtotal">
+          <span class="bbm__subtotal-label" x-text="subtotalLabel"></span>
+          <span class="bbm__subtotal-val" x-text="formatMoney(totalPrice)"></span>
+        </div>
+
+        <button type="button" class="bbm__continue"
+                :disabled="loading || selectedCount < minItems"
+                @click="confirmAndAdd()">
+          <span x-show="!loading" x-text="continueLabel"></span>
+          <span x-show="loading">ADDING…</span>
+        </button>
+
+        <p class="bb__error" x-show="error" x-text="error" style="margin:10px 0 0;" x-cloak></p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .bb__bar-left {
+      display: flex;
+      align-items: center;
+      gap: 140px;
+    }
+
+    .bb__bar-right-wrapper-btn {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+
+    .bb { position: relative; }
+    [x-cloak] { display:none !important; }
+
+    .bb__grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .bb__card { background:#f2f2f2; border-radius:16px; overflow:hidden; position:relative; padding:14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .bb__card-media {
+      width: 162px;
+      height: 162px;
+
+    }
+    .bb__card-media img { width:100%; height:auto; display:block; }
+    .bb__media-placeholder { width:100%; padding-top:80%; border-radius:12px; background:#e8e8e8; }
+    .bb__card-body {
+      width: calc(100% - 162px);
+      display: flex;
+      flex-direction: column;
+    }
+    .bb__card-title {
+      font-size:16px;
+      line-height: 22px;
+      margin-bottom: 6px;
+    }
+    .bb__card-price { font-size:16px;
+      line-height: 22px; }
+    .bb__readmore { font-size:12px;
+      line-height: 16px; letter-spacing:3px; text-decoration:none; display:inline-block; }
+
+    .bb__addwrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .bb__add {
+      width:48px; height:48px; border-radius:100%;
+      border:0; background:rgba(71, 71, 71, 1); color:#fff; cursor:pointer;
+      display:grid; place-items:center;
+
+    }
+    .bb__add:hover {
+      opacity: .9;
+    }
+
+    .bb__counter{
+      display:flex; align-items:center; gap:8px;
+    }
+    .bb__counter-btn{
+      width:48px; height:48px; border-radius:100%;
+      cursor:pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid rgba(71, 71, 71, 1);
+    }
+    .bb__counter-val{ min-width:18px; text-align:center; font-size:18px;
+      line-height: 24px; }
+
+    .bb__bar { position: fixed; bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 20; padding: 12px 14px; border-radius: 32px 32px 0 0; background: #fff;
+      display:flex; align-items:center; justify-content:space-between; gap:12px; }
+
+    .bb__bar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: inherit;
+    }
+    .bb__bar-added { font-size:32px;
+      line-height: 1.2;
+      font-family: 'WT Monarch Nova';
+      display: inline-flex;
+      align-items: flex-start;
+    }
+    .bb__bar-added span {
+      font-size: 16px;
+      line-height: 22px;
+    }
+    .bb__bar-added span:first-child {
+      margin-left: 12px;
+    }
+    .bb__bar-right { display:flex; align-items:center; gap:16px; }
+    .bb__bar-total {
+      font-size:18px;
+      line-height: 24px;
+      font-family: "Neue Haas Grotesk Display Pro", "system-ui", "-apple-system", "Arial", "sans-serif";
+      margin-bottom: 4px;
+    }
+    .bb__bar-btn:disabled { cursor:not-allowed; }
+
+    .bb__error { color:#b00020; font-size:12px; }
+
+    /* Modal */
+    .bbm { position: fixed; inset: 0; z-index: 9999; }
+    .bbm__overlay { position:absolute; inset:0; background: rgba(0,0,0,.35); }
+    .bbm__panel {
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width: 100%;
+      max-width: 800px;
+      background:#f2f2f2; border-radius:18px; overflow:hidden;
+      box-shadow: 0 14px 60px rgba(0,0,0,.25);
+    }
+    .bbm__head{ display:flex; align-items:center; justify-content:space-between; padding:40px; }
+    .bbm__title{ margin:0; font-size:32px; font-weight:400; }
+    .bbm__close{ width:20px; height:20px; border-radius:999px; border:0; background:transparent; font-size:22px; cursor:pointer;}
+
+    .bbm__list{ max-height: 56vh; overflow:auto; padding: 8px 40px; }
+    .bbm__row{ padding: 16px 0 40px; border-top: 1px solid rgba(71, 71, 71, 1); }
+    .bbm__row-main{ display:grid; grid-template-columns: 116px 1fr auto; gap:12px; align-items:center;  border-bottom:1px solid rgba(194, 194, 194, 1);
+      padding-bottom: 8px; }
+    .bbm__img img{ width:116px; height:116px; object-fit:cover; border-radius:12px; background:#fff; display:block; }
+    .bbm__name{ font-size:18px;
+      line-height: 24px; }
+    .bbm__price{ font-size:16px;
+      line-height: 22px; color: rgba(71, 71, 71, 1); }
+
+    .bbm__row-actions{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+    .bbm__qty{ display:flex; align-items:center; gap:10px; }
+    .bbm__qty-btn{ width:32px; height:32px; border-radius:999px;background:transparent; cursor:pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bbm__qty-val{ min-width:18px; text-align:center; font-size:12px; }
+    .bbm__remove{ border:0; background:transparent; font-size:14px;
+      line-height: 16px; letter-spacing:4px; cursor:pointer; }
+
+    .bbm__foot{ padding: 24px 40px 40px; background:#fff; }
+    .bbm__subtotal{ display:flex; align-items:center; justify-content:space-between; padding: 0 0 32px; }
+    .bbm__subtotal-label{ font-size:16px; letter-spacing: 4px;
+      line-height: 22px; color: rgba(71, 71, 71, 1); }
+    .bbm__subtotal-val{ font-size:32px;
+      line-height: 38px; letter-spacing: 1px; }
+    .bbm__continue{
+      width:100%; border-radius:999px;
+      border:0; background:rgba(71, 71, 71, 1); color:#fff;
+      font-size:14px;
+      line-height: 16px; letter-spacing: 4px;
+      cursor:pointer;
+      padding: 16px 40px;
+    }
+    .bbm__continue:disabled{ opacity:.5; cursor:not-allowed; }
+
+    /* ===== Bundle bar: steps + min spend + button variants ===== */
+
+    .bb__bar { position: fixed; bottom: 0; left: 0; right: 0; }
+
+    /* Steps */
+    .bb__steps{
+      position:absolute;
+      right: 0;
+      top: -76px;
+      height: 64px;
+      max-width: 676px;
+      width: 100%;
+      background: rgba(108, 109, 110, 1);
+      border-radius: 16px 16px 0 0;
+      padding: 12px 117px 8px 40px;
+    }
+    .bb__steps-track{
+      position: relative;
+      height: 44px;
+    }
+    .bb__steps-track-first {
+      position: absolute;
+      background: rgba(108, 109, 110, 1);
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      border: 1px solid rgba(255, 255, 255, 1);
+      left: 0;
+      bottom: 1px;
+      z-index: 9;
+    }
+      .bb__steps-track-first::before {
+        content: '';
+        background: rgba(173, 174, 176, 1);
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    .bb__steps-track::before{
+      content:"";
+      position:absolute;
+      left: 0;
+      right: 0;
+      bottom: 9px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.35);
+    }
+    .bb__steps-track::after {
+      content: '';
+    }
+    .bb__steps-fill{
+      position:absolute;
+      left: 0;
+      height: 4px;
+      bottom: 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.8);
+    }
+    .bb__step{
+      position:absolute;
+      top: 0;
+      transform: translateX(-50%);
+      text-align:center;
+      width: max-content;
+      max-width: 140px;
+      pointer-events:none;
+      display: inline-flex;
+
+    }
+    .bb__step-dot{
+      position: absolute;
+      background: rgba(108, 109, 110, 1);
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      border: 1px solid transparent;
+      left: 50%;
+      top: calc(100% + 7px);
+      transform: translateX(-50%);
+      z-index: 9;
+    }
+    .bb__step-dot::before {
+      content: '';
+      background: rgba(173, 174, 176, 1);
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .bb__step-dot.is-active{
+      border-color: rgba(255, 255, 255, 1);
+    }
+    .bb__step-label{
+      font-size: 13px;
+      line-height: 16px;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    /* Hint */
+    .bb__bar-hint{
+      font-size: 16px;
+      line-height: 22px;
+    }
+    .bb__bar-hint-ok{ opacity: .9; }
+    .bb__bar-hint-need strong{
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    /* Buttons variants */
+    .bb__bar-btn--secondary{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 0;
+      text-transform: uppercase;
+      color: rgba(71, 71, 71, 1);
+    }
+    .bb__bar-btn--primary{
+      background:#111;
+      color:#fff;
+      padding: 16px 32px;
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-radius: 100px;
+      background: rgba(71, 71, 71, 1);
+    }
+    .bb__bar-btn--primary:hover {
+      opacity: .9;
+    }
+
+    .bb__bar-btn--primary:disabled{
+      background: rgba(173, 174, 176, 1);
+      color: rgba(255, 255, 255, 1);
+    }
+
+    body.bb-no-scroll { overflow: hidden; }
+
+    @media (max-width: 900px) { .bb__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 620px) { .bb__grid { grid-template-columns: repeat(1, minmax(0, 1fr)); } }
+  </style>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('bundleBuilder', (rootEl) => ({
+        moneyFormat: '',
+        currencySymbol: '',
+        bundleTitle: 'Bundle',
+        bundleImage: '',
+        minItems: 1,
+
+        minSpend: 50,
+
+        step1Label: 'Free delivery',
+        step1Amount: 0,
+        step2Label: '10% discount',
+        step2Amount: 0,
+        step3Label: '"Matcha mochi" as a gift',
+        step3Amount: 0,
+
+        clearAfterAdd: true,
+
+        isModalOpen: false,
+        modalTitle: 'edit Bundle',
+        continueLabel: 'Add to card',
+        removeLabel: 'REMOVE',
+        subtotalLabel: 'SUBTOTAL',
+
+        selected: [],
+        loading: false,
+        error: '',
+
+        init() {
+          const cfgTag = rootEl.querySelector('script[data-bundle-config]');
+          if (cfgTag) {
+            try {
+              const cfg = JSON.parse(cfgTag.textContent || '{}');
+              this.moneyFormat = cfg.moneyFormat || this.moneyFormat;
+              this.bundleTitle = cfg.bundleTitle || this.bundleTitle;
+              this.bundleImage = cfg.bundleImage || this.bundleImage;
+              this.minItems = Number(cfg.minItems || this.minItems);
+              this.clearAfterAdd = Boolean(cfg.clearAfterAdd);
+
+              this.modalTitle = cfg.modalTitle || this.modalTitle;
+              this.continueLabel = cfg.continueLabel || this.continueLabel;
+              this.removeLabel = cfg.removeLabel || this.removeLabel;
+              this.subtotalLabel = cfg.subtotalLabel || this.subtotalLabel;
+
+              this.minSpend = Number(cfg.minSpend || this.minSpend);
+
+              this.step1Label = cfg.step1Label || this.step1Label;
+              this.step1Amount = Number(cfg.step1Amount || this.step1Amount);
+              this.step2Label = cfg.step2Label || this.step2Label;
+              this.step2Amount = Number(cfg.step2Amount || this.step2Amount);
+              this.step3Label = cfg.step3Label || this.step3Label;
+              this.step3Amount = Number(cfg.step3Amount || this.step3Amount);
+            } catch (e) {
+              console.error('Bundle config JSON parse failed', e);
+            }
+          }
+
+          try {
+            const decodeHtml = (str) => {
+              if (!str) return '';
+              const t = document.createElement('textarea');
+              t.innerHTML = str;
+              return t.value;
+            };
+
+            const sample = window.Shopify?.formatMoney?.(100, this.moneyFormat) || '';
+            const decoded = decodeHtml(sample);
+
+            // лишаємо тільки нецифрові символи (валюта + пробіли/крапки прибираємо)
+            this.currencySymbol = decoded.replace(/[0-9.,\s]/g, '') || '';
+          } catch (e) {
+            this.currencySymbol = '';
+          }
+        },
+
+        get selectedCount() {
+          return this.selected.reduce((sum, it) => sum + (Number(it.qty) || 0), 0);
+        },
+
+        get totalPrice() {
+          return this.selected.reduce((sum, it) => sum + (Number(it.price) * (Number(it.qty) || 0)), 0);
+        },
+
+        get minSpendCents() {
+          return Math.max(0, Math.round((Number(this.minSpend) || 0) * 100));
+        },
+
+        get remainingToMinSpendCents() {
+          if (this.minSpendCents <= 0) return 0;
+          return Math.max(0, this.minSpendCents - (Number(this.totalPrice) || 0));
+        },
+
+        get canAddToCart() {
+          if (this.loading) return false;
+          if (this.selectedCount < this.minItems) return false;
+          if (this.minSpendCents > 0 && (Number(this.totalPrice) || 0) < this.minSpendCents) return false;
+          return true;
+        },
+
+        get steps() {
+          const raw = [
+            { label: this.step1Label, amount: Number(this.step1Amount) || 0 },
+            { label: this.step2Label, amount: Number(this.step2Amount) || 0 },
+            { label: this.step3Label, amount: Number(this.step3Amount) || 0 }
+          ].filter(s => (s.amount || 0) > 0 && (s.label || '').trim().length);
+
+          const maxCents = raw.reduce((m, s) => Math.max(m, Math.round(s.amount * 100)), 0);
+
+          return raw.map(s => {
+            const amountCents = Math.round((Number(s.amount) || 0) * 100);
+            const pct = maxCents > 0 ? (amountCents / maxCents) * 100 : 0;
+            return {
+              label: s.label,
+              amountCents,
+              pct: Math.max(0, Math.min(100, pct))
+            };
+          });
+        },
+
+        get stepsMaxCents() {
+          return this.steps.reduce((m, s) => Math.max(m, s.amountCents), 0);
+        },
+
+        get stepsProgressPct() {
+          const max = this.stepsMaxCents;
+          if (max <= 0) return 0;
+          const pct = ((Number(this.totalPrice) || 0) / max) * 100;
+          return Math.max(0, Math.min(100, pct));
+        },
+
+        getQty(key) {
+          const it = this.selected.find(x => x.key === key);
+          return it ? (Number(it.qty) || 0) : 0;
+        },
+
+        addOneFromWrap(wrapEl) {
+          const d = wrapEl?.dataset || {};
+          const key = d.key || '';
+          if (!key) return;
+
+          const idx = this.selected.findIndex(it => it.key === key);
+          if (idx === -1) {
+            this.selected.push({
+              key,
+              variantId: Number(d.variantId),
+              title: d.title || key,
+              price: Number(d.price) || 0,
+              image: d.image || '',
+              qty: 1
+            });
+          } else {
+            this.selected[idx].qty = (Number(this.selected[idx].qty) || 1) + 1;
+          }
+        },
+
+        incByKey(key) {
+          const idx = this.selected.findIndex(it => it.key === key);
+          if (idx === -1) return;
+          this.selected[idx].qty = (Number(this.selected[idx].qty) || 1) + 1;
+        },
+
+        decByKey(key) {
+          const idx = this.selected.findIndex(it => it.key === key);
+          if (idx === -1) return;
+
+          const q = Number(this.selected[idx].qty) || 1;
+          if (q <= 1) {
+            this.selected.splice(idx, 1);
+          } else {
+            this.selected[idx].qty = q - 1;
+          }
+        },
+
+        remove(key) {
+          this.selected = this.selected.filter(it => it.key !== key);
+        },
+
+        clearAll() {
+          this.selected = [];
+        },
+
+        openModal() {
+          this.error = '';
+          this.isModalOpen = true;
+          document.body.classList.add('bb-no-scroll');
+        },
+
+        closeModal() {
+          this.isModalOpen = false;
+          document.body.classList.remove('bb-no-scroll');
+        },
+
+        formatMoney(cents) {
+          const decodeHtml = (str) => {
+            if (!str) return '';
+            const t = document.createElement('textarea');
+            t.innerHTML = str;
+            return t.value;
+          };
+
+          const withPoundPrefix = (s) => {
+            const out = (s || '').trim();
+            if (!out) return '£0.00';
+            return out.startsWith('£') ? out : `£${out}`;
+          };
+
+          try {
+            if (window.Shopify && typeof window.Shopify.formatMoney === 'function') {
+              const out = window.Shopify.formatMoney(Number(cents) || 0, this.moneyFormat);
+              return withPoundPrefix(decodeHtml(out));
+            }
+          } catch (e) {}
+
+          const value = ((Number(cents) || 0) / 100).toFixed(2);
+          return withPoundPrefix(value);
+        },
+
+        async confirmAndAdd() {
+          this.error = '';
+
+          if (this.selectedCount < this.minItems) {
+            this.error = `Need to add at least ${this.minItems}`;
+            return;
+          }
+
+          if (this.minSpendCents > 0 && (Number(this.totalPrice) || 0) < this.minSpendCents) {
+            this.error = `Need to select additional items ${this.formatMoney(this.remainingToMinSpendCents)}.`;
+            return;
+          }
+
+          const cartStore = window.Alpine?.store?.('cart');
+          if (!cartStore?.addBundleToCart) {
+            this.error = 'Cart store не знайдено (перевір alp-cart.js).';
+            return;
+          }
+
+          this.loading = true;
+
+          try {
+            await cartStore.addBundleToCart({
+              bundleTitle: this.bundleTitle,
+              bundleImage: this.bundleImage || '',
+              items: this.selected.map(it => ({
+                variantId: it.variantId,
+                quantity: it.qty
+              }))
+            }, true);
+
+            this.closeModal();
+            if (this.clearAfterAdd) this.clearAll();
+          } catch (e) {
+            console.error(e);
+            this.error = 'Failed to add the bundle to the cart.';
+          } finally {
+            this.loading = false;
+          }
+        }
+      }));
+    });
+  </script>
+
+  {% schema %}
+  {
+    "name": "Bundle builder",
+    "settings": [
+      { "type": "product_list", "id": "products", "label": "Products for bundle" },
+
+      { "type": "text", "id": "bundle_title", "label": "Bundle title", "default": "Custom Bundle" },
+      { "type": "image_picker", "id": "bundle_image", "label": "Bundle image" },
+
+      { "type": "number", "id": "min_items", "label": "Min items", "default": 1 },
+      { "type": "checkbox", "id": "clear_after_add", "label": "Clear after add", "default": true },
+
+      { "type": "number", "id": "min_spend", "label": "Minimum spend to enable Add to cart (store currency)", "default": 50 },
+
+      { "type": "text", "id": "step_1_label", "label": "Step 1 label", "default": "Free delivery" },
+      { "type": "number", "id": "step_1_amount", "label": "Step 1 amount (store currency)", "default": 50 },
+
+      { "type": "text", "id": "step_2_label", "label": "Step 2 label", "default": "10% discount" },
+      { "type": "number", "id": "step_2_amount", "label": "Step 2 amount (store currency)", "default": 80 },
+
+      { "type": "text", "id": "step_3_label", "label": "Step 3 label", "default": "\"Matcha mochi\" as a gift" },
+      { "type": "number", "id": "step_3_amount", "label": "Step 3 amount (store currency)", "default": 120 },
+
+      { "type": "text", "id": "modal_title", "label": "Modal title", "default": "edit Bundle" },
+      { "type": "text", "id": "continue_label", "label": "Continue label", "default": "ADD TO CARD" },
+      { "type": "text", "id": "remove_label", "label": "Remove label", "default": "REMOVE" },
+      { "type": "text", "id": "subtotal_label", "label": "Subtotal label", "default": "SUBTOTAL" },
+
+      { "type": "text", "id": "added_label", "label": "Added label", "default": "Added" },
+      { "type": "text", "id": "read_more_label", "label": "Read more label", "default": "READ MORE" },
+      { "type": "text", "id": "empty_label", "label": "Empty label", "default": "Please select products in section settings." }
+    ],
+    "presets": [
+      { "name": "Bundle builder" }
+    ]
+  }
+  {% endschema %}
+</section>
