@@ -172,6 +172,37 @@
       "disabled": true,
       "settings": {}
     },
+    "bundle_builder_YNpVrb": {
+      "type": "bundle-builder",
+      "name": "Bundle builder",
+      "settings": {
+        "products": [
+          "black-sesame-mochi",
+          "chestnut-mochi",
+          "choco-banana-mochi",
+          "choco-mochi",
+          "coffee-mochi",
+          "mango-mochi"
+        ],
+        "bundle_title": "Custom Bundle",
+        "min_items": 1,
+        "clear_after_add": true,
+        "min_spend": 50,
+        "step_1_label": "Free delivery",
+        "step_1_amount": 50,
+        "step_2_label": "10% discount",
+        "step_2_amount": 80,
+        "step_3_label": "\"Matcha mochi\" as a gift",
+        "step_3_amount": 120,
+        "modal_title": "edit Bundle",
+        "continue_label": "ADD TO CARD",
+        "remove_label": "REMOVE",
+        "subtotal_label": "SUBTOTAL",
+        "added_label": "Added",
+        "read_more_label": "READ MORE",
+        "empty_label": "Please select products in section settings."
+      }
+    },
     "advantages_HFhcgR": {
       "type": "advantages",
       "blocks": {
@@ -339,6 +370,7 @@
     "breadcrumbs_6ycTDY",
     "main",
     "176182407071e42c38",
+    "bundle_builder_YNpVrb",
     "advantages_HFhcgR",
     "text_kicker_description_C9WwPN",
     "image_tips_card_NagFt8",

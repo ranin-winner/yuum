@@ -597,7 +597,9 @@
     justify-content: flex-end;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 20px;
+
+
   }
 
   .b-header__logo {
@@ -671,7 +673,11 @@
   justify-content: flex-end;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 }
 
 .products-section__header--title-bg {

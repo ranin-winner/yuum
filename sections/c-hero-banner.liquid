@@ -141,7 +141,7 @@
   /* Додайте цей код в mobile media query */
   @media (max-width: 767px) {
     #hero-{{ section.id }}.b-hero-banner {
-      min-height: 75vh;
+      min-height: {{ section.settings.banner_height_mobile }}px;
       max-height: 90vh;
       padding: 0 {{ section.settings.padding_mobile }}px;
     }
