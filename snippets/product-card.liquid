@@ -77,7 +77,7 @@
         <p class="pcd__short">{{ short | metafield_text }}</p>
       {%- endif -%}
 
-      {%- assign details = p.metafields.custom.product_detais_short -%}
+      {%- assign details = p.metafields.custom.product_detais -%}
       {%- if details != blank -%}
         <div class="pcd__details">
           {{ details | metafield_tag }}
